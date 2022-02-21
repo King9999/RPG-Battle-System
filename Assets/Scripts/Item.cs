@@ -8,7 +8,6 @@ Armor
 Consumables 
 */
 
-[CreateAssetMenu(menuName = "Item", fileName = "Medal_")]
 public class Item : ScriptableObject
 {
     public string itemName;
@@ -21,12 +20,7 @@ public class Item : ScriptableObject
         Weapon, Armor, Consumable
     }
 
-    public enum EffectID
-    {
-        None, HealMinor, Ice
-    }    
-
-    public EffectID itemEffect;
+   
     public ItemType itemType;
 
    //parameters for this will vary, so method must be overloaded. This will mainly be used by consumables
