@@ -8,7 +8,7 @@ Armor
 Consumables 
 */
 
-public class Item : ScriptableObject
+public abstract class Item : ScriptableObject
 {
     public string itemName;
     public string description;
