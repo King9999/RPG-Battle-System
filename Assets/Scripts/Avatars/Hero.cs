@@ -17,7 +17,7 @@ public class Hero : Avatar
         //pull information from a scriptable object
         className = data.className;
         details = data.details;
-        maxHitPoints = data.maxhitPoints;
+        maxHitPoints = data.maxHitPoints;
         hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;

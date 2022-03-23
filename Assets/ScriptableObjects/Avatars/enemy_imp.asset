@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
+  m_Name: enemy_imp
+  m_EditorClassIdentifier: 
+  className: Imp
+  details: Unremarkable creature
+  maxHitPoints: 45
+  maxManaPoints: 0
+  atp: 5
+  dfp: 0
+  mag: 0
+  res: 0
+  skills:
+  - {fileID: 0}
+  xp: 3

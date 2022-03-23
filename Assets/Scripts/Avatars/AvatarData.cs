@@ -7,9 +7,9 @@ public abstract class AvatarData : ScriptableObject
 {
     public string className;
     public string details;      //description of the enemy/hero
-    public float hitPoints;
-    public float maxhitPoints;
-    public float manaPoints;
+    //public float hitPoints;
+    public float maxHitPoints;
+    //public float manaPoints;
     public float maxManaPoints;
     public float atp;           //attack power
     public float dfp;           //defense power
