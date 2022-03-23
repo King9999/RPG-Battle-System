@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba51d6bc84088b747a7264acaefdf5fb, type: 3}
   m_Name: skill_heal
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Heal
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
+  description: Restores HP to 1 target
+  manaCost: 5
+  power: 60
   actGauge: {fileID: 0}
   isPassive: 0
-  targetType: 0
+  targetType: 2
   element: 0

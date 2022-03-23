@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/* This is the base class for playable heroes and NPC enemies */
-public abstract class Avatar : MonoBehaviour
+/* All avatar game objects get their information from a scriptable object. This is the base class. */
+public class AvatarData : ScriptableObject
 {
     public string className;
     public string details;      //description of the enemy/hero
@@ -17,11 +17,4 @@ public abstract class Avatar : MonoBehaviour
     public float res;           //resistance
 
     public List<Skill> skills;
-    public enum Status
-    {
-        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead
-    }
-    public Status status;
-
-    
 }

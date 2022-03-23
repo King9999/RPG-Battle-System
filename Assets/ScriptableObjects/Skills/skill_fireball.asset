@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14b1772f9f99484aa884a9a67b2abc3, type: 3}
   m_Name: skill_fireball
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Fireball
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
+  description: Fire damage to 1 enemy
+  manaCost: 4
+  power: 16
   actGauge: {fileID: 0}
   isPassive: 0
-  targetType: 0
-  element: 0
+  targetType: 2
+  element: 1

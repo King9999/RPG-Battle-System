@@ -11,9 +11,10 @@ Consumables
 public abstract class Item : ScriptableObject
 {
     public string itemName;
-    public string description;
+    public string details;
     public int cost;
     public Sprite sprite;
+    [System.NonSerialized]protected bool isEquipped = false;     //applies to weapons and armor. NonSerialized means Unity will reset the variable state
     
     public enum ItemType
     {
@@ -24,9 +25,7 @@ public abstract class Item : ScriptableObject
     public ItemType itemType;
 
    //parameters for this will vary, so method must be overloaded. This will mainly be used by consumables
-   public virtual void UseItem()
-   {
-        
-   }
+   public virtual void UseItem() {}
+   public bool IsEquipped() { return isEquipped; }
 
 }
