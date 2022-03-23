@@ -5,15 +5,15 @@ using UnityEngine;
 //enemies are NPCs. Heroes must defeat them. Their actions are randomized based on their skill set and battle conditions.
 public class Enemy : Avatar
 {
-    AvatarData data;
+    public AvatarData data;
 
     // Start is called before the first frame update
     protected void Start()
     {
         className = data.className;
         details = data.details;
-        maxhitPoints = data.maxhitPoints;
-        hitPoints = maxhitPoints;
+        maxHitPoints = data.maxhitPoints;
+        hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;
         atp = data.atp;           

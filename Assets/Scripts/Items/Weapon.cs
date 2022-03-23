@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item/Weapon", fileName = "wpn_")]
 public class Weapon : Item
 {
+    public WeaponType weaponType;
     public float atp;
     public float mag;
     public ActionGauge actGauge;
@@ -14,7 +15,7 @@ public class Weapon : Item
     {
         Sword, Dagger, Staff, Bow, Axe
     }
-    public WeaponType weaponType;
+    
 
     //A weapon can have a special effect that is triggered during a battle by landing a token in the correct area on the action gauge.
     //public virtual void ActivateSkill() {}

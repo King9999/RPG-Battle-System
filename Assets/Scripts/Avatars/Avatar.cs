@@ -8,7 +8,7 @@ public abstract class Avatar : MonoBehaviour
     public string className;
     public string details;      //description of the enemy/hero
     public float hitPoints;
-    public float maxhitPoints;
+    public float maxHitPoints;
     public float manaPoints;
     public float maxManaPoints;
     public float atp;           //attack power
@@ -23,5 +23,13 @@ public abstract class Avatar : MonoBehaviour
     }
     public Status status;
 
+    public void RestoreHitPoints(float amount)
+    {
+        hitPoints += amount;
+        if (hitPoints > maxHitPoints)
+        {
+            hitPoints = maxHitPoints;
+        }
+    }
     
 }

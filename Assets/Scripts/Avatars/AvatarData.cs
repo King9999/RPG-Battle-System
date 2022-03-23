@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* All avatar game objects get their information from a scriptable object. This is the base class. */
-public class AvatarData : ScriptableObject
+public abstract class AvatarData : ScriptableObject
 {
     public string className;
     public string details;      //description of the enemy/hero
