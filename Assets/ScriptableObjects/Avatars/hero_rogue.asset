@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d265ecff408a3a40a3f45409f1f79a6, type: 3}
-  m_Name: hero_barbarian
+  m_Name: hero_rogue
   m_EditorClassIdentifier: 
-  className: Barbarian
-  details: Melee fighter. High damage and HP, low magic resistance. Can instantly
-    destroy shields
+  className: Rogue
+  details: Speedy fighter who can attack many times, and has higher chance of scoring
+    critical hits.
   maxHitPoints: 0
   maxManaPoints: 0
   atp: 0
   dfp: 0
   mag: 0
   res: 0
-  skills:
-  - {fileID: 0}
-  level: 11
-  swordOK: 1
+  skills: []
+  level: 1
+  swordOK: 0
   daggerOK: 1
-  axeOK: 1
-  bowOK: 0
+  axeOK: 0
+  bowOK: 1
   staffOK: 0

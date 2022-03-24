@@ -35,8 +35,10 @@ public class Hero : Avatar
         currentXp = 0;
         //add code to get xpToNextLevel data
 
-        if (level < 1 || level > 100)
+        if (level < 1)
             level = 1;
+        if (level > data.MaxLevel)
+            level = data.MaxLevel;
     }
 
     // Update is called once per frame

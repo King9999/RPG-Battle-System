@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
   m_Name: Wpn_Sword
   m_EditorClassIdentifier: 
-  itemName: Sword
-  description: Basic weapon for heroes
+  itemName: Broadsword
+  details: Common weapon for heroes
   cost: 100
   sprite: {fileID: 0}
   itemType: 0
-  attack: 10
-  chain: 
+  weaponType: 0
+  atp: 10
+  mag: 0
+  actGauge: {fileID: 0}
+  tokenCount: 3
   weaponSkill: {fileID: 0}

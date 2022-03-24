@@ -13,6 +13,7 @@ public abstract class Avatar : MonoBehaviour
     public float maxManaPoints;
     public float atp;           //attack power
     public float dfp;           //defense power
+    public float spd;           //speed
     public float mag;           //magic power
     public float res;           //resistance
 
