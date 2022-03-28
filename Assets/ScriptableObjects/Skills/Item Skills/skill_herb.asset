@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf6602ea1bf3f924a80a60fb1bc1277b, type: 3}
-  m_Name: skill_venombite
+  m_Script: {fileID: 11500000, guid: 618ec49195c0d724c9f11fd8a1193f8d, type: 3}
+  m_Name: skill_herb
   m_EditorClassIdentifier: 
-  skillName: Venom Bite
+  skillName: Herb
   skillIcon: {fileID: 0}
-  description: Physical attack with a chance of poison
+  description: Restores 30% HP
   manaCost: 0
-  power: 22
+  power: 0
   actGauge: {fileID: 0}
   isPassive: 0
   targetType: 2
   element: 0
-  statusEffect: 1
+  statusEffect: 0

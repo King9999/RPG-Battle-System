@@ -18,9 +18,13 @@ MonoBehaviour:
   maxManaPoints: 0
   atp: 0
   dfp: 0
+  spd: 0
   mag: 0
   res: 0
-  skills: []
+  skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   level: 1
   attackTokenMod: -2
   swordOK: 0

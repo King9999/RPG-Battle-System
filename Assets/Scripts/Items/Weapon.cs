@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item/Weapon", fileName = "wpn_")]
 public class Weapon : Item
 {
+    [Header("Weapon properties")]
     public WeaponType weaponType;
     public float atp;
     public float mag;

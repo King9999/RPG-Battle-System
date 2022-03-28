@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //low chance of hitting, but if it does, it's a critical hit. The target's SPD affects the hit chance

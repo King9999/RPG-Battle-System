@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: hero_barbarian
   m_EditorClassIdentifier: 
   className: Barbarian
-  details: Melee fighter. High damage and HP, low magic resistance. Can instantly
-    destroy shields
+  details: Melee fighter. High ATP/HP, low MAG/RES/SPD. Can instantly destroy shields
   maxHitPoints: 0
   maxManaPoints: 0
   atp: 0
   dfp: 0
+  spd: 0
   mag: 0
   res: 0
   skills:
   - {fileID: 0}
-  level: 11
+  level: 1
+  attackTokenMod: 0
   swordOK: 1
   daggerOK: 1
   axeOK: 1

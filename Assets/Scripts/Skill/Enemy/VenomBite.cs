@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //physical attack with a chance of poison. Hit chance is affected by target's speed.
@@ -17,6 +15,7 @@ public class VenomBite : Skill
         if (rollValue <= hitChance)
         {
             Debug.Log("Poisoned");
+            target.status = Avatar.Status.Poisoned;
         }
         else
         {

@@ -10,6 +10,7 @@ Consumables
 
 public abstract class Item : ScriptableObject
 {
+    [Header("Item Details")]
     public string itemName;
     public string details;
     public int cost;

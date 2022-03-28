@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
   m_Name: enemy_golem
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  maxHitPoints: 0
+  className: Golem
+  details: Slow but powerful magically animated creature
+  maxHitPoints: 200
   maxManaPoints: 0
   atp: 0
-  dfp: 0
+  dfp: 50
   spd: 0
   mag: 0
   res: 0
-  skills: []
-  xp: 0
+  skills:
+  - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
+  xp: 65
