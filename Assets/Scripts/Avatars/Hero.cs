@@ -10,7 +10,9 @@ public class Hero : Avatar
     public Weapon weapon;
     public Armor armor;
     public Trinket trinket;
-    public ActionGauge actGauge;        //this comes from equipped weapon. If null, hero can't attack
+    public ActionGaugeData actGauge;        //this comes from equipped weapon. If null, hero can't attack
+    public int totalAttackTokens;        //attack token mod + weapon tokens
+    public short attackTokenMod;
     public bool swordOK, daggerOK, axeOK, bowOK, staffOK;
     public int currentXp;
     public int xpToNextLevel;   //this will be grabbed from a xp table
@@ -40,6 +42,7 @@ public class Hero : Avatar
         weapon = data.weapon;
         armor = data.armor;
         trinket = data.trinket;
+        attackTokenMod = data.attackTokenMod;
         //add code to get xpToNextLevel data
 
         if (level < 1)

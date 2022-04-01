@@ -7,9 +7,9 @@ public class Weapon : Item
     public WeaponType weaponType;
     public float atp;
     public float mag;
-    public ActionGauge actGauge;
-    int defaultTokenCount {get;} = 3;
-    public int tokenCount = 3;    //default amount is 3
+    public ActionGaugeData actGauge;
+    short defaultTokenCount {get;} = 3;
+    public short tokenCount = 3;    //default amount is 3
     public Skill weaponSkill;
 
     public enum WeaponType
@@ -25,13 +25,20 @@ public class Weapon : Item
     {
         base.Equip(hero);
 
-        hero.atp += atp;
-        hero.mag += mag;
-        hero.actGauge = actGauge;
+        //check weapon type
+        if (weaponType == WeaponType.Sword && hero.swordOK || weaponType == WeaponType.Axe && hero.axeOK || 
+            weaponType == WeaponType.Bow && hero.bowOK || weaponType == WeaponType.Dagger && hero.daggerOK ||
+            weaponType == WeaponType.Staff && hero.staffOK)
+        {
+            hero.atp += atp;
+            hero.mag += mag;
+            hero.actGauge = actGauge;
+            hero.totalAttackTokens = hero.attackTokenMod + tokenCount;
 
-        if (weaponSkill != null)
-            hero.skills.Add(weaponSkill);
-        isEquipped = true;
+            if (weaponSkill != null)
+                hero.skills.Add(weaponSkill);
+            isEquipped = true;
+        }
     }
 
     public override void Unequip(Hero hero)
@@ -40,6 +47,7 @@ public class Weapon : Item
         hero.atp -= atp;
         hero.mag -= mag;
         hero.actGauge = null;
+        hero.totalAttackTokens -= tokenCount;
 
         //find weaponskill to remove in list.       
         if (weaponSkill != null)
