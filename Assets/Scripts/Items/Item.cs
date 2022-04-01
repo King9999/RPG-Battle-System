@@ -5,7 +5,8 @@ using UnityEngine;
 /*base class for all items in the game. Items include:
 Weapons
 Armor
-Consumables 
+Consumables
+Trinkets 
 */
 
 public abstract class Item : ScriptableObject
@@ -19,7 +20,7 @@ public abstract class Item : ScriptableObject
     
     public enum ItemType
     {
-        Weapon, Armor, Consumable
+        Weapon, Armor, Consumable, Trinket
     }
 
    
@@ -28,5 +29,15 @@ public abstract class Item : ScriptableObject
    //parameters for this will vary, so method must be overloaded. This will mainly be used by consumables
    public virtual void UseItem() {}
    public bool IsEquipped() { return isEquipped; }
+   public virtual void Equip(Hero hero)
+   { 
+       if (isEquipped)
+            return;
+   }
+   public virtual void Unequip(Hero hero)
+   {
+       if (!isEquipped)
+            return;
+   }
 
 }

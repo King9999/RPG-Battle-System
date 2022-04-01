@@ -6,4 +6,7 @@ using UnityEngine;
 public class EnemyData : AvatarData
 {
     public int xp;
+    public int money;
+    public Item commonItemDrop;
+    public Item rareItemDrop;
 }

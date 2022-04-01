@@ -20,5 +20,46 @@ public class Weapon : Item
 
     //A weapon can have a special effect that is triggered during a battle by landing a token in the correct area on the action gauge.
     //public virtual void ActivateSkill() {}
+
+    public override void Equip(Hero hero)
+    {
+        base.Equip(hero);
+
+        hero.atp += atp;
+        hero.mag += mag;
+        hero.actGauge = actGauge;
+
+        if (weaponSkill != null)
+            hero.skills.Add(weaponSkill);
+        isEquipped = true;
+    }
+
+    public override void Unequip(Hero hero)
+    {
+        base.Unequip(hero);
+        hero.atp -= atp;
+        hero.mag -= mag;
+        hero.actGauge = null;
+
+        //find weaponskill to remove in list.       
+        if (weaponSkill != null)
+        {
+            int i = 0;
+            bool skillFound = false;
+            while(!skillFound && i < hero.skills.Count)
+            {
+                if (weaponSkill == hero.skills[i])
+                {
+                    hero.skills.RemoveAt(i);
+                    skillFound = true;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+        isEquipped = false;
+    }
    
 }

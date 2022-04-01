@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //enemies are NPCs. Heroes must defeat them. Their actions are randomized based on their skill set and battle conditions.
-public class Enemy : Avatar
+public abstract class Enemy : Avatar
 {
     public EnemyData data;
     public int xp;
+    public int money;
     protected float skillProb;      //odds that the enemy will do certain attacks.
+    public Item commonItemDrop;
+    public Item rareItemDrop;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         className = data.className;
         details = data.details;
@@ -24,11 +27,10 @@ public class Enemy : Avatar
         res = data.res;
         skills = data.skills;
         xp = data.xp;
+        money = data.money;
+        commonItemDrop = data.commonItemDrop;
+        rareItemDrop = data.rareItemDrop;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

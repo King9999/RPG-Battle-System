@@ -12,7 +12,7 @@ public class ActionToken : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 300;
+        moveSpeed = 400;
     }
 
     public void StopToken()

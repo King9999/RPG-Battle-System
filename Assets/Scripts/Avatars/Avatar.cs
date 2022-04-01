@@ -16,6 +16,7 @@ public abstract class Avatar : MonoBehaviour
     public float spd;           //speed
     public float mag;           //magic power
     public float res;           //resistance
+    protected bool isTheirTurn; //if true, avatar can perform actions.
 
     public List<Skill> skills;
     public enum Status
@@ -32,5 +33,8 @@ public abstract class Avatar : MonoBehaviour
             hitPoints = maxHitPoints;
         }
     }
+
+    public bool TheirTurn() { return isTheirTurn; }
+    public void SetTurn(bool turnState) { isTheirTurn = turnState; }
     
 }
