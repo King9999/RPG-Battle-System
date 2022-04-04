@@ -6,6 +6,8 @@ using UnityEngine;
 public class Hero : Avatar
 {
     public HeroData data;
+    public TextAsset statFile;
+    Stats stats;                        //contains data from stat table
     public int level;
     public Weapon weapon;
     public Armor armor;
@@ -16,21 +18,23 @@ public class Hero : Avatar
     public bool swordOK, daggerOK, axeOK, bowOK, staffOK;
     public int currentXp;
     public int xpToNextLevel;   //this will be grabbed from a xp table
+    [HideInInspector]public int currentLevel;   //points to current level in the stat table.
 
     // Start is called before the first frame update
     protected void Start()
     {
         //pull information from a scriptable object
+        statFile = data.statFile;
         className = data.className;
         details = data.details;
-        maxHitPoints = data.maxHitPoints;
+        /*maxHitPoints = data.maxHitPoints;
         hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;
         atp = data.atp;           
         dfp = data.dfp;           
         mag = data.mag;          
-        res = data.res;
+        res = data.res;*/
         skills = data.skills;
         swordOK = data.swordOK;
         daggerOK = data.daggerOK;
@@ -57,6 +61,20 @@ public class Hero : Avatar
             armor.Equip(hero: this);
         if (trinket != null)
             trinket.Equip(hero: this);
+
+        //Get stats from JSON
+        stats = JsonUtility.FromJson<Stats>(statFile.text);
+        level = stats.tableStats[currentLevel].level;
+        maxHitPoints = stats.tableStats[currentLevel].hp;
+        hitPoints = maxHitPoints;
+        maxManaPoints = stats.tableStats[currentLevel].mp;
+        manaPoints = maxManaPoints;
+        atp = stats.tableStats[currentLevel].atp;           
+        dfp = stats.tableStats[currentLevel].dfp;           
+        mag = stats.tableStats[currentLevel].mag;          
+        res = stats.tableStats[currentLevel].res;
+        xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
+        //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);
         
     }
 

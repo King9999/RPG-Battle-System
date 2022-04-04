@@ -1,0 +1,8 @@
+{
+	"tableStats":
+	[
+		{"level": 1, "hp": 200, "mp": 40, "atp": 30, "dfp": 10, "spd": 5, "mag": 1, "res": 1, "xpToNextLevel": 150},
+		{"level": 2, "hp": 200, "mp": 40, "atp": 30, "dfp": 10, "spd": 5, "mag": 1, "res": 1, "xpToNextLevel": 278},
+		{"level": 3, "hp": 200, "mp": 40, "atp": 30, "dfp": 10, "spd": 5, "mag": 1, "res": 1, "xpToNextLevel": 533}
+	]
+}
