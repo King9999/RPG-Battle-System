@@ -10,6 +10,7 @@
      public float mag;
      public float res;
      public int xpToNextLevel;
+     public string newSkill;            //skill to be added to hero when certain levels are reached
  }
 
 
