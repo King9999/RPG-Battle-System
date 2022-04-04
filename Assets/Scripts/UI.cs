@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class UI : MonoBehaviour
+{
+    public TextMeshProUGUI[] heroStats;     //displays name, hp and mp
+    public TextMeshProUGUI[] enemyStats;    //displays name and hp
+    int maxPartySize {get;} = 3;
+    int maxEnemyPartySize {get;} = 6;
+
+    public SkillDisplay skillDisplay;
+
+    public static UI instance;
+
+   private void Awake()
+   {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);    //Only want one instance of UI
+            return;
+        }
+
+        instance = this;
+   }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        heroStats = new TextMeshProUGUI[maxPartySize];
+        enemyStats = new TextMeshProUGUI[maxEnemyPartySize];
+        //StartCoroutine(skillDisplay.DisplaySkillName("Test", Color.green));
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
