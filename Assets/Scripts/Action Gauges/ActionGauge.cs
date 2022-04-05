@@ -53,7 +53,7 @@ public class ActionGauge : MonoBehaviour
         UpdateGauge(data);
         pipSize = normalMeter.rectTransform.sizeDelta.x * normalMeter.rectTransform.localScale.x;
         totalGaugeWidth = pipSize * GaugeSize;
-        Debug.Log("Meter width is " + totalGaugeWidth);
+        //Debug.Log("Meter width is " + totalGaugeWidth);
 
         //add action token. It's placed at the left edge of the first pip.
         Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
@@ -69,7 +69,7 @@ public class ActionGauge : MonoBehaviour
         //if it reaches the end of the gauge, the token's direction is reversed   
         currentSize += Time.deltaTime * actionToken.moveSpeed;
        
-        Debug.Log("Index: " + currentIndex);
+        //Debug.Log("Index: " + currentIndex);
 
         //update token direction when necessary
         if (actionTokenDirection > 0)

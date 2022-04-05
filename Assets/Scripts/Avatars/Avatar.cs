@@ -34,7 +34,16 @@ public abstract class Avatar : MonoBehaviour
         }
     }
 
+    /*protected virtual void Update()
+    {
+        if (!isTheirTurn)
+            return;
+    }*/
+
     public bool TheirTurn() { return isTheirTurn; }
     public void SetTurn(bool turnState) { isTheirTurn = turnState; }
+
+    public virtual void Attack(Avatar target) {}
+    
     
 }

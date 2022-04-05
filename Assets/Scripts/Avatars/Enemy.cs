@@ -32,5 +32,11 @@ public abstract class Enemy : Avatar
         rareItemDrop = data.rareItemDrop;
     }
 
+    public override void Attack(Avatar target)
+    {
+        float totalDamage = atp - target.dfp;
+        target.hitPoints -= totalDamage;
+    }
+
     
 }

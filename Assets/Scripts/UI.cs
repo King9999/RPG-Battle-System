@@ -30,12 +30,13 @@ public class UI : MonoBehaviour
     {
         heroStats = new TextMeshProUGUI[maxPartySize];
         enemyStats = new TextMeshProUGUI[maxEnemyPartySize];
-        //StartCoroutine(skillDisplay.DisplaySkillName("Test", Color.green));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //use the following lines to display skill name
+        //if (!skillDisplay.displaySkillCoroutineOn)
+            //StartCoroutine(skillDisplay.DisplaySkillName("Test", Color.red));
     }
 }

@@ -23,6 +23,7 @@ MonoBehaviour:
   res: 1
   skills:
   - {fileID: 0}
+  statFile: {fileID: 4900000, guid: 0a37c776605df6e45858017f5d510f54, type: 3}
   level: 1
   attackTokenMod: 0
   weapon: {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}

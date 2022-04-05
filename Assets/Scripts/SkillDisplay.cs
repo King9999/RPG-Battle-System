@@ -9,9 +9,9 @@ public class SkillDisplay : MonoBehaviour
 {
     public TextMeshProUGUI skillName;
     public Image border;
-    //Color borderColor;                  //blue for hero skill, red for enemy skill
     float currentTime;
     float displayDuration;
+    [HideInInspector]public bool displaySkillCoroutineOn;
 
     // Start is called before the first frame update
     void Start()
@@ -22,18 +22,17 @@ public class SkillDisplay : MonoBehaviour
 
     public IEnumerator DisplaySkillName(string name, Color borderColor)
     {
-        //this.borderColor = borderColor;
+        displaySkillCoroutineOn = true;
+        gameObject.SetActive(true);
+        Debug.Log("Coroutine started");
         border.color = borderColor;
         skillName.text = name;
-        gameObject.SetActive(true);
-        currentTime = Time.time;
-
-        while (Time.time < currentTime + displayDuration)
-        {
-            yield return null;
-        }
+        
+        yield return new WaitForSeconds(displayDuration);
 
         //hide display
         gameObject.SetActive(false);
+        displaySkillCoroutineOn = false;
+        Debug.Log("Coroutine ended");
     }
 }

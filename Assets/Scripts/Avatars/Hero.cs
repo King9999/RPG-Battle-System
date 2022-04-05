@@ -23,44 +23,25 @@ public class Hero : Avatar
     // Start is called before the first frame update
     protected void Start()
     {
+        /*currentLevel = 3;
         //pull information from a scriptable object
         statFile = data.statFile;
         className = data.className;
         details = data.details;
-        /*maxHitPoints = data.maxHitPoints;
-        hitPoints = maxHitPoints;
-        maxManaPoints = data.maxManaPoints;
-        manaPoints = maxManaPoints;
-        atp = data.atp;           
-        dfp = data.dfp;           
-        mag = data.mag;          
-        res = data.res;*/
+        
         skills = data.skills;
         swordOK = data.swordOK;
         daggerOK = data.daggerOK;
         axeOK = data.axeOK;
         bowOK = data.bowOK;
         staffOK = data.staffOK;
-        level = data.level;
+        //level = data.level;
         currentXp = 0;
         weapon = data.weapon;
         armor = data.armor;
         trinket = data.trinket;
         attackTokenMod = data.attackTokenMod;
-        //add code to get xpToNextLevel data
-
-        if (level < 1)
-            level = 1;
-        if (level > data.MaxLevel)
-            level = data.MaxLevel;
-
-        //equip check
-        if (weapon != null)      
-            weapon.Equip(hero: this);
-        if (armor != null)
-            armor.Equip(hero: this);
-        if (trinket != null)
-            trinket.Equip(hero: this);
+    
 
         //Get stats from JSON
         stats = JsonUtility.FromJson<Stats>(statFile.text);
@@ -74,8 +55,67 @@ public class Hero : Avatar
         mag = stats.tableStats[currentLevel].mag;          
         res = stats.tableStats[currentLevel].res;
         xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
-        //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);
+
+         if (level < 1)
+            level = 1;
+        if (level > data.MaxLevel)
+            level = data.MaxLevel;
+
+         //equip check
+        if (weapon != null)      
+            weapon.Equip(hero: this);
+        if (armor != null)
+            armor.Equip(hero: this);
+        if (trinket != null)
+            trinket.Equip(hero: this);
+        //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
         
+    }
+
+    public void GetData(HeroData data)
+    {
+        //pull information from a scriptable object
+        statFile = data.statFile;
+        className = data.className;
+        details = data.details;
+        skills = data.skills;
+        swordOK = data.swordOK;
+        daggerOK = data.daggerOK;
+        axeOK = data.axeOK;
+        bowOK = data.bowOK;
+        staffOK = data.staffOK;
+        currentXp = 0;
+        weapon = data.weapon;
+        armor = data.armor;
+        trinket = data.trinket;
+        attackTokenMod = data.attackTokenMod;
+    
+
+        //Get stats from JSON
+        stats = JsonUtility.FromJson<Stats>(statFile.text);
+        level = stats.tableStats[currentLevel].level;
+        maxHitPoints = stats.tableStats[currentLevel].hp;
+        hitPoints = maxHitPoints;
+        maxManaPoints = stats.tableStats[currentLevel].mp;
+        manaPoints = maxManaPoints;
+        atp = stats.tableStats[currentLevel].atp;           
+        dfp = stats.tableStats[currentLevel].dfp;           
+        mag = stats.tableStats[currentLevel].mag;          
+        res = stats.tableStats[currentLevel].res;
+        xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
+
+         if (level < 1)
+            level = 1;
+        if (level > data.MaxLevel)
+            level = data.MaxLevel;
+
+         //equip check
+        if (weapon != null)      
+            weapon.Equip(hero: this);
+        if (armor != null)
+            armor.Equip(hero: this);
+        if (trinket != null)
+            trinket.Equip(hero: this);
     }
 
     // Update is called once per frame
