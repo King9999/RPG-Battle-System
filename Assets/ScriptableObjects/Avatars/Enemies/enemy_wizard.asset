@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
-  m_Name: enemy_imp
+  m_Name: enemy_wizard
   m_EditorClassIdentifier: 
-  className: Imp
-  details: Unremarkable creature
-  maxHitPoints: 45
-  maxManaPoints: 0
+  className: Wizard
+  details: Can cast magic
+  maxHitPoints: 72
+  maxManaPoints: 100
   atp: 20
-  dfp: 0
-  spd: 4
-  mag: 0
-  res: 0
+  dfp: 3
+  spd: 11
+  mag: 35
+  res: 10
   skills:
-  - {fileID: 11400000, guid: fcf0d80b12249b84fbf7acbb16075b38, type: 2}
-  xp: 3
-  money: 3
+  - {fileID: 0}
+  - {fileID: 0}
+  xp: 12
+  money: 10
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
-  rareItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 11400000, guid: ed5af7bd6dea06245b4073db94130ef5, type: 2}
   commonItemDropChance: 0.35
-  rareItemDropChance: 0
+  rareItemDropChance: 0.06

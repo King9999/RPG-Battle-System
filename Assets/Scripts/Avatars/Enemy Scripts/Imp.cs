@@ -23,7 +23,7 @@ public class Imp : Enemy
         }
 
         averageLevel /= cs.heroesInCombat.Count;
-        Debug.Log("Average level is " + averageLevel);
+        //Debug.Log("Average level is " + averageLevel);
     }
 
     // Update is called once per frame
@@ -63,12 +63,13 @@ public class Imp : Enemy
         base.ResetData();
         //Must get average again in case hero levels have changed.
         averageLevel = 0;
-        foreach(Hero hero in cs.heroesInCombat)
+        
+        /*foreach(Hero hero in cs.heroesInCombat)
         {
             averageLevel += hero.level;
         }
 
         averageLevel /= cs.heroesInCombat.Count;
-        Debug.Log("Average level is " + averageLevel);
+        Debug.Log("Average level is " + averageLevel);*/
     }
 }

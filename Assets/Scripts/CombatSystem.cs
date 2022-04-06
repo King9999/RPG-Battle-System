@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,7 +40,14 @@ public class CombatSystem : MonoBehaviour
         combatEnabled = false;
         //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
         heroesInCombat.Add(hm.heroes[0]);
-        enemiesInCombat.Add(Instantiate(em.enemies[0]));
+
+        //add random enemies
+        for (int i = 0; i < 2; i++)
+        {
+            int randomEnemy = Random.Range(0, em.enemies.Length);
+            Enemy enemy = Instantiate(em.enemies[randomEnemy]);
+            enemiesInCombat.Add(enemy);
+        }
         
         //place heroes and enemies in random positions
         heroLocationOccupied = new bool[heroLocations.Length];
@@ -55,6 +63,7 @@ public class CombatSystem : MonoBehaviour
             }
             hero.transform.position = heroLocations[randIndex].position;
             heroLocationOccupied[randIndex] = true;
+            turnOrder.Add(hero);
         }
 
         foreach (Enemy enemy in enemiesInCombat)
@@ -67,13 +76,20 @@ public class CombatSystem : MonoBehaviour
             }
             enemy.transform.position = enemyLocations[randIndex].position;
             enemyLocationOccupied[randIndex] = true;
+            turnOrder.Add(enemy);
         }
 
+        //get turn order.              
+        turnOrder = turnOrder.OrderByDescending(x => x.spd).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
+        foreach(Avatar p in turnOrder)
+            Debug.Log(p + "Speed: " + p.spd);
+      
         //enemiesInCombat.Add(Instantiate(em.enemies[0]));
         //enemiesInCombat[0].SetTurn(turnState: true);
         //delay = 2;
     }
 
+    
     // Update is called once per frame
     void Update()
     {

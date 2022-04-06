@@ -9,4 +9,6 @@ public class EnemyData : AvatarData
     public int money;
     public Item commonItemDrop;
     public Item rareItemDrop;
+    public float commonItemDropChance;
+    public float rareItemDropChance;
 }

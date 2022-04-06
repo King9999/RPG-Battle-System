@@ -8,6 +8,10 @@ public class EnemyManager : MonoBehaviour
     public Enemy[] enemies;
     public List<Enemy> graveyard;   //when enemies die, they go in here to be re-used instead of instantiating new enemies.
 
+    [HideInInspector]public enum EnemyName {Imp, Wizard}
+
+    //public EnemyName enemyName;
+
     public static EnemyManager instance;
 
     private void Awake()
@@ -24,7 +28,10 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach(Enemy enemy in enemies)
+        {
+            enemy.ResetData();
+        }
     }
 
     // Update is called once per frame

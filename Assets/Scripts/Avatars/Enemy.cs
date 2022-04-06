@@ -11,6 +11,8 @@ public abstract class Enemy : Avatar
     protected float skillProb;      //odds that the enemy will do certain attacks.
     public Item commonItemDrop;
     public Item rareItemDrop;
+    public float commonItemDropChance;
+    public float rareItemDropChance;
 
     protected CombatSystem cs;
     protected EnemyManager em;
@@ -28,11 +30,14 @@ public abstract class Enemy : Avatar
         dfp = data.dfp;           
         mag = data.mag;          
         res = data.res;
+        spd = data.spd;
         skills = data.skills;
         xp = data.xp;
         money = data.money;
         commonItemDrop = data.commonItemDrop;
         rareItemDrop = data.rareItemDrop;
+        commonItemDropChance = data.commonItemDropChance;
+        rareItemDropChance = data.rareItemDropChance;
 
         cs = CombatSystem.instance;
         em = EnemyManager.instance;
@@ -64,6 +69,7 @@ public abstract class Enemy : Avatar
     //Used whenever enemy is not instantiated but need a fresh copy
     public virtual void ResetData()
     {
+        //Start();
         className = data.className;
         details = data.details;
         maxHitPoints = data.maxHitPoints;
@@ -74,11 +80,14 @@ public abstract class Enemy : Avatar
         dfp = data.dfp;           
         mag = data.mag;          
         res = data.res;
+        spd = data.spd;
         skills = data.skills;
         xp = data.xp;
         money = data.money;
         commonItemDrop = data.commonItemDrop;
         rareItemDrop = data.rareItemDrop;
+        commonItemDropChance = data.commonItemDropChance;
+        rareItemDropChance = data.rareItemDropChance;
     }
 
     //when enemy dies, they are sent to graveyard

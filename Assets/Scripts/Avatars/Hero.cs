@@ -102,6 +102,7 @@ public class Hero : Avatar
         dfp = stats.tableStats[currentLevel].dfp;           
         mag = stats.tableStats[currentLevel].mag;          
         res = stats.tableStats[currentLevel].res;
+        spd = stats.tableStats[currentLevel].spd;
         xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
 
          if (level < 1)
