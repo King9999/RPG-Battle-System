@@ -9,6 +9,10 @@ public class CombatSystem : MonoBehaviour
     public List<Enemy> enemiesInCombat;
 
     public List<Avatar> turnOrder;
+    public Transform[] enemyLocations;      //avatars are placed in these positions in battle.
+    bool[] enemyLocationOccupied;
+    public Transform[] heroLocations;
+    bool[] heroLocationOccupied;
     bool combatEnabled;         //when true, combat starts and all combat elements apppear in foreground.
     
     public static CombatSystem instance;
@@ -33,27 +37,51 @@ public class CombatSystem : MonoBehaviour
         hm = HeroManager.instance;
         em = EnemyManager.instance;
         combatEnabled = false;
-        //heroes and enemies must be instantiated here
+        //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
         heroesInCombat.Add(hm.heroes[0]);
-        //set up heroes before adding enemies. The order is important.
+        enemiesInCombat.Add(Instantiate(em.enemies[0]));
+        
+        //place heroes and enemies in random positions
+        heroLocationOccupied = new bool[heroLocations.Length];
+        enemyLocationOccupied = new bool[enemyLocations.Length];
+
         foreach (Hero hero in heroesInCombat)
         {
-            Debug.Log("hero data " + hero.atp);
+            int randIndex = Random.Range(0, heroLocationOccupied.Length);
+
+            while(heroLocationOccupied[randIndex] == true)
+            {
+                randIndex = Random.Range(0, heroLocationOccupied.Length);
+            }
+            hero.transform.position = heroLocations[randIndex].position;
+            heroLocationOccupied[randIndex] = true;
         }
 
-        enemiesInCombat.Add(Instantiate(em.enemies[0]));
-        enemiesInCombat[0].SetTurn(turnState: true);
-        delay = 2;
+        foreach (Enemy enemy in enemiesInCombat)
+        {
+            int randIndex = Random.Range(0, enemyLocationOccupied.Length);
+
+            while(enemyLocationOccupied[randIndex] == true)
+            {
+                randIndex = Random.Range(0, enemyLocationOccupied.Length);
+            }
+            enemy.transform.position = enemyLocations[randIndex].position;
+            enemyLocationOccupied[randIndex] = true;
+        }
+
+        //enemiesInCombat.Add(Instantiate(em.enemies[0]));
+        //enemiesInCombat[0].SetTurn(turnState: true);
+        //delay = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > currentTime + delay)
+        /*if (Time.time > currentTime + delay)
         {
             currentTime = Time.time;
             enemiesInCombat[0].SetTurn(turnState: true);
-        }
+        }*/
         //combat system runs until either all enemies are defeated or the heroes are wiped out. In the unlikely scenario that both enemies
         //and heroes are defeated, game is over.
         while (combatEnabled)

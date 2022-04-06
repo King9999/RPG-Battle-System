@@ -12,6 +12,9 @@ public abstract class Enemy : Avatar
     public Item commonItemDrop;
     public Item rareItemDrop;
 
+    protected CombatSystem cs;
+    protected EnemyManager em;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -30,6 +33,9 @@ public abstract class Enemy : Avatar
         money = data.money;
         commonItemDrop = data.commonItemDrop;
         rareItemDrop = data.rareItemDrop;
+
+        cs = CombatSystem.instance;
+        em = EnemyManager.instance;
     }
 
     public override void Attack(Avatar target)
@@ -56,7 +62,7 @@ public abstract class Enemy : Avatar
     }
 
     //Used whenever enemy is not instantiated but need a fresh copy
-    public void ResetData()
+    public virtual void ResetData()
     {
         className = data.className;
         details = data.details;
@@ -75,5 +81,13 @@ public abstract class Enemy : Avatar
         rareItemDrop = data.rareItemDrop;
     }
 
+    //when enemy dies, they are sent to graveyard
+    public void SendToGraveyard()
+    {
+        if (hitPoints > 0 || status != Status.Dead) return;
+      
+        em.graveyard.Add(this);
+        gameObject.SetActive(false);
+    }
     
 }

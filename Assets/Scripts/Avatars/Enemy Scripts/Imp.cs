@@ -5,7 +5,7 @@ using UnityEngine;
 //imp is a basic enemy. Its only skill is to run away once the hero is many levels above its own. 
 public class Imp : Enemy
 {
-    CombatSystem cs;
+    //CombatSystem cs;
     int averageLevel;
     
     int runSkill = 0;
@@ -13,7 +13,7 @@ public class Imp : Enemy
     {
         base.Start();
         skillProb = 0.4f;
-        cs = CombatSystem.instance;
+        //cs = CombatSystem.instance;
 
         //Get the average level of the heroes. Run away skill is enabled once average level crosses a threshold
         averageLevel = 0;
@@ -33,7 +33,7 @@ public class Imp : Enemy
        {
             //Debug.Log("Imp's turn");
             //Imp will attempt to run if heroes' level is too high
-            if (averageLevel >= 1)
+            if (averageLevel >= 5)
             {
                 //skill activation check
                 float roll = Random.Range(0, 1f);
@@ -56,5 +56,19 @@ public class Imp : Enemy
 
             isTheirTurn = false;
        }
+    }
+
+    public override void ResetData()
+    {
+        base.ResetData();
+        //Must get average again in case hero levels have changed.
+        averageLevel = 0;
+        foreach(Hero hero in cs.heroesInCombat)
+        {
+            averageLevel += hero.level;
+        }
+
+        averageLevel /= cs.heroesInCombat.Count;
+        Debug.Log("Average level is " + averageLevel);
     }
 }

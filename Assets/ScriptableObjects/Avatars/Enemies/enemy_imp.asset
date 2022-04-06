@@ -16,10 +16,14 @@ MonoBehaviour:
   details: Unremarkable creature
   maxHitPoints: 45
   maxManaPoints: 0
-  atp: 5
+  atp: 20
   dfp: 0
+  spd: 0
   mag: 0
   res: 0
   skills:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: fcf0d80b12249b84fbf7acbb16075b38, type: 2}
   xp: 3
+  money: 0
+  commonItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 0}
