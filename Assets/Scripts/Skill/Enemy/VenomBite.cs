@@ -10,7 +10,7 @@ public class VenomBite : Skill
         //target receives damage
 
         //poison check
-        float rollValue = Random.Range(0, 1);
+        float rollValue = Random.Range(0, 1f);
         hitChance -= (target.spd / 500);
         if (rollValue <= hitChance)
         {

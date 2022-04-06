@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroManager : MonoBehaviour
+//This script contains every enemy in the game. Enemies are to be instantiated only in combat.
+public class EnemyManager : MonoBehaviour
 {
-    public List<Hero> heroes;
-    public Hero heroPrefab;
-    public HeroData[] heroData;           //this should be a data manager
-    
+    public Enemy[] enemies;
+    public List<Enemy> graveyard;   //when enemies die, they go in here to be re-used instead of instantiating new enemies.
 
-    public static HeroManager instance;
+    public static EnemyManager instance;
 
     private void Awake()
     {
@@ -21,11 +20,11 @@ public class HeroManager : MonoBehaviour
 
         instance = this;
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        AddHero(heroData[0]);
+        
     }
 
     // Update is called once per frame
@@ -34,10 +33,8 @@ public class HeroManager : MonoBehaviour
         
     }
 
-    public void AddHero(HeroData data)
+    public void AddEnemy(Enemy enemy)
     {
-        Hero hero = Instantiate(heroPrefab);
-        hero.GetData(data);
-        heroes.Add(hero);
+
     }
 }

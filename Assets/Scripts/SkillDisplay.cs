@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -20,10 +19,10 @@ public class SkillDisplay : MonoBehaviour
         gameObject.SetActive(false);        //hidden by default
     }
 
-    public IEnumerator DisplaySkillName(string name, Color borderColor)
+    private IEnumerator DisplaySkillName(string name, Color borderColor)
     {
         displaySkillCoroutineOn = true;
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         Debug.Log("Coroutine started");
         border.color = borderColor;
         skillName.text = name;
@@ -35,4 +34,14 @@ public class SkillDisplay : MonoBehaviour
         displaySkillCoroutineOn = false;
         Debug.Log("Coroutine ended");
     }
+
+    public void ExecuteSkillDisplay(string name, Color borderColor)
+    {
+        if (!displaySkillCoroutineOn)
+        {
+            gameObject.SetActive(true); //must enable the game object before coroutine can run
+            StartCoroutine(DisplaySkillName(name, borderColor));
+        }
+    }
+
 }

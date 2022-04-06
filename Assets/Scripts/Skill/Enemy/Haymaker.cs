@@ -7,7 +7,7 @@ public class Haymaker : Skill
     float hitChance = 0.2f;
     public override void Activate(Avatar target)
     {
-        float rollValue = Random.Range(0, 1);
+        float rollValue = Random.Range(0, 1f);
         hitChance -= (target.spd / 500);
         if (rollValue <= hitChance)
         {

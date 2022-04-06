@@ -7,66 +7,54 @@ public class Imp : Enemy
 {
     CombatSystem cs;
     int averageLevel;
-    //int heroCount;
+    
+    int runSkill = 0;
     protected override void Start()
     {
         base.Start();
-        skillProb = 0.5f;
+        skillProb = 0.4f;
         cs = CombatSystem.instance;
-
-        if (cs == null)
-        {
-            Debug.Log("CS is null");
-        }
 
         //Get the average level of the heroes. Run away skill is enabled once average level crosses a threshold
         averageLevel = 0;
-        //heroCount = 0;          //need this to get the actual number of active heroes, and exclude any empty space in array.
-        foreach(Hero hero in cs.heroes)
+        foreach(Hero hero in cs.heroesInCombat)
         {
-            hero.level += averageLevel;
-            //heroCount++;
+            averageLevel += hero.level;
         }
 
-        averageLevel /= cs.heroes.Count;
+        averageLevel /= cs.heroesInCombat.Count;
         Debug.Log("Average level is " + averageLevel);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //time to run? Get the average level of the heroes
-        /*int averageLevel = 0;
-        int heroCount = 0;          //need this to get the actual number of active heroes, and exclude any empty space
-        foreach(Hero hero in cs.heroes)
-        {
-            hero.level += averageLevel;
-            heroCount++;
-        }
-
-        averageLevel /= heroCount;*/
-
        if (isTheirTurn)
        {
-            Debug.Log("Imp's turn");
-            if (averageLevel >= 5)
+            //Debug.Log("Imp's turn");
+            //Imp will attempt to run if heroes' level is too high
+            if (averageLevel >= 1)
             {
                 //skill activation check
-                float roll = Random.Range(0, 1);
+                float roll = Random.Range(0, 1f);
                 if (roll <= skillProb)
                 {
                     //run away
-                    Debug.Log("Running away!");
+                    //Debug.Log("Running away!");
+                    skills[runSkill].Activate(this);
                 }
                 else
                 {
-                    //attack
+                    Attack(cs.heroesInCombat[0]);
                 }
             }
             else
             {
                 //attack
+                Attack(cs.heroesInCombat[0]);
             }
+
+            isTheirTurn = false;
        }
     }
 }
