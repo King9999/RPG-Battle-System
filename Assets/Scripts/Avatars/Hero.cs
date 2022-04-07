@@ -132,6 +132,9 @@ public class Hero : Avatar
             //show action gauge if attacking or using skill
             PassTurn();
         }*/
+
+         if (hitPoints > maxHitPoints)
+            hitPoints = maxHitPoints;
     }
 
     public override void TakeAction()

@@ -5,6 +5,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public CombatSystem combatSystem;
+
+    public static GameManager instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +29,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game is over");
+
+        //TODO: Show a game over scene
+        combatSystem.gameObject.SetActive(false);
     }
 }

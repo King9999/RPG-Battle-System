@@ -49,8 +49,12 @@ public abstract class Enemy : Avatar
         //if at any point the enemy's HP reaches 0, it dies
         if (hitPoints <= 0)
         {
+            Debug.Log(className + " is defeated");
             SendToGraveyard();
         }
+
+        if (hitPoints > maxHitPoints)
+            hitPoints = maxHitPoints;
     }
 
     public override void Attack(Avatar target)
@@ -108,6 +112,12 @@ public abstract class Enemy : Avatar
         em.graveyard.Add(this);
         cs.enemiesInCombat.Remove(this);    //need to make sure the correct enemy is being removed when there are duplicates
         cs.turnOrder.Remove(this);
+
+        //rewards
+        cs.xpPool += xp;
+        cs.moneyPool += money;
+        cs.RollForLoot(this);
+
         gameObject.SetActive(false);
     }
     

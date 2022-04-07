@@ -8,6 +8,9 @@ public class CombatSystem : MonoBehaviour
 {
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
+    public List<Item> loot;
+    public int xpPool;                      //total amount of XP from defeated enemies
+    public int moneyPool;
 
     ActionGauge actGauge;
 
@@ -24,6 +27,7 @@ public class CombatSystem : MonoBehaviour
     public static CombatSystem instance;
     HeroManager hm;
     EnemyManager em;
+    GameManager gm;
     float currentTime;
     float delay;
 
@@ -42,6 +46,7 @@ public class CombatSystem : MonoBehaviour
     {
         hm = HeroManager.instance;
         em = EnemyManager.instance;
+        gm = GameManager.instance;
 
         //action gauge setup
         actGauge = null;
@@ -111,6 +116,18 @@ public class CombatSystem : MonoBehaviour
             enemiesInCombat[0].SetTurn(turnState: true);
         }*/
 
+        /*if (AllHeroesDefeated())
+        {
+            gm.GameOver();
+            return;
+        }*/
+
+        if (enemiesInCombat.Count <= 0)
+        {
+            EndCombat();
+            return;
+        }
+
         //check whose turn is next
         if (!turnInProgress)
         {
@@ -151,5 +168,68 @@ public class CombatSystem : MonoBehaviour
         }
 
         //if we get here, combat ended. Check which side won
+
     }
+
+    public void RollForLoot(Enemy enemy)
+    {
+        if (enemy.commonItemDrop == null && enemy.rareItemDrop == null)
+            return;
+
+        //roll for rare drop then common drop in that order
+        float roll = Random.Range(0, 1f);
+
+        if (enemy.rareItemDrop != null && roll <= enemy.rareItemDropChance)
+        {
+            //award rare item to player
+            loot.Add(enemy.rareItemDrop);
+        }
+        else if (enemy.commonItemDrop != null && roll <= enemy.commonItemDropChance)
+        {
+            loot.Add(enemy.commonItemDrop);
+        }
+        
+    }
+
+    void EndCombat()
+    {
+        //award XP, money and items
+        Debug.Log("Battle over!");
+
+        Debug.Log((xpPool / heroesInCombat.Count) + " XP awarded\n" + moneyPool + " money awarded");
+        foreach(Item item in loot)
+        {
+            Debug.Log("Obtained " + item.itemName);
+            //TODO: add this item to player inventory once that's set up
+        }
+
+        foreach(Hero hero in heroesInCombat)
+        {
+            hero.currentXp += xpPool / heroesInCombat.Count;
+            //add money to inventory
+        }
+
+        gameObject.SetActive(false);
+    }
+
+    bool AllHeroesDefeated()
+    {
+        float totalHitPoints = 0;
+
+        foreach(Hero hero in heroesInCombat)
+        {
+            totalHitPoints += hero.hitPoints;
+        }
+        
+        return totalHitPoints <= 0;
+        
+    }
+
+    //resets the battle state to default
+    public void Reset()
+    {
+
+    }
+
+    
 }

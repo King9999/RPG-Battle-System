@@ -22,8 +22,8 @@ public class Heal : Skill
         amountRestored += Mathf.Round(Random.Range(0, amountRestored * 0.1f));
 
         target.hitPoints += amountRestored;
-        if (target.hitPoints > target.maxHitPoints)
-            target.hitPoints = target.maxHitPoints;
+        //if (target.hitPoints > target.maxHitPoints)
+            //target.hitPoints = target.maxHitPoints;
         
         Debug.Log(amountRestored + " HP restored to " + target.className);
     }
