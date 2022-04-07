@@ -6,8 +6,25 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Recovery/Heal", fileName = "skill_heal")]
 public class Heal : Skill
 {
-    public override void Activate(Avatar target)
+    public override void Activate(Avatar user, Avatar target, Color borderColor)
     {
-       
+        base.Activate(user, target, borderColor);
+
+        if (user.manaPoints < manaCost)
+        {
+            Debug.Log("Not enough mana!");
+            return;
+        }
+
+        user.manaPoints -= manaCost;
+        Debug.Log(user.className + " is casting " + skillName);
+        float amountRestored = user.mag + power;
+        amountRestored += Mathf.Round(Random.Range(0, amountRestored * 0.1f));
+
+        target.hitPoints += amountRestored;
+        if (target.hitPoints > target.maxHitPoints)
+            target.hitPoints = target.maxHitPoints;
+        
+        Debug.Log(amountRestored + " HP restored to " + target.className);
     }
 }

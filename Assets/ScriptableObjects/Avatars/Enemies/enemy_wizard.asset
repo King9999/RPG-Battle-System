@@ -22,8 +22,8 @@ MonoBehaviour:
   mag: 35
   res: 10
   skills:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4aae777d4448c6145bd0e908fbcb862d, type: 2}
+  - {fileID: 11400000, guid: a52f9439bb7ddab4583fed0ed559694b, type: 2}
   xp: 12
   money: 10
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}

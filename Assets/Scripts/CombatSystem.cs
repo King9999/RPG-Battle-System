@@ -42,12 +42,15 @@ public class CombatSystem : MonoBehaviour
         heroesInCombat.Add(hm.heroes[0]);
 
         //add random enemies
-        for (int i = 0; i < 2; i++)
+        /*for (int i = 0; i < 2; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             Enemy enemy = Instantiate(em.enemies[randomEnemy]);
             enemiesInCombat.Add(enemy);
-        }
+        }*/
+
+        Enemy testEnemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Wizard]);
+        enemiesInCombat.Add(testEnemy);
         
         //place heroes and enemies in random positions
         heroLocationOccupied = new bool[heroLocations.Length];
@@ -86,18 +89,18 @@ public class CombatSystem : MonoBehaviour
       
         //enemiesInCombat.Add(Instantiate(em.enemies[0]));
         //enemiesInCombat[0].SetTurn(turnState: true);
-        //delay = 2;
+        delay = 2;
     }
 
     
     // Update is called once per frame
     void Update()
     {
-        /*if (Time.time > currentTime + delay)
+        if (Time.time > currentTime + delay)
         {
             currentTime = Time.time;
             enemiesInCombat[0].SetTurn(turnState: true);
-        }*/
+        }
         //combat system runs until either all enemies are defeated or the heroes are wiped out. In the unlikely scenario that both enemies
         //and heroes are defeated, game is over.
         while (combatEnabled)

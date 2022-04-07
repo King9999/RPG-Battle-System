@@ -21,3 +21,4 @@ MonoBehaviour:
   isPassive: 0
   targetType: 2
   element: 0
+  statusEffect: 0

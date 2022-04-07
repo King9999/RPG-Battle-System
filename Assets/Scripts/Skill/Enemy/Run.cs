@@ -6,9 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Enemy Skill/Run", fileName = "skill_run")]
 public class Run : Skill
 {
-    public override void Activate(Avatar target)
+    public override void Activate(Avatar target, Color borderColor)
     {
-        base.Activate(target);
+        base.Activate(target, borderColor);
         //Destroy(target.gameObject);     //TODO: Need to hide the object and place it in graveyard 
     }
 }

@@ -41,7 +41,7 @@ public class Imp : Enemy
                 {
                     //run away
                     //Debug.Log("Running away!");
-                    skills[runSkill].Activate(this);
+                    skills[runSkill].Activate(this, skillNameBorderColor);
                 }
                 else
                 {

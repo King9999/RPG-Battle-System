@@ -5,8 +5,9 @@ using UnityEngine;
 public class Haymaker : Skill
 {
     float hitChance = 0.2f;
-    public override void Activate(Avatar target)
+    public override void Activate(Avatar target, Color borderColor)
     {
+        base.Activate(target, borderColor);
         float rollValue = Random.Range(0, 1f);
         hitChance -= (target.spd / 500);
         if (rollValue <= hitChance)

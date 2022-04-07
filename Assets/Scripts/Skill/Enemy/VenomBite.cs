@@ -5,8 +5,9 @@ using UnityEngine;
 public class VenomBite : Skill
 {
     float hitChance = 0.3f;
-   public override void Activate(Avatar target)
+   public override void Activate(Avatar target, Color borderColor)
    {
+       base.Activate(target, borderColor);
         //target receives damage
 
         //poison check

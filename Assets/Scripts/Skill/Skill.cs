@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Skill : ScriptableObject
 {
     public string skillName;
-    public Color skillNameBorderColor;
+    Color skillNameBorderColor;
     public Sprite skillIcon;
     public string description;
     public int manaCost;
@@ -19,20 +19,26 @@ public abstract class Skill : ScriptableObject
 
     public Target targetType;
 
-    public virtual void Activate(Avatar skillUser, Avatar target) 
+    public virtual void Activate(Avatar skillUser, Avatar target, Color borderColor) 
     {
         UI ui = UI.instance;
+        skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
+
     }
-    public virtual void Activate()
+    public virtual void Activate(Color borderColor)
     {
         UI ui = UI.instance;
+        skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
         //Debug.Log("Displaying skill name");
     }
-    public virtual void Activate(Avatar target) 
+
+    //used when a skill is executed on the user
+    public virtual void Activate(Avatar self, Color borderColor) 
     {
         UI ui = UI.instance;
+        skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
     }
 

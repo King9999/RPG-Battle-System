@@ -16,6 +16,7 @@ public abstract class Enemy : Avatar
 
     protected CombatSystem cs;
     protected EnemyManager em;
+    protected Color skillNameBorderColor = new Color(0.7f, 0.1f, 0.1f);       //used to change skill display border color. Always red
 
     // Start is called before the first frame update
     protected virtual void Start()

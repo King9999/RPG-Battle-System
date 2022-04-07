@@ -19,6 +19,7 @@ public class Hero : Avatar
     public int currentXp;
     public int xpToNextLevel;   //this will be grabbed from a xp table
     [HideInInspector]public int currentLevel;   //points to current level in the stat table.
+    protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
 
     // Start is called before the first frame update
     protected void Start()
