@@ -51,13 +51,37 @@ public class Wizard : Enemy
     {
         base.TakeAction();
 
-        //cast heal if hp is low
-        if (hitPoints <= maxHitPoints * 0.3f)
+        //if Wizard has no mana left, then attack.
+        if (manaPoints >= skills[healSkill].manaCost || manaPoints >= skills[fireballSkill].manaCost)
         {
-            float roll = Random.Range(0, 1f);
-            if (roll <= skillProb)
+            //check if an ally needs healing, including self
+            bool allyNeedsHealing = false;
+            int i = 0;
+            while (!allyNeedsHealing && i < cs.enemiesInCombat.Count)
+            {   
+                if (cs.enemiesInCombat[i].hitPoints <= cs.enemiesInCombat[i].maxHitPoints * 0.3f)
+                {
+                    allyNeedsHealing = true;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            if (allyNeedsHealing)
             {
-                skills[healSkill].Activate(this, this, skillNameBorderColor);
+                float roll = Random.Range(0, 1f);
+                if (roll <= skillProb)
+                {
+                    skills[healSkill].Activate(this, cs.enemiesInCombat[i], skillNameBorderColor);
+                }
+                else
+                {
+                    //cast fireball to a target
+                    int randHero = Random.Range(0, cs.heroesInCombat.Count);
+                    skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+                }
             }
             else
             {
@@ -66,11 +90,10 @@ public class Wizard : Enemy
                 skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
             }
         }
-        else
+        else    //do regular attack
         {
-            //cast fireball to a target
-            int randHero = Random.Range(0, cs.heroesInCombat.Count);
-            skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+            int randTarget = Random.Range(0, cs.heroesInCombat.Count);
+            Attack(cs.heroesInCombat[randTarget]);
         }
 
         //end turn

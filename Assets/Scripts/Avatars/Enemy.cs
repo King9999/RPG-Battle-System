@@ -44,6 +44,15 @@ public abstract class Enemy : Avatar
         em = EnemyManager.instance;
     }
 
+    protected void Update()
+    {
+        //if at any point the enemy's HP reaches 0, it dies
+        if (hitPoints <= 0)
+        {
+            SendToGraveyard();
+        }
+    }
+
     public override void Attack(Avatar target)
     {
         //enemy has a 5% chance to inflict a critical. Criticals ignore defense
@@ -94,9 +103,11 @@ public abstract class Enemy : Avatar
     //when enemy dies, they are sent to graveyard
     public void SendToGraveyard()
     {
-        if (hitPoints > 0 || status != Status.Dead) return;
+        if (hitPoints > 0) return;
       
         em.graveyard.Add(this);
+        cs.enemiesInCombat.Remove(this);    //need to make sure the correct enemy is being removed when there are duplicates
+        cs.turnOrder.Remove(this);
         gameObject.SetActive(false);
     }
     

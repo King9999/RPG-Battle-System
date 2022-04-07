@@ -116,7 +116,7 @@ public class CombatSystem : MonoBehaviour
         {
             if (!turnOrder[currentTurn].TurnTaken())
             {
-                turnOrder[currentTurn].SetTurn(turnState: true);
+                //turnOrder[currentTurn].SetTurn(turnState: true);
                 turnOrder[currentTurn].TakeAction();
                 //turnInProgress = true;
             }
