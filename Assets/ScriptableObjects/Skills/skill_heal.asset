@@ -16,7 +16,7 @@ MonoBehaviour:
   skillIcon: {fileID: 0}
   description: Restores HP to 1 target
   manaCost: 5
-  power: 60
+  power: 40
   actGauge: {fileID: 0}
   isPassive: 0
   targetType: 2

@@ -27,7 +27,7 @@ public class Imp : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
        if (isTheirTurn)
        {
@@ -54,8 +54,35 @@ public class Imp : Enemy
                 Attack(cs.heroesInCombat[0]);
             }
 
-            isTheirTurn = false;
+            PassTurn();
        }
+    }*/
+
+    public override void TakeAction()
+    {
+        base.TakeAction();
+        if (averageLevel >= 5)
+        {
+            //skill activation check
+            float roll = Random.Range(0, 1f);
+            if (roll <= skillProb)
+            {
+                //run away
+                //Debug.Log("Running away!");
+                skills[runSkill].Activate(this, skillNameBorderColor);
+            }
+            else
+            {
+                Attack(cs.heroesInCombat[0]);
+            }
+        }
+        else
+        {
+            //attack
+            Attack(cs.heroesInCombat[0]);
+        }
+
+        PassTurn();
     }
 
     public override void ResetData()

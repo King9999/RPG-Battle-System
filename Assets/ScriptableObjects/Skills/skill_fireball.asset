@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: Fireball
   skillIcon: {fileID: 0}
   description: Fire damage to 1 enemy
-  manaCost: 50
+  manaCost: 4
   power: 16
   actGauge: {fileID: 0}
   isPassive: 0

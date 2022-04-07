@@ -14,7 +14,7 @@ public abstract class Enemy : Avatar
     public float commonItemDropChance;
     public float rareItemDropChance;
 
-    protected CombatSystem cs;
+    //protected CombatSystem cs;
     protected EnemyManager em;
     protected Color skillNameBorderColor = new Color(0.7f, 0.1f, 0.1f);       //used to change skill display border color. Always red
 

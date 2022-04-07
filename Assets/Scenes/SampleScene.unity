@@ -322,6 +322,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &566209645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 566209646}
+  m_Layer: 0
+  m_Name: Action Gauge Location
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &566209646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566209645}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1485049160}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643104753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4786417419805898536, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+  m_PrefabInstance: {fileID: 274827245911686394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005d5dce0ec745b468ec2ca87e77dc56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1059470395
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0670fefc0f925014e93672750ecdc054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1485049160 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7606886612533781445, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+  m_PrefabInstance: {fileID: 1941364927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1673825470 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7709067803527969225, guid: 7713ffa42b10c2246a9b08656b4ec20a, type: 3}
@@ -400,6 +446,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7606886612533781306, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: actGaugeLocation
+      value: 
+      objectReference: {fileID: 566209646}
     - target: {fileID: 7606886612533781307, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: m_Name
       value: Combat System
@@ -597,6 +647,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: 329b2700-93e1-4aaa-9e27-b372f7f096ff
+      objectReference: {fileID: 0}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 643104753}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StopActionToken
+      objectReference: {fileID: 0}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ActionGauge, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 274827247179226721, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4786417419805898537, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
       propertyPath: m_RootOrder
       value: 1

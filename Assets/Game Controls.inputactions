@@ -2,7 +2,7 @@
     "name": "Game Controls",
     "maps": [
         {
-            "name": "Gamepad",
+            "name": "Battle System",
             "id": "329b2700-93e1-4aaa-9e27-b372f7f096ff",
             "actions": [
                 {
@@ -26,15 +26,26 @@
                     "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0578075c-4958-4f39-869e-1d2d5eb2867c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Keyboard",
+            "name": "Keyboard&Mouse",
             "id": "1885d224-7638-4297-9fb7-da6ff8ea9ed9",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Confirm",
                     "type": "Button",
                     "id": "0163bb01-c88a-41ac-91ef-cc53450bfe7f",
                     "expectedControlType": "Button",
@@ -47,11 +58,11 @@
                 {
                     "name": "",
                     "id": "e781d0f5-24f2-4f9a-8f0f-14c519a4fbce",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

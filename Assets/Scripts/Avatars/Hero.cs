@@ -20,6 +20,7 @@ public class Hero : Avatar
     public int xpToNextLevel;   //this will be grabbed from a xp table
     [HideInInspector]public int currentLevel;   //points to current level in the stat table.
     protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
+    protected HeroManager hm;
 
     // Start is called before the first frame update
     protected void Start()
@@ -70,7 +71,8 @@ public class Hero : Avatar
         if (trinket != null)
             trinket.Equip(hero: this);
         //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
-        
+        cs = CombatSystem.instance;
+        hm = HeroManager.instance; 
     }
 
     public void GetData(HeroData data)
@@ -123,6 +125,46 @@ public class Hero : Avatar
     // Update is called once per frame
     void Update()
     {
-        //user input
+        /*if (isTheirTurn)
+        {
+            //show menu
+            Debug.Log("Hero's turn");
+            //show action gauge if attacking or using skill
+            PassTurn();
+        }*/
+    }
+
+    public override void TakeAction()
+    {
+        base.TakeAction();
+         //show menu
+        Debug.Log("Hero's turn");
+        int randEnemy = Random.Range(0, cs.enemiesInCombat.Count);
+        Attack(cs.enemiesInCombat[randEnemy]);
+        //show action gauge if attacking or using skill
+        PassTurn();
+    }
+
+    public override void Attack(Avatar target)
+    {
+        //enemy has a 5% chance to inflict a critical. Criticals ignore defense
+        float totalDamage;
+        float critChance = 0.05f;
+        float roll = Random.Range(0, 1f);
+
+        if (roll <= critChance)
+        {
+            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f));
+        }
+        else
+        {
+            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+        }
+        
+        if (totalDamage < 0)
+            totalDamage = 0;
+        
+        target.hitPoints -= totalDamage;
+        Debug.Log(totalDamage + " damage to " + target.className);
     }
 }

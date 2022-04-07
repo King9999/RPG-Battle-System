@@ -16,7 +16,7 @@ public class Wizard : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         if (isTheirTurn)
         {
@@ -42,7 +42,38 @@ public class Wizard : Enemy
                 skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
             }
 
-            isTheirTurn = false;
+            //end turn
+            PassTurn();
         }
+    }*/
+
+    public override void TakeAction()
+    {
+        base.TakeAction();
+
+        //cast heal if hp is low
+        if (hitPoints <= maxHitPoints * 0.3f)
+        {
+            float roll = Random.Range(0, 1f);
+            if (roll <= skillProb)
+            {
+                skills[healSkill].Activate(this, this, skillNameBorderColor);
+            }
+            else
+            {
+                //cast fireball to a target
+                int randHero = Random.Range(0, cs.heroesInCombat.Count);
+                skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+            }
+        }
+        else
+        {
+            //cast fireball to a target
+            int randHero = Random.Range(0, cs.heroesInCombat.Count);
+            skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+        }
+
+        //end turn
+        PassTurn();
     }
 }

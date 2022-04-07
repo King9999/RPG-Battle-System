@@ -17,6 +17,8 @@ public abstract class Avatar : MonoBehaviour
     public float mag;           //magic power
     public float res;           //resistance
     protected bool isTheirTurn; //if true, avatar can perform actions.
+    protected bool turnTaken;   
+    protected CombatSystem cs;
 
     public List<Skill> skills;
     public enum Status
@@ -41,9 +43,31 @@ public abstract class Avatar : MonoBehaviour
     }*/
 
     public bool TheirTurn() { return isTheirTurn; }
-    public void SetTurn(bool turnState) { isTheirTurn = turnState; }
+    public bool TurnTaken() {return turnTaken;}
+
+    public void SetTurnTaken(bool state) { turnTaken = state;}
+    
+    public void SetTurn(bool turnState) 
+    {
+         isTheirTurn = turnState;
+         //turnTaken = (isTheirTurn == true) ? false : true;
+         //cs.turnInProgress = (isTheirTurn == true) ? true : false; 
+    }
+    public void PassTurn()
+    {
+        isTheirTurn = false;
+        turnTaken = true;
+        cs.turnInProgress = false;
+    }
 
     public virtual void Attack(Avatar target) {}
+
+    //All enemy logic must go in here
+    public virtual void TakeAction()
+    {
+        //turnTaken = true;
+        cs.turnInProgress = true;
+    }
     
     
 }
