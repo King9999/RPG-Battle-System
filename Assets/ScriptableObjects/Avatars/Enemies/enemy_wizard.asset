@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   className: Wizard
   details: Can cast magic
-  maxHitPoints: 72
+  maxHitPoints: 305
   maxManaPoints: 100
   atp: 20
-  dfp: 3
+  dfp: 7
   spd: 11
   mag: 35
   res: 10
   skills:
   - {fileID: 11400000, guid: 4aae777d4448c6145bd0e908fbcb862d, type: 2}
   - {fileID: 11400000, guid: a52f9439bb7ddab4583fed0ed559694b, type: 2}
-  xp: 12
-  money: 10
+  xp: 38
+  money: 25
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
   rareItemDrop: {fileID: 11400000, guid: ed5af7bd6dea06245b4073db94130ef5, type: 2}
   commonItemDropChance: 0.35

@@ -50,15 +50,15 @@ public class ActionGauge : MonoBehaviour
         //actGauge.Add()
         actionValues = new ActionValue[GaugeSize];
         pips = new Image[GaugeSize];
-        UpdateGauge(data);
         pipSize = normalMeter.rectTransform.sizeDelta.x * normalMeter.rectTransform.localScale.x;
         totalGaugeWidth = pipSize * GaugeSize;
+        UpdateGaugeData(data);
         //Debug.Log("Meter width is " + totalGaugeWidth);
 
         //add action token. It's placed at the left edge of the first pip.
-        Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
-        actionToken.transform.position = actionTokenPos;
-        actionTokenDirection = 1;   //moves from left to right by default
+        //Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        //actionToken.transform.position = actionTokenPos;
+        //actionTokenDirection = 1;   //moves from left to right by default
 
     }
 
@@ -104,8 +104,9 @@ public class ActionGauge : MonoBehaviour
     }
 
     //updates the values and the pip images
-    public void UpdateGauge(ActionGaugeData data)
+    public void UpdateGaugeData(ActionGaugeData data)
     {
+        this.data = data;
         actionValues = new ActionValue[GaugeSize];
 
         for (int i = 0; i < actionValues.Length; i++)
@@ -144,24 +145,30 @@ public class ActionGauge : MonoBehaviour
                 switch(actionValues[i])
                 {
                     case ActionValue.Normal:
-                        pips[i] = normalMeter;
+                        pips[i].sprite = normalMeter.sprite;
                         break;
                     case ActionValue.Reduced:
-                        pips[i] = reducedMeter;
+                        pips[i].sprite = reducedMeter.sprite;
                         break;
                     case ActionValue.Miss:
-                        pips[i] = missMeter;
+                        pips[i].sprite = missMeter.sprite;
                         break;
                     case ActionValue.Critical:
-                        pips[i] = critMeter;
+                        pips[i].sprite = critMeter.sprite;
                         break;
                     case ActionValue.Special:
-                        pips[i] = specialMeter;
+                        pips[i].sprite = specialMeter.sprite;
                         break;
                 }
             }
 
         }
+
+        //add action token. It's placed at the left edge of the first pip.
+        Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        actionToken.transform.position = actionTokenPos;
+        actionTokenDirection = 1;   //moves from left to right by default
+
     }
 
     //Stop the action token and perform an action based on where it lands.

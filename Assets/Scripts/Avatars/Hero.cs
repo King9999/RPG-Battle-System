@@ -143,14 +143,18 @@ public class Hero : Avatar
          //show menu
         Debug.Log("Hero's turn");
         int randEnemy = Random.Range(0, cs.enemiesInCombat.Count);
-        Attack(cs.enemiesInCombat[randEnemy]);
+        //Attack(cs.enemiesInCombat[randEnemy]);
         //show action gauge if attacking or using skill
+        cs.actGauge.gameObject.SetActive(true);
+        cs.actGauge.UpdateGaugeData(weapon.actGauge);
+
+
         PassTurn();
     }
 
-    public override void Attack(Avatar target)
+    public void Attack(Avatar target, ActionGauge.ActionValue actValue)
     {
-        //enemy has a 5% chance to inflict a critical. Criticals ignore defense
+        //check what the action token landed on
         float totalDamage;
         float critChance = 0.05f;
         float roll = Random.Range(0, 1f);

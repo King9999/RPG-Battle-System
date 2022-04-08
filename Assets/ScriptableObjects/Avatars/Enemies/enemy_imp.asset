@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   className: Imp
   details: Unremarkable creature
-  maxHitPoints: 45
+  maxHitPoints: 150
   maxManaPoints: 0
   atp: 20
-  dfp: 0
-  spd: 4
+  dfp: 1
+  spd: 6
   mag: 0
   res: 0
   skills:
   - {fileID: 11400000, guid: fcf0d80b12249b84fbf7acbb16075b38, type: 2}
-  xp: 3
-  money: 3
+  xp: 10
+  money: 10
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
   rareItemDrop: {fileID: 0}
   commonItemDropChance: 0.35

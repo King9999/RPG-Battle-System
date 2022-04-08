@@ -12,7 +12,7 @@ public class CombatSystem : MonoBehaviour
     public int xpPool;                      //total amount of XP from defeated enemies
     public int moneyPool;
 
-    ActionGauge actGauge;
+    public ActionGauge actGauge;
 
     public List<Avatar> turnOrder;
     [HideInInspector]public int currentTurn;                        //iterator for turnOrder
@@ -49,8 +49,10 @@ public class CombatSystem : MonoBehaviour
         gm = GameManager.instance;
 
         //action gauge setup
-        actGauge = null;
-        //actGauge.transform.position = actGaugeLocation.position;
+        actGauge.gameObject.SetActive(false);
+
+        //actGauge = null;
+        actGauge.transform.position = actGaugeLocation.position;
 
 
         //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
@@ -208,6 +210,11 @@ public class CombatSystem : MonoBehaviour
             hero.currentXp += xpPool / heroesInCombat.Count;
             //add money to inventory
         }
+
+        //clean up
+        loot.Clear();
+        xpPool = 0;
+        moneyPool = 0;
 
         gameObject.SetActive(false);
     }
