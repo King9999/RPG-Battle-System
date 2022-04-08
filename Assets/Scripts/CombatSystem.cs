@@ -85,6 +85,7 @@ public class CombatSystem : MonoBehaviour
             hero.transform.position = heroLocations[randIndex].position;
             heroLocationOccupied[randIndex] = true;
             turnOrder.Add(hero);
+            hero.UpdateStatsUI();
         }
 
         foreach (Enemy enemy in enemiesInCombat)
@@ -98,6 +99,7 @@ public class CombatSystem : MonoBehaviour
             enemy.transform.position = enemyLocations[randIndex].position;
             enemyLocationOccupied[randIndex] = true;
             turnOrder.Add(enemy);
+            enemy.UpdateStatsUI();
         }
 
         //get turn order.              

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /* This is the base class for playable heroes and NPC enemies */
 public abstract class Avatar : MonoBehaviour
@@ -17,7 +18,9 @@ public abstract class Avatar : MonoBehaviour
     public float mag;           //magic power
     public float res;           //resistance
     protected bool isTheirTurn; //if true, avatar can perform actions.
-    protected bool turnTaken;   
+    protected bool turnTaken;
+    public TextMeshProUGUI statsUI;                        //displays HP and MP underneath sprite
+   
     protected CombatSystem cs;
 
     public List<Skill> skills;
@@ -67,6 +70,11 @@ public abstract class Avatar : MonoBehaviour
     {
         //turnTaken = true;
         cs.turnInProgress = true;
+    }
+
+    public void UpdateStatsUI()
+    {
+        statsUI.text = "HP " + hitPoints + "/" + maxHitPoints + "\n" + "MP " + manaPoints + "/" + maxManaPoints;
     }
     
     

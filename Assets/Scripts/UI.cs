@@ -5,8 +5,8 @@ using TMPro;
 
 public class UI : MonoBehaviour
 {
-    public TextMeshProUGUI[] heroStats;     //displays name, hp and mp
-    public TextMeshProUGUI[] enemyStats;    //displays name and hp
+    public List<TextMeshProUGUI> heroStats;     //displays name, hp and mp
+    public List<TextMeshProUGUI> enemyStats;    //displays name and hp
     int maxPartySize {get;} = 3;
     int maxEnemyPartySize {get;} = 6;
 
@@ -28,8 +28,8 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        heroStats = new TextMeshProUGUI[maxPartySize];
-        enemyStats = new TextMeshProUGUI[maxEnemyPartySize];
+        //heroStats = new TextMeshProUGUI[maxPartySize];
+        //enemyStats = new TextMeshProUGUI[maxEnemyPartySize];
     }
 
     // Update is called once per frame

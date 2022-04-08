@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public CombatSystem combatSystem;
 
+    public enum GameState { Normal, Combat}
+    public GameState gameState;                 //used by input manager to perform different actions with the same button press.
+
     public static GameManager instance;
 
     private void Awake()
