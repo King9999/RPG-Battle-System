@@ -74,7 +74,7 @@ public abstract class Avatar : MonoBehaviour
 
     public void UpdateStatsUI()
     {
-        statsUI.text = "HP " + hitPoints + "/" + maxHitPoints + "\n" + "MP " + manaPoints + "/" + maxManaPoints;
+        statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + maxHitPoints + "\n" + "<color=#4be4fc>MP</color> " + manaPoints + "/" + maxManaPoints;
     }
     
     
