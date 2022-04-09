@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 //This script manages the action gauge. They can have different characteristics, and each weapon and skill can have their own.
 public class ActionGauge : MonoBehaviour

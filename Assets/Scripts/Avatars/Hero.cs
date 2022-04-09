@@ -21,6 +21,7 @@ public class Hero : Avatar
     [HideInInspector]public int currentLevel;   //points to current level in the stat table.
     protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
     public bool actionCompleted;
+    public bool isAttacking;
     public int currentActions;
 
     //singletons
@@ -145,8 +146,14 @@ public class Hero : Avatar
          if (hitPoints > maxHitPoints)
             hitPoints = maxHitPoints;*/
 
-        if (cs.turnInProgress)
-            TakeAction();
+        //if (cs.turnInProgress)
+            //TakeAction();
+
+        if (isAttacking && cs.enemiesInCombat.Count > 0)
+        {
+            int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+            Attack(cs.enemiesInCombat[randTarget]);
+        }
     }
 
     public override void TakeAction()
@@ -157,7 +164,7 @@ public class Hero : Avatar
         //int randEnemy = Random.Range(0, cs.enemiesInCombat.Count);
         //Attack(cs.enemiesInCombat[randEnemy]);
         //show action gauge if attacking or using skill
-        if (!cs.actGauge.gameObject.activeSelf)
+        /*if (!cs.actGauge.gameObject.activeSelf)
         {
             cs.actGauge.gameObject.SetActive(true);
             cs.actGauge.UpdateGaugeData(weapon.actGauge);
@@ -218,14 +225,85 @@ public class Hero : Avatar
             cs.actGauge.actionToken.SetSpeedToDefault();
             cs.actGauge.gameObject.SetActive(false);
             PassTurn();
-        }
+        }*/
+
+        //do a switch/case here for the different menu options (attack, skill, item, or run)
+        //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+        //Attack(cs.enemiesInCombat[randTarget]);
+        isAttacking = true;
         
     }
 
-    public void Attack(Avatar target, ActionGauge.ActionValue actValue)
+    public override void Attack(Avatar target /*ActionGauge.ActionValue actValue*/)
     {
+        if (!cs.actGauge.gameObject.activeSelf)
+        {
+            cs.actGauge.gameObject.SetActive(true);
+            cs.actGauge.UpdateGaugeData(weapon.actGauge);
+            cs.actGauge.ResetActionToken();
+            totalAttackTokens = weapon.tokenCount + attackTokenMod;
+            currentActions = 0;
+        }
+
+        if (currentActions < totalAttackTokens)
+        {
+            isAttacking = true;
+            //wait for button press to attack. Do this until no more tokens available
+            if (cim.buttonPressed)
+            {
+                float totalDamage = 0;
+                //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                {
+                    case ActionGauge.ActionValue.Normal:
+                        //deal damage to enemy
+                        totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                        break;
+
+                    case ActionGauge.ActionValue.Reduced:
+                        //deal half damage to enemy
+                        totalDamage = (atp / 2) + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                        break;
+
+                    case ActionGauge.ActionValue.Miss:
+                        //nothing happens
+                        break;
+
+                    case ActionGauge.ActionValue.Critical:
+                        //deal increased damage to enemy. Enemy DFP is ignored
+                        //if landed on a shield, deal shield damage
+                        totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+                        break;
+
+                    case ActionGauge.ActionValue.Special:
+                        //activate weapon skill
+                        //weapon.weaponSkill.Activate();
+                        break;
+                }
+
+                //deal final damage to enemy
+                Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
+                ReduceHitPoints(target, totalDamage);
+
+                //attack token resets and speeds up by 20%
+                cs.actGauge.ResetActionToken();
+                float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
+                cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
+                currentActions++;
+                cim.buttonPressed = false;   
+            }
+                
+        }
+        else
+        {
+            isAttacking = false;
+            cs.actGauge.actionToken.SetSpeedToDefault();
+            cs.actGauge.gameObject.SetActive(false);
+            PassTurn();
+        }
+
         //check what the action token landed on
-        float totalDamage;
+        /*float totalDamage;
         float critChance = 0.05f;
         float roll = Random.Range(0, 1f);
 
@@ -242,6 +320,6 @@ public class Hero : Avatar
             totalDamage = 0;
         
         target.hitPoints -= totalDamage;
-        Debug.Log(totalDamage + " damage to " + target.className);
+        Debug.Log(totalDamage + " damage to " + target.className);*/
     }
 }

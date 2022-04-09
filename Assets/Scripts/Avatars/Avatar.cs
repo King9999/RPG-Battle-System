@@ -37,6 +37,7 @@ public abstract class Avatar : MonoBehaviour
         {
             target.hitPoints = target.maxHitPoints;
         }
+        target.UpdateStatsUI();
     }
 
     /*protected virtual void Update()
@@ -52,6 +53,8 @@ public abstract class Avatar : MonoBehaviour
         {
             target.hitPoints = 0;
         }
+
+        target.UpdateStatsUI();
     }
 
     public bool TheirTurn() { return isTheirTurn; }
