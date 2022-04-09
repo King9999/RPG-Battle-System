@@ -14,13 +14,18 @@ public class Hero : Avatar
     public Trinket trinket;
     public ActionGaugeData actGauge;        //this comes from equipped weapon. If null, hero can't attack
     public int totalAttackTokens;        //attack token mod + weapon tokens
-    public short attackTokenMod;
+    public int attackTokenMod;
     public bool swordOK, daggerOK, axeOK, bowOK, staffOK;
     public int currentXp;
     public int xpToNextLevel;   //this will be grabbed from a xp table
     [HideInInspector]public int currentLevel;   //points to current level in the stat table.
     protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
+    public bool actionCompleted;
+    public int currentActions;
+
+    //singletons
     protected HeroManager hm;
+    CombatInputManager cim;
 
     // Start is called before the first frame update
     protected void Start()
@@ -72,7 +77,8 @@ public class Hero : Avatar
             trinket.Equip(hero: this);
         //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
         cs = CombatSystem.instance;
-        hm = HeroManager.instance; 
+        hm = HeroManager.instance;
+        cim = CombatInputManager.instance; 
     }
 
     public void GetData(HeroData data)
@@ -120,36 +126,100 @@ public class Hero : Avatar
             armor.Equip(hero: this);
         if (trinket != null)
             trinket.Equip(hero: this);
+
+        actionCompleted = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //base.Update();
         /*if (isTheirTurn)
         {
             //show menu
             Debug.Log("Hero's turn");
             //show action gauge if attacking or using skill
             PassTurn();
-        }*/
+        }
 
          if (hitPoints > maxHitPoints)
-            hitPoints = maxHitPoints;
+            hitPoints = maxHitPoints;*/
+
+        if (cs.turnInProgress)
+            TakeAction();
     }
 
     public override void TakeAction()
     {
         base.TakeAction();
          //show menu
-        Debug.Log("Hero's turn");
-        int randEnemy = Random.Range(0, cs.enemiesInCombat.Count);
+        //Debug.Log("Hero's turn");
+        //int randEnemy = Random.Range(0, cs.enemiesInCombat.Count);
         //Attack(cs.enemiesInCombat[randEnemy]);
         //show action gauge if attacking or using skill
-        cs.actGauge.gameObject.SetActive(true);
-        cs.actGauge.UpdateGaugeData(weapon.actGauge);
+        if (!cs.actGauge.gameObject.activeSelf)
+        {
+            cs.actGauge.gameObject.SetActive(true);
+            cs.actGauge.UpdateGaugeData(weapon.actGauge);
+            cs.actGauge.ResetActionToken();
+            totalAttackTokens = weapon.tokenCount + attackTokenMod;
+            currentActions = 0;
+        }
 
+        if (currentActions < totalAttackTokens)
+        {
+            //wait for button press to attack. Do this until no more tokens available
+            if (cim.buttonPressed)
+            {
+                float totalDamage = 0;
+                int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                {
+                    case ActionGauge.ActionValue.Normal:
+                        //deal damage to enemy
+                        totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - cs.enemiesInCombat[randTarget].dfp;
+                        break;
 
-        PassTurn();
+                    case ActionGauge.ActionValue.Reduced:
+                        //deal half damage to enemy
+                        totalDamage = (atp / 2) + Mathf.Round(Random.Range(0, atp * 0.1f)) - cs.enemiesInCombat[randTarget].dfp;
+                        break;
+
+                    case ActionGauge.ActionValue.Miss:
+                        //nothing happens
+                        break;
+
+                    case ActionGauge.ActionValue.Critical:
+                        //deal increased damage to enemy. Enemy DFP is ignored
+                        //if landed on a shield, deal shield damage
+                        totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+                        break;
+
+                    case ActionGauge.ActionValue.Special:
+                        //activate weapon skill
+                        //weapon.weaponSkill.Activate();
+                        break;
+                }
+
+                //deal final damage to enemy
+                Debug.Log(className + " deals " + totalDamage + " damage to " + cs.enemiesInCombat[randTarget].className);
+                ReduceHitPoints(cs.enemiesInCombat[randTarget], totalDamage);
+                //attack token resets and speeds up by 20%
+                cs.actGauge.ResetActionToken();
+                float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
+                cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
+                currentActions++;
+                cim.buttonPressed = false;   
+            }
+                
+        }
+        else
+        {
+            cs.actGauge.actionToken.SetSpeedToDefault();
+            cs.actGauge.gameObject.SetActive(false);
+            PassTurn();
+        }
+        
     }
 
     public void Attack(Avatar target, ActionGauge.ActionValue actValue)

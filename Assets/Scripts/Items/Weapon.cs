@@ -8,8 +8,8 @@ public class Weapon : Item
     public float atp;
     public float mag;
     public ActionGaugeData actGauge;
-    short defaultTokenCount {get;} = 3;
-    public short tokenCount = 3;    //default amount is 3
+    int defaultTokenCount {get;} = 3;
+    public int tokenCount = 3;    //default amount is 3
     public Skill weaponSkill;
 
     public enum WeaponType

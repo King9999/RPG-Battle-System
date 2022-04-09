@@ -43,8 +43,9 @@ public abstract class Enemy : Avatar
         em = EnemyManager.instance;
     }
 
-    protected void Update()
+    void Update()
     {
+        //base.Update();
         //if at any point the enemy's HP reaches 0, it dies
         if (hitPoints <= 0)
         {
@@ -52,8 +53,8 @@ public abstract class Enemy : Avatar
             SendToGraveyard();
         }
 
-        if (hitPoints > maxHitPoints)
-            hitPoints = maxHitPoints;
+        if (hitPoints < 0)
+            hitPoints = 0;
     }
 
     public override void Attack(Avatar target)
@@ -75,7 +76,8 @@ public abstract class Enemy : Avatar
         if (totalDamage < 0)
             totalDamage = 0;
         
-        target.hitPoints -= totalDamage;
+        //target.hitPoints -= totalDamage;
+        ReduceHitPoints(target, totalDamage);
         Debug.Log(totalDamage + " damage to " + target.className);
     }
 

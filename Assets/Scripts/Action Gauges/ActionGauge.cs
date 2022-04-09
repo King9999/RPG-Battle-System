@@ -40,9 +40,10 @@ public class ActionGauge : MonoBehaviour
     float pipSize;
     float totalGaugeWidth;
     float currentGaugeValue;
-    int currentIndex;
+    [HideInInspector]public int currentIndex;
     float currentSize;
-    short actionTokenDirection;     //value is either 1 or -1              
+    short actionTokenDirection;     //value is either 1 or -1
+    public bool buttonPressed;              
 
     // Start is called before the first frame update
     void Start()
@@ -59,15 +60,16 @@ public class ActionGauge : MonoBehaviour
         //Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
         //actionToken.transform.position = actionTokenPos;
         //actionTokenDirection = 1;   //moves from left to right by default
-
+        ResetActionToken();
     }
 
     // Update is called once per frame
     void Update()
     {
         //update the token by moving it along the gauge
-        //if it reaches the end of the gauge, the token's direction is reversed   
-        currentSize += Time.deltaTime * actionToken.moveSpeed;
+        //if it reaches the end of the gauge, the token's direction is reversed
+        if (actionToken.TokenIsMoving())   
+            currentSize += Time.deltaTime * actionToken.TokenSpeed();
        
         //Debug.Log("Index: " + currentIndex);
 
@@ -165,14 +167,24 @@ public class ActionGauge : MonoBehaviour
         }
 
         //add action token. It's placed at the left edge of the first pip.
-        Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
-        actionToken.transform.position = actionTokenPos;
-        actionTokenDirection = 1;   //moves from left to right by default
+        //Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        //actionToken.transform.position = actionTokenPos;
+        //actionTokenDirection = 1;   //moves from left to right by default
+        ResetActionToken();
 
     }
 
+    public void ResetActionToken()
+    {
+        Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        actionToken.transform.position = actionTokenPos;
+        currentSize = 0;
+        currentIndex = 0;
+        actionTokenDirection = 1;   //moves from left to right by default
+    }
+
     //Stop the action token and perform an action based on where it lands.
-    public void StopActionToken(InputAction.CallbackContext context)
+    /*public void StopActionToken(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
@@ -203,5 +215,5 @@ public class ActionGauge : MonoBehaviour
                     break;
             }
         }
-    }
+    }*/
 }

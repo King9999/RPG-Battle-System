@@ -30,20 +30,29 @@ public abstract class Avatar : MonoBehaviour
     }
     public Status status;
 
-    public void RestoreHitPoints(float amount)
+    public void RestoreHitPoints(Avatar target, float amount)
     {
-        hitPoints += amount;
-        if (hitPoints > maxHitPoints)
+        target.hitPoints += amount;
+        if (target.hitPoints > target.maxHitPoints)
         {
-            hitPoints = maxHitPoints;
+            target.hitPoints = target.maxHitPoints;
         }
     }
 
     /*protected virtual void Update()
     {
-        if (!isTheirTurn)
-            return;
+        if (hitPoints < 0)
+            hitPoints = 0;
     }*/
+
+    public void ReduceHitPoints(Avatar target, float amount)
+    {
+        target.hitPoints -= amount;
+        if (target.hitPoints < 0)
+        {
+            target.hitPoints = 0;
+        }
+    }
 
     public bool TheirTurn() { return isTheirTurn; }
     public bool TurnTaken() {return turnTaken;}

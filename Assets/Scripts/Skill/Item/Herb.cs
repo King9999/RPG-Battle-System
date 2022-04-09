@@ -6,10 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Item Skill/Herb", fileName = "skill_herb")]
 public class Herb : Skill
 {
-    public override void Activate(Avatar target, Color borderColor)
+    public override void Activate(Avatar user, Avatar target, Color borderColor)
     {
         base.Activate(target, borderColor);
         float healAmount = Mathf.Round(target.maxHitPoints * 0.3f);
-        target.RestoreHitPoints(healAmount);
+        user.RestoreHitPoints(target, healAmount);
     }
 }
