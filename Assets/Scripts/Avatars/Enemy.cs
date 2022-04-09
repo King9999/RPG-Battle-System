@@ -52,9 +52,6 @@ public abstract class Enemy : Avatar
             Debug.Log(className + " is defeated");
             SendToGraveyard();
         }
-
-        if (hitPoints < 0)
-            hitPoints = 0;
     }
 
     public override void Attack(Avatar target)
@@ -121,5 +118,33 @@ public abstract class Enemy : Avatar
 
         gameObject.SetActive(false);
     }
+
+    public override void TakeAction()
+    {
+        base.TakeAction();
+        //check status and peform action based on result
+        switch(status)
+        {
+            case Status.Normal:
+                //call method to execute enemy logic
+                ExecuteLogic();
+                break;
+
+            case Status.Paralyzed:
+                TryRemoveAilment();
+                PassTurn();
+                break;
+
+            case Status.Charmed:
+                //attack a random ally
+                Debug.Log(className + " is charmed!");
+                int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                Attack(cs.enemiesInCombat[randTarget]);
+                PassTurn();
+                break;
+        }
+    }
+
+    public virtual void ExecuteLogic() { PassTurn(); }
     
 }

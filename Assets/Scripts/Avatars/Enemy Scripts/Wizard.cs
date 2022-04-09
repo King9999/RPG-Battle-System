@@ -11,7 +11,7 @@ public class Wizard : Enemy
     protected override void Start()
     {
         base.Start();
-        skillProb = 0.5f;       //chance that wizard casts heal
+        skillProb = 0.35f;       //chance that wizard casts heal
         
     }
 
@@ -47,9 +47,9 @@ public class Wizard : Enemy
         }
     }*/
 
-    public override void TakeAction()
+    public override void ExecuteLogic()
     {
-        base.TakeAction();
+        //base.ExecuteLogic();
 
         //if Wizard has no mana left, then attack.
         if (manaPoints >= skills[healSkill].manaCost || manaPoints >= skills[fireballSkill].manaCost)
@@ -97,6 +97,7 @@ public class Wizard : Enemy
         }
 
         //end turn
-        PassTurn();
+        base.ExecuteLogic();
+        //PassTurn();
     }
 }

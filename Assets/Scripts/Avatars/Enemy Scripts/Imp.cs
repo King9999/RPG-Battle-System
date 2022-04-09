@@ -58,9 +58,9 @@ public class Imp : Enemy
        }
     }*/
 
-    public override void TakeAction()
+    public override void ExecuteLogic()
     {
-        base.TakeAction();
+        //base.ExecuteLogic();
         if (averageLevel >= 5)
         {
             //skill activation check
@@ -82,7 +82,8 @@ public class Imp : Enemy
             Attack(cs.heroesInCombat[0]);
         }
 
-        PassTurn();
+        base.ExecuteLogic();
+        //PassTurn();
     }
 
     public override void ResetData()

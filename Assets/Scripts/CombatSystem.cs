@@ -139,7 +139,16 @@ public class CombatSystem : MonoBehaviour
             {
                 //turnOrder[currentTurn].SetTurn(turnState: true);
                 Debug.Log(turnOrder[currentTurn].className + "'s turn");
-                turnOrder[currentTurn].TakeAction();
+                /*if (turnOrder[currentTurn].status == Avatar.Status.Paralyzed)
+                {
+                    //turn is skipped
+                    turnOrder[currentTurn].PassTurn();
+
+                    //roll to see if paralysis stops
+                    turnOrder[currentTurn].TryRemoveAilment();
+                }
+                else*/
+                    turnOrder[currentTurn].TakeAction();
                 //turnInProgress = true;
             }
             else   //if turn has ended, put avatar to end of list

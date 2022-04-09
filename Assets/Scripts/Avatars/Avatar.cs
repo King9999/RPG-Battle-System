@@ -16,7 +16,8 @@ public abstract class Avatar : MonoBehaviour
     public float dfp;           //defense power
     public float spd;           //speed
     public float mag;           //magic power
-    public float res;           //resistance
+    public float res;           //resistance against magic and ailments
+    float ailmentCureChance = 0.05f;        //base value for curing certain ailments naturally
     protected bool isTheirTurn; //if true, avatar can perform actions.
     protected bool turnTaken;
     public TextMeshProUGUI statsUI;                        //displays HP and MP underneath sprite
@@ -87,6 +88,22 @@ public abstract class Avatar : MonoBehaviour
     public void UpdateStatsUI()
     {
         statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + maxHitPoints + "\n" + "<color=#4be4fc>MP</color> " + manaPoints + "/" + maxManaPoints;
+    }
+
+    //chance to remove an ailment naturally. Only works against paralysis, blind, and charm
+    public void TryRemoveAilment()
+    {
+        if(status == Status.Poisoned || status == Status.Dead || status == Status.Normal)
+            return;
+        
+        float roll = Random.Range(0, 1f);
+
+        //every 10 points of res adds 1% to cure chance
+        float totalCureChance = ailmentCureChance + (res / 1000);
+        if (roll <= totalCureChance)
+        {
+            status = Status.Normal;
+        }
     }
     
     
