@@ -13,6 +13,7 @@ public class Imp : Enemy
     {
         base.Start();
         skillProb = 0.4f;
+        //status = Status.Blind;
         //cs = CombatSystem.instance;
 
         //Get the average level of the heroes. Run away skill is enabled once average level crosses a threshold

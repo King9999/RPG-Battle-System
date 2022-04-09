@@ -180,6 +180,65 @@ public class ActionGauge : MonoBehaviour
         actionTokenDirection = 1;   //moves from left to right by default
     }
 
+    //change all values in a gauge to another value
+    public void ChangeActionValue(ActionValue valueToChange, ActionValue newValue)
+    {
+        for (int i = 0; i < actionValues.Length; i++)
+        {
+            if (actionValues[i] == valueToChange)
+            {
+                actionValues[i] = newValue;
+
+                //update the gauge
+                switch(actionValues[i])
+                {
+                    case ActionValue.Normal:
+                        pips[i].sprite = normalMeter.sprite;
+                        break;
+                    case ActionValue.Reduced:
+                        pips[i].sprite = reducedMeter.sprite;
+                        break;
+                    case ActionValue.Miss:
+                        pips[i].sprite = missMeter.sprite;
+                        break;
+                    case ActionValue.Critical:
+                        pips[i].sprite = critMeter.sprite;
+                        break;
+                    case ActionValue.Special:
+                        pips[i].sprite = specialMeter.sprite;
+                        break;
+                }
+            }      
+        }
+    }
+
+    //change a single value in the gauge
+    public void ChangeActionValue(ActionValue newValue, int index)
+    {
+        if (index < 0 || index >= actionValues.Length)
+            return;
+        
+        actionValues[index] = newValue;
+        switch(actionValues[index])
+        {
+            case ActionValue.Normal:
+                pips[index].sprite = normalMeter.sprite;
+                break;
+            case ActionValue.Reduced:
+                pips[index].sprite = reducedMeter.sprite;
+                break;
+            case ActionValue.Miss:
+                pips[index].sprite = missMeter.sprite;
+                break;
+            case ActionValue.Critical:
+                pips[index].sprite = critMeter.sprite;
+                break;
+            case ActionValue.Special:
+                pips[index].sprite = specialMeter.sprite;
+                break;
+        }
+    }
+
     //Stop the action token and perform an action based on where it lands.
     /*public void StopActionToken(InputAction.CallbackContext context)
     {

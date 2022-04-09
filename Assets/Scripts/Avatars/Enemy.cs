@@ -6,11 +6,12 @@ public abstract class Enemy : Avatar
     public EnemyData data;
     public int xp;
     public int money;
-    protected float skillProb;      //odds that the enemy will do certain attacks.
+    protected float skillProb;          //odds that the enemy will do certain attacks.
     public Item commonItemDrop;
     public Item rareItemDrop;
     public float commonItemDropChance;
     public float rareItemDropChance;
+    float blindHitChance = 0.2f;        //unique to enemies only.
 
     //protected CombatSystem cs;
     protected EnemyManager em;
@@ -68,6 +69,17 @@ public abstract class Enemy : Avatar
         else
         {
             totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+        }
+
+        //if enemy is blind, high chance they do 0 damage
+        if (status == Status.Blind)
+        {
+            Debug.Log(className + " is blind!");
+            roll = Random.Range(0, 1f);
+            if (roll > blindHitChance)
+            {
+                totalDamage = 0;
+            }
         }
         
         if (totalDamage < 0)
@@ -133,6 +145,11 @@ public abstract class Enemy : Avatar
             case Status.Paralyzed:
                 TryRemoveAilment();
                 PassTurn();
+                break;
+
+            case Status.Blind:
+                TryRemoveAilment();
+                ExecuteLogic();
                 break;
 
             case Status.Charmed:

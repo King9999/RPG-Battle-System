@@ -79,7 +79,8 @@ public class Hero : Avatar
         //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
         cs = CombatSystem.instance;
         hm = HeroManager.instance;
-        cim = CombatInputManager.instance; 
+        cim = CombatInputManager.instance;
+        //status = Status.Blind; 
     }
 
     public void GetData(HeroData data)
@@ -189,6 +190,11 @@ public class Hero : Avatar
                 PassTurn();
                 break;
 
+            case Status.Blind:
+                TryRemoveAilment();
+                //player chooses action
+                break;
+
             case Status.Charmed:
                 //attack a random ally
                 Debug.Log(className + " is charmed!");
@@ -211,6 +217,11 @@ public class Hero : Avatar
             cs.actGauge.ResetActionToken();
 
             //TODO: add code for when player is blind. all normal and critical pips become miss pips
+            if (status == Status.Blind)
+            {
+                cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
+                cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
+            }
 
             totalAttackTokens = weapon.tokenCount + attackTokenMod;
             currentActions = 0;

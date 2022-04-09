@@ -15,7 +15,7 @@ MonoBehaviour:
   className: Wizard
   details: Can cast magic
   maxHitPoints: 305
-  maxManaPoints: 100
+  maxManaPoints: 60
   atp: 20
   dfp: 7
   spd: 11

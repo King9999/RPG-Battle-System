@@ -102,6 +102,7 @@ public abstract class Avatar : MonoBehaviour
         float totalCureChance = ailmentCureChance + (res / 1000);
         if (roll <= totalCureChance)
         {
+            Debug.Log(status + " ailment removed from " + className);
             status = Status.Normal;
         }
     }
