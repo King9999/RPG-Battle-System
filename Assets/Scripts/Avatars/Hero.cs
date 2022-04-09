@@ -151,12 +151,12 @@ public class Hero : Avatar
 
         if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind)
         {
-            if (hitPoints <= 0)
+            /*if (hitPoints <= 0)
             {
                 status = Status.Dead;
                 //TODO: put in a sprite that indicates hero is dead.
                 return;
-            }
+            }*/
 
             if (isAttacking && cs.enemiesInCombat.Count > 0)
             {

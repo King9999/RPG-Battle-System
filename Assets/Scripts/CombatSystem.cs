@@ -8,7 +8,8 @@ public class CombatSystem : MonoBehaviour
 {
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
-    public List<Item> loot;
+    //public List<Item> loot;
+    public Dictionary<Item, int> loot;
     public int xpPool;                      //total amount of XP from defeated enemies
     public int moneyPool;
 
@@ -54,6 +55,7 @@ public class CombatSystem : MonoBehaviour
         //actGauge = null;
         actGauge.transform.position = actGaugeLocation.position;
 
+        loot = new Dictionary<Item, int>();
 
         //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
         heroesInCombat.Add(hm.heroes[0]);
@@ -137,18 +139,8 @@ public class CombatSystem : MonoBehaviour
         {
             if (!turnOrder[currentTurn].TurnTaken())
             {
-                //turnOrder[currentTurn].SetTurn(turnState: true);
                 Debug.Log(turnOrder[currentTurn].className + "'s turn");
-                /*if (turnOrder[currentTurn].status == Avatar.Status.Paralyzed)
-                {
-                    //turn is skipped
-                    turnOrder[currentTurn].PassTurn();
-
-                    //roll to see if paralysis stops
-                    turnOrder[currentTurn].TryRemoveAilment();
-                }
-                else*/
-                    turnOrder[currentTurn].TakeAction();
+                turnOrder[currentTurn].TakeAction();
                 //turnInProgress = true;
             }
             else   //if turn has ended, put avatar to end of list
@@ -170,19 +162,7 @@ public class CombatSystem : MonoBehaviour
                 }
             }
         }
-
-        //if it's a hero's turn, display their weapon's action gauge
-
-       
-        //combat system runs until either all enemies are defeated or the heroes are wiped out. In the unlikely scenario that both enemies
-        //and heroes are defeated, game is over.
-        while (combatEnabled)
-        {
-
-        }
-
-        //if we get here, combat ended. Check which side won
-
+      
     }
 
     public void RollForLoot(Enemy enemy)
@@ -196,11 +176,27 @@ public class CombatSystem : MonoBehaviour
         if (enemy.rareItemDrop != null && roll <= enemy.rareItemDropChance)
         {
             //award rare item to player
-            loot.Add(enemy.rareItemDrop);
+            if (loot.ContainsKey(enemy.rareItemDrop))
+            {
+                loot[enemy.rareItemDrop] += 1;
+            }
+            else
+            {
+                loot.Add(enemy.rareItemDrop, 1);
+            }
+            //loot.Add(enemy.rareItemDrop, 1);
         }
         else if (enemy.commonItemDrop != null && roll <= enemy.commonItemDropChance)
         {
-            loot.Add(enemy.commonItemDrop);
+            if (loot.ContainsKey(enemy.commonItemDrop))
+            {
+                loot[enemy.commonItemDrop] += 1;
+            }
+            else
+            {
+                loot.Add(enemy.commonItemDrop, 1);
+            }
+            //loot.Add(enemy.commonItemDrop, 1);
         }
         
     }
@@ -211,9 +207,9 @@ public class CombatSystem : MonoBehaviour
         Debug.Log("Battle over!");
 
         Debug.Log((xpPool / heroesInCombat.Count) + " XP awarded\n" + moneyPool + " money awarded");
-        foreach(Item item in loot)
+        foreach(KeyValuePair<Item,int> item in loot)
         {
-            Debug.Log("Obtained " + item.itemName);
+            Debug.Log("Obtained " + item.Key.itemName + " x" + item.Value);
             //TODO: add this item to player inventory once that's set up
         }
 
