@@ -8,6 +8,8 @@ public class UI : MonoBehaviour
     public List<TextMeshProUGUI> heroStats;     //displays name, hp and mp
     public List<TextMeshProUGUI> enemyStats;    //displays name and hp
     public TextMeshProUGUI damageDisplay;
+    //public TMP_Text damageDisplayComponent;
+    [SerializeField]TextMeshProUGUI[] damageDigits;
     [HideInInspector]public Color healColor;
     [HideInInspector]public Color damageColor;
     [HideInInspector]public Color reducedDamageColor;
@@ -21,6 +23,7 @@ public class UI : MonoBehaviour
 
     //coroutine checks
     [HideInInspector]public bool animateDamageCoroutineOn;
+    IEnumerator animateDamage;
 
    private void Awake()
    {
@@ -56,26 +59,88 @@ public class UI : MonoBehaviour
     public void DisplayDamage(string value, Vector3 location, Color textColor)
     {
         damageDisplay.color = textColor;
-        StartCoroutine(AnimateDamage(value, location));
+        animateDamage = AnimateDamage(value, location);
+        //damageDisplay.gameObject.SetActive(false);
+        StopCoroutine(animateDamage);
+        StartCoroutine(animateDamage);
     }
     public void DisplayDamage(string value, Vector3 location)
     {
         damageDisplay.color = Color.white;  //default color
-        StartCoroutine(AnimateDamage(value, location));
+        animateDamage = AnimateDamage(value, location);
+        //damageDisplay.gameObject.SetActive(false);
+        StopCoroutine(animateDamage);
+        StartCoroutine(animateDamage);
     }
     private IEnumerator AnimateDamage(string value, Vector3 location)
     {
-        float currentTime;
-        float displayDuration = 1;
-        animateDamageCoroutineOn = true;
+        float displayDuration = 0.5f;
+        //animateDamageCoroutineOn = true;
         damageDisplay.gameObject.SetActive(true);
         damageDisplay.transform.position = location;
         damageDisplay.text = value;
+        //damageDisplay.ForceMeshUpdate();            //this line is important! It ensures all relevant data is populated.
 
-        currentTime = Time.time;
+        //each digit is animated individually
+        //TMP_CharacterInfo[] digits = new TMP_CharacterInfo[value.Length];
+        Debug.Log("Length " + damageDisplay.text.Length);
+        Vector3 initPos = damageDisplay.transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 10, initPos.z);
+
+        while(damageDisplay.transform.position.y < destination.y)
+        {
+            Vector3 newPos = damageDisplay.transform.position;
+            float vy = 30 * Time.deltaTime;
+            damageDisplay.transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
+
+        damageDisplay.transform.position = destination;
+        //TODO: Animate digits individually! Need to modify the code below
+        /*for (int i = 0; i < value.Length; i++)
+        {
+            
+           digits[i] = damageDisplay.textInfo.characterInfo[i];    //getting each character in the string\
+            Debug.Log("Contained char " + digits[i].character);
+
+            //vertices of each character. These will be manipulated to animate each individual character
+            Vector3[] digitVertices = damageDisplay.textInfo.meshInfo[digits[i].materialReferenceIndex].vertices;
+
+            Debug.Log("character " + digits[i].character);
+            //change position of digit by manipulating each vertex in the digit
+            for (int j = 0; j < 4; j++)
+            {
+                Vector3 initVertexPos = digitVertices[digits[i].vertexIndex + j];
+                Vector3 destination = new Vector3(initVertexPos.x, initVertexPos.y + 2, initVertexPos.z);
+
+                while(digitVertices[digits[i].vertexIndex + j].y < destination.y)
+                {
+                    Vector3 newPos = digitVertices[digits[i].vertexIndex + j];
+                    float vy = 5 * Time.deltaTime;
+                    digitVertices[digits[i].vertexIndex + j] = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+                    yield return null; 
+      
+                }
+
+                /*TMP_MeshInfo meshInfo = damageDisplay.textInfo.meshInfo[i];
+                    meshInfo.mesh.vertices = meshInfo.vertices;
+                    damageDisplay.UpdateGeometry(meshInfo.mesh, i);
+               
+               digitVertices[digits[i].vertexIndex + j] = destination;
+            }
+            
+        }*/
+
+         //update mesh vertices
+        /*for (int i = 0; i < damageDisplay.textInfo.meshInfo.Length; i++)
+        {
+            TMP_MeshInfo meshInfo = damageDisplay.textInfo.meshInfo[i];
+            meshInfo.mesh.vertices = meshInfo.vertices;
+            damageDisplay.UpdateGeometry(meshInfo.mesh, i);
+        }*/
+
         
         yield return new WaitForSeconds(displayDuration);
-
         damageDisplay.gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
     }
