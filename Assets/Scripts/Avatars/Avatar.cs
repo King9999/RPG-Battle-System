@@ -20,7 +20,11 @@ public abstract class Avatar : MonoBehaviour
     float ailmentCureChance = 0.05f;        //base value for curing certain ailments naturally
     protected bool isTheirTurn; //if true, avatar can perform actions.
     protected bool turnTaken;
+    protected float invokeTime = 1.5f;          //used to call PassTurn method after elapsed time
     public TextMeshProUGUI statsUI;                        //displays HP and MP underneath sprite
+
+    //coroutine check
+    protected bool animateAttackCoroutineOn;
    
     protected CombatSystem cs;
 
@@ -103,9 +107,15 @@ public abstract class Avatar : MonoBehaviour
         if (roll <= totalCureChance)
         {
             Debug.Log(status + " ailment removed from " + className);
+
+            //show an effect that ailment is removed
             status = Status.Normal;
         }
     }
+
+    #region Coroutines
+    protected virtual IEnumerator AnimateAttack() {yield return null;}
+    #endregion
     
     
 }

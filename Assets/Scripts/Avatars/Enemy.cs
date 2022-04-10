@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 //enemies are NPCs. Heroes must defeat them. Their actions are randomized based on their skill set and battle conditions.
 public abstract class Enemy : Avatar
@@ -85,7 +86,9 @@ public abstract class Enemy : Avatar
         if (totalDamage < 0)
             totalDamage = 0;
         
-        //target.hitPoints -= totalDamage;
+        if (!animateAttackCoroutineOn)
+            StartCoroutine(AnimateAttack());
+            
         ReduceHitPoints(target, totalDamage);
         Debug.Log(totalDamage + " damage to " + target.className);
     }
@@ -144,7 +147,7 @@ public abstract class Enemy : Avatar
 
             case Status.Paralyzed:
                 TryRemoveAilment();
-                PassTurn();
+                Invoke("PassTurn", invokeTime);
                 break;
 
             case Status.Blind:
@@ -157,11 +160,37 @@ public abstract class Enemy : Avatar
                 Debug.Log(className + " is charmed!");
                 int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
                 Attack(cs.enemiesInCombat[randTarget]);
-                PassTurn();
+                Invoke("PassTurn", invokeTime);
                 break;
         }
     }
 
-    public virtual void ExecuteLogic() { PassTurn(); }
+    public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }
+
+    protected override IEnumerator AnimateAttack()
+    {
+        animateAttackCoroutineOn = true;
+        Vector3 initPos = transform.position;
+        Vector3 destination = new Vector3(initPos.x - 2, initPos.y, initPos.z);
+
+        while(transform.position.x > destination.x)
+        {
+            float vx = 30 * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x - vx, transform.position.y, transform.position.z);
+            yield return null;
+        }
+
+        //return
+        while(transform.position.x < initPos.x)
+        {
+            float vx = 30 * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x + vx, transform.position.y, transform.position.z);
+            yield return null;
+        }
+
+        //resturn to init position
+        transform.position = initPos;
+        animateAttackCoroutineOn = false;
+    }
     
 }

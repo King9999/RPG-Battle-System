@@ -187,7 +187,7 @@ public class Hero : Avatar
             
             case Status.Paralyzed:
                 TryRemoveAilment();
-                PassTurn();
+                Invoke("PassTurn", invokeTime);
                 break;
 
             case Status.Blind:
@@ -199,8 +199,8 @@ public class Hero : Avatar
                 //attack a random ally
                 Debug.Log(className + " is charmed!");
                 int randTarget = Random.Range(0, cs.heroesInCombat.Count);
-                Attack(cs.enemiesInCombat[randTarget]);
-                PassTurn();
+                Attack(cs.heroesInCombat[randTarget]);
+                Invoke("PassTurn", invokeTime);
                 break;
         }
 
@@ -208,100 +208,153 @@ public class Hero : Avatar
         
     }
 
+   
     public override void Attack(Avatar target /*ActionGauge.ActionValue actValue*/)
     {
-        if (!cs.actGauge.gameObject.activeSelf)
+        if (status != Status.Charmed)
         {
-            cs.actGauge.gameObject.SetActive(true);
-            cs.actGauge.UpdateGaugeData(weapon.actGauge);
-            cs.actGauge.ResetActionToken();
-
-            //TODO: add code for when player is blind. all normal and critical pips become miss pips
-            if (status == Status.Blind)
+            if (!cs.actGauge.gameObject.activeSelf)
             {
-                cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
-                cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
-            }
+                cs.actGauge.gameObject.SetActive(true);
+                cs.actGauge.UpdateGaugeData(weapon.actGauge);
+                cs.actGauge.ResetActionToken();
 
-            totalAttackTokens = weapon.tokenCount + attackTokenMod;
-            currentActions = 0;
-        }
-
-        if (currentActions < totalAttackTokens)
-        {
-            isAttacking = true;
-            //wait for button press to attack. Do this until no more tokens available
-            if (cim.buttonPressed)
-            {
-                float totalDamage = 0;
-                //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-                switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                //TODO: add code for when player is blind. all normal and critical pips become miss pips
+                if (status == Status.Blind)
                 {
-                    case ActionGauge.ActionValue.Normal:
-                        //deal damage to enemy
-                        totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
-                        break;
-
-                    case ActionGauge.ActionValue.Reduced:
-                        //deal half damage to enemy
-                        totalDamage = (atp / 2) + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
-                        break;
-
-                    case ActionGauge.ActionValue.Miss:
-                        //nothing happens
-                        break;
-
-                    case ActionGauge.ActionValue.Critical:
-                        //deal increased damage to enemy. Enemy DFP is ignored
-                        //if landed on a shield, deal shield damage
-                        totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
-                        break;
-
-                    case ActionGauge.ActionValue.Special:
-                        //activate weapon skill
-                        //weapon.weaponSkill.Activate();
-                        break;
+                    cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
+                    cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
                 }
 
-                //deal final damage to enemy
-                Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
-                ReduceHitPoints(target, totalDamage);
-
-                //attack token resets and speeds up by 20%
-                cs.actGauge.ResetActionToken();
-                float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
-                cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
-                currentActions++;
-                cim.buttonPressed = false;   
+                totalAttackTokens = weapon.tokenCount + attackTokenMod;
+                currentActions = 0;
             }
-                
+
+            if (currentActions < totalAttackTokens)
+            {
+                isAttacking = true;
+                //wait for button press to attack. Do this until no more tokens available
+                if (cim.buttonPressed)
+                {
+                    float totalDamage = 0;
+                    //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                    switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                    {
+                        case ActionGauge.ActionValue.Normal:
+                            //deal damage to enemy
+                            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                            break;
+
+                        case ActionGauge.ActionValue.Reduced:
+                            //deal half damage to enemy
+                            totalDamage = (atp / 2) + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                            break;
+
+                        case ActionGauge.ActionValue.Miss:
+                            //nothing happens
+                            break;
+
+                        case ActionGauge.ActionValue.Critical:
+                            //deal increased damage to enemy. Enemy DFP is ignored
+                            //if landed on a shield, deal shield damage
+                            totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+                            break;
+
+                        case ActionGauge.ActionValue.Special:
+                            //activate weapon skill
+                            //weapon.weaponSkill.Activate();
+                            break;
+                    }
+
+                    if (!animateAttackCoroutineOn)
+                        StartCoroutine(AnimateAttack());
+
+                    //deal final damage to enemy
+                    Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
+                    ReduceHitPoints(target, totalDamage);
+
+                    //attack token resets and speeds up by 20%
+                    cs.actGauge.ResetActionToken();
+                    float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
+                    cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
+                    currentActions++;
+                    cim.buttonPressed = false;   
+                }
+                    
+            }
+            else
+            {
+                isAttacking = false;
+                cs.actGauge.actionToken.SetSpeedToDefault();
+                cs.actGauge.gameObject.SetActive(false);
+                Invoke("PassTurn", invokeTime);
+            }
         }
-        else
+        else    //player is charmed, do a regular attack with a chance of crit
         {
-            isAttacking = false;
-            cs.actGauge.actionToken.SetSpeedToDefault();
-            cs.actGauge.gameObject.SetActive(false);
-            PassTurn();
+            //5% chance to inflict a critical. Criticals ignore defense
+            float totalDamage;
+            float critChance = 0.05f;
+            float roll = Random.Range(0, 1f);
+
+            if (roll <= critChance)
+            {
+                totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+            }
+            else
+            {
+                totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+            }
+
+            //if player is blind, high chance they do 0 damage
+            if (status == Status.Blind)
+            {
+                float blindHitChance = 0.2f;
+                Debug.Log(className + " is blind!");
+                roll = Random.Range(0, 1f);
+                if (roll > blindHitChance)
+                {
+                    totalDamage = 0;
+                }
+            }
+            
+            if (totalDamage < 0)
+                totalDamage = 0;
+            
+            if (!animateAttackCoroutineOn)
+               StartCoroutine(AnimateAttack());
+
+            ReduceHitPoints(target, totalDamage);
+            Debug.Log(totalDamage + " damage to " + target.className);
         }
 
-        //check what the action token landed on
-        /*float totalDamage;
-        float critChance = 0.05f;
-        float roll = Random.Range(0, 1f);
-
-        if (roll <= critChance)
-        {
-            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f));
-        }
-        else
-        {
-            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
-        }
-        
-        if (totalDamage < 0)
-            totalDamage = 0;
-        
-        target.hitPoints -= totalDamage;
-        Debug.Log(totalDamage + " damage to " + target.className);*/
     }
+
+    //static hero sprite dashes forward and back
+    protected override IEnumerator AnimateAttack()
+    {
+        animateAttackCoroutineOn = true;
+        Vector3 initPos = transform.position;
+        Vector3 destination = new Vector3(initPos.x + 2, initPos.y, initPos.z);
+
+        while(transform.position.x < destination.x)
+        {
+            float vx = 30 * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x + vx, transform.position.y, transform.position.z);
+            yield return null;
+        }
+
+        //return
+        while(transform.position.x > initPos.x)
+        {
+            float vx = 30 * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x - vx, transform.position.y, transform.position.z);
+            yield return null;
+        }
+
+        //resturn to init position
+        transform.position = initPos;
+        animateAttackCoroutineOn = false;
+    }
+
 }
