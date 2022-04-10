@@ -42,6 +42,13 @@ public abstract class Avatar : MonoBehaviour
         {
             target.hitPoints = target.maxHitPoints;
         }
+
+        //show healed amount
+        UI ui = UI.instance;
+        Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        ui.damageDisplay.color = ui.healColor;
+        ui.DisplayDamage(amount.ToString(), targetPos, ui.damageDisplay.color);
+
         target.UpdateStatsUI();
     }
 
@@ -58,6 +65,11 @@ public abstract class Avatar : MonoBehaviour
         {
             target.hitPoints = 0;
         }
+
+        //show damage
+        UI ui = UI.instance;
+        Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        ui.DisplayDamage(amount.ToString(), targetPos, ui.damageDisplay.color);
 
         target.UpdateStatsUI();
     }

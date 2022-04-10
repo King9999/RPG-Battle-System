@@ -211,6 +211,7 @@ public class Hero : Avatar
    
     public override void Attack(Avatar target /*ActionGauge.ActionValue actValue*/)
     {
+        UI ui = UI.instance;
         if (status != Status.Charmed)
         {
             if (!cs.actGauge.gameObject.activeSelf)
@@ -243,21 +244,25 @@ public class Hero : Avatar
                         case ActionGauge.ActionValue.Normal:
                             //deal damage to enemy
                             totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                            ui.damageDisplay.color = ui.damageColor;
                             break;
 
                         case ActionGauge.ActionValue.Reduced:
                             //deal half damage to enemy
                             totalDamage = (atp / 2) + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                            ui.damageDisplay.color = ui.reducedDamageColor;
                             break;
 
                         case ActionGauge.ActionValue.Miss:
                             //nothing happens
+                            ui.damageDisplay.color = ui.damageColor;
                             break;
 
                         case ActionGauge.ActionValue.Critical:
                             //deal increased damage to enemy. Enemy DFP is ignored
                             //if landed on a shield, deal shield damage
                             totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+                            ui.damageDisplay.color = ui.criticalDamageColor;
                             break;
 
                         case ActionGauge.ActionValue.Special:
@@ -272,6 +277,10 @@ public class Hero : Avatar
                     //deal final damage to enemy
                     Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
                     ReduceHitPoints(target, totalDamage);
+
+                    //show damage
+                    //Vector3 enemyPos = Camera.main.WorldToScreenPoint(target.transform.position);
+                    //ui.DisplayDamage(totalDamage.ToString(), enemyPos, ui.damageDisplay.color);
 
                     //attack token resets and speeds up by 20%
                     cs.actGauge.ResetActionToken();
@@ -355,6 +364,7 @@ public class Hero : Avatar
         //resturn to init position
         transform.position = initPos;
         animateAttackCoroutineOn = false;
+
     }
 
 }

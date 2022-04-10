@@ -53,23 +53,28 @@ public class UI : MonoBehaviour
             //StartCoroutine(skillDisplay.DisplaySkillName("Test", Color.red));
     }
 
-    public void DisplayDamage(string value, Color textColor)
+    public void DisplayDamage(string value, Vector3 location, Color textColor)
     {
         damageDisplay.color = textColor;
-        StartCoroutine(AnimateDamage(value));
+        StartCoroutine(AnimateDamage(value, location));
     }
-    public void DisplayDamage(string value)
+    public void DisplayDamage(string value, Vector3 location)
     {
         damageDisplay.color = Color.white;  //default color
-        StartCoroutine(AnimateDamage(value));
+        StartCoroutine(AnimateDamage(value, location));
     }
-    private IEnumerator AnimateDamage(string value)
+    private IEnumerator AnimateDamage(string value, Vector3 location)
     {
+        float currentTime;
+        float displayDuration = 1;
         animateDamageCoroutineOn = true;
         damageDisplay.gameObject.SetActive(true);
+        damageDisplay.transform.position = location;
         damageDisplay.text = value;
+
+        currentTime = Time.time;
         
-        yield return null;
+        yield return new WaitForSeconds(displayDuration);
 
         damageDisplay.gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
