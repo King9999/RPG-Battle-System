@@ -5,15 +5,13 @@ using TMPro;
 
 public class UI : MonoBehaviour
 {
-    public List<TextMeshProUGUI> heroStats;     //displays name, hp and mp
-    public List<TextMeshProUGUI> enemyStats;    //displays name and hp
+    //public List<TextMeshProUGUI> heroStats;     //displays name, hp and mp
+    //public List<TextMeshProUGUI> enemyStats;    //displays name and hp
+    public TextMeshProUGUI turnOrderList;
     public TextMeshProUGUI damageDisplay;
     //public TMP_Text damageDisplayComponent;
-    [SerializeField]TextMeshProUGUI[] damageDigits;
-    [HideInInspector]public Color healColor;
-    [HideInInspector]public Color damageColor;
-    [HideInInspector]public Color reducedDamageColor;
-    [HideInInspector]public Color criticalDamageColor;
+    //[SerializeField]TextMeshProUGUI[] damageDigits;
+    [HideInInspector]public Color healColor, damageColor, reducedDamageColor, criticalDamageColor;
     int maxPartySize {get;} = 3;
     int maxEnemyPartySize {get;} = 6;
 
@@ -43,6 +41,7 @@ public class UI : MonoBehaviour
         damageColor = Color.white;
         reducedDamageColor = new Color(0.6f, 0.6f, 0.6f);
         criticalDamageColor = new Color(1, 0.8f, 0.2f);
+        damageDisplay.color = damageColor;
         damageDisplay.gameObject.SetActive(false);
         //heroStats = new TextMeshProUGUI[maxPartySize];
         //enemyStats = new TextMeshProUGUI[maxEnemyPartySize];

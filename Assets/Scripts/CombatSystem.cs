@@ -29,6 +29,7 @@ public class CombatSystem : MonoBehaviour
     HeroManager hm;
     EnemyManager em;
     GameManager gm;
+    UI ui;
     float currentTime;
     float delay;
 
@@ -48,6 +49,7 @@ public class CombatSystem : MonoBehaviour
         hm = HeroManager.instance;
         em = EnemyManager.instance;
         gm = GameManager.instance;
+        ui = UI.instance;
 
         //action gauge setup
         actGauge.gameObject.SetActive(false);
@@ -104,10 +106,9 @@ public class CombatSystem : MonoBehaviour
             enemy.UpdateStatsUI();
         }
 
-        //get turn order.              
+        //get turn order and set up UI.              
         turnOrder = turnOrder.OrderByDescending(x => x.spd).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
-        foreach(Avatar p in turnOrder)
-            Debug.Log(p + "Speed: " + p.spd);
+        UpdateTurnOrderUI();
         currentTurn = 0;
         
     }
@@ -155,14 +156,11 @@ public class CombatSystem : MonoBehaviour
                 turnOrder[turnOrder.Count - 1] = copy;
                 turnOrder[turnOrder.Count - 1].SetTurnTaken(false); //need to do this step or we eventually end up in a loop
 
-                Debug.Log("New turn order");
-                foreach(Avatar a in turnOrder)
-                {
-                    Debug.Log(a.className);
-                }
+                //display new turn order
+                //Debug.Log("New turn order");
+                UpdateTurnOrderUI();
             }
-        }
-      
+        }     
     }
 
     public void RollForLoot(Enemy enemy)
@@ -238,6 +236,17 @@ public class CombatSystem : MonoBehaviour
         
         return totalHitPoints <= 0;
         
+    }
+
+    public void UpdateTurnOrderUI()
+    {
+        ui.turnOrderList.text = "";
+        int rank = 1;
+        foreach(Avatar a in turnOrder)
+        {
+            ui.turnOrderList.text += rank + " " + a.className + "\n";
+            rank++;
+        }
     }
 
     //resets the battle state to default

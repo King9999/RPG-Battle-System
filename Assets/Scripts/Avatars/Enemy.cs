@@ -125,6 +125,7 @@ public abstract class Enemy : Avatar
         em.graveyard.Add(this);
         cs.enemiesInCombat.Remove(this);    //need to make sure the correct enemy is being removed when there are duplicates
         cs.turnOrder.Remove(this);
+        cs.UpdateTurnOrderUI();
 
         //rewards
         cs.xpPool += xp;
