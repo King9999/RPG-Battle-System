@@ -72,6 +72,15 @@ public class UI : MonoBehaviour
         StopCoroutine(animateDamage);
         StartCoroutine(animateDamage);
     }
+
+    public void DisplayHealing(string value, Vector3 location)
+    {
+        damageDisplay.color = healColor;  //default color
+        animateDamage = AnimateHealing(value, location);
+        StopCoroutine(animateDamage);
+        StartCoroutine(animateDamage);
+    }
+
     private IEnumerator AnimateDamage(string value, Vector3 location)
     {
         float displayDuration = 0.5f;
@@ -85,17 +94,18 @@ public class UI : MonoBehaviour
         //TMP_CharacterInfo[] digits = new TMP_CharacterInfo[value.Length];
         Debug.Log("Length " + damageDisplay.text.Length);
         Vector3 initPos = damageDisplay.transform.position;
-        Vector3 destination = new Vector3(initPos.x, initPos.y + 10, initPos.z);
-
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        float gravity = -0.4f;
         while(damageDisplay.transform.position.y < destination.y)
         {
             Vector3 newPos = damageDisplay.transform.position;
-            float vy = 30 * Time.deltaTime;
-            damageDisplay.transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            vy = 400 * Time.deltaTime;
+            damageDisplay.transform.position = new Vector3(newPos.x, newPos.y + vy + gravity, newPos.z);
             yield return null;
         }
 
-        damageDisplay.transform.position = destination;
+        damageDisplay.transform.position = initPos;
         //TODO: Animate digits individually! Need to modify the code below
         /*for (int i = 0; i < value.Length; i++)
         {
@@ -141,6 +151,34 @@ public class UI : MonoBehaviour
 
         
         yield return new WaitForSeconds(displayDuration);
+        damageDisplay.gameObject.SetActive(false);
+        animateDamageCoroutineOn = false;
+    }
+
+    private IEnumerator AnimateHealing(string value, Vector3 location)
+    {
+        float displayDuration = 0.5f;
+        damageDisplay.gameObject.SetActive(true);
+        damageDisplay.transform.position = location;
+        damageDisplay.text = value;
+
+        //each digit is animated individually
+        Debug.Log("Length " + damageDisplay.text.Length);
+        Vector3 initPos = damageDisplay.transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        while(damageDisplay.transform.position.y < destination.y)
+        {
+            Vector3 newPos = damageDisplay.transform.position;
+            vy = 50 * Time.deltaTime;
+            damageDisplay.transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
+
+        damageDisplay.transform.position = destination;
+        
+        yield return new WaitForSeconds(displayDuration);
+        damageDisplay.color = damageColor;        //reset back to defaul
         damageDisplay.gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
     }

@@ -37,11 +37,11 @@ public class SkillDisplay : MonoBehaviour
 
     public void ExecuteSkillDisplay(string name, Color borderColor)
     {
-        if (!displaySkillCoroutineOn)
-        {
+        //if (!displaySkillCoroutineOn)
+        //{
             gameObject.SetActive(true); //must enable the game object before coroutine can run
             StartCoroutine(DisplaySkillName(name, borderColor));
-        }
+        //}
     }
 
 }

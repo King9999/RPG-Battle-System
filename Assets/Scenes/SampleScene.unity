@@ -732,5 +732,13 @@ PrefabInstance:
       propertyPath: damageDisplay
       value: 
       objectReference: {fileID: 1822132421}
+    - target: {fileID: 6144532497329781323, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: damageDisplayComponent
+      value: 
+      objectReference: {fileID: 1822132421}
+    - target: {fileID: 6144532497329781323, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: damageDigits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}

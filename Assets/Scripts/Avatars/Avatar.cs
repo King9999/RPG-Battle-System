@@ -46,8 +46,8 @@ public abstract class Avatar : MonoBehaviour
         //show healed amount
         UI ui = UI.instance;
         Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        ui.damageDisplay.color = ui.healColor;
-        ui.DisplayDamage(amount.ToString(), targetPos, ui.damageDisplay.color);
+        ui.DisplayHealing(amount.ToString(), targetPos);
+        //ui.damageDisplay.color = ui.damageColor;    //change back in case next attack is damage
 
         target.UpdateStatsUI();
     }
