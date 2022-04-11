@@ -24,13 +24,17 @@ public class Hero : Avatar
     public bool isAttacking;
     public int currentActions;
 
+    //coroutines
+    bool highlightAvatarCoroutineOn;
+
     //singletons
     protected HeroManager hm;
     CombatInputManager cim;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         /*currentLevel = 3;
         //pull information from a scriptable object
         statFile = data.statFile;
@@ -135,6 +139,11 @@ public class Hero : Avatar
     // Update is called once per frame
     void Update()
     {
+        if (isTheirTurn)
+        {
+            if (!highlightAvatarCoroutineOn)
+                StartCoroutine(HighlightAvatar());
+        }
         //base.Update();
         /*if (isTheirTurn)
         {
@@ -365,6 +374,34 @@ public class Hero : Avatar
         transform.position = initPos;
         animateAttackCoroutineOn = false;
 
+    }
+
+    protected override IEnumerator HighlightAvatar()
+    {
+        highlightAvatarCoroutineOn = true;
+        aura.SetActive(true);
+        Vector3 initScale = aura.transform.localScale;
+        Vector3 destinationScale = new Vector3(initScale.x + 0.2f, initScale.y + 0.2f, initScale.z);
+        //SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
+        //auraSr.flipX = sr.flipX;
+
+        //scale up the aura
+        while(aura.transform.localScale.x < destinationScale.x)
+        {
+            Vector3 newScale = aura.transform.localScale;
+            float vScale = 0.3f * Time.deltaTime;
+            auraSr.color = new Color(auraSr.color.r, auraSr.color.g, auraSr.color.b, auraSr.color.a - 1.3f * Time.deltaTime);
+            aura.transform.localScale = new Vector3(newScale.x + vScale, newScale.y + vScale, newScale.z);
+            yield return null;
+        }
+
+        aura.transform.localScale = initScale;
+        auraSr.color = new Color(auraSr.color.r, auraSr.color.g, auraSr.color.b, 1);
+
+
+        highlightAvatarCoroutineOn = false;
+        aura.SetActive(false);
     }
 
 }

@@ -22,6 +22,8 @@ public abstract class Avatar : MonoBehaviour
     protected bool turnTaken;
     protected float invokeTime = 1.5f;          //used to call PassTurn method after elapsed time
     public TextMeshProUGUI statsUI;                        //displays HP and MP underneath sprite
+    protected GameObject aura;                  //used to highlight sprite
+    public GameObject auraPrefab;
 
     //coroutine check
     protected bool animateAttackCoroutineOn;
@@ -34,6 +36,15 @@ public abstract class Avatar : MonoBehaviour
         Normal, Poisoned, Paralyzed, Blind, Charmed, Dead
     }
     public Status status;
+
+    protected virtual void Start()
+    {
+        //aura setup
+        aura = Instantiate(auraPrefab, transform.position, Quaternion.identity);
+        //SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
+        //auraSr.enabled = false;
+        aura.SetActive(false);
+    }
 
     public void RestoreHitPoints(Avatar target, float amount)
     {
@@ -97,8 +108,20 @@ public abstract class Avatar : MonoBehaviour
     //All enemy logic must go in here
     public virtual void TakeAction()
     {
-        //turnTaken = true;
+        isTheirTurn = true;
         cs.turnInProgress = true;
+
+        //add an outline to show it's the enemy's turn
+        aura.SetActive(true);
+        SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
+        SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
+        auraSr.sprite = sr.sprite;
+        auraSr.transform.position = transform.position;
+        auraSr.flipX = sr.flipX;
+        auraSr.enabled = true;
+
+        //call coroutine to animate the aura. Avatar takes action after this coroutine finishes.
+        
     }
 
     public void UpdateStatsUI()
@@ -127,6 +150,8 @@ public abstract class Avatar : MonoBehaviour
 
     #region Coroutines
     protected virtual IEnumerator AnimateAttack() {yield return null;}
+
+    protected virtual IEnumerator HighlightAvatar(){ yield return null;}
     #endregion
     
     

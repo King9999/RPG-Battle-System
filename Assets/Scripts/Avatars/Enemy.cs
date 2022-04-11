@@ -20,8 +20,9 @@ public abstract class Enemy : Avatar
 
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         className = data.className;
         details = data.details;
         maxHitPoints = data.maxHitPoints;
@@ -138,8 +139,9 @@ public abstract class Enemy : Avatar
     public override void TakeAction()
     {
         base.TakeAction();
+        StartCoroutine(HighlightAvatar()); //once this completes, action is taken
         //check status and peform action based on result
-        switch(status)
+        /*switch(status)
         {
             case Status.Normal:
                 //call method to execute enemy logic
@@ -163,7 +165,7 @@ public abstract class Enemy : Avatar
                 Attack(cs.enemiesInCombat[randTarget]);
                 Invoke("PassTurn", invokeTime);
                 break;
-        }
+        }*/
     }
 
     public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }
@@ -192,6 +194,56 @@ public abstract class Enemy : Avatar
         //resturn to init position
         transform.position = initPos;
         animateAttackCoroutineOn = false;
+    }
+
+    protected override IEnumerator HighlightAvatar()
+    {
+        //highlightAvatarCoroutineOn = true;
+        aura.SetActive(true);
+        Vector3 initScale = aura.transform.localScale;
+        Vector3 destinationScale = new Vector3(initScale.x + 0.2f, initScale.y + 0.2f, initScale.z);
+        SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
+
+        //scale up the aura
+        while(aura.transform.localScale.x < destinationScale.x)
+        {
+            Vector3 newScale = aura.transform.localScale;
+            float vScale = 0.3f * Time.deltaTime;
+            auraSr.color = new Color(auraSr.color.r, auraSr.color.g, auraSr.color.b, auraSr.color.a - 1.3f * Time.deltaTime);
+            aura.transform.localScale = new Vector3(newScale.x + vScale, newScale.y + vScale, newScale.z);
+            yield return null;
+        }
+
+        aura.transform.localScale = initScale;
+        auraSr.color = new Color(auraSr.color.r, auraSr.color.g, auraSr.color.b, 1);
+        aura.SetActive(false);
+
+        //check status and peform action based on result
+        switch(status)
+        {
+            case Status.Normal:
+                //call method to execute enemy logic
+                ExecuteLogic();
+                break;
+
+            case Status.Paralyzed:
+                TryRemoveAilment();
+                Invoke("PassTurn", invokeTime);
+                break;
+
+            case Status.Blind:
+                TryRemoveAilment();
+                ExecuteLogic();
+                break;
+
+            case Status.Charmed:
+                //attack a random ally
+                Debug.Log(className + " is charmed!");
+                int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                Attack(cs.enemiesInCombat[randTarget]);
+                Invoke("PassTurn", invokeTime);
+                break;
+        }
     }
     
 }

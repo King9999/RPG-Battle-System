@@ -15,7 +15,7 @@ public class SkillDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        displayDuration = 2;
+        displayDuration = 1.5f;
         gameObject.SetActive(false);        //hidden by default
     }
 
@@ -23,7 +23,7 @@ public class SkillDisplay : MonoBehaviour
     {
         displaySkillCoroutineOn = true;
         //gameObject.SetActive(true);
-        Debug.Log("Coroutine started");
+        //Debug.Log("Coroutine started");
         border.color = borderColor;
         skillName.text = name;
         
@@ -32,7 +32,7 @@ public class SkillDisplay : MonoBehaviour
         //hide display
         gameObject.SetActive(false);
         displaySkillCoroutineOn = false;
-        Debug.Log("Coroutine ended");
+        //Debug.Log("Coroutine ended");
     }
 
     public void ExecuteSkillDisplay(string name, Color borderColor)

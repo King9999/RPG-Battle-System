@@ -24,6 +24,9 @@ public class CombatSystem : MonoBehaviour
     bool combatEnabled;         //when true, combat starts and all combat elements apppear in foreground.
     public bool turnInProgress;
     public Transform actGaugeLocation;
+
+    //public GameObject auraPrefab;     //used to indicate rare enemy
+    //[HideInInspector]public GameObject aura;
     
     public static CombatSystem instance;
     HeroManager hm;
@@ -110,6 +113,11 @@ public class CombatSystem : MonoBehaviour
         turnOrder = turnOrder.OrderByDescending(x => x.spd).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
         UpdateTurnOrderUI();
         currentTurn = 0;
+
+        //aura setup
+        //aura = Instantiate(auraPrefab, Vector3.zero, Quaternion.identity);
+        //SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
+        //auraSr.enabled = false;
         
     }
 
@@ -140,7 +148,7 @@ public class CombatSystem : MonoBehaviour
         {
             if (!turnOrder[currentTurn].TurnTaken())
             {
-                Debug.Log(turnOrder[currentTurn].className + "'s turn");
+                //Debug.Log(turnOrder[currentTurn].className + "'s turn");
                 turnOrder[currentTurn].TakeAction();
                 //turnInProgress = true;
             }
@@ -254,6 +262,8 @@ public class CombatSystem : MonoBehaviour
     {
 
     }
+
+    
 
     
 }

@@ -97,27 +97,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b34af1823030104ea98c9a0ddefb852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  hitPoints: 0
-  maxHitPoints: 0
-  manaPoints: 0
-  maxManaPoints: 0
-  atp: 0
-  dfp: 0
-  spd: 0
-  mag: 0
-  res: 0
+  className: Wizard
+  details: Can cast magic
+  hitPoints: 305
+  maxHitPoints: 305
+  manaPoints: 60
+  maxManaPoints: 60
+  atp: 20
+  dfp: 7
+  spd: 11
+  mag: 35
+  res: 10
   statsUI: {fileID: 3698192718082298965}
-  skills: []
+  auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
+  skills:
+  - {fileID: 11400000, guid: 4aae777d4448c6145bd0e908fbcb862d, type: 2}
+  - {fileID: 11400000, guid: a52f9439bb7ddab4583fed0ed559694b, type: 2}
   status: 0
   data: {fileID: 11400000, guid: 2d397d937e871ed46aa70655a34ba87b, type: 2}
-  xp: 0
-  money: 0
-  commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 0}
-  commonItemDropChance: 0
-  rareItemDropChance: 0
+  xp: 38
+  money: 25
+  commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
+  rareItemDrop: {fileID: 11400000, guid: ed5af7bd6dea06245b4073db94130ef5, type: 2}
+  commonItemDropChance: 0.35
+  rareItemDropChance: 0.06
 --- !u!114 &3058478179400242680
 MonoBehaviour:
   m_ObjectHideFlags: 0

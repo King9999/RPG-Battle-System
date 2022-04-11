@@ -209,6 +209,7 @@ MonoBehaviour:
   mag: 0
   res: 0
   statsUI: {fileID: 8201970856927121442}
+  auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
   skills: []
   status: 0
   data: {fileID: 11400000, guid: d563aaa613d7ad74b8c9d965a860a836, type: 2}

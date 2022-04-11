@@ -109,6 +109,7 @@ MonoBehaviour:
   mag: 0
   res: 0
   statsUI: {fileID: 8421435815671541446}
+  auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
   skills: []
   status: 0
   data: {fileID: 11400000, guid: 13fa19649b045d346bb76b431c5d9314, type: 2}
@@ -128,6 +129,9 @@ MonoBehaviour:
   currentXp: 0
   xpToNextLevel: 0
   currentLevel: 0
+  actionCompleted: 0
+  isAttacking: 0
+  currentActions: 0
 --- !u!114 &7962949650825048040
 MonoBehaviour:
   m_ObjectHideFlags: 0
