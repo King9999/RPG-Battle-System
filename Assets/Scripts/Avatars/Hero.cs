@@ -251,40 +251,70 @@ public class Hero : Avatar
                     {
                         case ActionGauge.ActionValue.Normal:
                             //deal damage to enemy
-                            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                            totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
                             ui.damageDisplay.color = ui.damageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
                             break;
 
                         case ActionGauge.ActionValue.Reduced:
                             //deal half damage to enemy
-                            totalDamage = (atp / 2) + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                            totalDamage = Mathf.Round((atp * atpMod) / 2 + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
                             ui.damageDisplay.color = ui.reducedDamageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
                             break;
 
                         case ActionGauge.ActionValue.Miss:
                             //nothing happens
                             ui.damageDisplay.color = ui.damageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
                             break;
 
                         case ActionGauge.ActionValue.Critical:
                             //deal increased damage to enemy. Enemy DFP is ignored
                             //if landed on a shield, deal shield damage
-                            totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+                            totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
                             ui.damageDisplay.color = ui.criticalDamageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
                             break;
 
                         case ActionGauge.ActionValue.Special:
                             //activate weapon skill
-                            //weapon.weaponSkill.Activate();
+                            switch(weapon.weaponSkill.targetType)
+                            {
+                                case Skill.Target.None:
+                                    weapon.weaponSkill.Activate(skillNameBorderColor);
+                                    break;
+
+                                case Skill.Target.Self:
+                                    weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                    break;
+                                
+                                case Skill.Target.One:
+                                    weapon.weaponSkill.Activate(this, target, skillNameBorderColor);
+                                    break;
+
+                                case Skill.Target.All:
+                                    //weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                    break;
+                            }
+                            
                             break;
                     }
 
-                    if (!animateAttackCoroutineOn)
-                        StartCoroutine(AnimateAttack());
+                    //if (!animateAttackCoroutineOn)
+                        //StartCoroutine(AnimateAttack());
 
                     //deal final damage to enemy
-                    Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
-                    ReduceHitPoints(target, totalDamage);
+                    //Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
+                    //ReduceHitPoints(target, totalDamage);
 
                     //show damage
                     //Vector3 enemyPos = Camera.main.WorldToScreenPoint(target.transform.position);
@@ -316,11 +346,11 @@ public class Hero : Avatar
 
             if (roll <= critChance)
             {
-                totalDamage = Mathf.Round(atp * 1.5f) + Mathf.Round(Random.Range(0, atp * 1.5f * 0.1f));
+                totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
             }
             else
             {
-                totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+                totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
             }
 
             //if player is blind, high chance they do 0 damage

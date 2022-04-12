@@ -8,6 +8,7 @@ public class CombatStats : MonoBehaviour
 {
     public TextMeshProUGUI detailedStats;
     public TextMeshProUGUI skillData;
+    public TextMeshProUGUI itemData;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +28,19 @@ public class CombatStats : MonoBehaviour
         this.skillData.text = skillData;
     }
 
+    public void DisplayStats(string statData, string skillData, string itemData)
+    {
+        gameObject.SetActive(true);
+        detailedStats.text = statData;
+        this.skillData.text = skillData;
+        this.itemData.text = itemData;
+    }
+
     public void HideStats()
     {
-        gameObject.SetActive(false);
         detailedStats.text = "";
-        this.skillData.text = "";
+        skillData.text = "";
+        itemData.text = "";
+        gameObject.SetActive(false);
     }
 }

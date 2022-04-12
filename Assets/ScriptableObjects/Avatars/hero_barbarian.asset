@@ -22,11 +22,11 @@ MonoBehaviour:
   mag: 1
   res: 1
   skills:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
   statFile: {fileID: 4900000, guid: 0a37c776605df6e45858017f5d510f54, type: 3}
   level: 1
   attackTokenMod: 0
-  weapon: {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}
+  weapon: {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
   armor: {fileID: 0}
   trinket: {fileID: 0}
   swordOK: 1

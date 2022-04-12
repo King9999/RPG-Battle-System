@@ -27,6 +27,13 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public GameObject auraPrefab;
     bool mouseOverAvatar;
 
+    //stat modifiers
+    public float atpMod = 1;
+    public float dfpMod = 1;
+    public float spdMod = 1;
+    public float magMod = 1;
+    public float resMod = 1;
+
     //coroutine check
     protected bool animateAttackCoroutineOn;
    
@@ -46,6 +53,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         //SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
         //auraSr.enabled = false;
         aura.SetActive(false);
+        skills = new List<Skill>();
     }
 
     public void RestoreHitPoints(Avatar target, float amount)
@@ -71,7 +79,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     }*/
 
     //detailed info is displayed if player mouses over an avatar
-    public void OnPointerEnter(PointerEventData pointer)
+    public virtual void OnPointerEnter(PointerEventData pointer)
     {
         UI ui = UI.instance;
 
@@ -94,16 +102,14 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         ui.combatDataDisplay.DisplayStats(avatarStats, skillSet);
 
         mouseOverAvatar = true;
-        Debug.Log("Mouse over " + className);
     }
 
     public void OnPointerExit(PointerEventData pointer)
     {
         UI ui = UI.instance;
         ui.combatDataDisplay.HideStats();
-        
+
         mouseOverAvatar = false;
-        Debug.Log("Mouse away from " + className);
     }
 
     public void ReduceHitPoints(Avatar target, float amount)

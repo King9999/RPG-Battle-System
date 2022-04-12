@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 //enemies are NPCs. Heroes must defeat them. Their actions are randomized based on their skill set and battle conditions.
 public abstract class Enemy : Avatar
@@ -66,11 +67,11 @@ public abstract class Enemy : Avatar
 
         if (roll <= critChance)
         {
-            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f));
+            totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f));
         }
         else
         {
-            totalDamage = atp + Mathf.Round(Random.Range(0, atp * 0.1f)) - target.dfp;
+            totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
         }
 
         //if enemy is blind, high chance they do 0 damage
@@ -169,6 +170,37 @@ public abstract class Enemy : Avatar
                 Invoke("PassTurn", invokeTime);
                 break;
         }*/
+    }
+
+    public override void OnPointerEnter(PointerEventData pointer)
+    {
+        UI ui = UI.instance;
+
+        string avatarStats = className + "\n" + "ATP " + atp + "\n" + "DFP " + dfp + "\n" + "MAG " + mag + "\n" + "RES " + res + "\n"
+            + "SPD " + spd;
+        
+        string skillSet = "SKILLS\n";
+
+        //display skills
+        if (skills.Count <= 0)
+            skillSet += "<NONE>";
+        else
+        { 
+            foreach(Skill skill in skills)
+            {
+                skillSet += skill.skillName + "\n";
+            }
+        }
+
+        //display dropped items
+        string items = "DROPPED ITEMS\n";
+
+        if (commonItemDrop != null)
+            items += "(C) " + commonItemDrop.itemName + "\n";
+        if (rareItemDrop != null)
+            items += "(R) " + rareItemDrop.itemName + "\n";
+
+        ui.combatDataDisplay.DisplayStats(avatarStats, skillSet, items);
     }
 
     public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }
