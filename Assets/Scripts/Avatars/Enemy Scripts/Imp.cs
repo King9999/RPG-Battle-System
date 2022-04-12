@@ -7,7 +7,7 @@ public class Imp : Enemy
 {
     //CombatSystem cs;
     int averageLevel;
-    
+    bool levelChecked;
     int runSkill = 0;
     protected override void Start()
     {
@@ -27,41 +27,12 @@ public class Imp : Enemy
         //Debug.Log("Average level is " + averageLevel);
     }
 
-    // Update is called once per frame
-    /*void Update()
-    {
-       if (isTheirTurn)
-       {
-            //Debug.Log("Imp's turn");
-            //Imp will attempt to run if heroes' level is too high
-            if (averageLevel >= 5)
-            {
-                //skill activation check
-                float roll = Random.Range(0, 1f);
-                if (roll <= skillProb)
-                {
-                    //run away
-                    //Debug.Log("Running away!");
-                    skills[runSkill].Activate(this, skillNameBorderColor);
-                }
-                else
-                {
-                    Attack(cs.heroesInCombat[0]);
-                }
-            }
-            else
-            {
-                //attack
-                Attack(cs.heroesInCombat[0]);
-            }
-
-            PassTurn();
-       }
-    }*/
 
     public override void ExecuteLogic()
     {
-        //base.ExecuteLogic();
+        if (!levelChecked)
+            CheckHeroLevels();
+
         if (averageLevel >= 5)
         {
             //skill activation check
@@ -69,7 +40,6 @@ public class Imp : Enemy
             if (roll <= skillProb)
             {
                 //run away
-                //Debug.Log("Running away!");
                 skills[runSkill].Activate(this, skillNameBorderColor);
             }
             else
@@ -87,18 +57,24 @@ public class Imp : Enemy
         //PassTurn();
     }
 
-    public override void ResetData()
+    //checks hero levels to determine if imp will run away
+    private void CheckHeroLevels()
     {
-        base.ResetData();
-        //Must get average again in case hero levels have changed.
         averageLevel = 0;
         
-        /*foreach(Hero hero in cs.heroesInCombat)
+        foreach(Hero hero in cs.heroesInCombat)
         {
             averageLevel += hero.level;
         }
 
         averageLevel /= cs.heroesInCombat.Count;
-        Debug.Log("Average level is " + averageLevel);*/
+        levelChecked = true;
     }
+
+    public override void ResetData()
+    {
+        base.ResetData();
+        levelChecked = false;
+    }
+
 }

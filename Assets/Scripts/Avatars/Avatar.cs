@@ -148,10 +148,17 @@ public abstract class Avatar : MonoBehaviour
         }
     }
 
-    #region Coroutines
-    protected virtual IEnumerator AnimateAttack() {yield return null;}
+    public void RunAway()
+    {
+        StartCoroutine(AnimateRun());
+    }
 
-    protected virtual IEnumerator HighlightAvatar(){ yield return null;}
+    #region Coroutines
+    protected virtual IEnumerator AnimateAttack() { yield return null; }
+
+    protected virtual IEnumerator HighlightAvatar(){ yield return null; }
+    protected virtual IEnumerator AnimateRun() { yield return null; } 
+     
     #endregion
     
     

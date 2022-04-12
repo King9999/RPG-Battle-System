@@ -8,6 +8,7 @@ public class CombatSystem : MonoBehaviour
 {
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
+    string group = "ABCDE";                 //used to rename enemies if there are duplicates
     //public List<Item> loot;
     public Dictionary<Item, int> loot;
     public int xpPool;                      //total amount of XP from defeated enemies
@@ -66,10 +67,30 @@ public class CombatSystem : MonoBehaviour
         heroesInCombat.Add(hm.heroes[0]);
 
         //add random enemies
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             Enemy enemy = Instantiate(em.enemies[randomEnemy]);
+
+            //check if enemy already exists, update name if necessary
+            /*int count = 0;
+            for (int j = 0; j < enemiesInCombat.Count; j++)
+            {
+                if (enemy.className == enemiesInCombat[j].className)
+                    count++;
+                if (count > 0)
+                {
+                    enemy.className += " " + group.Substring(count - 1, 1);
+                }
+            }*/
+
+            
+
+            /*int count = enemiesInCombat.Sum(x => x.Where(e => e == enemy)).Count();
+            if (count > 0)
+            {
+                enemy.className += " " + group.Substring(count - 1, 1);
+            }*/
             enemiesInCombat.Add(enemy);
         }
 
@@ -105,6 +126,7 @@ public class CombatSystem : MonoBehaviour
             }
             enemy.transform.position = enemyLocations[randIndex].position;
             enemyLocationOccupied[randIndex] = true;
+
             turnOrder.Add(enemy);
             enemy.UpdateStatsUI();
         }

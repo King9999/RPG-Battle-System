@@ -119,9 +119,9 @@ public abstract class Enemy : Avatar
     }
 
     //when enemy dies, they are sent to graveyard
-    public void SendToGraveyard()
+    public void SendToGraveyard(bool ranAway = false)
     {
-        if (hitPoints > 0) return;
+        if (hitPoints > 0 && !ranAway) return;
       
         em.graveyard.Add(this);
         cs.enemiesInCombat.Remove(this);    //need to make sure the correct enemy is being removed when there are duplicates
@@ -129,9 +129,12 @@ public abstract class Enemy : Avatar
         cs.UpdateTurnOrderUI();
 
         //rewards
-        cs.xpPool += xp;
-        cs.moneyPool += money;
-        cs.RollForLoot(this);
+        if (!ranAway)
+        {
+            cs.xpPool += xp;
+            cs.moneyPool += money;
+            cs.RollForLoot(this);
+        }
 
         gameObject.SetActive(false);
     }
@@ -244,6 +247,22 @@ public abstract class Enemy : Avatar
                 Invoke("PassTurn", invokeTime);
                 break;
         }
+    }
+
+    protected override IEnumerator AnimateRun()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        while(sr.color.a > 0)
+        {
+            Debug.Log("Running");
+            float vAlpha = sr.color.a - 2 * Time.deltaTime;
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, vAlpha);
+            yield return null;
+        }  
+        
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1); 
+        SendToGraveyard(ranAway: true);
+          
     }
     
 }
