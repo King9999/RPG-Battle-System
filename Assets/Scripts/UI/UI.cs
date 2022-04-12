@@ -16,6 +16,7 @@ public class UI : MonoBehaviour
     int maxEnemyPartySize {get;} = 6;
 
     public SkillDisplay skillDisplay;
+    public CombatStats combatDataDisplay;
 
     public static UI instance;
 
@@ -43,8 +44,6 @@ public class UI : MonoBehaviour
         criticalDamageColor = new Color(1, 0.8f, 0.2f);
         damageDisplay.color = damageColor;
         damageDisplay.gameObject.SetActive(false);
-        //heroStats = new TextMeshProUGUI[maxPartySize];
-        //enemyStats = new TextMeshProUGUI[maxEnemyPartySize];
     }
 
     // Update is called once per frame
@@ -99,8 +98,8 @@ public class UI : MonoBehaviour
         while(damageDisplay.transform.position.y < destination.y)
         {
             Vector3 newPos = damageDisplay.transform.position;
-            vy = 400 * Time.deltaTime;
-            damageDisplay.transform.position = new Vector3(newPos.x, newPos.y + vy + gravity, newPos.z);
+            vy = gravity + 400 * Time.deltaTime;
+            damageDisplay.transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
             yield return null;
         }
 

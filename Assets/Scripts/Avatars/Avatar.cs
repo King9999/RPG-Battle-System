@@ -22,7 +22,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     protected bool isTheirTurn; //if true, avatar can perform actions.
     protected bool turnTaken;
     protected float invokeTime = 1.5f;          //used to call PassTurn method after elapsed time
-    public TextMeshProUGUI statsUI;                        //displays HP and MP underneath sprite
+    public TextMeshProUGUI statsUI;             //displays HP and MP underneath sprite
     protected GameObject aura;                  //used to highlight sprite
     public GameObject auraPrefab;
     bool mouseOverAvatar;
@@ -73,12 +73,35 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     //detailed info is displayed if player mouses over an avatar
     public void OnPointerEnter(PointerEventData pointer)
     {
+        UI ui = UI.instance;
+
+        string avatarStats = className + "\n" + "ATP " + atp + "\n" + "DFP " + dfp + "\n" + "MAG " + mag + "\n" + "RES " + res + "\n"
+            + "SPD " + spd;
+        
+        string skillSet = "SKILLS\n";
+
+        //display skills
+        if (skills.Count <= 0)
+            skillSet += "<NONE>";
+        else
+        { 
+            foreach(Skill skill in skills)
+            {
+                skillSet += skill.skillName + "\n";
+            }
+        }
+
+        ui.combatDataDisplay.DisplayStats(avatarStats, skillSet);
+
         mouseOverAvatar = true;
         Debug.Log("Mouse over " + className);
     }
 
     public void OnPointerExit(PointerEventData pointer)
     {
+        UI ui = UI.instance;
+        ui.combatDataDisplay.HideStats();
+        
         mouseOverAvatar = false;
         Debug.Log("Mouse away from " + className);
     }
