@@ -8,6 +8,7 @@ public class CombatSystem : MonoBehaviour
 {
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
+    public int currentTarget;               //index of an avatar being targeted.
     string group = "ABCDE";                 //used to rename enemies if there are duplicates
     //public List<Item> loot;
     public Dictionary<Item, int> loot;
@@ -94,9 +95,6 @@ public class CombatSystem : MonoBehaviour
             enemiesInCombat.Add(enemy);
         }
 
-        //Enemy testEnemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Wizard]);
-        //enemiesInCombat.Add(testEnemy);
-        //delay = 3;
         
         //place heroes and enemies in random positions
         heroLocationOccupied = new bool[heroLocations.Length];
@@ -135,24 +133,14 @@ public class CombatSystem : MonoBehaviour
         turnOrder = turnOrder.OrderByDescending(x => x.spd).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
         UpdateTurnOrderUI();
         currentTurn = 0;
+        currentTarget = -1;
 
-        //aura setup
-        //aura = Instantiate(auraPrefab, Vector3.zero, Quaternion.identity);
-        //SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
-        //auraSr.enabled = false;
-        
     }
 
     
     // Update is called once per frame
     void Update()
     {
-        /*if (Time.time > currentTime + delay)
-        {
-            currentTime = Time.time;
-            enemiesInCombat[0].SetTurn(turnState: true);
-        }*/
-
         /*if (AllHeroesDefeated())
         {
             gm.GameOver();
@@ -187,7 +175,6 @@ public class CombatSystem : MonoBehaviour
                 turnOrder[turnOrder.Count - 1].SetTurnTaken(false); //need to do this step or we eventually end up in a loop
 
                 //display new turn order
-                //Debug.Log("New turn order");
                 UpdateTurnOrderUI();
             }
         }     

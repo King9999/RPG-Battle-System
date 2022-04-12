@@ -172,8 +172,7 @@ public class Hero : Avatar
             {
                 int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
                 Attack(cs.enemiesInCombat[randTarget]);
-            }
-           
+            }          
         }
 
         /*if (isAttacking && cs.enemiesInCombat.Count > 0)
@@ -229,7 +228,7 @@ public class Hero : Avatar
                 cs.actGauge.UpdateGaugeData(weapon.actGauge);
                 cs.actGauge.ResetActionToken();
 
-                //TODO: add code for when player is blind. all normal and critical pips become miss pips
+                //certain pips change if player is blind
                 if (status == Status.Blind)
                 {
                     cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);

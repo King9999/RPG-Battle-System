@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 /* This is the base class for playable heroes and NPC enemies */
-public abstract class Avatar : MonoBehaviour
+public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
     public string className;
     public string details;      //description of the enemy/hero
@@ -24,6 +25,7 @@ public abstract class Avatar : MonoBehaviour
     public TextMeshProUGUI statsUI;                        //displays HP and MP underneath sprite
     protected GameObject aura;                  //used to highlight sprite
     public GameObject auraPrefab;
+    bool mouseOverAvatar;
 
     //coroutine check
     protected bool animateAttackCoroutineOn;
@@ -58,7 +60,6 @@ public abstract class Avatar : MonoBehaviour
         UI ui = UI.instance;
         Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
         ui.DisplayHealing(amount.ToString(), targetPos);
-        //ui.damageDisplay.color = ui.damageColor;    //change back in case next attack is damage
 
         target.UpdateStatsUI();
     }
@@ -68,6 +69,19 @@ public abstract class Avatar : MonoBehaviour
         if (hitPoints < 0)
             hitPoints = 0;
     }*/
+
+    //detailed info is displayed if player mouses over an avatar
+    public void OnPointerEnter(PointerEventData pointer)
+    {
+        mouseOverAvatar = true;
+        Debug.Log("Mouse over " + className);
+    }
+
+    public void OnPointerExit(PointerEventData pointer)
+    {
+        mouseOverAvatar = false;
+        Debug.Log("Mouse away from " + className);
+    }
 
     public void ReduceHitPoints(Avatar target, float amount)
     {
@@ -111,7 +125,7 @@ public abstract class Avatar : MonoBehaviour
         isTheirTurn = true;
         cs.turnInProgress = true;
 
-        //add an outline to show it's the enemy's turn
+        //add an outline to show it's the avatar's turn
         aura.SetActive(true);
         SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
         SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();

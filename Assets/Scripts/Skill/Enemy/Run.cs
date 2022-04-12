@@ -9,7 +9,6 @@ public class Run : Skill
     public override void Activate(Avatar target, Color borderColor)
     {
         base.Activate(target, borderColor);
-        //Destroy(target.gameObject);     //TODO: Need to hide the object and place it in graveyard
         target.RunAway(); 
     }
 

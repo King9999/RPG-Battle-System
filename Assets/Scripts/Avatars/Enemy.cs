@@ -254,12 +254,11 @@ public abstract class Enemy : Avatar
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         while(sr.color.a > 0)
         {
-            Debug.Log("Running");
             float vAlpha = sr.color.a - 2 * Time.deltaTime;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, vAlpha);
             yield return null;
         }  
-        
+
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1); 
         SendToGraveyard(ranAway: true);
           

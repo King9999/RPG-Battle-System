@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class CombatInputManager : MonoBehaviour
 {
     public ActionGauge actGauge;
-    public bool buttonPressed;
+    [HideInInspector]public bool buttonPressed;
 
     public static CombatInputManager instance;
 
@@ -29,30 +29,15 @@ public class CombatInputManager : MonoBehaviour
             //stop the action token and read current index
             actGauge.actionToken.StopToken();
             buttonPressed = true;
+        }
+    }
 
-            /*switch(actGauge.actionValues[actGauge.currentIndex])
-            {
-                case ActionGauge.ActionValue.Normal:
-                    //deal damage to enemy
-                    break;
-
-                case ActionGauge.ActionValue.Reduced:
-                    //deal half damage to enemy
-                    break;
-
-                case ActionGauge.ActionValue.Miss:
-                    //nothing happens
-                    break;
-
-                case ActionGauge.ActionValue.Critical:
-                    //deal increased damage to enemy
-                    //if landed on a shield, deal shield damage
-                    break;
-
-                case ActionGauge.ActionValue.Special:
-                    //activate weapon skill
-                    break;
-            }*/
+    public void CombatMenuSelected(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+           //check which menu option was selected
+           
         }
     }
 }
