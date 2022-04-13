@@ -9,6 +9,7 @@ public class UI : MonoBehaviour
     //public List<TextMeshProUGUI> enemyStats;    //displays name and hp
     public TextMeshProUGUI turnOrderList;
     public TextMeshProUGUI damageDisplay;
+    public TextMeshProUGUI selectTargetUI;
     //public TMP_Text damageDisplayComponent;
     //[SerializeField]TextMeshProUGUI[] damageDigits;
     [HideInInspector]public Color healColor, damageColor, reducedDamageColor, criticalDamageColor;
@@ -44,6 +45,7 @@ public class UI : MonoBehaviour
         criticalDamageColor = new Color(1, 0.8f, 0.2f);
         damageDisplay.color = damageColor;
         damageDisplay.gameObject.SetActive(false);
+        selectTargetUI.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

@@ -177,7 +177,7 @@ public abstract class Enemy : Avatar
         UI ui = UI.instance;
 
         string avatarStats = className + "\n" + "ATP " + atp + "\n" + "DFP " + dfp + "\n" + "MAG " + mag + "\n" + "RES " + res + "\n"
-            + "SPD " + spd;
+            + "SPD " + spd + "\n\n" + "STATUS\n" + status;
         
         string skillSet = "SKILLS\n";
 
@@ -201,6 +201,19 @@ public abstract class Enemy : Avatar
             items += "(R) " + rareItemDrop.itemName + "\n";
 
         ui.combatDataDisplay.DisplayStats(avatarStats, skillSet, items);
+    }
+
+    //When an enemy is clicked, it is targeted for attack by the player.
+    public override void OnPointerClick(PointerEventData pointer)
+    {
+        if (cs.selectingTargetToAttack)
+        {
+            cs.currentTarget = cs.enemiesInCombat.IndexOf(this);
+            cs.selectingTargetToAttack = false;
+            UI ui = UI.instance;
+            ui.selectTargetUI.gameObject.SetActive(false);
+            //Debug.Log(className + " at index " + cs.currentTarget);
+        }
     }
 
     public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }

@@ -8,6 +8,7 @@ public class CombatSystem : MonoBehaviour
 {
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
+    int totalEnemies {get;} = 6;
     public int currentTarget;               //index of an avatar being targeted.
     string group = "ABCDE";                 //used to rename enemies if there are duplicates
     //public List<Item> loot;
@@ -27,8 +28,10 @@ public class CombatSystem : MonoBehaviour
     public bool turnInProgress;
     public Transform actGaugeLocation;
 
-    //public GameObject auraPrefab;     //used to indicate rare enemy
-    //[HideInInspector]public GameObject aura;
+    //combat states. Used to determine which steps can be taken during combat
+    public enum CombatPhase {SelectTargetToAttack}
+
+    public bool selectingTargetToAttack;
     
     public static CombatSystem instance;
     HeroManager hm;
@@ -68,7 +71,8 @@ public class CombatSystem : MonoBehaviour
         heroesInCombat.Add(hm.heroes[0]);
 
         //add random enemies
-        for (int i = 0; i < 3; i++)
+        int randCount = Random.Range(1, totalEnemies + 1);
+        for (int i = 0; i < randCount; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             Enemy enemy = Instantiate(em.enemies[randomEnemy]);

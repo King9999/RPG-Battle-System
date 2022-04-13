@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 
 /* This is the base class for playable heroes and NPC enemies */
-public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
+public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler, IPointerClickHandler
 {
     public string className;
     public string details;      //description of the enemy/hero
@@ -84,7 +84,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         UI ui = UI.instance;
 
         string avatarStats = className + "\n" + "ATP " + atp + "\n" + "DFP " + dfp + "\n" + "MAG " + mag + "\n" + "RES " + res + "\n"
-            + "SPD " + spd;
+            + "SPD " + spd + "\n\n" + "STATUS\n" + status;
         
         string skillSet = "SKILLS\n";
 
@@ -111,6 +111,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
         mouseOverAvatar = false;
     }
+
+    public virtual void OnPointerClick(PointerEventData pointer) { }
 
     public void ReduceHitPoints(Avatar target, float amount)
     {
