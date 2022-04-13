@@ -239,6 +239,11 @@ public class ActionGauge : MonoBehaviour
         }
     }
 
+    public void ShowGauge(bool toggle)
+    {
+        gameObject.SetActive(toggle);
+    }
+
     //Stop the action token and perform an action based on where it lands.
     /*public void StopActionToken(InputAction.CallbackContext context)
     {

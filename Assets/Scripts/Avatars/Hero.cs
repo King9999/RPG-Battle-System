@@ -164,14 +164,15 @@ public class Hero : Avatar
             /*if (hitPoints <= 0)
             {
                 status = Status.Dead;
+                //remove hero from turn order
                 //TODO: put in a sprite that indicates hero is dead.
                 return;
             }*/
 
             if (isAttacking && cs.enemiesInCombat.Count > 0)
             {
-                int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-                Attack(cs.enemiesInCombat[randTarget]);
+                //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                Attack(cs.enemiesInCombat[cs.currentTarget]);
             }          
         }
 
@@ -186,11 +187,17 @@ public class Hero : Avatar
     {
         base.TakeAction();
 
+        //which hero is acting?
+        cs.currentHero = cs.heroesInCombat.IndexOf(this);
+
         //do a switch/case here for the different menu options (attack, skill, item, or run)
+        UI ui = UI.instance;
         switch(status)
         {
+            
             case Status.Normal:
-                //open a menu, player chooses next action
+                //open a menu, player chooses next action       
+                ui.combatMenu.ShowCombatMenu(true);
                 break;
             
             case Status.Paralyzed:
@@ -201,6 +208,7 @@ public class Hero : Avatar
             case Status.Blind:
                 TryRemoveAilment();
                 //player chooses action
+                ui.combatMenu.ShowCombatMenu(true);
                 break;
 
             case Status.Charmed:
@@ -212,19 +220,21 @@ public class Hero : Avatar
                 break;
         }
 
-        isAttacking = true;
+        //isAttacking = true;
         
     }
 
    
-    public override void Attack(Avatar target /*ActionGauge.ActionValue actValue*/)
+    public override void Attack(Avatar target)
     {
         UI ui = UI.instance;
         if (status != Status.Charmed)
         {
+            //TODO: The following code must go into a separate method and must be called from the Enemy pointer click event.
+            //This is to help prevent the hero from attacking immediately.
             if (!cs.actGauge.gameObject.activeSelf)
             {
-                cs.actGauge.gameObject.SetActive(true);
+                cs.actGauge.ShowGauge(true);
                 cs.actGauge.UpdateGaugeData(weapon.actGauge);
                 cs.actGauge.ResetActionToken();
 
@@ -333,7 +343,7 @@ public class Hero : Avatar
             {
                 isAttacking = false;
                 cs.actGauge.actionToken.SetSpeedToDefault();
-                cs.actGauge.gameObject.SetActive(false);
+                cs.actGauge.ShowGauge(false);
                 Invoke("PassTurn", invokeTime);
             }
         }

@@ -30,13 +30,18 @@ public class CombatMenu : MonoBehaviour
     public void OnAttackButtonClicked()
     {
         //player selects a target
-        if (cs.currentTarget < 0) return;
+        //if (cs.currentTarget < 0) return;
 
         cs.selectingTargetToAttack = true;
         UI ui = UI.instance;
         ui.selectTargetUI.gameObject.SetActive(true);
-        Debug.Log("Targeting " + cs.enemiesInCombat[cs.currentTarget].className + " at location " + cs.currentTarget);
+        //Debug.Log("Targeting " + cs.enemiesInCombat[cs.currentTarget].className + " at location " + cs.currentTarget);
         //Debug.Log(Mouse.current.position.ReadValue());
     
+    }
+
+    public void ShowCombatMenu(bool toggle)
+    {
+        gameObject.SetActive(toggle);
     }
 }

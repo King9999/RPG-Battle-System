@@ -10,6 +10,7 @@ public class CombatSystem : MonoBehaviour
     public List<Enemy> enemiesInCombat;
     int totalEnemies {get;} = 6;
     public int currentTarget;               //index of an avatar being targeted.
+    public int currentHero;                 //index of hero who is taking action
     string group = "ABCDE";                 //used to rename enemies if there are duplicates
     //public List<Item> loot;
     public Dictionary<Item, int> loot;
@@ -71,8 +72,8 @@ public class CombatSystem : MonoBehaviour
         heroesInCombat.Add(hm.heroes[0]);
 
         //add random enemies
-        int randCount = Random.Range(1, totalEnemies + 1);
-        for (int i = 0; i < randCount; i++)
+        //int randCount = Random.Range(1, totalEnemies + 1);
+        for (int i = 0; i < 2; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             Enemy enemy = Instantiate(em.enemies[randomEnemy]);
@@ -138,6 +139,7 @@ public class CombatSystem : MonoBehaviour
         UpdateTurnOrderUI();
         currentTurn = 0;
         currentTarget = -1;
+        currentHero = -1;
 
     }
 

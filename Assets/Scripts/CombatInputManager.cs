@@ -32,6 +32,7 @@ public class CombatInputManager : MonoBehaviour
         }
     }
 
+    //This should be used to navigate the steps taken to get to the attack state. Use enums
     public void CombatMenuSelected(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)

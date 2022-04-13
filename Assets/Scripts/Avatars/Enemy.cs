@@ -129,6 +129,12 @@ public abstract class Enemy : Avatar
         cs.turnOrder.Remove(this);
         cs.UpdateTurnOrderUI();
 
+        //choose another target
+        if (cs.enemiesInCombat.Count > 0)
+            cs.currentTarget = 0;
+        else
+            cs.currentTarget = -1;
+
         //rewards
         if (!ranAway)
         {
@@ -212,6 +218,10 @@ public abstract class Enemy : Avatar
             cs.selectingTargetToAttack = false;
             UI ui = UI.instance;
             ui.selectTargetUI.gameObject.SetActive(false);
+            ui.combatMenu.ShowCombatMenu(false);
+            
+            //hero is ready to attack
+            cs.heroesInCombat[cs.currentHero].isAttacking = true;
             //Debug.Log(className + " at index " + cs.currentTarget);
         }
     }

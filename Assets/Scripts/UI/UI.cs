@@ -18,6 +18,7 @@ public class UI : MonoBehaviour
 
     public SkillDisplay skillDisplay;
     public CombatStats combatDataDisplay;
+    public CombatMenu combatMenu;
 
     public static UI instance;
 
@@ -44,7 +45,9 @@ public class UI : MonoBehaviour
         reducedDamageColor = new Color(0.6f, 0.6f, 0.6f);
         criticalDamageColor = new Color(1, 0.8f, 0.2f);
         damageDisplay.color = damageColor;
+        
         damageDisplay.gameObject.SetActive(false);
+        combatMenu.gameObject.SetActive(false);
         selectTargetUI.gameObject.SetActive(false);
     }
 
