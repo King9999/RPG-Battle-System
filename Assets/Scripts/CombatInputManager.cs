@@ -10,6 +10,8 @@ public class CombatInputManager : MonoBehaviour
 
     public static CombatInputManager instance;
     CombatSystem cs;
+    GameManager gm;
+    UI ui;
 
     private void Awake()
     {
@@ -25,6 +27,8 @@ public class CombatInputManager : MonoBehaviour
     void Start()
     {
         cs = CombatSystem.instance;
+        gm = GameManager.instance;
+        ui = UI.instance;
     }
 
     //Stop the action token and perform an action based on where it lands.
@@ -57,6 +61,20 @@ public class CombatInputManager : MonoBehaviour
                Hero hero = cs.heroesInCombat[cs.currentHero];
                Enemy enemy = cs.enemiesInCombat[cs.currentTarget];
                hero.Attack(enemy);
+           }   
+        }
+    }
+
+    public void CloseRewards(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+           if (gm.gameState == GameManager.GameState.ShowCombatRewards)
+           {
+               //close rewards screen and end combat
+               Debug.Log("Closing rewards");
+               ui.rewardsDisplay.HideDisplay();
+               cs.CloseCombatSystem();
            }   
         }
     }

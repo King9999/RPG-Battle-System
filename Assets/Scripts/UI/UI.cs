@@ -19,6 +19,7 @@ public class UI : MonoBehaviour
     public SkillDisplay skillDisplay;
     public CombatStats combatDataDisplay;
     public CombatMenu combatMenu;
+    public RewardsDisplay rewardsDisplay;
 
     public static UI instance;
 

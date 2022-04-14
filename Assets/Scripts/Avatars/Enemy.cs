@@ -182,8 +182,8 @@ public abstract class Enemy : Avatar
     {
         UI ui = UI.instance;
 
-        string avatarStats = className + "\n" + "ATP " + atp + "\n" + "DFP " + dfp + "\n" + "MAG " + mag + "\n" + "RES " + res + "\n"
-            + "SPD " + spd + "\n\n" + "STATUS\n" + status;
+        string avatarStats = className + "\nATP " + atp + "\nDFP " + dfp + "\nMAG " + mag + "\nRES " + res + "\nSPD "
+            + spd + "\n\nSTATUS\n" + status;
         
         string skillSet = "SKILLS\n";
 
@@ -223,7 +223,7 @@ public abstract class Enemy : Avatar
             //hero is ready to attack
             Hero hero = cs.heroesInCombat[cs.currentHero];
             hero.SetupActionGauge(cs.actGauge, hero.weapon.actGauge);
-            //hero.isAttacking = true;
+            hero.isAttacking = true;
             //Debug.Log(className + " at index " + cs.currentTarget);
         }
     }

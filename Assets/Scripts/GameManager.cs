@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public CombatSystem combatSystem;
 
-    public enum GameState { Normal, Combat}
+    public enum GameState { Normal, Combat, ShowCombatRewards, GameOver }
     public GameState gameState;                 //used by input manager to perform different actions with the same button press.
 
     public static GameManager instance;

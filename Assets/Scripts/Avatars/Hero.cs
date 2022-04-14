@@ -81,9 +81,10 @@ public class Hero : Avatar
         if (trinket != null)
             trinket.Equip(hero: this);
         //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
-        cs = CombatSystem.instance;
+        //cs = CombatSystem.instance;
         hm = HeroManager.instance;
         cim = CombatInputManager.instance;
+        gm = GameManager.instance;
         //status = Status.Blind; 
     }
 
@@ -139,7 +140,7 @@ public class Hero : Avatar
     // Update is called once per frame
     void Update()
     {
-        if (isTheirTurn)
+        if (isTheirTurn && !isAttacking)
         {
             if (!highlightAvatarCoroutineOn)
                 StartCoroutine(HighlightAvatar());
@@ -174,11 +175,12 @@ public class Hero : Avatar
                 //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
                 Attack(cs.enemiesInCombat[cs.currentTarget]);
             }*/
-            if (isAttacking && currentActions >= totalAttackTokens)
+            if ((isAttacking && currentActions >= totalAttackTokens) || gm.gameState == GameManager.GameState.ShowCombatRewards)
             {
                 isAttacking = false;
                 cs.actGauge.actionToken.SetSpeedToDefault();
                 cs.actGauge.ShowGauge(false);
+                isTheirTurn = false;
                 Invoke("PassTurn", invokeTime);
             }         
         }
@@ -253,7 +255,7 @@ public class Hero : Avatar
 
             //if (currentActions < totalAttackTokens)
             //{
-                isAttacking = true;
+                //isAttacking = true;
                 //wait for button press to attack. Do this until no more tokens available
                 if (cim.buttonPressed)
                 {

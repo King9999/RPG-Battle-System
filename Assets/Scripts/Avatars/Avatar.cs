@@ -37,7 +37,9 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     //coroutine check
     protected bool animateAttackCoroutineOn;
    
+    //singletons
     protected CombatSystem cs;
+    protected GameManager gm;
 
     public List<Skill> skills;
     public enum Status
@@ -54,6 +56,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         //auraSr.enabled = false;
         aura.SetActive(false);
         skills = new List<Skill>();
+        gm = GameManager.instance;
+        cs = CombatSystem.instance;
     }
 
     public void RestoreHitPoints(Avatar target, float amount)
@@ -83,8 +87,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     {
         UI ui = UI.instance;
 
-        string avatarStats = className + "\n" + "ATP " + atp + "\n" + "DFP " + dfp + "\n" + "MAG " + mag + "\n" + "RES " + res + "\n"
-            + "SPD " + spd + "\n\n" + "STATUS\n" + status;
+        string avatarStats = className + "\nATP " + atp + "\nDFP " + dfp + "\nMAG " + mag + "\nRES " + res + "\nSPD "
+            + spd + "\n\nSTATUS\n" + status;
         
         string skillSet = "SKILLS\n";
 

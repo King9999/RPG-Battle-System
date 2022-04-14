@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &471678865 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 277366429, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-  m_PrefabInstance: {fileID: 6144532497454986556}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8fa1da6c3d6de344b0a9f234a197606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +251,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1189134252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1913980332, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+  m_PrefabInstance: {fileID: 1941364927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7a843ea08e7374a8b288c82318d5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1406960130 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7606886612533781306, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
@@ -373,6 +373,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1189134252}
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CombatInputManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913980331, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4736841933892709229, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: actionToken
       value: 
@@ -723,9 +751,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
-    - target: {fileID: 6144532497329781323, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-      propertyPath: combatMenu
-      value: 
-      objectReference: {fileID: 471678865}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}

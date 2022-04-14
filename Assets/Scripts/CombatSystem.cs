@@ -224,15 +224,38 @@ public class CombatSystem : MonoBehaviour
 
     void EndCombat()
     {
-        //award XP, money and items
-        Debug.Log("Battle over!");
+        //set game state
+        gm.gameState = GameManager.GameState.ShowCombatRewards;
 
-        Debug.Log((xpPool / heroesInCombat.Count) + " XP awarded\n" + moneyPool + " money awarded");
-        foreach(KeyValuePair<Item,int> item in loot)
+        //award XP, money and items
+        string xpAndMoney = xpPool + " EXP\n" + moneyPool + " Money";
+        string[] partyXp = new string[heroesInCombat.Count];
+
+        for (int i = 0; i < heroesInCombat.Count; i++)
         {
-            Debug.Log("Obtained " + item.Key.itemName + " x" + item.Value);
-            //TODO: add this item to player inventory once that's set up
+            partyXp[i] = heroesInCombat[i].className + "\nEXP Gained: " + xpPool / heroesInCombat.Count + "\nTo Next Level " + heroesInCombat[i].xpToNextLevel;
         }
+
+        //show loot
+        string lootString = "Dropped Items\n";
+
+        
+        //Debug.Log("Battle over!");
+
+        //Debug.Log((xpPool / heroesInCombat.Count) + " XP awarded\n" + moneyPool + " money awarded");
+        if (loot.Count <= 0)
+            lootString += "<No Loot>";
+        else
+        {
+            foreach(KeyValuePair<Item,int> item in loot)
+            {
+                Debug.Log("Obtained " + item.Key.itemName + " x" + item.Value);
+                lootString += item.Key.itemName + " x" + item.Value + "\n";
+                //TODO: add this item to player inventory once that's set up
+            }
+        }
+
+        ui.rewardsDisplay.ShowRewards(xpAndMoney, partyXp, lootString);
 
         foreach(Hero hero in heroesInCombat)
         {
@@ -240,12 +263,9 @@ public class CombatSystem : MonoBehaviour
             //add money to inventory
         }
 
-        //clean up
-        loot.Clear();
-        xpPool = 0;
-        moneyPool = 0;
+       
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     bool AllHeroesDefeated()
@@ -259,6 +279,15 @@ public class CombatSystem : MonoBehaviour
         
         return totalHitPoints <= 0;
         
+    }
+
+    public void CloseCombatSystem()
+    {
+        //clean up
+        loot.Clear();
+        xpPool = 0;
+        moneyPool = 0;
+        gameObject.SetActive(false);
     }
 
     public void UpdateTurnOrderUI()
