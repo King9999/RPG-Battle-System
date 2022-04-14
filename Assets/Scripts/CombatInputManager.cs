@@ -9,6 +9,7 @@ public class CombatInputManager : MonoBehaviour
     [HideInInspector]public bool buttonPressed;
 
     public static CombatInputManager instance;
+    CombatSystem cs;
 
     private void Awake()
     {
@@ -19,6 +20,11 @@ public class CombatInputManager : MonoBehaviour
         }
 
         instance = this;
+    }
+
+    void Start()
+    {
+        cs = CombatSystem.instance;
     }
 
     //Stop the action token and perform an action based on where it lands.
@@ -39,6 +45,19 @@ public class CombatInputManager : MonoBehaviour
         {
            //check which menu option was selected
            
+        }
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+           if (actGauge.gameObject.activeSelf)
+           {
+               Hero hero = cs.heroesInCombat[cs.currentHero];
+               Enemy enemy = cs.enemiesInCombat[cs.currentTarget];
+               hero.Attack(enemy);
+           }   
         }
     }
 }

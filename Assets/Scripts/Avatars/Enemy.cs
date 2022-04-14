@@ -221,7 +221,9 @@ public abstract class Enemy : Avatar
             ui.combatMenu.ShowCombatMenu(false);
             
             //hero is ready to attack
-            cs.heroesInCombat[cs.currentHero].isAttacking = true;
+            Hero hero = cs.heroesInCombat[cs.currentHero];
+            hero.SetupActionGauge(cs.actGauge, hero.weapon.actGauge);
+            //hero.isAttacking = true;
             //Debug.Log(className + " at index " + cs.currentTarget);
         }
     }

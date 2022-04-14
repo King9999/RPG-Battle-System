@@ -15,7 +15,7 @@ public class SkillDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        displayDuration = 1.5f;
+        displayDuration = 1f;
         gameObject.SetActive(false);        //hidden by default
     }
 

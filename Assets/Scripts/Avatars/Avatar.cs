@@ -21,7 +21,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     float ailmentCureChance = 0.05f;        //base value for curing certain ailments naturally
     protected bool isTheirTurn; //if true, avatar can perform actions.
     protected bool turnTaken;
-    protected float invokeTime = 1.5f;          //used to call PassTurn method after elapsed time
+    protected float invokeTime = 1f;          //used to call PassTurn method after elapsed time
     public TextMeshProUGUI statsUI;             //displays HP and MP underneath sprite
     protected GameObject aura;                  //used to highlight sprite
     public GameObject auraPrefab;

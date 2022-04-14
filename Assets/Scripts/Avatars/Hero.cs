@@ -169,18 +169,20 @@ public class Hero : Avatar
                 return;
             }*/
 
-            if (isAttacking && cs.enemiesInCombat.Count > 0)
+            /*if (isAttacking && cs.enemiesInCombat.Count > 0)
             {
                 //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
                 Attack(cs.enemiesInCombat[cs.currentTarget]);
-            }          
+            }*/
+            if (isAttacking && currentActions >= totalAttackTokens)
+            {
+                isAttacking = false;
+                cs.actGauge.actionToken.SetSpeedToDefault();
+                cs.actGauge.ShowGauge(false);
+                Invoke("PassTurn", invokeTime);
+            }         
         }
 
-        /*if (isAttacking && cs.enemiesInCombat.Count > 0)
-        {
-            int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-            Attack(cs.enemiesInCombat[randTarget]);
-        }*/
     }
 
     public override void TakeAction()
@@ -232,7 +234,7 @@ public class Hero : Avatar
         {
             //TODO: The following code must go into a separate method and must be called from the Enemy pointer click event.
             //This is to help prevent the hero from attacking immediately.
-            if (!cs.actGauge.gameObject.activeSelf)
+            /*if (!cs.actGauge.gameObject.activeSelf)
             {
                 cs.actGauge.ShowGauge(true);
                 cs.actGauge.UpdateGaugeData(weapon.actGauge);
@@ -247,10 +249,10 @@ public class Hero : Avatar
 
                 totalAttackTokens = weapon.tokenCount + attackTokenMod;
                 currentActions = 0;
-            }
+            }*/
 
-            if (currentActions < totalAttackTokens)
-            {
+            //if (currentActions < totalAttackTokens)
+            //{
                 isAttacking = true;
                 //wait for button press to attack. Do this until no more tokens available
                 if (cim.buttonPressed)
@@ -338,14 +340,14 @@ public class Hero : Avatar
                     cim.buttonPressed = false;   
                 }
                     
-            }
-            else
+            //}
+            /*else
             {
                 isAttacking = false;
                 cs.actGauge.actionToken.SetSpeedToDefault();
                 cs.actGauge.ShowGauge(false);
                 Invoke("PassTurn", invokeTime);
-            }
+            }*/
         }
         else    //player is charmed, do a regular attack with a chance of crit
         {
@@ -384,7 +386,27 @@ public class Hero : Avatar
             ReduceHitPoints(target, totalDamage);
             Debug.Log(totalDamage + " damage to " + target.className);
         }
+    }
 
+    public void SetupActionGauge(ActionGauge actGauge, ActionGaugeData weaponData)
+    {
+        if (!actGauge.gameObject.activeSelf)
+        {
+            actGauge.ShowGauge(true);
+            actGauge.UpdateGaugeData(weaponData);
+            actGauge.ResetActionToken();
+
+            //certain pips change if player is blind
+            if (status == Status.Blind)
+            {
+                actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
+                actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
+            }
+
+            totalAttackTokens = weapon.tokenCount + attackTokenMod;
+            currentActions = 0;
+            actGauge.actionToken.StartToken();
+        }
     }
 
     //static hero sprite dashes forward and back
