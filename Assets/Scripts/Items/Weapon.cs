@@ -23,7 +23,7 @@ public class Weapon : Item
 
     public override void Equip(Hero hero)
     {
-        base.Equip(hero);
+        if (isEquipped || itemType != ItemType.Weapon) return;
 
         //check weapon type
         if (weaponType == WeaponType.Sword && hero.swordOK || weaponType == WeaponType.Axe && hero.axeOK || 
@@ -43,7 +43,8 @@ public class Weapon : Item
 
     public override void Unequip(Hero hero)
     {
-        base.Unequip(hero);
+       if (!isEquipped) return;
+
         hero.atp -= atp;
         hero.mag -= mag;
         hero.actGauge = null;

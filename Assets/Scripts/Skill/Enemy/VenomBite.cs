@@ -11,16 +11,19 @@ public class VenomBite : Skill
         //target receives damage
 
         //poison check
-        float rollValue = Random.Range(0, 1f);
-        hitChance -= (target.spd / 500);
-        if (rollValue <= hitChance)
+        if (target.resistPoison == false)
         {
-            Debug.Log("Poisoned");
-            target.status = Avatar.Status.Poisoned;
-        }
-        else
-        {
-            Debug.Log("Miss");
+            float rollValue = Random.Range(0, 1f);
+            hitChance -= (target.spd / 500);
+            if (rollValue <= hitChance)
+            {
+                Debug.Log("Poisoned");
+                target.status = Avatar.Status.Poisoned;
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
         }
    }
 }

@@ -376,11 +376,13 @@ public class Hero : Avatar
         xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
 
         //check equipment and add their stats to base
+
         if (armor != null)
         {
-            dfp += armor.dfp;
-            res += armor.res;
+            //armor.Unequip();
+            //armor.Equip();
         }
+
     }
 
     //static hero sprite dashes forward and back

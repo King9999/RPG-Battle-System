@@ -8,44 +8,57 @@ public class Armor : Item
     [Header("Armor properties")]
     public float dfp;
     public float res;
+    public bool resistPoison;
+    public bool resistParalysis;
+    public bool resistBlind;
+    public bool resistCharm;
     public Skill armorSkill;
 
-   /*public override void Equip(Hero hero)
+   public override void Equip(Hero hero)
     {
-        base.Equip(hero);
+        if (isEquipped || itemType != ItemType.Armor) return;
 
-        //check weapon type
-        if (weaponType == WeaponType.Sword && hero.swordOK || weaponType == WeaponType.Axe && hero.axeOK || 
+        //check armor type
+        /*if (weaponType == WeaponType.Sword && hero.swordOK || weaponType == WeaponType.Axe && hero.axeOK || 
             weaponType == WeaponType.Bow && hero.bowOK || weaponType == WeaponType.Dagger && hero.daggerOK ||
-            weaponType == WeaponType.Staff && hero.staffOK)
-        {
-            hero.atp += atp;
-            hero.mag += mag;
-            hero.actGauge = actGauge;
-            hero.totalAttackTokens = hero.attackTokenMod + tokenCount;
+            weaponType == WeaponType.Staff && hero.staffOK)*/
+        //{
+            hero.dfp += dfp;
+            hero.res += res;
 
-            if (weaponSkill != null)
-                hero.skills.Add(weaponSkill);
+            /* Only change ailment protection if this item provides it */
+            hero.resistPoison = resistPoison == true ? true : hero.resistPoison;
+            hero.resistCharm = resistCharm == true ? true : hero.resistCharm;
+            hero.resistBlind = resistBlind == true ? true : hero.resistBlind;
+            hero.resistParalysis = resistParalysis == true ? true : hero.resistParalysis;
+
+            if (armorSkill != null)
+                hero.skills.Add(armorSkill);
             isEquipped = true;
-        }
+        //}
     }
 
     public override void Unequip(Hero hero)
     {
-        base.Unequip(hero);
-        hero.atp -= atp;
-        hero.mag -= mag;
-        hero.actGauge = null;
-        hero.totalAttackTokens -= tokenCount;
+        if (!isEquipped) return;
 
-        //find weaponskill to remove in list.       
-        if (weaponSkill != null)
+        hero.dfp -= dfp;
+        hero.res -= res;
+
+        /* Only remove ailment protection if this item was providing it */
+        hero.resistPoison = resistPoison == true ? false : hero.resistPoison;
+        hero.resistCharm = resistCharm == true ? false : hero.resistCharm;
+        hero.resistBlind = resistBlind == true ? false : hero.resistBlind;
+        hero.resistParalysis = resistParalysis == true ? false : hero.resistParalysis;
+        
+        //find armor skill to remove in list.       
+        if (armorSkill != null)
         {
             int i = 0;
             bool skillFound = false;
             while(!skillFound && i < hero.skills.Count)
             {
-                if (weaponSkill == hero.skills[i])
+                if (armorSkill == hero.skills[i])
                 {
                     hero.skills.RemoveAt(i);
                     skillFound = true;
@@ -57,5 +70,5 @@ public class Armor : Item
             }
         }
         isEquipped = false;
-    }*/
+    }
 }

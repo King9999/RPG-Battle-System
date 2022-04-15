@@ -28,6 +28,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     bool mouseOverAvatar;
 
     //stat modifiers
+    public float hpMod = 1;
+    public float mpMod = 1;
     public float atpMod = 1;
     public float dfpMod = 1;
     public float spdMod = 1;
@@ -37,16 +39,25 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     //coroutine check
     protected bool animateAttackCoroutineOn;
    
-    //singletons
-    protected CombatSystem cs;
-    protected GameManager gm;
+    
 
     public List<Skill> skills;
+
+    [Header("Ailment Status")]
+    public bool resistPoison;
+    public bool resistParalysis;
+    public bool resistBlind;
+    public bool resistCharm;
+    
     public enum Status
     {
         Normal, Poisoned, Paralyzed, Blind, Charmed, Dead
     }
     public Status status;
+
+    //singletons
+    protected CombatSystem cs;
+    protected GameManager gm;
 
     protected virtual void Start()
     {
