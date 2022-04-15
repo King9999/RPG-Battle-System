@@ -69,7 +69,11 @@ public class CombatSystem : MonoBehaviour
         loot = new Dictionary<Item, int>();
 
         //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
-        heroesInCombat.Add(hm.heroes[0]);
+        foreach(Hero hero in hm.heroes)
+        {
+            heroesInCombat.Add(hero);
+        }
+        //heroesInCombat.Add(hm.heroes[0]);
 
         //add random enemies
         //int randCount = Random.Range(1, totalEnemies + 1);
@@ -249,7 +253,7 @@ public class CombatSystem : MonoBehaviour
         {
             foreach(KeyValuePair<Item,int> item in loot)
             {
-                Debug.Log("Obtained " + item.Key.itemName + " x" + item.Value);
+                //Debug.Log("Obtained " + item.Key.itemName + " x" + item.Value);
                 lootString += item.Key.itemName + " x" + item.Value + "\n";
                 //TODO: add this item to player inventory once that's set up
             }
@@ -287,6 +291,13 @@ public class CombatSystem : MonoBehaviour
         loot.Clear();
         xpPool = 0;
         moneyPool = 0;
+
+        //hide heroes for next time
+        foreach(Hero hero in heroesInCombat)
+        {
+            hero.gameObject.SetActive(false);
+        }
+        
         gameObject.SetActive(false);
     }
 

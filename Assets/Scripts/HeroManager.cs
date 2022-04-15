@@ -26,6 +26,7 @@ public class HeroManager : MonoBehaviour
     void Start()
     {
         AddHero(heroData[0]);
+        AddHero(heroData[1]);
     }
 
     // Update is called once per frame
@@ -37,7 +38,8 @@ public class HeroManager : MonoBehaviour
     public void AddHero(HeroData data)
     {
         Hero hero = Instantiate(heroPrefab);
-        hero.GetData(data);
+        hero.data = data;
+        hero.GetData(hero.data);
         heroes.Add(hero);
     }
 }

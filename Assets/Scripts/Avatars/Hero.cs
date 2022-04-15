@@ -134,7 +134,11 @@ public class Hero : Avatar
         if (trinket != null)
             trinket.Equip(hero: this);
 
-        actionCompleted = true;
+        actionCompleted = true;     //not sure what this is for
+
+        //get sprite
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = data.sprite;
     }
 
     // Update is called once per frame
@@ -361,10 +365,12 @@ public class Hero : Avatar
             if (roll <= critChance)
             {
                 totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
+                ui.damageDisplay.color = ui.criticalDamageColor;
             }
             else
             {
                 totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
+                ui.damageDisplay.color = ui.damageColor;
             }
 
             //if player is blind, high chance they do 0 damage
@@ -405,7 +411,7 @@ public class Hero : Avatar
                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
             }
 
-            totalAttackTokens = weapon.tokenCount + attackTokenMod;
+            totalAttackTokens = (weapon.tokenCount + attackTokenMod < 1) ? 1 : weapon.tokenCount + attackTokenMod;
             currentActions = 0;
             actGauge.actionToken.StartToken();
         }
