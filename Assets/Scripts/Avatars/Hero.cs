@@ -149,20 +149,6 @@ public class Hero : Avatar
             if (!highlightAvatarCoroutineOn)
                 StartCoroutine(HighlightAvatar());
         }
-        //base.Update();
-        /*if (isTheirTurn)
-        {
-            //show menu
-            Debug.Log("Hero's turn");
-            //show action gauge if attacking or using skill
-            PassTurn();
-        }
-
-         if (hitPoints > maxHitPoints)
-            hitPoints = maxHitPoints;*/
-
-        //if (cs.turnInProgress)
-            //TakeAction();
 
         if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind)
         {
@@ -174,11 +160,6 @@ public class Hero : Avatar
                 return;
             }*/
 
-            /*if (isAttacking && cs.enemiesInCombat.Count > 0)
-            {
-                //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-                Attack(cs.enemiesInCombat[cs.currentTarget]);
-            }*/
             if ((isAttacking && currentActions >= totalAttackTokens) || gm.gameState == GameManager.GameState.ShowCombatRewards)
             {
                 isAttacking = false;
@@ -236,124 +217,85 @@ public class Hero : Avatar
     public override void Attack(Avatar target)
     {
         UI ui = UI.instance;
+        ui.damageDisplay.color = ui.damageColor;    //reset colour to default
         if (status != Status.Charmed)
         {
-            //TODO: The following code must go into a separate method and must be called from the Enemy pointer click event.
-            //This is to help prevent the hero from attacking immediately.
-            /*if (!cs.actGauge.gameObject.activeSelf)
+           
+            //wait for button press to attack. Do this until no more tokens available
+            if (cim.buttonPressed)
             {
-                cs.actGauge.ShowGauge(true);
-                cs.actGauge.UpdateGaugeData(weapon.actGauge);
-                cs.actGauge.ResetActionToken();
-
-                //certain pips change if player is blind
-                if (status == Status.Blind)
+                float totalDamage = 0;
+                //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
                 {
-                    cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
-                    cs.actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
-                }
+                    case ActionGauge.ActionValue.Normal:
+                        //deal damage to enemy
+                        totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
+                        //ui.damageDisplay.color = ui.damageColor;
+                        if (!animateAttackCoroutineOn)
+                            StartCoroutine(AnimateAttack());
+                        ReduceHitPoints(target, totalDamage);
+                        break;
 
-                totalAttackTokens = weapon.tokenCount + attackTokenMod;
-                currentActions = 0;
-            }*/
+                    case ActionGauge.ActionValue.Reduced:
+                        //deal half damage to enemy
+                        totalDamage = Mathf.Round((atp * atpMod) / 2 + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
+                        ui.damageDisplay.color = ui.reducedDamageColor;
+                        if (!animateAttackCoroutineOn)
+                            StartCoroutine(AnimateAttack());
+                        ReduceHitPoints(target, totalDamage);
+                        break;
 
-            //if (currentActions < totalAttackTokens)
-            //{
-                //isAttacking = true;
-                //wait for button press to attack. Do this until no more tokens available
-                if (cim.buttonPressed)
-                {
-                    float totalDamage = 0;
-                    //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-                    switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
-                    {
-                        case ActionGauge.ActionValue.Normal:
-                            //deal damage to enemy
-                            totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-                            ui.damageDisplay.color = ui.damageColor;
-                            if (!animateAttackCoroutineOn)
-                                StartCoroutine(AnimateAttack());
-                            ReduceHitPoints(target, totalDamage);
-                            break;
+                    case ActionGauge.ActionValue.Miss:
+                        //nothing happens
+                        //ui.damageDisplay.color = ui.damageColor;
+                        if (!animateAttackCoroutineOn)
+                            StartCoroutine(AnimateAttack());
+                        ReduceHitPoints(target, totalDamage);
+                        break;
 
-                        case ActionGauge.ActionValue.Reduced:
-                            //deal half damage to enemy
-                            totalDamage = Mathf.Round((atp * atpMod) / 2 + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-                            ui.damageDisplay.color = ui.reducedDamageColor;
-                            if (!animateAttackCoroutineOn)
-                                StartCoroutine(AnimateAttack());
-                            ReduceHitPoints(target, totalDamage);
-                            break;
+                    case ActionGauge.ActionValue.Critical:
+                        //deal increased damage to enemy. Enemy DFP is ignored
+                        //if landed on a shield, deal shield damage
+                        totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
+                        ui.damageDisplay.color = ui.criticalDamageColor;
+                        if (!animateAttackCoroutineOn)
+                            StartCoroutine(AnimateAttack());
+                        ReduceHitPoints(target, totalDamage);
+                        break;
 
-                        case ActionGauge.ActionValue.Miss:
-                            //nothing happens
-                            ui.damageDisplay.color = ui.damageColor;
-                            if (!animateAttackCoroutineOn)
-                                StartCoroutine(AnimateAttack());
-                            ReduceHitPoints(target, totalDamage);
-                            break;
+                    case ActionGauge.ActionValue.Special:
+                        //activate weapon skill
+                        switch(weapon.weaponSkill.targetType)
+                        {
+                            case Skill.Target.None:
+                                weapon.weaponSkill.Activate(skillNameBorderColor);
+                                break;
 
-                        case ActionGauge.ActionValue.Critical:
-                            //deal increased damage to enemy. Enemy DFP is ignored
-                            //if landed on a shield, deal shield damage
-                            totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
-                            ui.damageDisplay.color = ui.criticalDamageColor;
-                            if (!animateAttackCoroutineOn)
-                                StartCoroutine(AnimateAttack());
-                            ReduceHitPoints(target, totalDamage);
-                            break;
-
-                        case ActionGauge.ActionValue.Special:
-                            //activate weapon skill
-                            switch(weapon.weaponSkill.targetType)
-                            {
-                                case Skill.Target.None:
-                                    weapon.weaponSkill.Activate(skillNameBorderColor);
-                                    break;
-
-                                case Skill.Target.Self:
-                                    weapon.weaponSkill.Activate(this, skillNameBorderColor);
-                                    break;
-                                
-                                case Skill.Target.One:
-                                    weapon.weaponSkill.Activate(this, target, skillNameBorderColor);
-                                    break;
-
-                                case Skill.Target.All:
-                                    //weapon.weaponSkill.Activate(this, skillNameBorderColor);
-                                    break;
-                            }
+                            case Skill.Target.Self:
+                                weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                break;
                             
-                            break;
-                    }
+                            case Skill.Target.One:
+                                weapon.weaponSkill.Activate(this, target, skillNameBorderColor);
+                                break;
 
-                    //if (!animateAttackCoroutineOn)
-                        //StartCoroutine(AnimateAttack());
-
-                    //deal final damage to enemy
-                    //Debug.Log(className + " deals " + totalDamage + " damage to " + target.className);
-                    //ReduceHitPoints(target, totalDamage);
-
-                    //show damage
-                    //Vector3 enemyPos = Camera.main.WorldToScreenPoint(target.transform.position);
-                    //ui.DisplayDamage(totalDamage.ToString(), enemyPos, ui.damageDisplay.color);
-
-                    //attack token resets and speeds up by 20%
-                    cs.actGauge.ResetActionToken();
-                    float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
-                    cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
-                    currentActions++;
-                    cim.buttonPressed = false;   
+                            case Skill.Target.All:
+                                //weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                break;
+                        }
+                        
+                        break;
                 }
+
+                //attack token resets and speeds up by 20%
+                cs.actGauge.ResetActionToken();
+                float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
+                cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
+                currentActions++;
+                cim.buttonPressed = false;   
+            }
                     
-            //}
-            /*else
-            {
-                isAttacking = false;
-                cs.actGauge.actionToken.SetSpeedToDefault();
-                cs.actGauge.ShowGauge(false);
-                Invoke("PassTurn", invokeTime);
-            }*/
         }
         else    //player is charmed, do a regular attack with a chance of crit
         {
@@ -370,7 +312,7 @@ public class Hero : Avatar
             else
             {
                 totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-                ui.damageDisplay.color = ui.damageColor;
+                //ui.damageDisplay.color = ui.damageColor;
             }
 
             //if player is blind, high chance they do 0 damage
@@ -414,6 +356,30 @@ public class Hero : Avatar
             totalAttackTokens = (weapon.tokenCount + attackTokenMod < 1) ? 1 : weapon.tokenCount + attackTokenMod;
             currentActions = 0;
             actGauge.actionToken.StartToken();
+        }
+    }
+
+    public void LevelUp()
+    {
+        if (currentLevel >= data.MaxLevel - 1)
+            return;
+
+        currentLevel++;   
+        level = stats.tableStats[currentLevel].level;
+        maxHitPoints = stats.tableStats[currentLevel].hp;
+        maxManaPoints = stats.tableStats[currentLevel].mp;
+        atp = stats.tableStats[currentLevel].atp + weapon.atp;           
+        dfp = stats.tableStats[currentLevel].dfp;           
+        mag = stats.tableStats[currentLevel].mag + weapon.mag;          
+        res = stats.tableStats[currentLevel].res;
+        spd = stats.tableStats[currentLevel].spd;
+        xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
+
+        //check equipment and add their stats to base
+        if (armor != null)
+        {
+            dfp += armor.dfp;
+            res += armor.res;
         }
     }
 

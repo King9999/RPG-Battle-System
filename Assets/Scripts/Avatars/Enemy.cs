@@ -61,6 +61,7 @@ public abstract class Enemy : Avatar
     public override void Attack(Avatar target)
     {
         UI ui = UI.instance;
+        //ui.damageDisplay.color = ui.damageColor;
         //enemy has a 5% chance to inflict a critical. Criticals ignore defense
         float totalDamage;
         float critChance = 0.05f;
@@ -74,7 +75,7 @@ public abstract class Enemy : Avatar
         else
         {
             totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-            ui.damageDisplay.color = ui.damageColor;
+            //ui.damageDisplay.color = ui.damageColor;
         }
 
         //if enemy is blind, high chance they do 0 damage
@@ -85,7 +86,7 @@ public abstract class Enemy : Avatar
             if (roll > blindHitChance)
             {
                 totalDamage = 0;
-                ui.damageDisplay.color = ui.damageColor;
+                //ui.damageDisplay.color = ui.damageColor;
             }
         }
         

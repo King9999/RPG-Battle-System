@@ -40,6 +40,7 @@ public class HeroManager : MonoBehaviour
         Hero hero = Instantiate(heroPrefab);
         hero.data = data;
         hero.GetData(hero.data);
+        //hero.xpToNextLevel -= 149;
         heroes.Add(hero);
     }
 }

@@ -169,6 +169,10 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         auraSr.flipX = sr.flipX;
         auraSr.enabled = true;
 
+        //reset damage colour to default
+        UI ui = UI.instance;
+        ui.damageDisplay.color = ui.damageColor;
+
         //call coroutine to animate the aura. Avatar takes action after this coroutine finishes.
         
     }

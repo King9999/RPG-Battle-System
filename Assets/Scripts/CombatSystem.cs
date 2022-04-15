@@ -26,6 +26,7 @@ public class CombatSystem : MonoBehaviour
     public Transform[] heroLocations;
     bool[] heroLocationOccupied;
     bool combatEnabled;         //when true, combat starts and all combat elements apppear in foreground.
+    bool combatEnded;           //if true, will run the EndCombat method and prevent it from running more than once.
     public bool turnInProgress;
     public Transform actGaugeLocation;
 
@@ -151,16 +152,19 @@ public class CombatSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (combatEnded)
+            return;
         /*if (AllHeroesDefeated())
         {
             gm.GameOver();
             return;
         }*/
 
-        if (enemiesInCombat.Count <= 0)
+        if (!combatEnded && enemiesInCombat.Count <= 0)
         {
             EndCombat();
-            return;
+            combatEnded = true;
+            //return;
         }
 
         //check whose turn is next
@@ -235,9 +239,23 @@ public class CombatSystem : MonoBehaviour
         string xpAndMoney = xpPool + " EXP\n" + moneyPool + " Money";
         string[] partyXp = new string[heroesInCombat.Count];
 
+        //XP gain.
         for (int i = 0; i < heroesInCombat.Count; i++)
         {
-            partyXp[i] = heroesInCombat[i].className + "\nEXP Gained: " + xpPool / heroesInCombat.Count + "\nTo Next Level " + heroesInCombat[i].xpToNextLevel;
+            heroesInCombat[i].gameObject.SetActive(false);
+            heroesInCombat[i].xpToNextLevel -= xpPool / heroesInCombat.Count;
+            if (heroesInCombat[i].xpToNextLevel <= 0)
+            {
+                //Debug.Log(heroesInCombat[i].className + " leveled up!");
+                heroesInCombat[i].LevelUp();
+                partyXp[i] = heroesInCombat[i].className + " Level Up!\nEXP Gained: " + xpPool / heroesInCombat.Count + "\nTo Next Level " 
+                + heroesInCombat[i].xpToNextLevel;
+            }
+            else
+            {
+                partyXp[i] = heroesInCombat[i].className + "\nEXP Gained: " + xpPool / heroesInCombat.Count + "\nTo Next Level " 
+                    + heroesInCombat[i].xpToNextLevel;
+            }
         }
 
         //show loot
@@ -293,10 +311,10 @@ public class CombatSystem : MonoBehaviour
         moneyPool = 0;
 
         //hide heroes for next time
-        foreach(Hero hero in heroesInCombat)
+        /*foreach(Hero hero in heroesInCombat)
         {
             hero.gameObject.SetActive(false);
-        }
+        }*/
         
         gameObject.SetActive(false);
     }
