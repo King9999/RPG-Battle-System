@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b6233d0d2c31447a69dd2feffd9159, type: 3}
   m_Name: skill_regenRing
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Regen Ring (Skill)
   skillIcon: {fileID: 0}
-  description: 
+  description: Restores 15% HP each turn
   manaCost: 0
   power: 0
   actGauge: {fileID: 0}
-  isPassive: 0
-  targetType: 0
+  isPassive: 1
+  targetType: 1
   element: 0
   statusEffect: 0

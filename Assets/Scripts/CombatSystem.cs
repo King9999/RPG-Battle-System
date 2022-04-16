@@ -234,6 +234,7 @@ public class CombatSystem : MonoBehaviour
     {
         //set game state
         gm.gameState = GameManager.GameState.ShowCombatRewards;
+        actGauge.ShowGauge(false);
 
         //award XP, money and items
         string xpAndMoney = xpPool + " EXP\n" + moneyPool + " Money";

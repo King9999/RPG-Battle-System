@@ -23,8 +23,13 @@ MonoBehaviour:
   mag: 0
   res: 0
   skills: []
+  statFile: {fileID: 4900000, guid: f5ef3a3596a9900498056ac7b3b1baae, type: 3}
+  sprite: {fileID: 21300000, guid: 6727f157f9600844893e2ad9ad8378f4, type: 3}
   level: 1
-  attackTokenMod: 2
+  attackTokenMod: 1
+  weapon: {fileID: 11400000, guid: b98c69b938d5cf4448b221aa2c70f157, type: 2}
+  armor: {fileID: 0}
+  trinket: {fileID: 11400000, guid: 57272bbc5ea633c43819b6c50d86c8f6, type: 2}
   swordOK: 0
   daggerOK: 1
   axeOK: 0

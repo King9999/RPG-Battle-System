@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88aa7bba1d8d3eb43aa97bd7f9b05a93, type: 3}
   m_Name: trn_leatherband
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Leather Band
+  details: Worn around the wrist. Slightly raises HP
+  cost: 100
   sprite: {fileID: 0}
-  itemType: 0
-  maxHitPoints: 0
+  itemType: 3
+  maxHitPoints: 20
   maxManaPoints: 0
   atp: 0
   dfp: 0
   mag: 0
   res: 0
   spd: 0
-  attackTokenMod: 0
   hpMod: 0
   mpMod: 0
   atpMod: 0
@@ -32,4 +31,9 @@ MonoBehaviour:
   magMod: 0
   resMod: 0
   spdMod: 0
+  attackTokenMod: 0
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 0
   trinketSkill: {fileID: 0}

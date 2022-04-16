@@ -167,7 +167,7 @@ public class UI : MonoBehaviour
         damageDisplay.text = value;
 
         //each digit is animated individually
-        Debug.Log("Length " + damageDisplay.text.Length);
+//        Debug.Log("Length " + damageDisplay.text.Length);
         Vector3 initPos = damageDisplay.transform.position;
         Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
         float vy;

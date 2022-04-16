@@ -13,18 +13,17 @@ MonoBehaviour:
   m_Name: trn_speedboots
   m_EditorClassIdentifier: 
   itemName: Speed Boots
-  details: 
-  cost: 0
+  details: Slightly raises SPD
+  cost: 200
   sprite: {fileID: 0}
-  itemType: 0
+  itemType: 3
   maxHitPoints: 0
   maxManaPoints: 0
   atp: 0
   dfp: 0
   mag: 0
   res: 0
-  spd: 0
-  attackTokenMod: 0
+  spd: 2
   hpMod: 0
   mpMod: 0
   atpMod: 0
@@ -32,4 +31,9 @@ MonoBehaviour:
   magMod: 0
   resMod: 0
   spdMod: 0
+  attackTokenMod: 0
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 0
   trinketSkill: {fileID: 0}

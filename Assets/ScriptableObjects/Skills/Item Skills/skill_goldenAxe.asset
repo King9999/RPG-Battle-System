@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d827775f4b8a3c4088cb6e86136d1ac, type: 3}
   m_Name: skill_goldenAxe
   m_EditorClassIdentifier: 
-  skillName: Golden Axe
+  skillName: Golden Axe (Skill)
   skillIcon: {fileID: 0}
   description: Raises ATP by 10%, up to 30%
   manaCost: 0

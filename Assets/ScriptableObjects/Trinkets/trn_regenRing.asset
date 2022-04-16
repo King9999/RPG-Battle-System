@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88aa7bba1d8d3eb43aa97bd7f9b05a93, type: 3}
   m_Name: trn_regenRing
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Regen Ring
+  details: HP restored after each turn
+  cost: 1000
   sprite: {fileID: 0}
-  itemType: 0
+  itemType: 3
   maxHitPoints: 0
   maxManaPoints: 0
   atp: 0
@@ -24,7 +24,6 @@ MonoBehaviour:
   mag: 0
   res: 0
   spd: 0
-  attackTokenMod: 0
   hpMod: 0
   mpMod: 0
   atpMod: 0
@@ -32,4 +31,9 @@ MonoBehaviour:
   magMod: 0
   resMod: 0
   spdMod: 0
-  trinketSkill: {fileID: 0}
+  attackTokenMod: 0
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 0
+  trinketSkill: {fileID: 11400000, guid: d8982e848a347e64ea5b1c379ad8d848, type: 2}
