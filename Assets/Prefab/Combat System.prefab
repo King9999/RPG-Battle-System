@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249232026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.95, y: 2.01, z: 0}
+  m_LocalPosition: {x: 6.95, y: 2.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2259218531401355047}
@@ -189,7 +189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923545491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.21, y: -1.89, z: 0}
+  m_LocalPosition: {x: -7.34, y: -1.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1285679911}
@@ -219,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030047228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.34, y: 0, z: 0}
+  m_LocalPosition: {x: 7.34, y: -0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2259218531401355047}
@@ -402,7 +402,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898724806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.32, y: 0.13, z: 0}
+  m_LocalPosition: {x: -4.77, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1285679911}
@@ -432,7 +432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900838924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.35, y: 1.28, z: 0}
+  m_LocalPosition: {x: -2.33, y: 2.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1285679911}
@@ -462,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2338128423605129711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1227423813}
@@ -525,7 +525,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroesInCombat: []
   enemiesInCombat: []
-  loot: []
+  currentTarget: 0
+  currentHero: 0
   xpPool: 0
   moneyPool: 0
   actGauge: {fileID: 4736841933892709229}
@@ -544,6 +545,7 @@ MonoBehaviour:
   - {fileID: 1900838925}
   turnInProgress: 0
   actGaugeLocation: {fileID: 566209646}
+  selectingTargetToAttack: 0
 --- !u!114 &1913980331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,6 +576,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1913980332}
         m_TargetAssemblyTypeName: CombatInputManager, Assembly-CSharp
         m_MethodName: StopActionToken
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1913980332}
+        m_TargetAssemblyTypeName: CombatInputManager, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1913980332}
+        m_TargetAssemblyTypeName: CombatInputManager, Assembly-CSharp
+        m_MethodName: CloseRewards
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -651,6 +677,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4786417419805898536, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+      propertyPath: actionToken
+      value: 
+      objectReference: {fileID: 3004780806583790307}
     - target: {fileID: 4786417419805898537, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -716,5 +746,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 005d5dce0ec745b468ec2ca87e77dc56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3004780806583790307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3054357358605661862, guid: 13b3fcc1a6f902c4d931c15fdcce9ed6, type: 3}
+  m_PrefabInstance: {fileID: 274827247747914821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7f0f16d9425bc4ea2978e484363d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

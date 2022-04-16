@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f50b0d259448c3e4ca876c612039220f, type: 3}
-  m_Name: armor_
+  m_Name: armor_robe
   m_EditorClassIdentifier: 
   itemName: Robe
   details: For magic users. Offers decent RES

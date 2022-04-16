@@ -22,9 +22,9 @@ MonoBehaviour:
   mag: 0
   res: 0
   skills: []
-  xp: 300
+  xp: 600
   money: 500
   commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 0}
-  commonItemDropChance: 1
-  rareItemDropChance: 0
+  rareItemDrop: {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
+  commonItemDropChance: 0
+  rareItemDropChance: 1
