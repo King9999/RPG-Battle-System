@@ -22,8 +22,12 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     void Start()
     {
         im = ItemManager.instance;
+        items = new Dictionary<Item, int>();
+
         currentItem = 0;
+        gameObject.SetActive(false);
         AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
     }
 
     // Update is called once per frame
@@ -49,16 +53,40 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (items.ContainsKey(item))
         {
             items[item] += amount;
+
+            //find where the item is located so we can update the text
+            int i = 0; 
+            foreach(Item itemInInventory in items.Keys)
+            {
+                if (itemInInventory.Equals(item))
+                {
+                    itemButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
+                    break;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            //itemButtons[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
         }
         else
         {
             if (items.Count < maxItems)
+            {
                 items.Add(item, amount);
+                itemButtons[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
+                currentItem++;
+            }
             else
                 return;
         }
 
-        itemButtons[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
-        currentItem++;
+        
+    }
+
+    public void ShowInventory(bool toggle)
+    {
+        gameObject.SetActive(toggle);
     }
 }

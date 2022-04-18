@@ -14,6 +14,7 @@ public class CombatMenu : MonoBehaviour
     public Button skillButton;
     public Button itemButton;
     public Button escapeButton;
+    public Inventory inv;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,12 @@ public class CombatMenu : MonoBehaviour
         //Debug.Log("Targeting " + cs.enemiesInCombat[cs.currentTarget].className + " at location " + cs.currentTarget);
         //Debug.Log(Mouse.current.position.ReadValue());
     
+    }
+
+    public void OnItemButtonClicked()
+    {
+        //open inventory
+        inv.ShowInventory(true);  
     }
 
     public void ShowCombatMenu(bool toggle)

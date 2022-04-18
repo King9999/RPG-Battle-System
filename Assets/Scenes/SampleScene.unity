@@ -1247,50 +1247,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: weapons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: armor.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: ed5af7bd6dea06245b4073db94130ef5, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: armor.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: f3b6e6920a943e746a99110ca4e207ba, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: armor.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 6d03516e9f25b1b45b80e918ef8523ad, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: weapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: b98c69b938d5cf4448b221aa2c70f157, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: weapons.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: weapons.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: trinkets.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: c4fed7c7445e88c4ca4046207c2652ee, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: trinkets.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 57272bbc5ea633c43819b6c50d86c8f6, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: trinkets.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1963c0680f2ed4a4da6755c7d058e8bb, type: 2}
-    - target: {fileID: 7927149144860831526, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
-      propertyPath: consumables.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01b659e1ca25cbe49b5505ae32c84eb4, type: 3}
 --- !u!1001 &3550024792717204145

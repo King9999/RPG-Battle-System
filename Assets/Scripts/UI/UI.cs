@@ -20,6 +20,7 @@ public class UI : MonoBehaviour
     public CombatStats combatDataDisplay;
     public CombatMenu combatMenu;
     public RewardsDisplay rewardsDisplay;
+    public Inventory inventory;
 
     public static UI instance;
 

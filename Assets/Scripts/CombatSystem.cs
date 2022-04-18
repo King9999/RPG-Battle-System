@@ -213,7 +213,6 @@ public class CombatSystem : MonoBehaviour
             {
                 loot.Add(enemy.rareItemDrop, 1);
             }
-            //loot.Add(enemy.rareItemDrop, 1);
         }
         else if (enemy.commonItemDrop != null && roll <= enemy.commonItemDropChance)
         {
@@ -225,7 +224,6 @@ public class CombatSystem : MonoBehaviour
             {
                 loot.Add(enemy.commonItemDrop, 1);
             }
-            //loot.Add(enemy.commonItemDrop, 1);
         }
         
     }
