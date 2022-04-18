@@ -26,8 +26,8 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         currentItem = 0;
         gameObject.SetActive(false);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
+        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
+        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
     }
 
     // Update is called once per frame

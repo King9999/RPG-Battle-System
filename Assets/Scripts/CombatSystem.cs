@@ -74,37 +74,39 @@ public class CombatSystem : MonoBehaviour
         {
             heroesInCombat.Add(hero);
         }
-        //heroesInCombat.Add(hm.heroes[0]);
 
         //add random enemies
-        //int randCount = Random.Range(1, totalEnemies + 1);
-        for (int i = 0; i < 2; i++)
+        int randCount = Random.Range(1, totalEnemies + 1);
+        //int count = 0;
+        for (int i = 0; i < randCount; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             Enemy enemy = Instantiate(em.enemies[randomEnemy]);
-
-            //check if enemy already exists, update name if necessary
-            /*int count = 0;
-            for (int j = 0; j < enemiesInCombat.Count; j++)
-            {
-                if (enemy.className == enemiesInCombat[j].className)
-                    count++;
-                if (count > 0)
-                {
-                    enemy.className += " " + group.Substring(count - 1, 1);
-                }
-            }*/
-
-            
-
-            /*int count = enemiesInCombat.Sum(x => x.Where(e => e == enemy)).Count();
-            if (count > 0)
-            {
-                enemy.className += " " + group.Substring(count - 1, 1);
-            }*/
             enemiesInCombat.Add(enemy);
         }
 
+        //check enemy names and append a letter to duplicates
+        for (int i = 0; i < enemiesInCombat.Count; i++)
+        {
+            int j = 0;
+            int count = 0;
+            while (j < i)
+            {
+                if (enemiesInCombat[i].GetType() == enemiesInCombat[j].GetType())   //cannot compare names because they may change
+                {
+                    count++;
+                }
+                j++;
+            }
+
+            //if we have more than 0 occurrences, update name
+            if (count > 0)
+            {
+                //Debug.Log(enemiesInCombat[i].className + " occurrences: " + count);
+                enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1);
+            }
+
+        }
         
         //place heroes and enemies in random positions
         heroLocationOccupied = new bool[heroLocations.Length];
@@ -228,7 +230,7 @@ public class CombatSystem : MonoBehaviour
         
     }
 
-    void EndCombat()
+    void EndCombat(bool escapedCombat = false)
     {
         //set game state
         gm.gameState = GameManager.GameState.ShowCombatRewards;
@@ -270,9 +272,10 @@ public class CombatSystem : MonoBehaviour
         {
             foreach(KeyValuePair<Item,int> item in loot)
             {
-                //Debug.Log("Obtained " + item.Key.itemName + " x" + item.Value);
                 lootString += item.Key.itemName + " x" + item.Value + "\n";
-                //TODO: add this item to player inventory once that's set up
+
+                //add to inventory
+                ui.inventory.AddItem(item.Key, item.Value);
             }
         }
 

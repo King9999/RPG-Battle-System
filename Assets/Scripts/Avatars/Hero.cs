@@ -379,10 +379,26 @@ public class Hero : Avatar
 
         if (armor != null)
         {
-            //armor.Unequip();
-            //armor.Equip();
+            armor.Unequip(this);
+            armor.Equip(this);
+            //dfp = stats.tableStats[currentLevel].dfp + armor.dfp;           
+           // res = stats.tableStats[currentLevel].res + armor.res;
         }
 
+        if (trinket != null)
+        {
+            trinket.Unequip(this);
+            trinket.Equip(this);
+        }
+
+    }
+
+    public override void PassTurn()
+    {
+        base.PassTurn();
+
+        UI ui = UI.instance;
+        ui.combatMenu.ShowCombatMenu(false);
     }
 
     //static hero sprite dashes forward and back

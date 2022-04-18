@@ -156,7 +156,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
          //turnTaken = (isTheirTurn == true) ? false : true;
          //cs.turnInProgress = (isTheirTurn == true) ? true : false; 
     }
-    public void PassTurn()
+    public virtual void PassTurn()
     {
         isTheirTurn = false;
         turnTaken = true;

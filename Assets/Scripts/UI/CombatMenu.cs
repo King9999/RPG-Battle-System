@@ -20,6 +20,7 @@ public class CombatMenu : MonoBehaviour
     void Start()
     {
         cs = CombatSystem.instance;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
