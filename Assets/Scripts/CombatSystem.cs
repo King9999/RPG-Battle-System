@@ -284,12 +284,11 @@ public class CombatSystem : MonoBehaviour
         foreach(Hero hero in heroesInCombat)
         {
             hero.currentXp += xpPool / heroesInCombat.Count;
-            //add money to inventory
         }
 
-       
+        //add money
+        ui.inventory.AddMoney(moneyPool);
 
-        //gameObject.SetActive(false);
     }
 
     bool AllHeroesDefeated()
@@ -327,7 +326,10 @@ public class CombatSystem : MonoBehaviour
         int rank = 1;
         foreach(Avatar a in turnOrder)
         {
-            ui.turnOrderList.text += rank + " " + a.className + "\n";
+            if (rank == 1)
+                ui.turnOrderList.text += rank + " <color=#0ffc7e>" + a.className + "</color>\n";
+            else
+                ui.turnOrderList.text += rank + " " + a.className + "\n";
             rank++;
         }
     }

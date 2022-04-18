@@ -8,8 +8,10 @@ using UnityEngine.EventSystems;
 /* All items are kept in a dictionary, and interacting with them requires mouse events and buttons. */
 public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Dictionary<Item, int> items;
+    Dictionary<Item, int> items;
     public Button[] itemButtons;           //when these are clicked, item is used.
+    int money;
+    int maxMoney {get;} = 10000000;
     public int currentItem;                //iterator
     int maxItems {get;} = 10;
 
@@ -80,9 +82,18 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
             else
                 return;
+        }     
+    }
+
+    public void AddMoney(int amount)
+    {
+        if (money > maxMoney)
+        {
+            money = maxMoney;
+            return;
         }
 
-        
+        money += amount;  
     }
 
     public void ShowInventory(bool toggle)
