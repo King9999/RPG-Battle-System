@@ -224,68 +224,75 @@ public class Hero : Avatar
             //wait for button press to attack. Do this until no more tokens available
             if (cim.buttonPressed)
             {
-                float totalDamage = 0;
-                //int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-                switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                //check if we landed on the same space as the shield token
+                if (cs.actGauge.shieldToken.isEnabled && cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex)
                 {
-                    case ActionGauge.ActionValue.Normal:
-                        //deal damage to enemy
-                        totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-                        //ui.damageDisplay.color = ui.damageColor;
-                        if (!animateAttackCoroutineOn)
-                            StartCoroutine(AnimateAttack());
-                        ReduceHitPoints(target, totalDamage);
-                        break;
+                    //action is blocked, shield takes damage.
+                }
+                else
+                {
+                    float totalDamage = 0;
+                    switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                    {
+                        case ActionGauge.ActionValue.Normal:
+                            //deal damage to enemy
+                            totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
+                            //ui.damageDisplay.color = ui.damageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
+                            break;
 
-                    case ActionGauge.ActionValue.Reduced:
-                        //deal half damage to enemy
-                        totalDamage = Mathf.Round((atp * atpMod) / 2 + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-                        ui.damageDisplay.color = ui.reducedDamageColor;
-                        if (!animateAttackCoroutineOn)
-                            StartCoroutine(AnimateAttack());
-                        ReduceHitPoints(target, totalDamage);
-                        break;
+                        case ActionGauge.ActionValue.Reduced:
+                            //deal half damage to enemy
+                            totalDamage = Mathf.Round((atp * atpMod) / 2 + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
+                            ui.damageDisplay.color = ui.reducedDamageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
+                            break;
 
-                    case ActionGauge.ActionValue.Miss:
-                        //nothing happens
-                        //ui.damageDisplay.color = ui.damageColor;
-                        if (!animateAttackCoroutineOn)
-                            StartCoroutine(AnimateAttack());
-                        ReduceHitPoints(target, totalDamage);
-                        break;
+                        case ActionGauge.ActionValue.Miss:
+                            //nothing happens
+                            //ui.damageDisplay.color = ui.damageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
+                            break;
 
-                    case ActionGauge.ActionValue.Critical:
-                        //deal increased damage to enemy. Enemy DFP is ignored
-                        //if landed on a shield, deal shield damage
-                        totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
-                        ui.damageDisplay.color = ui.criticalDamageColor;
-                        if (!animateAttackCoroutineOn)
-                            StartCoroutine(AnimateAttack());
-                        ReduceHitPoints(target, totalDamage);
-                        break;
+                        case ActionGauge.ActionValue.Critical:
+                            //deal increased damage to enemy. Enemy DFP is ignored
+                            //if landed on a shield, deal shield damage
+                            totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
+                            ui.damageDisplay.color = ui.criticalDamageColor;
+                            if (!animateAttackCoroutineOn)
+                                StartCoroutine(AnimateAttack());
+                            ReduceHitPoints(target, totalDamage);
+                            break;
 
-                    case ActionGauge.ActionValue.Special:
-                        //activate weapon skill
-                        switch(weapon.weaponSkill.targetType)
-                        {
-                            case Skill.Target.None:
-                                weapon.weaponSkill.Activate(skillNameBorderColor);
-                                break;
+                        case ActionGauge.ActionValue.Special:
+                            //activate weapon skill
+                            switch(weapon.weaponSkill.targetType)
+                            {
+                                case Skill.Target.None:
+                                    weapon.weaponSkill.Activate(skillNameBorderColor);
+                                    break;
 
-                            case Skill.Target.Self:
-                                weapon.weaponSkill.Activate(this, skillNameBorderColor);
-                                break;
+                                case Skill.Target.Self:
+                                    weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                    break;
+                                
+                                case Skill.Target.One:
+                                    weapon.weaponSkill.Activate(this, target, skillNameBorderColor);
+                                    break;
+
+                                case Skill.Target.All:
+                                    //weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                    break;
+                            }
                             
-                            case Skill.Target.One:
-                                weapon.weaponSkill.Activate(this, target, skillNameBorderColor);
-                                break;
-
-                            case Skill.Target.All:
-                                //weapon.weaponSkill.Activate(this, skillNameBorderColor);
-                                break;
-                        }
-                        
-                        break;
+                            break;
+                    }
                 }
 
                 //attack token resets and speeds up by 20%
