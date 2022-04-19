@@ -11,16 +11,20 @@ public class ActionGauge : MonoBehaviour
     * Normal - equipped weapon deals 100% of its damage. 
     * Reduced - equipped weapon deals 50% damage 
     * Miss - no damage dealt/skill effect fails
-    * Critical - equipped weapon deals 200% of its damage and enemy DFP is ignored.
-    * Special - activates weapon's special skill if it has one. */
+    * Critical - equipped weapon deals 50% increased damage and enemy DFP is ignored.
+    * Special - activates weapon's special skill if it has one. 
+    
+    Breaking shield tokens can alter the action gauge by transforming panels.
+    
+    */
     public enum ActionValue {Normal, Reduced, Miss, Critical, Special}
 
-    [Header("Meter colours")]
-    public Image normalMeter;
-    public Image reducedMeter;
-    public Image missMeter;
-    public Image critMeter;
-    public Image specialMeter;
+    [Header("Panel colours")]
+    public Image normalPanel;
+    public Image reducedPanel;
+    public Image missPanel;
+    public Image critPanel;
+    public Image specialPanel;
 
     [Header("Tokens")]
     public ActionToken actionToken;         //TODO: change this into a list.
@@ -30,16 +34,17 @@ public class ActionGauge : MonoBehaviour
     [Header("Arrays")]
     public Canvas canvas;
     public ActionValue[] actionValues;
-    public Image[] pips;
-    public RectTransform[] pipPositions;
+    public Image[] panels;
+    public RectTransform[] panelPositions;
     int GaugeSize {get;} = 10;
 
-    float pipSize;
+    float panelSize;
     float totalGaugeWidth;
     float currentGaugeValue;
     [HideInInspector]public int currentIndex;
     float currentSize;
     short actionTokenDirection;     //value is either 1 or -1
+    short shieldTokenDirection;
     public bool buttonPressed;              
 
     // Start is called before the first frame update
@@ -47,14 +52,14 @@ public class ActionGauge : MonoBehaviour
     {
         //actGauge.Add()
         actionValues = new ActionValue[GaugeSize];
-        pips = new Image[GaugeSize];
-        pipSize = normalMeter.rectTransform.sizeDelta.x * normalMeter.rectTransform.localScale.x;
-        totalGaugeWidth = pipSize * GaugeSize;
+        panels = new Image[GaugeSize];
+        panelSize = normalPanel.rectTransform.sizeDelta.x * normalPanel.rectTransform.localScale.x;
+        totalGaugeWidth = panelSize * GaugeSize;
         UpdateGaugeData(data);
-        //Debug.Log("Meter width is " + totalGaugeWidth);
+        //Debug.Log("Panel width is " + totalGaugeWidth);
 
-        //add action token. It's placed at the left edge of the first pip.
-        //Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        //add action token. It's placed at the left edge of the first panel.
+        //Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), panels[0].transform.position.y + panelSize + 20, transform.position.z);
         //actionToken.transform.position = actionTokenPos;
         //actionTokenDirection = 1;   //moves from left to right by default
         ResetActionToken();
@@ -73,9 +78,9 @@ public class ActionGauge : MonoBehaviour
         //update token direction when necessary
         if (actionTokenDirection > 0)
         {
-            if (currentSize >= pipSize)
+            if (currentSize >= panelSize)
             {
-                if (currentIndex + 1 < pips.Length)
+                if (currentIndex + 1 < panels.Length)
                     currentIndex++;
                 else
                     actionTokenDirection *= -1;
@@ -85,7 +90,7 @@ public class ActionGauge : MonoBehaviour
         }
         else
         {
-            if (currentSize >= pipSize)
+            if (currentSize >= panelSize)
             {
                 if (currentIndex - 1 >= 0)
                     currentIndex--;
@@ -96,13 +101,13 @@ public class ActionGauge : MonoBehaviour
             }
         }
         //action token will travel back and forth along the gauge
-        Vector3 actionTokenPos = new Vector3(pips[currentIndex].transform.position.x - (pipSize / 2 * actionTokenDirection) 
+        Vector3 actionTokenPos = new Vector3(panels[currentIndex].transform.position.x - (panelSize / 2 * actionTokenDirection) 
         + (currentSize * actionTokenDirection), actionToken.transform.position.y, actionToken.transform.position.z);
 
         actionToken.transform.position = actionTokenPos;
     }
 
-    //updates the values and the pip images
+    //updates the values and the panel images
     public void UpdateGaugeData(ActionGaugeData data)
     {
         this.data = data;
@@ -112,59 +117,59 @@ public class ActionGauge : MonoBehaviour
         {
             actionValues[i] = (ActionValue)data.actValues[i];
 
-            //draw a pip on the screen
-            if (pips[i] == null)
+            //draw a panel on the screen
+            if (panels[i] == null)
             {
-                //draw a pip on the screen
-                Image pip = null;
+                //draw a panel on the screen
+                Image panel = null;
                 switch(actionValues[i])
                 {
                     case ActionValue.Normal:
-                        pip = normalMeter;
+                        panel = normalPanel;
                         break;
                     case ActionValue.Reduced:
-                        pip = reducedMeter;
+                        panel = reducedPanel;
                         break;
                     case ActionValue.Miss:
-                        pip = missMeter;
+                        panel = missPanel;
                         break;
                     case ActionValue.Critical:
-                        pip = critMeter;
+                        panel = critPanel;
                         break;
                     case ActionValue.Special:
-                        pip = specialMeter;
+                        panel = specialPanel;
                         break;
                 }
-                pips[i] = Instantiate(pip, pipPositions[i].position, Quaternion.identity);
-                pips[i].transform.SetParent(canvas.transform);
+                panels[i] = Instantiate(panel, panelPositions[i].position, Quaternion.identity);
+                panels[i].transform.SetParent(canvas.transform);
             }
             else
             {
-                //replace existing pips with pips from the new gauge
+                //replace existing panels with panels from the new gauge
                 switch(actionValues[i])
                 {
                     case ActionValue.Normal:
-                        pips[i].sprite = normalMeter.sprite;
+                        panels[i].sprite = normalPanel.sprite;
                         break;
                     case ActionValue.Reduced:
-                        pips[i].sprite = reducedMeter.sprite;
+                        panels[i].sprite = reducedPanel.sprite;
                         break;
                     case ActionValue.Miss:
-                        pips[i].sprite = missMeter.sprite;
+                        panels[i].sprite = missPanel.sprite;
                         break;
                     case ActionValue.Critical:
-                        pips[i].sprite = critMeter.sprite;
+                        panels[i].sprite = critPanel.sprite;
                         break;
                     case ActionValue.Special:
-                        pips[i].sprite = specialMeter.sprite;
+                        panels[i].sprite = specialPanel.sprite;
                         break;
                 }
             }
 
         }
 
-        //add action token. It's placed at the left edge of the first pip.
-        //Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        //add action token. It's placed at the left edge of the first panel.
+        //Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), panels[0].transform.position.y + panelSize + 20, transform.position.z);
         //actionToken.transform.position = actionTokenPos;
         //actionTokenDirection = 1;   //moves from left to right by default
         ResetActionToken();
@@ -173,7 +178,7 @@ public class ActionGauge : MonoBehaviour
 
     public void ResetActionToken()
     {
-        Vector3 actionTokenPos = new Vector3(pips[0].transform.position.x - (pipSize / 2), pips[0].transform.position.y + pipSize + 20, transform.position.z);
+        Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), panels[0].transform.position.y + panelSize + 20, transform.position.z);
         actionToken.transform.position = actionTokenPos;
         currentSize = 0;
         currentIndex = 0;
@@ -193,19 +198,19 @@ public class ActionGauge : MonoBehaviour
                 switch(actionValues[i])
                 {
                     case ActionValue.Normal:
-                        pips[i].sprite = normalMeter.sprite;
+                        panels[i].sprite = normalPanel.sprite;
                         break;
                     case ActionValue.Reduced:
-                        pips[i].sprite = reducedMeter.sprite;
+                        panels[i].sprite = reducedPanel.sprite;
                         break;
                     case ActionValue.Miss:
-                        pips[i].sprite = missMeter.sprite;
+                        panels[i].sprite = missPanel.sprite;
                         break;
                     case ActionValue.Critical:
-                        pips[i].sprite = critMeter.sprite;
+                        panels[i].sprite = critPanel.sprite;
                         break;
                     case ActionValue.Special:
-                        pips[i].sprite = specialMeter.sprite;
+                        panels[i].sprite = specialPanel.sprite;
                         break;
                 }
             }      
@@ -222,19 +227,19 @@ public class ActionGauge : MonoBehaviour
         switch(actionValues[index])
         {
             case ActionValue.Normal:
-                pips[index].sprite = normalMeter.sprite;
+                panels[index].sprite = normalPanel.sprite;
                 break;
             case ActionValue.Reduced:
-                pips[index].sprite = reducedMeter.sprite;
+                panels[index].sprite = reducedPanel.sprite;
                 break;
             case ActionValue.Miss:
-                pips[index].sprite = missMeter.sprite;
+                panels[index].sprite = missPanel.sprite;
                 break;
             case ActionValue.Critical:
-                pips[index].sprite = critMeter.sprite;
+                panels[index].sprite = critPanel.sprite;
                 break;
             case ActionValue.Special:
-                pips[index].sprite = specialMeter.sprite;
+                panels[index].sprite = specialPanel.sprite;
                 break;
         }
     }

@@ -235,6 +235,9 @@ public class CombatSystem : MonoBehaviour
         //set game state
         gm.gameState = GameManager.GameState.ShowCombatRewards;
         actGauge.ShowGauge(false);
+        turnOrder.Clear();
+        ui.turnOrderList.text = "";
+
 
         //award XP, money and items
         string xpAndMoney = xpPool + " EXP\n" + moneyPool + " Money";
@@ -311,6 +314,7 @@ public class CombatSystem : MonoBehaviour
         xpPool = 0;
         moneyPool = 0;
 
+       
         //hide heroes for next time
         /*foreach(Hero hero in heroesInCombat)
         {

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 /* Action tokens travel along the action gauge, moving right to left. */
 public class ActionToken : MonoBehaviour
 {
-    float moveSpeed;         //how fast it travels along the action gauge;
-    bool tokenMoving;
+    protected float moveSpeed;         //how fast it travels along the action gauge;
+    protected bool tokenMoving;
     float defaultSpeed {get;} = 400;
 
     //public Image token;

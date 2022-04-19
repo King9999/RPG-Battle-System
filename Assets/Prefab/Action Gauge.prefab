@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5583154386772230333}
   m_Layer: 5
-  m_Name: Pip Location (2)
+  m_Name: Panel Location (2)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2481042806330158888}
   m_Layer: 5
-  m_Name: Pip Locations
+  m_Name: Panel Locations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394935709028950298}
   m_Layer: 5
-  m_Name: Pip Location (5)
+  m_Name: Panel Location (5)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7222378866124622565}
   m_Layer: 5
-  m_Name: Pip Location (1)
+  m_Name: Panel Location (1)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7632613960212984995}
   m_Layer: 5
-  m_Name: Pip Location (6)
+  m_Name: Panel Location (6)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -231,28 +231,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: f637adc614c6608479e42425afb7b3e4, type: 2}
-  normalMeter: {fileID: 1743745852568700771, guid: fad1c664af6c226459feea15d49bffd2, type: 3}
-  reducedMeter: {fileID: 8313085128055320993, guid: f4dedf629af2ecd48a64460c6ab802ab, type: 3}
-  missMeter: {fileID: 3236163027306288074, guid: 1082e75d371e0814baa26fbe4930d143, type: 3}
-  critMeter: {fileID: 7003604021783577585, guid: ad8047ad76464b544a99d99ffad07cb5, type: 3}
-  specialMeter: {fileID: 6325764715948792778, guid: 3c47be52bdcffdf41a5942def9a9dd3b, type: 3}
-  actionToken: {fileID: 0}
+  normalPanel: {fileID: 1743745852568700771, guid: fad1c664af6c226459feea15d49bffd2, type: 3}
+  reducedPanel: {fileID: 8313085128055320993, guid: f4dedf629af2ecd48a64460c6ab802ab, type: 3}
+  missPanel: {fileID: 3236163027306288074, guid: 1082e75d371e0814baa26fbe4930d143, type: 3}
+  critPanel: {fileID: 7003604021783577585, guid: ad8047ad76464b544a99d99ffad07cb5, type: 3}
+  specialPanel: {fileID: 6325764715948792778, guid: 3c47be52bdcffdf41a5942def9a9dd3b, type: 3}
+  actionToken: {fileID: 3054357358605661862}
   shieldToken: {fileID: 0}
   tokenCount: 0
   canvas: {fileID: 4786417420318044126}
   actionValues: 
-  pips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  pipPositions:
+  panels: []
+  panelPositions:
   - {fileID: 6709719670489654105}
   - {fileID: 7222378866124622565}
   - {fileID: 5583154386772230333}
@@ -312,7 +302,7 @@ MonoBehaviour:
     m_ActionName: Keyboard/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Gamepad
+  m_DefaultActionMap: Battle System
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &4786417420318044098
@@ -426,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1051817467658238219}
   m_Layer: 5
-  m_Name: Pip Location (8)
+  m_Name: Panel Location (8)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -461,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2209551275540918445}
   m_Layer: 5
-  m_Name: Pip Location (3)
+  m_Name: Panel Location (3)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -496,7 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6709719670489654105}
   m_Layer: 5
-  m_Name: Pip Location
+  m_Name: Panel Location
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -531,7 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 751484317679348035}
   m_Layer: 5
-  m_Name: Pip Location (7)
+  m_Name: Panel Location (7)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -566,7 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4840339988080468610}
   m_Layer: 5
-  m_Name: Pip Location (4)
+  m_Name: Panel Location (4)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -601,7 +591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 439656182832943249}
   m_Layer: 5
-  m_Name: Pip Location (9)
+  m_Name: Panel Location (9)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -728,3 +718,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1174183937265170945, guid: b7623f097e4dc814b963d4c67b3cc524, type: 3}
   m_PrefabInstance: {fileID: 1697365041484059276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3054357358605661862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4462224278415778858, guid: b7623f097e4dc814b963d4c67b3cc524, type: 3}
+  m_PrefabInstance: {fileID: 1697365041484059276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7f0f16d9425bc4ea2978e484363d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
