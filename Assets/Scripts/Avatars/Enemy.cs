@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public abstract class Enemy : Avatar
 {
     public EnemyData data;
+    public int shieldTokenCount;
     public int xp;
     public int money;
     protected float skillProb;          //odds that the enemy will do certain attacks.
@@ -30,6 +31,7 @@ public abstract class Enemy : Avatar
         hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;
+        shieldTokenCount = data.shieldTokenCount;
         atp = data.atp;           
         dfp = data.dfp;           
         mag = data.mag;          
@@ -110,6 +112,7 @@ public abstract class Enemy : Avatar
         hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;
+        shieldTokenCount = data.shieldTokenCount;
         atp = data.atp;           
         dfp = data.dfp;           
         mag = data.mag;          

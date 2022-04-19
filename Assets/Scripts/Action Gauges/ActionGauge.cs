@@ -27,9 +27,10 @@ public class ActionGauge : MonoBehaviour
     public Image specialPanel;
 
     [Header("Tokens")]
-    public ActionToken actionToken;         //TODO: change this into a list.
+    public ActionToken actionToken;         
     public ShieldToken shieldToken;         //used by enemies
     public int tokenCount;                  //this value is acquired by weapon data. 
+    public int bonusTurns;                  //how many turns bonuses are active. When this is 0 and enemy had a shield, the shield is restored.
 
     [Header("Arrays")]
     public Canvas canvas;
@@ -42,7 +43,9 @@ public class ActionGauge : MonoBehaviour
     float totalGaugeWidth;
     float currentGaugeValue;
     [HideInInspector]public int currentIndex;
+    [HideInInspector]public int currentShieldTokenIndex;
     float currentSize;
+    float currentShieldTokenSize;
     short actionTokenDirection;     //value is either 1 or -1
     short shieldTokenDirection;
     public bool buttonPressed;              
@@ -63,6 +66,7 @@ public class ActionGauge : MonoBehaviour
         //actionToken.transform.position = actionTokenPos;
         //actionTokenDirection = 1;   //moves from left to right by default
         ResetActionToken();
+        ResetShieldToken();
     }
 
     // Update is called once per frame
@@ -72,6 +76,9 @@ public class ActionGauge : MonoBehaviour
         //if it reaches the end of the gauge, the token's direction is reversed
         if (actionToken.TokenIsMoving())   
             currentSize += Time.deltaTime * actionToken.TokenSpeed();
+
+        if (shieldToken.isEnabled && shieldToken.TokenIsMoving())
+            currentShieldTokenSize += Time.deltaTime * shieldToken.TokenSpeed();
        
         //Debug.Log("Index: " + currentIndex);
 
@@ -100,11 +107,42 @@ public class ActionGauge : MonoBehaviour
                 currentSize = 0;
             }
         }
-        //action token will travel back and forth along the gauge
+
+        //shield token check
+        if (shieldTokenDirection > 0)
+        {
+            if (currentShieldTokenSize >= panelSize)
+            {
+                if (currentShieldTokenIndex + 1 < panels.Length)
+                    currentShieldTokenIndex++;
+                else
+                    shieldTokenDirection *= -1;
+
+                currentShieldTokenSize = 0;
+            }
+        }
+        else
+        {
+            if (currentShieldTokenSize >= panelSize)
+            {
+                if (currentShieldTokenIndex - 1 >= 0)
+                    currentShieldTokenIndex--;
+                else
+                    shieldTokenDirection *= -1;
+
+                currentShieldTokenSize = 0;
+            }
+        }
+        //action & shield token will travel back and forth along the gauge
         Vector3 actionTokenPos = new Vector3(panels[currentIndex].transform.position.x - (panelSize / 2 * actionTokenDirection) 
         + (currentSize * actionTokenDirection), actionToken.transform.position.y, actionToken.transform.position.z);
 
         actionToken.transform.position = actionTokenPos;
+
+        Vector3 shieldTokenPos = new Vector3(panels[currentShieldTokenIndex].transform.position.x - (panelSize / 2 * shieldTokenDirection)
+        + (currentShieldTokenSize * shieldTokenDirection), shieldToken.transform.position.y, shieldToken.transform.position.z);
+
+        shieldToken.transform.position = shieldTokenPos;
     }
 
     //updates the values and the panel images
@@ -178,11 +216,22 @@ public class ActionGauge : MonoBehaviour
 
     public void ResetActionToken()
     {
-        Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), panels[0].transform.position.y + panelSize + 20, transform.position.z);
+        Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), 
+            panels[0].transform.position.y + panelSize + 20, transform.position.z);
         actionToken.transform.position = actionTokenPos;
         currentSize = 0;
         currentIndex = 0;
         actionTokenDirection = 1;   //moves from left to right by default
+    }
+
+    public void ResetShieldToken()
+    {
+        Vector3 shieldTokenPos = new Vector3(panels[panels.Length - 1].transform.position.x /*+ (panelSize / 2)*/, 
+            panels[panels.Length - 1].transform.position.y, transform.position.z);
+        shieldToken.transform.position = shieldTokenPos;
+        currentShieldTokenSize = 0;
+        currentShieldTokenIndex = 0;
+        shieldTokenDirection = -1;   //moves from right to left by default
     }
 
     //change all values in a gauge to another value

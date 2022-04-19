@@ -12,15 +12,17 @@ using UnityEngine;
      */
 public class ShieldToken : ActionToken
 {
-    float defaultSpeed {get;} = 200;
+    float defaultSpeed {get;} = 300;
     float shieldSize;       //affects the length of the shield. Default is 1.
     int hitPoints;      //3 hit points by default
     int defaultHitPoints {get;} = 3;
+    public bool isEnabled {get; set;}
 
     // Start is called before the first frame update
     void Start()
     {
         SetTokenSpeed(defaultSpeed);
+        isEnabled = true;
     }
 
     // Update is called once per frame
@@ -28,4 +30,5 @@ public class ShieldToken : ActionToken
     {
         
     }
+
 }
