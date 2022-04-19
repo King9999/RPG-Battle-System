@@ -293,7 +293,15 @@ public class Hero : Avatar
                 float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
                 cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
                 currentActions++;
-                cim.buttonPressed = false;   
+                cim.buttonPressed = false;
+
+                //shield token also speeds up, but will not reset its position
+                if (cs.actGauge.shieldToken.isEnabled)
+                {
+                    //cs.actGauge.ResetShieldToken();
+                    newSpeed = cs.actGauge.shieldToken.TokenSpeed() * 1.2f;
+                    cs.actGauge.shieldToken.SetTokenSpeed(newSpeed);
+                }   
             }
                     
         }

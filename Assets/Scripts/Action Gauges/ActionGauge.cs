@@ -48,12 +48,11 @@ public class ActionGauge : MonoBehaviour
     float currentShieldTokenSize;
     short actionTokenDirection;     //value is either 1 or -1
     short shieldTokenDirection;
-    public bool buttonPressed;              
+    //public bool buttonPressed;              
 
     // Start is called before the first frame update
     void Start()
     {
-        //actGauge.Add()
         actionValues = new ActionValue[GaugeSize];
         panels = new Image[GaugeSize];
         panelSize = normalPanel.rectTransform.sizeDelta.x * normalPanel.rectTransform.localScale.x;
@@ -61,10 +60,7 @@ public class ActionGauge : MonoBehaviour
         UpdateGaugeData(data);
         //Debug.Log("Panel width is " + totalGaugeWidth);
 
-        //add action token. It's placed at the left edge of the first panel.
-        //Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), panels[0].transform.position.y + panelSize + 20, transform.position.z);
-        //actionToken.transform.position = actionTokenPos;
-        //actionTokenDirection = 1;   //moves from left to right by default
+        //add tokens.
         ResetActionToken();
         ResetShieldToken();
     }
@@ -206,12 +202,8 @@ public class ActionGauge : MonoBehaviour
 
         }
 
-        //add action token. It's placed at the left edge of the first panel.
-        //Vector3 actionTokenPos = new Vector3(panels[0].transform.position.x - (panelSize / 2), panels[0].transform.position.y + panelSize + 20, transform.position.z);
-        //actionToken.transform.position = actionTokenPos;
-        //actionTokenDirection = 1;   //moves from left to right by default
         ResetActionToken();
-
+        ResetShieldToken();
     }
 
     public void ResetActionToken()
@@ -298,37 +290,4 @@ public class ActionGauge : MonoBehaviour
         gameObject.SetActive(toggle);
     }
 
-    //Stop the action token and perform an action based on where it lands.
-    /*public void StopActionToken(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            //stop the action token and read current index
-            actionToken.StopToken();
-
-            switch(actionValues[currentIndex])
-            {
-                case ActionValue.Normal:
-                    //deal damage to enemy
-                    break;
-
-                case ActionValue.Reduced:
-                    //deal half damage to enemy
-                    break;
-
-                case ActionValue.Miss:
-                    //nothing happens
-                    break;
-
-                case ActionValue.Critical:
-                    //deal increased damage to enemy
-                    //if landed on a shield, deal shield damage
-                    break;
-
-                case ActionValue.Special:
-                    //activate weapon skill
-                    break;
-            }
-        }
-    }*/
 }

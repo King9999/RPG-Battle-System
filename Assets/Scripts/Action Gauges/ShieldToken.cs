@@ -14,7 +14,7 @@ public class ShieldToken : ActionToken
 {
     float defaultSpeed {get;} = 300;
     float shieldSize;       //affects the length of the shield. Default is 1.
-    int hitPoints;      //3 hit points by default
+    public int hitPoints {get; set;}      //3 hit points by default
     int defaultHitPoints {get;} = 3;
     public bool isEnabled {get; set;}
 
@@ -23,6 +23,7 @@ public class ShieldToken : ActionToken
     {
         SetTokenSpeed(defaultSpeed);
         isEnabled = true;
+        hitPoints = defaultHitPoints;
     }
 
     // Update is called once per frame
