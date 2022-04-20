@@ -245,6 +245,8 @@ public class Hero : Avatar
                         //Can use the code below to test a range of values in switch conditions
                         case ActionGauge.ActionValue i when (i >= ActionGauge.ActionValue.Normal && i <= ActionGauge.ActionValue.Critical):
                             cs.actGauge.shieldToken.hitPoints -= 1;
+                            if (cs.actGauge.shieldToken.hitPoints <= 0)
+                                cs.actGauge.shieldToken.ShowToken(false);
                             ui.DisplayBlockResult();
                             break;
 

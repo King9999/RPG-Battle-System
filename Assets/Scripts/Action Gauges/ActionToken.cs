@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 /* Action tokens travel along the action gauge, moving right to left. */
 public class ActionToken : MonoBehaviour
@@ -10,17 +7,14 @@ public class ActionToken : MonoBehaviour
     protected bool tokenMoving;
     float defaultSpeed {get;} = 400;
 
-    //public Image token;
     // Start is called before the first frame update
     void Start()
     {
-        //moveSpeed = 400;
         SetTokenSpeed(defaultSpeed);
     }
 
     public void StopToken()
     {
-        //moveSpeed = 0;
         tokenMoving = false;
     }
 

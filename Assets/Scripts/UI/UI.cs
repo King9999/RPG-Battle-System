@@ -205,7 +205,7 @@ public class UI : MonoBehaviour
 
         //check shield state
         if (cs.actGauge.shieldToken.hitPoints > 0)
-            shieldBlockUI.text = "BLOCKED\n" + cs.actGauge.shieldToken.hitPoints + " SHIELD HP";
+            shieldBlockUI.text = "BLOCKED\n<color=green>" + cs.actGauge.shieldToken.hitPoints + "</color> SHIELD HP";
         else
             shieldBlockUI.text = "SHATTERED!";
         
