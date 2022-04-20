@@ -26,10 +26,12 @@ public class ShieldToken : ActionToken
         hitPoints = defaultHitPoints;
     }
 
+    public override void SetSpeedToDefault() { moveSpeed = defaultSpeed; }
+
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("Shield token speed " + moveSpeed);
     }
 
 }

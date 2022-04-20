@@ -38,7 +38,7 @@ public class ActionToken : MonoBehaviour
         tokenMoving = true;
     }
 
-    public void SetSpeedToDefault() { moveSpeed = defaultSpeed; }
+    public virtual void SetSpeedToDefault() { moveSpeed = defaultSpeed; }
 
     public bool TokenIsMoving() { return tokenMoving; }
     public float TokenSpeed() { return moveSpeed; }

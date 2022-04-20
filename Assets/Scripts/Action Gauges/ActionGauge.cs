@@ -218,11 +218,14 @@ public class ActionGauge : MonoBehaviour
 
     public void ResetShieldToken()
     {
-        Vector3 shieldTokenPos = new Vector3(panels[panels.Length - 1].transform.position.x /*+ (panelSize / 2)*/, 
-            panels[panels.Length - 1].transform.position.y, transform.position.z);
+        //shield tokens start at a random position to make it difficult for player to predict. The token does not start
+        //at the 0 index.
+        int randPanel = Random.Range(1, panels.Length);
+        Vector3 shieldTokenPos = new Vector3(panels[randPanel].transform.position.x /*+ (panelSize / 2)*/, 
+            panels[randPanel].transform.position.y, transform.position.z);
         shieldToken.transform.position = shieldTokenPos;
         currentShieldTokenSize = 0;
-        currentShieldTokenIndex = 0;
+        currentShieldTokenIndex = randPanel;
         shieldTokenDirection = -1;   //moves from right to left by default
     }
 

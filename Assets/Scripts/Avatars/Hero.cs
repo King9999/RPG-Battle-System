@@ -164,6 +164,13 @@ public class Hero : Avatar
             {
                 isAttacking = false;
                 cs.actGauge.actionToken.SetSpeedToDefault();
+
+                //reset shield token if applicable
+                if (cs.actGauge.shieldToken.isEnabled)
+                {
+                    cs.actGauge.shieldToken.SetSpeedToDefault();
+                }
+
                 cs.actGauge.ShowGauge(false);
                 isTheirTurn = false;
                 Invoke("PassTurn", invokeTime);
@@ -224,10 +231,27 @@ public class Hero : Avatar
             //wait for button press to attack. Do this until no more tokens available
             if (cim.buttonPressed)
             {
+                //stop tokens
+                cs.actGauge.actionToken.StopToken();
+                if (cs.actGauge.shieldToken.isEnabled)
+                    cs.actGauge.shieldToken.StopToken();
+
                 //check if we landed on the same space as the shield token
                 if (cs.actGauge.shieldToken.isEnabled && cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex)
                 {
-                    //action is blocked, shield takes damage.
+                    //action is blocked. Shield takes damage if hero attacked.
+                    switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                    {
+                        //Can use the code below to test a range of values in switch conditions
+                        case ActionGauge.ActionValue i when (i >= ActionGauge.ActionValue.Normal && i <= ActionGauge.ActionValue.Critical):
+                            cs.actGauge.shieldToken.hitPoints -= 1;
+                            ui.DisplayBlockResult();
+                            break;
+
+                        default:
+                            ui.DisplayBlockResult();
+                            break;
+                    }
                 }
                 else
                 {
@@ -295,20 +319,6 @@ public class Hero : Avatar
                     }
                 }
 
-                //attack token resets and speeds up by 20%
-                cs.actGauge.ResetActionToken();
-                float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
-                cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
-                currentActions++;
-                cim.buttonPressed = false;
-
-                //shield token also speeds up, but will not reset its position
-                if (cs.actGauge.shieldToken.isEnabled)
-                {
-                    //cs.actGauge.ResetShieldToken();
-                    newSpeed = cs.actGauge.shieldToken.TokenSpeed() * 1.2f;
-                    cs.actGauge.shieldToken.SetTokenSpeed(newSpeed);
-                }   
             }
                     
         }
@@ -361,6 +371,13 @@ public class Hero : Avatar
             actGauge.UpdateGaugeData(weaponData);
             actGauge.ResetActionToken();
 
+            //set up shield token if applicable
+            if (cs.actGauge.shieldToken.isEnabled)
+            {
+                //cs.actGauge.shieldToken.SetSpeedToDefault();
+                cs.actGauge.ResetShieldToken();
+            }
+
             //certain pips change if player is blind
             if (status == Status.Blind)
             {
@@ -371,6 +388,22 @@ public class Hero : Avatar
             totalAttackTokens = (weapon.tokenCount + attackTokenMod < 1) ? 1 : weapon.tokenCount + attackTokenMod;
             currentActions = 0;
             actGauge.actionToken.StartToken();
+        }
+    }
+
+    public void SpeedUpToken()
+    {
+        cs.actGauge.ResetActionToken();
+        float newSpeed = cs.actGauge.actionToken.TokenSpeed() * 1.2f;
+        cs.actGauge.actionToken.SetTokenSpeed(newSpeed);
+        currentActions++;
+        cim.buttonPressed = false;
+
+        //shield token also speeds up, but position is not reset
+        if (cs.actGauge.shieldToken.isEnabled)
+        {
+            newSpeed = cs.actGauge.shieldToken.TokenSpeed() * 1.2f;
+            cs.actGauge.shieldToken.SetTokenSpeed(newSpeed);
         }
     }
 
@@ -438,9 +471,10 @@ public class Hero : Avatar
             yield return null;
         }
 
-        //resturn to init position
+        //return to init position
         transform.position = initPos;
         animateAttackCoroutineOn = false;
+        SpeedUpToken();
 
     }
 
@@ -471,5 +505,7 @@ public class Hero : Avatar
         highlightAvatarCoroutineOn = false;
         aura.SetActive(false);
     }
+
+    
 
 }

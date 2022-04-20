@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI turnOrderList;
     public TextMeshProUGUI damageDisplay;
     public TextMeshProUGUI selectTargetUI;
+    public TextMeshProUGUI shieldBlockUI;
     //public TMP_Text damageDisplayComponent;
     //[SerializeField]TextMeshProUGUI[] damageDigits;
     [HideInInspector]public Color healColor, damageColor, reducedDamageColor, criticalDamageColor;
@@ -23,6 +24,7 @@ public class UI : MonoBehaviour
     public Inventory inventory;
 
     public static UI instance;
+    CombatSystem cs;
 
     //coroutine checks
     [HideInInspector]public bool animateDamageCoroutineOn;
@@ -51,6 +53,9 @@ public class UI : MonoBehaviour
         damageDisplay.gameObject.SetActive(false);
         combatMenu.gameObject.SetActive(false);
         selectTargetUI.gameObject.SetActive(false);
+        shieldBlockUI.gameObject.SetActive(false);
+
+        cs = CombatSystem.instance;
     }
 
     // Update is called once per frame
@@ -84,6 +89,11 @@ public class UI : MonoBehaviour
         animateDamage = AnimateHealing(value, location);
         StopCoroutine(animateDamage);
         StartCoroutine(animateDamage);
+    }
+
+    public void DisplayBlockResult()
+    {
+        StartCoroutine(AnimateBlock());
     }
 
     private IEnumerator AnimateDamage(string value, Vector3 location)
@@ -181,8 +191,36 @@ public class UI : MonoBehaviour
         damageDisplay.transform.position = destination;
         
         yield return new WaitForSeconds(displayDuration);
-        damageDisplay.color = damageColor;        //reset back to defaul
+        damageDisplay.color = damageColor;        //reset back to default
         damageDisplay.gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
+    }
+
+    //shows block animation. also reduces shield HP. If shield has 0 HP, a different animation is played.
+    private IEnumerator AnimateBlock()
+    {
+        shieldBlockUI.gameObject.SetActive(true);
+        shieldBlockUI.transform.position = cs.actGauge.shieldToken.transform.position;
+        Vector3 destination = shieldBlockUI.transform.position;
+
+        //check shield state
+        if (cs.actGauge.shieldToken.hitPoints > 0)
+            shieldBlockUI.text = "BLOCKED\n" + cs.actGauge.shieldToken.hitPoints + " SHIELD HP";
+        else
+            shieldBlockUI.text = "SHATTERED!";
+        
+        //animate text
+        while(shieldBlockUI.transform.position.y > destination.y - 10)
+        {
+            float vy = 10 * Time.deltaTime;
+            Vector3 newPos = shieldBlockUI.transform.position;
+            shieldBlockUI.transform.position = new Vector3(newPos.x, newPos.y - vy, newPos.z);
+            yield return null;
+        }
+
+        shieldBlockUI.gameObject.SetActive(false);
+
+        //speed up tokens
+        cs.heroesInCombat[cs.currentHero].SpeedUpToken();
     }
 }
