@@ -16,8 +16,6 @@ public class Wizard : Enemy
 
     public override void ExecuteLogic()
     {
-        //base.ExecuteLogic();
-
         //if Wizard has no mana left, then attack.
         if (manaPoints >= skills[healSkill].manaCost || manaPoints >= skills[fireballSkill].manaCost)
         {
@@ -65,6 +63,5 @@ public class Wizard : Enemy
 
         //end turn
         base.ExecuteLogic();
-        //PassTurn();
     }
 }

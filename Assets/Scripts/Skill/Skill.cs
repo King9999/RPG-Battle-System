@@ -11,6 +11,7 @@ public abstract class Skill : ScriptableObject
     public float power;             //potency of a skill. It is added to either a player's MAG or ATP stat.
     public ActionGauge actGauge;    //skills typically have 1 token
     public bool isPassive;          //if true, skill is always active and has no mana cost.
+    protected float totalDamage;
 
     public enum Target
     {

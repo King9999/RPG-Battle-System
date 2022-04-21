@@ -21,7 +21,9 @@ MonoBehaviour:
   spd: 4
   mag: 0
   res: 0
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
+  shieldTokenCount: 1
   xp: 600
   money: 500
   commonItemDrop: {fileID: 0}

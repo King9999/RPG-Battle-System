@@ -31,16 +31,17 @@ public class ShieldToken : ActionToken
         isEnabled = toggle == true ? true : false;
     }
 
-    public void GenerateToken(int hitPoints = 0)
+    public void GenerateToken(int hitPoints = 3)
     {
         if (hitPoints < 0) return;
 
-        if (hitPoints > 0)
+        if (hitPoints > defaultHitPoints)
             this.hitPoints = hitPoints;
         else
             this.hitPoints = defaultHitPoints;
 
         isEnabled = true;
+        gameObject.SetActive(true);
     }
 
 

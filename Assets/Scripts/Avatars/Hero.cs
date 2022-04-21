@@ -316,7 +316,7 @@ public class Hero : Avatar
                                     //weapon.weaponSkill.Activate(this, skillNameBorderColor);
                                     break;
                             }
-                            
+                            SpeedUpToken();
                             break;
                     }
                 }
@@ -374,9 +374,9 @@ public class Hero : Avatar
             actGauge.ResetActionToken();
 
             //set up shield token if applicable
-            if (cs.actGauge.shieldToken.isEnabled)
+            if (!cs.actGauge.shieldToken.isEnabled && cs.enemiesInCombat[cs.currentTarget].shieldTokenCount > 0)
             {
-                //cs.actGauge.shieldToken.SetSpeedToDefault();
+                cs.actGauge.shieldToken.GenerateToken();
                 cs.actGauge.ResetShieldToken();
             }
 

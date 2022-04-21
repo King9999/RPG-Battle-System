@@ -3,20 +3,28 @@ using UnityEngine;
 //low chance of hitting, but if it does, it's a critical hit. The target's SPD affects the hit chance
 [CreateAssetMenu(menuName = "Skill/Enemy Skill/Haymaker", fileName = "skill_haymaker")]
 public class Haymaker : Skill
-{
-    float hitChance = 0.2f;
-    public override void Activate(Avatar target, Color borderColor)
+{ 
+    public override void Activate(Avatar user, Avatar target, Color borderColor)
     {
-        base.Activate(target, borderColor);
+        base.Activate(user, target, borderColor);
+
+        float hitChance = 0.3f;
         float rollValue = Random.Range(0, 1f);
         hitChance -= (target.spd / 500);
+        Debug.Log("Haymaker hit Chance to " + target.className + ": " + hitChance * 100 + "%");
+
         if (rollValue <= hitChance)
         {
-            Debug.Log("Critical Hit!");
+            totalDamage = user.atp + power;
+            totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f));
+            Debug.Log("Hit! " + totalDamage + " damage to " + target.className);   
         }
         else
         {
-            Debug.Log("Miss");
+            totalDamage = 0;
+            Debug.Log("Miss");  
         }
+
+        user.ReduceHitPoints(target, totalDamage);
     }
 }

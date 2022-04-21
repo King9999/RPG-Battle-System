@@ -99,7 +99,7 @@ public abstract class Enemy : Avatar
             StartCoroutine(AnimateAttack());
             
         ReduceHitPoints(target, totalDamage);
-        Debug.Log(totalDamage + " damage to " + target.className);
+        //Debug.Log(totalDamage + " damage to " + target.className);
     }
 
     //Used whenever enemy is not instantiated but need a fresh copy

@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     public Enemy[] enemies;
     public List<Enemy> graveyard;   //when enemies die, they go in here to be re-used instead of instantiating new enemies.
 
-    [HideInInspector]public enum EnemyName {Imp, Wizard}
+    [HideInInspector]public enum EnemyName {Imp, Wizard, Golem}
 
     //public EnemyName enemyName;
 

@@ -54,7 +54,6 @@ public class Imp : Enemy
         }
 
         base.ExecuteLogic();
-        //PassTurn();
     }
 
     //checks hero levels to determine if imp will run away

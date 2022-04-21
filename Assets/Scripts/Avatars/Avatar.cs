@@ -131,6 +131,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     public void ReduceHitPoints(Avatar target, float amount)
     {
+        if (amount < 0) amount = 0;
+
         target.hitPoints -= amount;
         if (target.hitPoints < 0)
         {
@@ -215,6 +217,12 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public void RunAway()
     {
         StartCoroutine(AnimateRun());
+    }
+
+    public bool SkillActivated(float probability)
+    {
+        float roll = Random.Range(0, 1f);
+        return roll <= probability;
     }
 
     #region Coroutines
