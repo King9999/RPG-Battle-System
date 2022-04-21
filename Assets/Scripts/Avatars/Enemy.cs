@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 public abstract class Enemy : Avatar
 {
     public EnemyData data;
-    public int shieldTokenCount;
+    [HideInInspector]public int shieldTokens;            //current token count
+    public int maxShieldTokens;
+    public bool shieldBroken {get; set;}
+    public bool shieldEnabled {get; set;}
     public int xp;
     public int money;
     protected float skillProb;          //odds that the enemy will do certain attacks.
@@ -31,7 +34,8 @@ public abstract class Enemy : Avatar
         hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;
-        shieldTokenCount = data.shieldTokenCount;
+        maxShieldTokens = data.maxShieldTokens;
+        shieldTokens = maxShieldTokens;
         atp = data.atp;           
         dfp = data.dfp;           
         mag = data.mag;          
@@ -57,6 +61,14 @@ public abstract class Enemy : Avatar
         {
             Debug.Log(className + " is defeated");
             SendToGraveyard();
+        }
+
+        //if enemy is guard crushed, it ends when bonus turns reaches 0
+        if (status == Status.GuardBroken && cs.actGauge.bonusTurns <= 0)
+        {            
+            status = Status.Normal;
+            shieldTokens = maxShieldTokens;
+            //shieldBroken = false;          
         }
     }
 
@@ -112,7 +124,8 @@ public abstract class Enemy : Avatar
         hitPoints = maxHitPoints;
         maxManaPoints = data.maxManaPoints;
         manaPoints = maxManaPoints;
-        shieldTokenCount = data.shieldTokenCount;
+        maxShieldTokens = data.maxShieldTokens;
+        shieldTokens = maxShieldTokens;
         atp = data.atp;           
         dfp = data.dfp;           
         mag = data.mag;          
@@ -309,6 +322,12 @@ public abstract class Enemy : Avatar
                 Debug.Log(className + " is charmed!");
                 int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
                 Attack(cs.enemiesInCombat[randTarget]);
+                Invoke("PassTurn", invokeTime);
+                break;
+
+            case Status.GuardBroken:
+                //nothing happens
+                Debug.Log(className + " is guard crushed!");
                 Invoke("PassTurn", invokeTime);
                 break;
         }

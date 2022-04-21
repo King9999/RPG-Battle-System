@@ -36,8 +36,8 @@ public class Imp : Enemy
         if (averageLevel >= 5)
         {
             //skill activation check
-            float roll = Random.Range(0, 1f);
-            if (roll <= skillProb)
+            //float roll = Random.Range(0, 1f);
+            if (SkillActivated(skillProb))
             {
                 //run away
                 skills[runSkill].Activate(this, skillNameBorderColor);

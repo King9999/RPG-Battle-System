@@ -17,7 +17,7 @@ public class Fireball : Skill
         }
         
         user.manaPoints -= manaCost;
-        totalDamage = user.mag + power;
+        totalDamage = (user.mag * user.magMod) + power;
         totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f)) - target.res;
 
         //TODO: factor in target's affnity to fire

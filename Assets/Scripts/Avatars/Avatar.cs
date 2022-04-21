@@ -51,7 +51,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     
     public enum Status
     {
-        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead
+        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken      //last ailment occurs when shield token is destroyed
     }
     public Status status;
 

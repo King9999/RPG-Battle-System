@@ -14,6 +14,7 @@ public class ShieldToken : ActionToken
     public int hitPoints {get; set;}      //3 hit points by default
     int defaultHitPoints {get;} = 3;
     public bool isEnabled {get; set;}
+    //public bool shieldBroken {get; set;}
 
     // Start is called before the first frame update
     void Start()

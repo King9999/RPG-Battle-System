@@ -36,8 +36,8 @@ public class Wizard : Enemy
 
             if (allyNeedsHealing)
             {
-                float roll = Random.Range(0, 1f);
-                if (roll <= skillProb)
+                //float roll = Random.Range(0, 1f);
+                if (SkillActivated(skillProb))
                 {
                     skills[healSkill].Activate(this, cs.enemiesInCombat[i], skillNameBorderColor);
                 }
