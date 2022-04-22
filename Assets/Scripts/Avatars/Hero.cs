@@ -166,13 +166,23 @@ public class Hero : Avatar
                 cs.actGauge.actionToken.SetSpeedToDefault();
 
                 //reset shield token if applicable
-                if (cs.actGauge.shieldToken.isEnabled)
+                foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentTarget].shields)
                 {
-                    cs.actGauge.shieldToken.SetSpeedToDefault();
+                    if (shield.isEnabled)
+                    {
+                        shield.SetSpeedToDefault();
+                    }
                 }
 
+                //hide gauge and tokens
                 cs.actGauge.ShowGauge(false);
+
+                foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentTarget].shields)
+                    shield.ShowToken(false);
+
                 isTheirTurn = false;
+
+               
                 Invoke("PassTurn", invokeTime);
             }         
         }
@@ -246,7 +256,7 @@ public class Hero : Avatar
                 int j = 0;
                 while (!landedOnShield && j < shields.Count)
                 {
-                    if (cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex[j])
+                    if (cs.actGauge.currentIndex == cs.enemiesInCombat[cs.currentTarget].currentShieldTokenIndex[j])
                     {
                         landedOnShield = true;
                     }
@@ -278,11 +288,11 @@ public class Hero : Avatar
                                     shields[j].ShowToken(false);
                                 //}
                             }
-                            ui.DisplayBlockResult();
+                            ui.DisplayBlockResult(shields[j]);
                             break;
 
                         default:
-                            ui.DisplayBlockResult();
+                            ui.DisplayBlockResult(shields[j]);
                             break;
                     }
                 }
@@ -413,9 +423,17 @@ public class Hero : Avatar
                     if (!shield.isEnabled)
                     {
                         shield.GenerateToken();
-                        cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
+                        shield.SetSpeedToDefault();
+                        shield.StartToken();
+                        //shield.ShowToken(true);
+                        //cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
                     }
-                }
+                    //else
+                    //{
+                        shield.ShowToken(true);
+                        cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
+                    //}
+                }//
                 /*if (!cs.enemiesInCombat[cs.currentTarget].shieldEnabled && cs.enemiesInCombat[cs.currentTarget].shieldTokens > 0)
                 {
                     cs.enemiesInCombat[cs.currentTarget].shieldEnabled = true;
@@ -450,10 +468,13 @@ public class Hero : Avatar
         cim.buttonPressed = false;
 
         //shield token also speeds up, but position is not reset
-        if (cs.actGauge.shieldToken.isEnabled)
+        foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentTarget].shields)
         {
-            newSpeed = cs.actGauge.shieldToken.TokenSpeed() * 1.2f;
-            cs.actGauge.shieldToken.SetTokenSpeed(newSpeed);
+            if (shield.isEnabled)
+            {
+                newSpeed = shield.TokenSpeed() * 1.2f;
+                shield.SetTokenSpeed(newSpeed);
+            }
         }
     }
 

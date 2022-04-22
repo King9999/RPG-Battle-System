@@ -25,6 +25,9 @@ public abstract class Enemy : Avatar
     //protected CombatSystem cs;
     protected EnemyManager em;
     protected Color skillNameBorderColor = new Color(0.7f, 0.1f, 0.1f);       //used to change skill display border color. Always red
+    [HideInInspector]public List<int> currentShieldTokenIndex;
+    [HideInInspector]public List<float> currentShieldTokenSize;
+    [HideInInspector]public List<short> shieldTokenDirection;
 
 
     // Start is called before the first frame update
@@ -55,11 +58,19 @@ public abstract class Enemy : Avatar
         //add shields
         shields = new List<ShieldToken>();
         shieldEnabled = new List<bool>();
+        currentShieldTokenSize = new List<float>();
+        currentShieldTokenIndex = new List<int>();
+        shieldTokenDirection = new List<short>();
         for(int i = 0; i < maxShieldTokens; i++)
         {
             ShieldToken shield = Instantiate(shieldPrefab);
             shields.Add(shield);
+            Canvas canvas = GetComponentInChildren<Canvas>();
+            shields[i].transform.SetParent(canvas.transform);   //I add the token here so it's drawn over the gauge
             shieldEnabled.Add(true);
+            currentShieldTokenSize.Add(0);
+            currentShieldTokenIndex.Add(0);
+            shieldTokenDirection.Add(-1);
         }
 
         cs = CombatSystem.instance;
@@ -82,6 +93,48 @@ public abstract class Enemy : Avatar
             status = Status.Normal;
             shieldTokens = maxShieldTokens;
             //shieldBroken = false;          
+        }
+
+        /*****SHIELD TOKEN UPDATE******/
+        ActionGauge actGauge = ActionGauge.instance;
+        for (int i = 0; i < shields.Count; i++)
+        {
+            if (shields[i].isEnabled && shields[i].TokenIsMoving())
+            {
+                currentShieldTokenSize[i] += Time.deltaTime * shields[i].TokenSpeed();
+
+                //check token direction and index
+                if (shieldTokenDirection[i] > 0)
+                {
+                    if (currentShieldTokenSize[i] >= actGauge.panelSize)
+                    {
+                        if (currentShieldTokenIndex[i] + 1 < actGauge.panels.Length)
+                            currentShieldTokenIndex[i]++;
+                        else
+                            shieldTokenDirection[i] *= -1;
+
+                        currentShieldTokenSize[i] = 0;
+                    }
+                }
+                else
+                {
+                    if (currentShieldTokenSize[i] >= actGauge.panelSize)
+                    {
+                        if (currentShieldTokenIndex[i] - 1 >= 0)
+                            currentShieldTokenIndex[i]--;
+                        else
+                            shieldTokenDirection[i] *= -1;
+
+                        currentShieldTokenSize[i] = 0;
+                    }
+                }
+
+                //update shield token position
+                Vector3 shieldTokenPos = new Vector3(actGauge.panels[currentShieldTokenIndex[i]].transform.position.x - (actGauge.panelSize / 2 * shieldTokenDirection[i])
+                    + (currentShieldTokenSize[i] * shieldTokenDirection[i]), shields[i].transform.position.y, shields[i].transform.position.z);
+
+                shields[i].transform.position = shieldTokenPos;
+            }
         }
     }
 
@@ -272,9 +325,9 @@ public abstract class Enemy : Avatar
             actGauge.panels[randPanel].transform.position.y, transform.position.z);
 
         shields[tokenIndex].transform.position = shieldTokenPos;
-        actGauge.currentShieldTokenSize[tokenIndex] = 0;
-        actGauge.currentShieldTokenIndex[tokenIndex] = randPanel;
-        actGauge.shieldTokenDirection[tokenIndex] = -1;   //moves from right to left by default
+        currentShieldTokenSize[tokenIndex] = 0;
+        currentShieldTokenIndex[tokenIndex] = randPanel;
+        shieldTokenDirection[tokenIndex] = -1;   //moves from right to left by default
     }
 
     public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }

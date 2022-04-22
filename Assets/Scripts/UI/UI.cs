@@ -91,9 +91,9 @@ public class UI : MonoBehaviour
         StartCoroutine(animateDamage);
     }
 
-    public void DisplayBlockResult()
+    public void DisplayBlockResult(ShieldToken token)
     {
-        StartCoroutine(AnimateBlock());
+        StartCoroutine(AnimateBlock(token));
     }
 
     private IEnumerator AnimateDamage(string value, Vector3 location)
@@ -197,15 +197,16 @@ public class UI : MonoBehaviour
     }
 
     //shows block animation. also reduces shield HP. If shield has 0 HP, a different animation is played.
-    private IEnumerator AnimateBlock()
+    private IEnumerator AnimateBlock(ShieldToken token)
     {
         shieldBlockUI.gameObject.SetActive(true);
-        shieldBlockUI.transform.position = cs.actGauge.shieldToken.transform.position;
+
+        shieldBlockUI.transform.position = token.transform.position;
         Vector3 destination = shieldBlockUI.transform.position;
 
         //check shield state
-        if (cs.actGauge.shieldToken.hitPoints > 0)
-            shieldBlockUI.text = "BLOCKED\n<color=green>" + cs.actGauge.shieldToken.hitPoints + "</color> SHIELD HP";
+        if (token.hitPoints > 0)
+            shieldBlockUI.text = "BLOCKED\n<color=green>" + token.hitPoints + "</color> SHIELD HP";
         else
             shieldBlockUI.text = "SHATTERED!";
         

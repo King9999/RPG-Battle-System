@@ -20,7 +20,7 @@ public class ShieldToken : ActionToken
     void Start()
     {
         SetTokenSpeed(defaultSpeed);
-        isEnabled = true;
+        //isEnabled = true;
         hitPoints = defaultHitPoints;
     }
 
@@ -29,7 +29,7 @@ public class ShieldToken : ActionToken
     public void ShowToken(bool toggle)
     {
         gameObject.SetActive(toggle);
-        isEnabled = toggle == true ? true : false;
+        //isEnabled = toggle == true ? true : false;
     }
 
     public void GenerateToken(int hitPoints = 3)

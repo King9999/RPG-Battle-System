@@ -40,7 +40,7 @@ public class ActionGauge : MonoBehaviour
     public RectTransform[] panelPositions;
     int GaugeSize {get;} = 10;
 
-    float panelSize;
+    [HideInInspector]public float panelSize;
     float totalGaugeWidth;
     float currentGaugeValue;
     [HideInInspector]public int currentIndex;               //action gauge index
@@ -77,9 +77,9 @@ public class ActionGauge : MonoBehaviour
         //add tokens, list setup
         ResetActionToken();
         //ResetShieldToken();
-        currentShieldTokenSize = new List<float>();
-        currentShieldTokenIndex = new List<int>();
-        shieldTokenDirection = new List<short>();
+        //currentShieldTokenSize = new List<float>();
+        //currentShieldTokenIndex = new List<int>();
+        //shieldTokenDirection = new List<short>();
     }
 
     // Update is called once per frame
@@ -90,45 +90,47 @@ public class ActionGauge : MonoBehaviour
         if (actionToken.TokenIsMoving())   
             currentSize += Time.deltaTime * actionToken.TokenSpeed();
 
-        CombatSystem cs = CombatSystem.instance;
+        /*CombatSystem cs = CombatSystem.instance;
         List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
         for (int i = 0; i < shields.Count; i++)
         {
             if (shields[i].isEnabled && shields[i].TokenIsMoving())
+            {
                 currentShieldTokenSize[i] += Time.deltaTime * shields[i].TokenSpeed();
 
-            //check token direction and index
-            if (shieldTokenDirection[i] > 0)
-            {
-                if (currentShieldTokenSize[i] >= panelSize)
+                //check token direction and index
+                if (shieldTokenDirection[i] > 0)
                 {
-                    if (currentShieldTokenIndex[i] + 1 < panels.Length)
-                        currentShieldTokenIndex[i]++;
-                    else
-                        shieldTokenDirection[i] *= -1;
+                    if (currentShieldTokenSize[i] >= panelSize)
+                    {
+                        if (currentShieldTokenIndex[i] + 1 < panels.Length)
+                            currentShieldTokenIndex[i]++;
+                        else
+                            shieldTokenDirection[i] *= -1;
 
-                    currentShieldTokenSize[i] = 0;
+                        currentShieldTokenSize[i] = 0;
+                    }
                 }
-            }
-            else
-            {
-                if (currentShieldTokenSize[i] >= panelSize)
+                else
                 {
-                    if (currentShieldTokenIndex[i] - 1 >= 0)
-                        currentShieldTokenIndex[i]--;
-                    else
-                        shieldTokenDirection[i] *= -1;
+                    if (currentShieldTokenSize[i] >= panelSize)
+                    {
+                        if (currentShieldTokenIndex[i] - 1 >= 0)
+                            currentShieldTokenIndex[i]--;
+                        else
+                            shieldTokenDirection[i] *= -1;
 
-                    currentShieldTokenSize[i] = 0;
+                        currentShieldTokenSize[i] = 0;
+                    }
                 }
+
+                //update shield token position
+                Vector3 shieldTokenPos = new Vector3(panels[currentShieldTokenIndex[i]].transform.position.x - (panelSize / 2 * shieldTokenDirection[i])
+                    + (currentShieldTokenSize[i] * shieldTokenDirection[i]), shields[i].transform.position.y, shields[i].transform.position.z);
+
+                shields[i].transform.position = shieldTokenPos;
             }
-
-            //update shield token position
-            Vector3 shieldTokenPos = new Vector3(panels[currentShieldTokenIndex[i]].transform.position.x - (panelSize / 2 * shieldTokenDirection[i])
-                + (currentShieldTokenSize[i] * shieldTokenDirection[i]), shields[i].transform.position.y, shields[i].transform.position.z);
-
-            shields[i].transform.position = shieldTokenPos;
-        }
+        }*/
        
         //Debug.Log("Index: " + currentIndex);
 

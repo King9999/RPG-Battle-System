@@ -59,7 +59,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &7573281235861613052
 MonoBehaviour:
@@ -307,7 +307,8 @@ MonoBehaviour:
   spdMod: 1
   magMod: 1
   resMod: 1
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
   resistPoison: 1
   resistParalysis: 0
   resistBlind: 0
@@ -318,12 +319,16 @@ MonoBehaviour:
   maxShieldTokens: 0
   shields: []
   shieldPrefab: {fileID: 343450292, guid: 8ff6a420ca10f654eb00509b4089f670, type: 3}
+  shieldCanvas: {fileID: 2773634817185007698, guid: e2a030d6e8d00fb46b949773cb141ae3, type: 3}
   xp: 0
   money: 0
   commonItemDrop: {fileID: 0}
   rareItemDrop: {fileID: 0}
   commonItemDropChance: 0
   rareItemDropChance: 0
+  currentShieldTokenIndex: 
+  currentShieldTokenSize: []
+  shieldTokenDirection: 
 --- !u!1001 &6937772436059308145
 PrefabInstance:
   m_ObjectHideFlags: 0
