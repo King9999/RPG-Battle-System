@@ -6,6 +6,8 @@ using UnityEngine;
 public class Golem : Enemy
 {
     int haymakerSkill = 0;
+    int armorBoostSkill = 1;
+    bool armorBoostActivated = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -16,10 +18,16 @@ public class Golem : Enemy
 
     public override void ExecuteLogic()
     {
-        //Once Golem's HP goes below 50%, each turn golem will attempt a haymaker
+        //Once Golem's HP goes below 60%, each turn golem will attempt a haymaker
         int randHero = Random.Range(0, cs.heroesInCombat.Count);
 
-        if (hitPoints < maxHitPoints * 0.6f && SkillActivated(skillProb))
+        //if HP goes below 40%, gain an additional shield
+        if (!armorBoostActivated && hitPoints < maxHitPoints * 0.4f)
+        {
+            armorBoostActivated = true;
+            skills[armorBoostSkill].Activate(this, skillNameBorderColor);
+        }
+        else if (hitPoints < maxHitPoints * 0.6f && SkillActivated(skillProb))
         {
             skills[haymakerSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
         }

@@ -12,7 +12,7 @@ public abstract class Enemy : Avatar
     public List<ShieldToken> shields;
     public ShieldToken shieldPrefab;
     public bool shieldBroken {get; set;}
-    public List<bool> shieldEnabled {get; set;}
+    //public List<bool> shieldEnabled {get; set;}
     public int xp;
     public int money;
     protected float skillProb;          //odds that the enemy will do certain attacks.
@@ -57,20 +57,21 @@ public abstract class Enemy : Avatar
 
         //add shields
         shields = new List<ShieldToken>();
-        shieldEnabled = new List<bool>();
+        //shieldEnabled = new List<bool>();
         currentShieldTokenSize = new List<float>();
         currentShieldTokenIndex = new List<int>();
         shieldTokenDirection = new List<short>();
         for(int i = 0; i < maxShieldTokens; i++)
         {
-            ShieldToken shield = Instantiate(shieldPrefab);
+            /*ShieldToken shield = Instantiate(shieldPrefab);
             shields.Add(shield);
             Canvas canvas = GetComponentInChildren<Canvas>();
             shields[i].transform.SetParent(canvas.transform);   //I add the token here so it's drawn over the gauge
-            shieldEnabled.Add(true);
+            //shieldEnabled.Add(true);
             currentShieldTokenSize.Add(0);
             currentShieldTokenIndex.Add(0);
-            shieldTokenDirection.Add(-1);
+            shieldTokenDirection.Add(-1);*/
+            AddShield();
         }
 
         cs = CombatSystem.instance;
@@ -237,32 +238,6 @@ public abstract class Enemy : Avatar
     {
         base.TakeAction();
         StartCoroutine(HighlightAvatar()); //once this completes, action is taken
-        //check status and peform action based on result
-        /*switch(status)
-        {
-            case Status.Normal:
-                //call method to execute enemy logic
-                ExecuteLogic();
-                break;
-
-            case Status.Paralyzed:
-                TryRemoveAilment();
-                Invoke("PassTurn", invokeTime);
-                break;
-
-            case Status.Blind:
-                TryRemoveAilment();
-                ExecuteLogic();
-                break;
-
-            case Status.Charmed:
-                //attack a random ally
-                Debug.Log(className + " is charmed!");
-                int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-                Attack(cs.enemiesInCombat[randTarget]);
-                Invoke("PassTurn", invokeTime);
-                break;
-        }*/
     }
 
     public override void OnPointerEnter(PointerEventData pointer)
@@ -321,6 +296,22 @@ public abstract class Enemy : Avatar
         //at the 0 index.
         ActionGauge actGauge = ActionGauge.instance;
         int randPanel = Random.Range(1, actGauge.panels.Length);
+
+        //make sure value is not the same that another shield has
+        for (int i = 0; i < shields.Count; i++)
+        {
+            if (i == tokenIndex) continue;
+
+            if (currentShieldTokenIndex[i] == randPanel)
+            {
+                while(currentShieldTokenIndex[i] == randPanel)
+                {
+                    randPanel = Random.Range(1, actGauge.panels.Length);
+                }
+                break;
+            }
+        }
+
         Vector3 shieldTokenPos = new Vector3(actGauge.panels[randPanel].transform.position.x /*+ (panelSize / 2)*/, 
             actGauge.panels[randPanel].transform.position.y, transform.position.z);
 
@@ -328,6 +319,17 @@ public abstract class Enemy : Avatar
         currentShieldTokenSize[tokenIndex] = 0;
         currentShieldTokenIndex[tokenIndex] = randPanel;
         shieldTokenDirection[tokenIndex] = -1;   //moves from right to left by default
+    }
+
+    public void AddShield()
+    {
+        ShieldToken shield = Instantiate(shieldPrefab);
+        shields.Add(shield);
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        shields[shields.Count - 1].transform.SetParent(canvas.transform);   //I add the token here so it's drawn over the gauge
+        currentShieldTokenSize.Add(0);
+        currentShieldTokenIndex.Add(0);
+        shieldTokenDirection.Add(-1);
     }
 
     public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }

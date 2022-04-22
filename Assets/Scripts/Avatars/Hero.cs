@@ -425,25 +425,11 @@ public class Hero : Avatar
                         shield.GenerateToken();
                         shield.SetSpeedToDefault();
                         shield.StartToken();
-                        //shield.ShowToken(true);
-                        //cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
                     }
-                    //else
-                    //{
-                        shield.ShowToken(true);
-                        cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
-                    //}
-                }//
-                /*if (!cs.enemiesInCombat[cs.currentTarget].shieldEnabled && cs.enemiesInCombat[cs.currentTarget].shieldTokens > 0)
-                {
-                    cs.enemiesInCombat[cs.currentTarget].shieldEnabled = true;
-                    cs.actGauge.shieldToken.GenerateToken();
-                    cs.actGauge.ResetShieldToken();
+                    shield.ShowToken(true);
+                    cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
                 }
-                else
-                {
-                    cs.actGauge.shieldToken.ShowToken(false);
-                }*/
+                
             }
 
             //certain pips change if player is blind
