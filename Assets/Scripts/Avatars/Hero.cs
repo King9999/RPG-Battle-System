@@ -256,7 +256,7 @@ public class Hero : Avatar
                 int j = 0;
                 while (!landedOnShield && j < shields.Count)
                 {
-                    if (cs.actGauge.currentIndex == cs.enemiesInCombat[cs.currentTarget].currentShieldTokenIndex[j])
+                    if (shields[j].isEnabled && cs.actGauge.currentIndex == cs.enemiesInCombat[cs.currentTarget].currentShieldTokenIndex[j])
                     {
                         landedOnShield = true;
                     }
