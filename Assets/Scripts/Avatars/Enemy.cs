@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 //enemies are NPCs. Heroes must defeat them. Their actions are randomized based on their skill set and battle conditions.
@@ -8,8 +9,10 @@ public abstract class Enemy : Avatar
     public EnemyData data;
     [HideInInspector]public int shieldTokens;            //current token count
     public int maxShieldTokens;
+    public List<ShieldToken> shields;
+    public ShieldToken shieldPrefab;
     public bool shieldBroken {get; set;}
-    public bool shieldEnabled {get; set;}
+    public List<bool> shieldEnabled {get; set;}
     public int xp;
     public int money;
     protected float skillProb;          //odds that the enemy will do certain attacks.
@@ -48,6 +51,16 @@ public abstract class Enemy : Avatar
         rareItemDrop = data.rareItemDrop;
         commonItemDropChance = data.commonItemDropChance;
         rareItemDropChance = data.rareItemDropChance;
+
+        //add shields
+        shields = new List<ShieldToken>();
+        shieldEnabled = new List<bool>();
+        for(int i = 0; i < maxShieldTokens; i++)
+        {
+            ShieldToken shield = Instantiate(shieldPrefab);
+            shields.Add(shield);
+            shieldEnabled.Add(true);
+        }
 
         cs = CombatSystem.instance;
         em = EnemyManager.instance;
@@ -247,6 +260,21 @@ public abstract class Enemy : Avatar
             hero.isAttacking = true;
             //Debug.Log(className + " at index " + cs.currentTarget);
         }
+    }
+
+    public void ResetShieldToken(int tokenIndex)
+    {
+        //shield tokens start at a random position to make it difficult for player to predict. The token does not start
+        //at the 0 index.
+        ActionGauge actGauge = ActionGauge.instance;
+        int randPanel = Random.Range(1, actGauge.panels.Length);
+        Vector3 shieldTokenPos = new Vector3(actGauge.panels[randPanel].transform.position.x /*+ (panelSize / 2)*/, 
+            actGauge.panels[randPanel].transform.position.y, transform.position.z);
+
+        shields[tokenIndex].transform.position = shieldTokenPos;
+        actGauge.currentShieldTokenSize[tokenIndex] = 0;
+        actGauge.currentShieldTokenIndex[tokenIndex] = randPanel;
+        actGauge.shieldTokenDirection[tokenIndex] = -1;   //moves from right to left by default
     }
 
     public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }

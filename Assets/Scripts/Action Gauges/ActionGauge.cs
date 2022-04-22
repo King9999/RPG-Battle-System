@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 //This script manages the action gauge. They can have different characteristics, and each weapon and skill can have their own.
 public class ActionGauge : MonoBehaviour
@@ -42,13 +43,26 @@ public class ActionGauge : MonoBehaviour
     float panelSize;
     float totalGaugeWidth;
     float currentGaugeValue;
-    [HideInInspector]public int currentIndex;
-    [HideInInspector]public int currentShieldTokenIndex;
+    [HideInInspector]public int currentIndex;               //action gauge index
+    [HideInInspector]public List<int> currentShieldTokenIndex;
     float currentSize;
-    float currentShieldTokenSize;
+    [HideInInspector]public List<float> currentShieldTokenSize;
     short actionTokenDirection;     //value is either 1 or -1
-    short shieldTokenDirection;
-    //public bool buttonPressed;              
+    [HideInInspector]public List<short> shieldTokenDirection;
+    //public bool buttonPressed;
+              
+    public static ActionGauge instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -60,9 +74,12 @@ public class ActionGauge : MonoBehaviour
         UpdateGaugeData(data);
         //Debug.Log("Panel width is " + totalGaugeWidth);
 
-        //add tokens.
+        //add tokens, list setup
         ResetActionToken();
-        ResetShieldToken();
+        //ResetShieldToken();
+        currentShieldTokenSize = new List<float>();
+        currentShieldTokenIndex = new List<int>();
+        shieldTokenDirection = new List<short>();
     }
 
     // Update is called once per frame
@@ -73,12 +90,49 @@ public class ActionGauge : MonoBehaviour
         if (actionToken.TokenIsMoving())   
             currentSize += Time.deltaTime * actionToken.TokenSpeed();
 
-        if (shieldToken.isEnabled && shieldToken.TokenIsMoving())
-            currentShieldTokenSize += Time.deltaTime * shieldToken.TokenSpeed();
+        CombatSystem cs = CombatSystem.instance;
+        List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
+        for (int i = 0; i < shields.Count; i++)
+        {
+            if (shields[i].isEnabled && shields[i].TokenIsMoving())
+                currentShieldTokenSize[i] += Time.deltaTime * shields[i].TokenSpeed();
+
+            //check token direction and index
+            if (shieldTokenDirection[i] > 0)
+            {
+                if (currentShieldTokenSize[i] >= panelSize)
+                {
+                    if (currentShieldTokenIndex[i] + 1 < panels.Length)
+                        currentShieldTokenIndex[i]++;
+                    else
+                        shieldTokenDirection[i] *= -1;
+
+                    currentShieldTokenSize[i] = 0;
+                }
+            }
+            else
+            {
+                if (currentShieldTokenSize[i] >= panelSize)
+                {
+                    if (currentShieldTokenIndex[i] - 1 >= 0)
+                        currentShieldTokenIndex[i]--;
+                    else
+                        shieldTokenDirection[i] *= -1;
+
+                    currentShieldTokenSize[i] = 0;
+                }
+            }
+
+            //update shield token position
+            Vector3 shieldTokenPos = new Vector3(panels[currentShieldTokenIndex[i]].transform.position.x - (panelSize / 2 * shieldTokenDirection[i])
+                + (currentShieldTokenSize[i] * shieldTokenDirection[i]), shields[i].transform.position.y, shields[i].transform.position.z);
+
+            shields[i].transform.position = shieldTokenPos;
+        }
        
         //Debug.Log("Index: " + currentIndex);
 
-        //update token direction when necessary
+        //update action token index & direction when necessary
         if (actionTokenDirection > 0)
         {
             if (currentSize >= panelSize)
@@ -105,7 +159,7 @@ public class ActionGauge : MonoBehaviour
         }
 
         //shield token check
-        if (shieldTokenDirection > 0)
+        /*if (shieldTokenDirection > 0)
         {
             if (currentShieldTokenSize >= panelSize)
             {
@@ -128,17 +182,17 @@ public class ActionGauge : MonoBehaviour
 
                 currentShieldTokenSize = 0;
             }
-        }
+        }*/
         //action & shield token will travel back and forth along the gauge
         Vector3 actionTokenPos = new Vector3(panels[currentIndex].transform.position.x - (panelSize / 2 * actionTokenDirection) 
         + (currentSize * actionTokenDirection), actionToken.transform.position.y, actionToken.transform.position.z);
 
         actionToken.transform.position = actionTokenPos;
 
-        Vector3 shieldTokenPos = new Vector3(panels[currentShieldTokenIndex].transform.position.x - (panelSize / 2 * shieldTokenDirection)
-        + (currentShieldTokenSize * shieldTokenDirection), shieldToken.transform.position.y, shieldToken.transform.position.z);
+        //Vector3 shieldTokenPos = new Vector3(panels[currentShieldTokenIndex].transform.position.x - (panelSize / 2 * shieldTokenDirection)
+        //+ (currentShieldTokenSize * shieldTokenDirection), shieldToken.transform.position.y, shieldToken.transform.position.z);
 
-        shieldToken.transform.position = shieldTokenPos;
+        //shieldToken.transform.position = shieldTokenPos;
     }
 
     //updates the values and the panel images
@@ -203,7 +257,7 @@ public class ActionGauge : MonoBehaviour
         }
 
         ResetActionToken();
-        ResetShieldToken();
+        //ResetShieldToken();
     }
 
     public void ResetActionToken()
@@ -216,18 +270,19 @@ public class ActionGauge : MonoBehaviour
         actionTokenDirection = 1;   //moves from left to right by default
     }
 
-    public void ResetShieldToken()
+    /*public void ResetShieldToken()
     {
         //shield tokens start at a random position to make it difficult for player to predict. The token does not start
         //at the 0 index.
         int randPanel = Random.Range(1, panels.Length);
-        Vector3 shieldTokenPos = new Vector3(panels[randPanel].transform.position.x /*+ (panelSize / 2)*/, 
+        Vector3 shieldTokenPos = new Vector3(panels[randPanel].transform.position.x /*+ (panelSize / 2), 
             panels[randPanel].transform.position.y, transform.position.z);
         shieldToken.transform.position = shieldTokenPos;
+        //token.transform.position = shieldTokenPos;
         currentShieldTokenSize = 0;
         currentShieldTokenIndex = randPanel;
         shieldTokenDirection = -1;   //moves from right to left by default
-    }
+    }*/
 
     //change all values in a gauge to another value
     public void ChangeActionValue(ActionValue valueToChange, ActionValue newValue)

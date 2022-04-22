@@ -233,29 +233,50 @@ public class Hero : Avatar
             {
                 //stop tokens
                 cs.actGauge.actionToken.StopToken();
-                if (cs.actGauge.shieldToken.isEnabled)
-                    cs.actGauge.shieldToken.StopToken();
+
+                List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
+                for (int i = 0; i < shields.Count; i++)
+                {
+                    if (shields[i].isEnabled)
+                        shields[i].StopToken();
+                }
+
+                //check if the action token landed on any shield
+                bool landedOnShield = false;
+                int j = 0;
+                while (!landedOnShield && j < shields.Count)
+                {
+                    if (cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex[j])
+                    {
+                        landedOnShield = true;
+                    }
+                    else
+                    {
+                        j++;
+                    }
+                }
 
                 //check if we landed on the same space as the shield token
-                if (cs.actGauge.shieldToken.isEnabled && cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex)
+                if (landedOnShield/*cs.actGauge.shieldToken.isEnabled && cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex*/)
                 {
                     //action is blocked. Shield takes damage if hero attacked.
                     switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
                     {
                         //Can use the code below to test a range of values in switch conditions
                         case ActionGauge.ActionValue i when (i >= ActionGauge.ActionValue.Normal && i <= ActionGauge.ActionValue.Critical):
-                            cs.actGauge.shieldToken.hitPoints -= 1;
-                            if (cs.actGauge.shieldToken.hitPoints <= 0)
+                            shields[j].hitPoints -= 1;
+                            if (shields[j].hitPoints <= 0)
                             {
-                                cs.enemiesInCombat[cs.currentTarget].shieldTokens -= 1;
-                                if(cs.enemiesInCombat[cs.currentTarget].shieldTokens <= 0)
-                                {
+                                //shields.RemoveAt(j);
+                                //cs.enemiesInCombat[cs.currentTarget].shieldTokens -= 1;
+                                //if(cs.enemiesInCombat[cs.currentTarget].shieldTokens <= 0)
+                               // {
                                     //cs.enemiesInCombat[cs.currentTarget].shieldBroken = true;
                                     cs.actGauge.bonusTurns += cs.heroesInCombat.Count;  //ensures all heroes get a bonus
                                     cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
-                                    cs.enemiesInCombat[cs.currentTarget].shieldEnabled = false;
-                                    cs.actGauge.shieldToken.ShowToken(false);
-                                }
+                                    shields[j].isEnabled = false;
+                                    shields[j].ShowToken(false);
+                                //}
                             }
                             ui.DisplayBlockResult();
                             break;
@@ -384,9 +405,18 @@ public class Hero : Avatar
             actGauge.ResetActionToken();
 
             //set up shield token if applicable
-            if (cs.actGauge.bonusTurns <= 0)
+            if (cs.actGauge.bonusTurns <= 0 && cs.enemiesInCombat[cs.currentTarget].maxShieldTokens > 0)
             {
-                if (!cs.enemiesInCombat[cs.currentTarget].shieldEnabled && cs.enemiesInCombat[cs.currentTarget].shieldTokens > 0)
+                List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
+                foreach(ShieldToken shield in shields)
+                {
+                    if (!shield.isEnabled)
+                    {
+                        shield.GenerateToken();
+                        cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
+                    }
+                }
+                /*if (!cs.enemiesInCombat[cs.currentTarget].shieldEnabled && cs.enemiesInCombat[cs.currentTarget].shieldTokens > 0)
                 {
                     cs.enemiesInCombat[cs.currentTarget].shieldEnabled = true;
                     cs.actGauge.shieldToken.GenerateToken();
@@ -395,7 +425,7 @@ public class Hero : Avatar
                 else
                 {
                     cs.actGauge.shieldToken.ShowToken(false);
-                }
+                }*/
             }
 
             //certain pips change if player is blind

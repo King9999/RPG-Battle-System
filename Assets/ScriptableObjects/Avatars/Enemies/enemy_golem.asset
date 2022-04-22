@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   className: Golem
   details: Slow but powerful magically animated creature
-  maxHitPoints: 800
+  maxHitPoints: 1750
   maxManaPoints: 0
   atp: 75
   dfp: 30
@@ -23,7 +23,7 @@ MonoBehaviour:
   res: 0
   skills:
   - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
-  shieldTokenCount: 1
+  maxShieldTokens: 1
   xp: 600
   money: 500
   commonItemDrop: {fileID: 0}

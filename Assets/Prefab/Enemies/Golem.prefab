@@ -314,7 +314,10 @@ MonoBehaviour:
   resistCharm: 0
   status: 0
   data: {fileID: 11400000, guid: 1c7d9f4c98f35564591876eab718ea3e, type: 2}
-  shieldTokenCount: 0
+  shieldTokens: 0
+  maxShieldTokens: 0
+  shields: []
+  shieldPrefab: {fileID: 343450292, guid: 8ff6a420ca10f654eb00509b4089f670, type: 3}
   xp: 0
   money: 0
   commonItemDrop: {fileID: 0}
