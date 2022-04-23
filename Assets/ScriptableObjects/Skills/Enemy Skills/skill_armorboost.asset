@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cd4419b0dde794b9af134f5c7b4685, type: 3}
   m_Name: skill_armorboost
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Armor Boost
   skillIcon: {fileID: 0}
-  description: 
+  description: Raises shield token count by 1
   manaCost: 0
   power: 0
   actGauge: {fileID: 0}
   isPassive: 0
-  targetType: 0
+  targetType: 1
   element: 0
   statusEffect: 0

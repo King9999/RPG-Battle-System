@@ -23,6 +23,7 @@ MonoBehaviour:
   res: 0
   skills:
   - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
+  - {fileID: 11400000, guid: 0793a0b18698fb942b81980dc2161d95, type: 2}
   maxShieldTokens: 1
   xp: 600
   money: 500

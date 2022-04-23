@@ -267,7 +267,7 @@ public class Hero : Avatar
                 }
 
                 //check if we landed on the same space as the shield token
-                if (landedOnShield/*cs.actGauge.shieldToken.isEnabled && cs.actGauge.currentIndex == cs.actGauge.currentShieldTokenIndex*/)
+                if (landedOnShield)
                 {
                     //action is blocked. Shield takes damage if hero attacked.
                     switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
@@ -276,17 +276,16 @@ public class Hero : Avatar
                         case ActionGauge.ActionValue i when (i >= ActionGauge.ActionValue.Normal && i <= ActionGauge.ActionValue.Critical):
                             shields[j].hitPoints -= 1;
                             if (shields[j].hitPoints <= 0)
+                            { 
+                                cs.actGauge.bonusTurns += cs.heroesInCombat.Count;  //ensures all heroes get a bonus
+                                cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
+                                shields[j].isEnabled = false;
+                                shields[j].ShowToken(false);
+                            }
+                            else    //shield is stunned
                             {
-                                //shields.RemoveAt(j);
-                                //cs.enemiesInCombat[cs.currentTarget].shieldTokens -= 1;
-                                //if(cs.enemiesInCombat[cs.currentTarget].shieldTokens <= 0)
-                               // {
-                                    //cs.enemiesInCombat[cs.currentTarget].shieldBroken = true;
-                                    cs.actGauge.bonusTurns += cs.heroesInCombat.Count;  //ensures all heroes get a bonus
-                                    cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
-                                    shields[j].isEnabled = false;
-                                    shields[j].ShowToken(false);
-                                //}
+                                shields[j].StunToken();
+                                Debug.Log("Shield stunned");
                             }
                             ui.DisplayBlockResult(shields[j]);
                             break;

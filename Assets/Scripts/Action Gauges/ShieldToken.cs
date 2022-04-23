@@ -1,3 +1,4 @@
+using UnityEngine;
 
 /* Shield tokens travel along the action gauge, moving in the opposite direction of action tokens. Not all enemies will have shield tokens. 
     The enemy can have more than 1 shield, making the target more difficult to hit.
@@ -14,7 +15,9 @@ public class ShieldToken : ActionToken
     public int hitPoints {get; set;}      //3 hit points by default
     int defaultHitPoints {get;} = 3;
     public bool isEnabled {get; set;}
-    //public bool shieldBroken {get; set;}
+    float stunDuration;         //number of seconds a shield does not move when hit
+    float currentTime;
+    bool isStunned; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,34 @@ public class ShieldToken : ActionToken
         SetTokenSpeed(defaultSpeed);
         //isEnabled = true;
         hitPoints = defaultHitPoints;
+        stunDuration = 2;
+        isStunned = false;
+    }
+
+    void Update()
+    {
+        if (isStunned && Time.time > currentTime + stunDuration)
+        {
+            isStunned = false;
+            StartToken();
+        }
+    }
+
+    public void StunToken()
+    {
+        tokenMoving = false;
+        Debug.Log(tokenMoving);
+        isStunned = true;
+        currentTime = Time.time;
+    }
+
+    public override void SetTokenSpeed(float speed)
+    {
+        if (speed <= 0)
+            return;
+
+        moveSpeed = speed;
+        if (!isStunned) tokenMoving = true;
     }
 
     public override void SetSpeedToDefault() { moveSpeed = defaultSpeed; }

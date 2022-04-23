@@ -23,7 +23,7 @@ public class ActionToken : MonoBehaviour
         tokenMoving = true;
     }
 
-    public void SetTokenSpeed(float speed)
+    public virtual void SetTokenSpeed(float speed)
     {
         if (speed <= 0)
             return;
