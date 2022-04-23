@@ -310,7 +310,6 @@ public class Hero : Avatar
                         case ActionGauge.ActionValue.Normal:
                             //deal damage to enemy
                             totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f) - (target.dfp * target.dfpMod));
-                            //ui.damageDisplay.color = ui.damageColor;
                             if (!animateAttackCoroutineOn)
                                 StartCoroutine(AnimateAttack());
                             ReduceHitPoints(target, totalDamage);
@@ -327,10 +326,10 @@ public class Hero : Avatar
 
                         case ActionGauge.ActionValue.Miss:
                             //nothing happens
-                            //ui.damageDisplay.color = ui.damageColor;
                             if (!animateAttackCoroutineOn)
                                 StartCoroutine(AnimateAttack());
-                            ReduceHitPoints(target, totalDamage);
+                            //ReduceHitPoints(target, totalDamage);
+                            ui.DisplayStatusUpdate("MISS", target.transform.position);
                             break;
 
                         case ActionGauge.ActionValue.Critical:
@@ -557,9 +556,7 @@ public class Hero : Avatar
         aura.SetActive(true);
         Vector3 initScale = aura.transform.localScale;
         Vector3 destinationScale = new Vector3(initScale.x + 0.2f, initScale.y + 0.2f, initScale.z);
-        //SpriteRenderer sr = GetComponent<SpriteRenderer>();
         SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
-        //auraSr.flipX = sr.flipX;
 
         //scale up the aura
         while(aura.transform.localScale.x < destinationScale.x)
