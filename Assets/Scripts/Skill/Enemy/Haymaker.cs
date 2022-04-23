@@ -17,14 +17,17 @@ public class Haymaker : Skill
         {
             totalDamage = (user.atp * user.atpMod) + power;
             totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f));
-            Debug.Log("Hit! " + totalDamage + " damage to " + target.className);   
+            user.ReduceHitPoints(target, totalDamage);
+            //Debug.Log("Hit! " + totalDamage + " damage to " + target.className);   
         }
         else
         {
             totalDamage = 0;
-            Debug.Log("Miss");  
+            UI ui = UI.instance;
+            ui.DisplayStatusUpdate("MISS", target.transform.position);
+            //Debug.Log("Miss");  
         }
 
-        user.ReduceHitPoints(target, totalDamage);
+        //user.ReduceHitPoints(target, totalDamage);
     }
 }

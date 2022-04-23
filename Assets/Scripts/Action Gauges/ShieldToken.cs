@@ -11,7 +11,6 @@ using UnityEngine;
 public class ShieldToken : ActionToken
 {
     float defaultSpeed {get;} = 300;
-    float shieldSize;       //affects the length of the shield. Default is 1.
     public int hitPoints {get; set;}      //3 hit points by default
     int defaultHitPoints {get;} = 3;
     public bool isEnabled {get; set;}

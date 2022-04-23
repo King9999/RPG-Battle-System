@@ -80,7 +80,6 @@ public abstract class Enemy : Avatar
 
     void Update()
     {
-        //base.Update();
         //if at any point the enemy's HP reaches 0, it dies
         if (hitPoints <= 0)
         {
@@ -89,11 +88,10 @@ public abstract class Enemy : Avatar
         }
 
         //if enemy is guard crushed, it ends when bonus turns reaches 0
-        if (status == Status.GuardBroken && cs.actGauge.bonusTurns <= 0)
+        if (status == Status.GuardBroken && cs.bonusTurns <= 0)
         {            
             status = Status.Normal;
             shieldTokens = maxShieldTokens;
-            //shieldBroken = false;          
         }
 
         /*****SHIELD TOKEN UPDATE******/
@@ -410,6 +408,8 @@ public abstract class Enemy : Avatar
 
             case Status.GuardBroken:
                 //nothing happens
+                UI ui = UI.instance;
+                ui.DisplayStatusUpdate("GUARD CRUSHED", transform.position);
                 Debug.Log(className + " is guard crushed!");
                 Invoke("PassTurn", invokeTime);
                 break;

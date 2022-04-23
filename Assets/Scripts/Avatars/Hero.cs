@@ -273,14 +273,21 @@ public class Hero : Avatar
                     switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
                     {
                         //Can use the code below to test a range of values in switch conditions
-                        case ActionGauge.ActionValue i when (i >= ActionGauge.ActionValue.Normal && i <= ActionGauge.ActionValue.Critical):
+                        case ActionGauge.ActionValue.Normal:
+                        case ActionGauge.ActionValue.Reduced:
+                        case ActionGauge.ActionValue.Critical:
+                        //case ActionGauge.ActionValue i when (i >= ActionGauge.ActionValue.Normal && i <= ActionGauge.ActionValue.Critical):
                             shields[j].hitPoints -= 1;
                             if (shields[j].hitPoints <= 0)
                             { 
-                                cs.actGauge.bonusTurns += cs.heroesInCombat.Count;  //ensures all heroes get a bonus
+                                cs.bonusTurns += cs.heroesInCombat.Count;  //ensures all heroes get a bonus
                                 cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
                                 shields[j].isEnabled = false;
                                 shields[j].ShowToken(false);
+                                ActionGauge actGauge = ActionGauge.instance;
+                                actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
+                                actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);
+                                actGauge.ChangeActionValue(ActionGauge.ActionValue.Reduced, ActionGauge.ActionValue.Critical);
                             }
                             else    //shield is stunned
                             {
@@ -414,7 +421,7 @@ public class Hero : Avatar
             actGauge.ResetActionToken();
 
             //set up shield token if applicable
-            if (cs.actGauge.bonusTurns <= 0 && cs.enemiesInCombat[cs.currentTarget].maxShieldTokens > 0)
+            if (cs.bonusTurns <= 0 && cs.enemiesInCombat[cs.currentTarget].maxShieldTokens > 0)
             {
                 List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
                 foreach(ShieldToken shield in shields)
@@ -431,7 +438,14 @@ public class Hero : Avatar
                 
             }
 
-            //certain pips change if player is blind
+            if (cs.bonusTurns > 0)
+            {
+                actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
+                actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);
+                actGauge.ChangeActionValue(ActionGauge.ActionValue.Reduced, ActionGauge.ActionValue.Critical);
+            }
+
+            //certain panels change if player is blind
             if (status == Status.Blind)
             {
                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
@@ -504,8 +518,8 @@ public class Hero : Avatar
         UI ui = UI.instance;
         ui.combatMenu.ShowCombatMenu(false);
         //reduce bonus turn
-        if (cs.actGauge.bonusTurns > 0)
-            cs.actGauge.bonusTurns--;
+        if (cs.bonusTurns > 0)
+            cs.bonusTurns--;
     }
 
     //static hero sprite dashes forward and back

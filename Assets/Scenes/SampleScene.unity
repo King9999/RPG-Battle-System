@@ -604,6 +604,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_text
+      value: Status
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 47b10b53e65f2654da47b964570e7b79, type: 2}
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1121292868677924295, guid: 47b10b53e65f2654da47b964570e7b79, type: 2}
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130070857125381316, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6144532497329781319, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
       propertyPath: m_Pivot.x
       value: 0

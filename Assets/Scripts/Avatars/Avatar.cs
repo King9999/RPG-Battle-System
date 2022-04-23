@@ -81,8 +81,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
         //show healed amount
         UI ui = UI.instance;
-        Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        ui.DisplayHealing(amount.ToString(), targetPos);
+        //Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        ui.DisplayHealing(amount.ToString(), target.transform.position);
 
         target.UpdateStatsUI();
     }
@@ -141,8 +141,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
         //show damage
         UI ui = UI.instance;
-        Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        ui.DisplayDamage(amount.ToString(), targetPos, ui.damageDisplay.color);
+        //Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        ui.DisplayDamage(amount.ToString(), target.transform.position, ui.damageDisplay.color);
 
         target.UpdateStatsUI();
     }

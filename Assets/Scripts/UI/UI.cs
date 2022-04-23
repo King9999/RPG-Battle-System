@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI damageDisplay;
     public TextMeshProUGUI selectTargetUI;
     public TextMeshProUGUI shieldBlockUI;
+    public TextMeshProUGUI statusUI;               //used to display ailments/buffs/debuff notifications
     //public TMP_Text damageDisplayComponent;
     //[SerializeField]TextMeshProUGUI[] damageDigits;
     [HideInInspector]public Color healColor, damageColor, reducedDamageColor, criticalDamageColor;
@@ -27,7 +28,7 @@ public class UI : MonoBehaviour
     CombatSystem cs;
 
     //coroutine checks
-    [HideInInspector]public bool animateDamageCoroutineOn;
+    public bool animateDamageCoroutineOn {get; set;}
     IEnumerator animateDamage;
 
    private void Awake()
@@ -54,16 +55,9 @@ public class UI : MonoBehaviour
         combatMenu.gameObject.SetActive(false);
         selectTargetUI.gameObject.SetActive(false);
         shieldBlockUI.gameObject.SetActive(false);
+        statusUI.gameObject.SetActive(false);
 
         cs = CombatSystem.instance;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //use the following lines to display skill name
-        //if (!skillDisplay.displaySkillCoroutineOn)
-            //StartCoroutine(skillDisplay.DisplaySkillName("Test", Color.red));
     }
 
     public void DisplayDamage(string value, Vector3 location, Color textColor)
@@ -96,12 +90,17 @@ public class UI : MonoBehaviour
         StartCoroutine(AnimateBlock(token));
     }
 
+    public void DisplayStatusUpdate(string status, Vector3 location)
+    {
+        StartCoroutine(AnimateStatus(status, location));
+    }
+
     private IEnumerator AnimateDamage(string value, Vector3 location)
     {
         float displayDuration = 0.5f;
-        //animateDamageCoroutineOn = true;
+        Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
         damageDisplay.gameObject.SetActive(true);
-        damageDisplay.transform.position = location;
+        damageDisplay.transform.position = avatarPos;
         damageDisplay.text = value;
         //damageDisplay.ForceMeshUpdate();            //this line is important! It ensures all relevant data is populated.
 
@@ -172,8 +171,9 @@ public class UI : MonoBehaviour
     private IEnumerator AnimateHealing(string value, Vector3 location)
     {
         float displayDuration = 0.5f;
+        Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
         damageDisplay.gameObject.SetActive(true);
-        damageDisplay.transform.position = location;
+        damageDisplay.transform.position = avatarPos;
         damageDisplay.text = value;
 
         //each digit is animated individually
@@ -194,6 +194,32 @@ public class UI : MonoBehaviour
         damageDisplay.color = damageColor;        //reset back to default
         damageDisplay.gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
+    }
+
+    IEnumerator AnimateStatus(string status, Vector3 location)
+    {
+        float displayDuration = 0.5f;
+        Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
+        statusUI.gameObject.SetActive(true);
+        statusUI.transform.position = avatarPos;
+        statusUI.text = status;
+
+        //each digit is animated individually
+        Vector3 initPos = statusUI.transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        while(statusUI.transform.position.y < destination.y)
+        {
+            Vector3 newPos = statusUI.transform.position;
+            vy = 50 * Time.deltaTime;
+            statusUI.transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
+
+        statusUI.transform.position = destination;
+        
+        yield return new WaitForSeconds(displayDuration);
+        statusUI.gameObject.SetActive(false);
     }
 
     //shows block animation. also reduces shield HP. If shield has 0 HP, a different animation is played.
