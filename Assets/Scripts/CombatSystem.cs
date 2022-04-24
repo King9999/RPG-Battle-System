@@ -269,17 +269,25 @@ public class CombatSystem : MonoBehaviour
         for (int i = 0; i < heroesInCombat.Count; i++)
         {
             heroesInCombat[i].gameObject.SetActive(false);
-            heroesInCombat[i].xpToNextLevel -= xpPool / heroesInCombat.Count;
+            int xpShare = xpPool / heroesInCombat.Count;
+    
+            heroesInCombat[i].xpToNextLevel -= xpShare;
             if (heroesInCombat[i].xpToNextLevel <= 0)
             {
-                //Debug.Log(heroesInCombat[i].className + " leveled up!");
-                heroesInCombat[i].LevelUp();
-                partyXp[i] = heroesInCombat[i].className + " Level Up!\nEXP Gained: " + xpPool / heroesInCombat.Count + "\nTo Next Level " 
-                + heroesInCombat[i].xpToNextLevel;
+                //keep leveling up as long as the xp share exceeds to next level.
+                int levelUpCount = 0;
+                while (heroesInCombat[i].xpToNextLevel <= 0)
+                {
+                    heroesInCombat[i].LevelUp();
+                    levelUpCount++;
+                    heroesInCombat[i].xpToNextLevel -= xpShare;   
+                }
+                partyXp[i] = heroesInCombat[i].className + " Level +" + levelUpCount + "\nEXP Gained: " + xpShare + "\nTo Next Level " 
+                    + heroesInCombat[i].xpToNextLevel;
             }
             else
             {
-                partyXp[i] = heroesInCombat[i].className + "\nEXP Gained: " + xpPool / heroesInCombat.Count + "\nTo Next Level " 
+                partyXp[i] = heroesInCombat[i].className + "\nEXP Gained: " + xpShare + "\nTo Next Level " 
                     + heroesInCombat[i].xpToNextLevel;
             }
         }
