@@ -19,6 +19,7 @@ public class CombatSystem : MonoBehaviour
 
     public ActionGauge actGauge;
     public int bonusTurns {get; set;}       //awarded when enemy shield is crushed.
+    public BonusSystem bonusSystem;         //governs the bonuses received in battle.
 
     public List<Avatar> turnOrder;
     [HideInInspector]public int currentTurn;                        //iterator for turnOrder

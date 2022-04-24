@@ -284,6 +284,9 @@ public class Hero : Avatar
                                 cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
                                 shields[j].isEnabled = false;
                                 shields[j].ShowToken(false);
+
+                                //get a random bonus
+
                                 ActionGauge actGauge = ActionGauge.instance;
                                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
                                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);

@@ -12,6 +12,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI selectTargetUI;
     public TextMeshProUGUI shieldBlockUI;
     public TextMeshProUGUI statusUI;               //used to display ailments/buffs/debuff notifications
+    public TextMeshProUGUI bonusListUI;             //displays active bonuses from breaking shields
     //public TMP_Text damageDisplayComponent;
     //[SerializeField]TextMeshProUGUI[] damageDigits;
     [HideInInspector]public Color healColor, damageColor, reducedDamageColor, criticalDamageColor;
@@ -56,6 +57,10 @@ public class UI : MonoBehaviour
         selectTargetUI.gameObject.SetActive(false);
         shieldBlockUI.gameObject.SetActive(false);
         statusUI.gameObject.SetActive(false);
+        //bonusListUI.gameObject.SetActive(false);
+
+        //set up bonus list
+        bonusListUI.text = "<color=#c827d8>BONUSES</color>\n";
 
         cs = CombatSystem.instance;
     }
