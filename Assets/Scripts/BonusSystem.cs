@@ -22,7 +22,19 @@ public class BonusSystem : MonoBehaviour
     public enum BonusValue {AllCriticalPanels, BonusXpAndMoney, RareDropBonus, EnemyBuffsRemoved, ActionGaugeSlowed, BuffAllStats, NoCostToSkills, FullRestore}
     public List<BonusValue> bonusValues;
     public List<BonusValue> activeBonuses;              //bonuses that player has received
+    public bool bonusTurnsActive {get; set;}
 
+    //bonus mods
+    public bool allPanelsCritical {get; set;}
+    public int xpMoneyMod {get; set;}
+    public float statMod {get; set;}
+    public float rareDropMod {get; set;}
+    public bool enemyBuffsDisabled {get; set;}
+    public bool heroBuffsEnabled {get; set;}
+    public float actionGaugeMod {get; set;}
+    public float manaCostMod {get; set;}
+
+    //singletons
     public static BonusSystem instance;
     UI ui;
     CombatSystem cs;
@@ -42,6 +54,10 @@ public class BonusSystem : MonoBehaviour
     {
         ui = UI.instance;
         cs = CombatSystem.instance;
+        xpMoneyMod = 0;
+        statMod = 0.2f;
+        actionGaugeMod = 1;
+        manaCostMod = 1;
         ResetBonuses();
     }
 
@@ -50,62 +66,100 @@ public class BonusSystem : MonoBehaviour
         if ((int)bonus < 0 || (int)bonus >= Enum.GetNames(typeof(BonusValue)).Length) return;
 
         activeBonuses.Add(bonus);
+        bonusTurnsActive = true;
 
         //Give bonuses and update UI. Certain bonuses are removed from the bonusValues list since they only occur once per battle.
         switch(bonus)
         {
             case BonusValue.AllCriticalPanels:
                 ui.bonusListUI.text += "All Panels Critical\n";
+                allPanelsCritical = true;
                 break;
 
             case BonusValue.BonusXpAndMoney:
                 ui.bonusListUI.text += "Bonus EXP & Money\n";
-                bonusValues.RemoveAt((int)bonus);
+                //bonusValues.RemoveAt((int)bonus);
+                bonusValues.Remove(bonus);
+                xpMoneyMod = 2;
                 break;
 
             case BonusValue.RareDropBonus:
                 ui.bonusListUI.text += "100% Rare Item Drop\n";
+                rareDropMod = 1;        //this is added to the roll when checking for loot
                 break;
 
             case BonusValue.EnemyBuffsRemoved:
                 ui.bonusListUI.text += "Enemy Buffs Disabled\n";
+                enemyBuffsDisabled = true;
+                foreach(Enemy enemy in cs.enemiesInCombat)
+                {
+                    enemy.atpMod = 1;
+                    enemy.dfpMod = 1;
+                    enemy.spdMod = 1;
+                    enemy.magMod = 1;
+                    enemy.resMod = 1;
+                }
                 break;
 
             case BonusValue.ActionGaugeSlowed:
                 ui.bonusListUI.text += "Action Gauge Speed Reduced\n";
+                actionGaugeMod = 0.7f;
                 break;
 
             case BonusValue.BuffAllStats:
                 ui.bonusListUI.text += "All Heroes' Stats Buffed\n";
+                if (!heroBuffsEnabled)
+                {
+                    heroBuffsEnabled = true;
+                    foreach(Hero hero in cs.heroesInCombat)
+                    {
+                        hero.atpMod += statMod;
+                        hero.dfpMod += statMod;
+                        hero.spdMod += statMod;
+                        hero.magMod += statMod;
+                        hero.resMod += statMod;
+                    }
+                }
                 break;
 
             case BonusValue.NoCostToSkills:
                 ui.bonusListUI.text += "Skills Cost 0 MP\n";
+                manaCostMod = 0;
                 break;
 
             case BonusValue.FullRestore:
                 ui.bonusListUI.text += "Full Restore Activated\n";
-                bonusValues.RemoveAt((int)bonus);
+                //bonusValues.RemoveAt((int)bonus);
+                bonusValues.Remove(bonus);
+                foreach(Hero hero in cs.heroesInCombat)
+                {
+                    //fully heal HP and MP, revive dead heroes, and remove staus ailments
+                    hero.status = Avatar.Status.Normal;
+                    hero.hitPoints = hero.maxHitPoints;
+                    hero.manaPoints = hero.maxManaPoints;
+                }
                 break;
         }  
     }
 
-    public void RemoveBonus(BonusValue bonus)
+    //only temporary bonuses are removed
+    public void RemoveAllBonuses()
     {
-        if ((int)bonus < 0 || (int)bonus >= Enum.GetNames(typeof(BonusValue)).Length) return;
+        if (cs.bonusTurns > 0) return;
 
-        activeBonuses.RemoveAt((int)bonus);
+        bonusTurnsActive = false;
 
         //update UI
         ui.bonusListUI.text = "<color=#c827d8>BONUSES</color>\n";
 
-        foreach(BonusValue bonusValue in activeBonuses)
+        for(int i = 0; i < activeBonuses.Count; i++)
         {
-            switch(bonusValue)
+            switch(activeBonuses[i])
             {
                 case BonusValue.AllCriticalPanels:
-                ui.bonusListUI.text += "All Panels Critical\n";
-                break;
+                    activeBonuses.RemoveAt(i);
+                    allPanelsCritical = false;
+                    break;
 
                 case BonusValue.BonusXpAndMoney:
                     ui.bonusListUI.text += "Bonus EXP & Money\n";
@@ -116,19 +170,34 @@ public class BonusSystem : MonoBehaviour
                     break;
 
                 case BonusValue.EnemyBuffsRemoved:
-                    ui.bonusListUI.text += "Enemy Buffs Disabled\n";
+                    activeBonuses.RemoveAt(i);
+                    enemyBuffsDisabled = false;
                     break;
 
                 case BonusValue.ActionGaugeSlowed:
-                    ui.bonusListUI.text += "Action Gauge Speed Reduced\n";
+                    activeBonuses.RemoveAt(i);
+                    actionGaugeMod = 1;
                     break;
 
                 case BonusValue.BuffAllStats:
-                    ui.bonusListUI.text += "All Heroes' Stats Buffed\n";
+                    activeBonuses.RemoveAt(i);
+                    if (heroBuffsEnabled)
+                    {
+                        heroBuffsEnabled = false;
+                        foreach(Hero hero in cs.heroesInCombat)
+                        {
+                            hero.atpMod -= statMod;
+                            hero.dfpMod -= statMod;
+                            hero.spdMod -= statMod;
+                            hero.magMod -= statMod;
+                            hero.resMod -= statMod;
+                        }
+                    }
                     break;
 
                 case BonusValue.NoCostToSkills:
-                    ui.bonusListUI.text += "Skills Cost 0 MP\n";
+                    activeBonuses.RemoveAt(i);
+                    manaCostMod = 1;
                     break;
 
                 case BonusValue.FullRestore:
@@ -144,10 +213,29 @@ public class BonusSystem : MonoBehaviour
         bonusValues.Clear();
         activeBonuses.Clear();
         ui.bonusListUI.text = "<color=#c827d8>BONUSES</color>\n";
+        bonusTurnsActive = false;
 
         for (int i = 0; i < Enum.GetNames(typeof(BonusValue)).Length; i++)
         {
             bonusValues.Add((BonusValue)i);
         }
+
+        //reset mods
+        allPanelsCritical = false;
+        xpMoneyMod = 0;
+        heroBuffsEnabled = false;
+        enemyBuffsDisabled = false;
+        manaCostMod = 1;
+        actionGaugeMod = 1;
+        rareDropMod = 0;
+    
+        foreach(Hero hero in cs.heroesInCombat)
+        {
+            hero.atpMod = 1;
+            hero.dfpMod = 1;
+            hero.spdMod = 1;
+            hero.magMod = 1;
+            hero.resMod = 1;
+        }  
     }
 }

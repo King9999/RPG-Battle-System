@@ -285,12 +285,34 @@ public class Hero : Avatar
                                 shields[j].isEnabled = false;
                                 shields[j].ShowToken(false);
 
-                                //get a random bonus
+                                //get a random bonus. If we get the special bonus, that one takes priority
+                                int randBonus = Random.Range(0, cs.bonusSystem.bonusValues.Count);
 
+                                if (cs.bonusSystem.bonusValues.Contains(BonusSystem.BonusValue.FullRestore))
+                                {
+                                    float roll = Random.Range(0, 1f);
+                                    if(roll <= 0.05f)
+                                    {
+                                        randBonus = (int)BonusSystem.BonusValue.FullRestore;
+                                    }
+                                }
+
+                                cs.bonusSystem.GetBonus((BonusSystem.BonusValue)randBonus);
+
+                                //check if we got certain bonuses and apply them immediately
                                 ActionGauge actGauge = ActionGauge.instance;
-                                actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
-                                actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);
-                                actGauge.ChangeActionValue(ActionGauge.ActionValue.Reduced, ActionGauge.ActionValue.Critical);
+                                if (randBonus == (int)BonusSystem.BonusValue.AllCriticalPanels)
+                                {
+                                    //ActionGauge actGauge = ActionGauge.instance;
+                                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
+                                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);
+                                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Reduced, ActionGauge.ActionValue.Critical);
+                                }
+
+                                if (randBonus == (int)BonusSystem.BonusValue.ActionGaugeSlowed)
+                                {
+                                    actGauge.actionToken.SetTokenSpeed(actGauge.actionToken.TokenSpeed() * cs.bonusSystem.actionGaugeMod);
+                                }
                             }
                             else    //shield is stunned
                             {
@@ -440,7 +462,24 @@ public class Hero : Avatar
                 
             }
 
-            if (cs.bonusTurns > 0)
+            //check bonuses
+            /*bool bonusFound = false;
+            int i = 0;
+            while (cs.bonusTurns > 0 && !bonusFound && i < cs.bonusSystem.activeBonuses.Count)
+            {
+                if (cs.bonusSystem.activeBonuses[i] == BonusSystem.BonusValue.AllCriticalPanels)
+                {
+                    bonusFound = true;
+                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
+                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);
+                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Reduced, ActionGauge.ActionValue.Critical);
+                }
+                else
+                {
+                    i++;
+                }
+            }*/
+            if (cs.bonusSystem.allPanelsCritical)
             {
                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Miss, ActionGauge.ActionValue.Critical);
@@ -456,6 +495,9 @@ public class Hero : Avatar
 
             totalAttackTokens = (weapon.tokenCount + attackTokenMod < 1) ? 1 : weapon.tokenCount + attackTokenMod;
             currentActions = 0;
+
+            //check for bonus
+            actGauge.actionToken.SetTokenSpeed(actGauge.actionToken.TokenSpeed() * cs.bonusSystem.actionGaugeMod);
             actGauge.actionToken.StartToken();
         }
     }

@@ -171,14 +171,19 @@ public class CombatSystem : MonoBehaviour
             //return;
         }
 
+        if (bonusSystem.bonusTurnsActive && bonusTurns <= 0)
+        {
+            bonusTurns = 0;
+            //bonusSystem.bonusTurnsActive = false;
+            bonusSystem.RemoveAllBonuses();
+        }
+
         //check whose turn is next
         if (!turnInProgress)
         {
             if (!turnOrder[currentTurn].TurnTaken())
             {
-                //Debug.Log(turnOrder[currentTurn].className + "'s turn");
                 turnOrder[currentTurn].TakeAction();
-                //turnInProgress = true;
             }
             else   //if turn has ended, put avatar to end of list
             {
@@ -204,7 +209,17 @@ public class CombatSystem : MonoBehaviour
             return;
 
         //roll for rare drop then common drop in that order
-        float roll = Random.Range(0, 1f);
+        float roll = Random.Range(0, 1f) + bonusSystem.rareDropMod;
+
+        //check if rare drop bonus is active
+        /*foreach(BonusSystem.BonusValue bonusValue in bonusSystem.activeBonuses)
+        {
+            if (bonusValue == BonusSystem.BonusValue.RareDropBonus)
+            {
+                roll = 1;
+                break;
+            }
+        }*/
 
         if (enemy.rareItemDrop != null && roll <= enemy.rareItemDropChance)
         {
@@ -239,7 +254,12 @@ public class CombatSystem : MonoBehaviour
         actGauge.ShowGauge(false);
         turnOrder.Clear();
         ui.turnOrderList.text = "";
-
+        bonusTurns = 0;
+        
+        //apply any bonuses
+        int bonus = bonusSystem.xpMoneyMod <= 0 ? 0 : xpPool / bonusSystem.xpMoneyMod;
+        xpPool += bonus;
+        moneyPool += bonus;
 
         //award XP, money and items
         string xpAndMoney = xpPool + " EXP\n" + moneyPool + " Money";
@@ -315,14 +335,8 @@ public class CombatSystem : MonoBehaviour
         loot.Clear();
         xpPool = 0;
         moneyPool = 0;
-
+        bonusSystem.ResetBonuses();
        
-        //hide heroes for next time
-        /*foreach(Hero hero in heroesInCombat)
-        {
-            hero.gameObject.SetActive(false);
-        }*/
-        
         gameObject.SetActive(false);
     }
 
