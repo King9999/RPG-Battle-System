@@ -33,7 +33,8 @@ public class CombatSystem : MonoBehaviour
     public Transform actGaugeLocation;
 
     //combat states. Used to determine which steps can be taken during combat
-    public enum CombatPhase {SelectTargetToAttack}
+    public enum PlayerState {None, SelectingTargetToAttack, InventoryOpen, SkillOpen}
+    public PlayerState playerState;
 
     public bool selectingTargetToAttack;
     

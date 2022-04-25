@@ -23,18 +23,14 @@ public class CombatMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+   
     public void OnAttackButtonClicked()
     {
         //player selects a target
         //if (cs.currentTarget < 0) return;
 
         cs.selectingTargetToAttack = true;
+        //cs.playerState = CombatSystem.PlayerState.SelectingTargetToAttack;
         UI ui = UI.instance;
         ui.selectTargetUI.gameObject.SetActive(true);
         //Debug.Log("Targeting " + cs.enemiesInCombat[cs.currentTarget].className + " at location " + cs.currentTarget);

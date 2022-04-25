@@ -6,10 +6,11 @@ using TMPro;
 using UnityEngine.EventSystems;
 
 /* All items are kept in a dictionary, and interacting with them requires mouse events and buttons. */
-public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
 {
     Dictionary<Item, int> items;
     public Button[] itemButtons;           //when these are clicked, item is used.
+    public ItemSlot[] itemSlots;
     int money;
     int maxMoney {get;} = 10000000;
     public int currentItem;                //iterator
@@ -28,8 +29,8 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         currentItem = 0;
         gameObject.SetActive(false);
-        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
-        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
     }
 
     // Update is called once per frame
@@ -38,7 +39,7 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         //run coroutine to highlight item
     }
 
-    public void OnPointerEnter(PointerEventData pointer)
+    /*public void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
     }
@@ -46,13 +47,41 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerExit(PointerEventData pointer)
     {
         //remove highlight
-    }
+    }*/
 
     //add item to first available slot
     public void AddItem(Item item, int amount)
     {
-       
-        if (items.ContainsKey(item))
+        bool itemFound = false;
+        foreach(ItemSlot slot in itemSlots)
+        {
+            //if item already in inventory, just add 1 to quantity
+            if (slot.item == null) continue;
+
+            if (slot.item.itemName == item.itemName)
+            {
+                slot.quantity += amount;
+                itemFound = true;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.item.itemName + " " + slot.quantity;
+                break;
+            }
+        }
+
+        if (!itemFound)
+        {
+            //add item to a new slot
+            int i = 0;
+            while(itemSlots[i].item != null && itemSlots.Length < maxItems)
+            {
+                i++;
+            }
+
+            itemSlots[i].item = (Consumable)item;
+            itemSlots[i].quantity += amount;
+            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].item.itemName + " " + itemSlots[i].quantity;
+        }
+
+        /*if (items.ContainsKey(item))
         {
             items[item] += amount;
 
@@ -62,7 +91,7 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 if (itemInInventory.Equals(item))
                 {
-                    itemButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
+                    itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
                     break;
                 }
                 else
@@ -77,27 +106,32 @@ public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (items.Count < maxItems)
             {
                 items.Add(item, amount);
-                itemButtons[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
+                itemSlots[currentItem].item = (Consumable)item;
+                itemSlots[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
                 currentItem++;
             }
             else
                 return;
-        }     
+        }  */   
     }
 
     public void AddMoney(int amount)
     {
+        money += amount;
         if (money > maxMoney)
         {
             money = maxMoney;
-            return;
-        }
-
-        money += amount;  
+        }  
     }
 
     public void ShowInventory(bool toggle)
     {
         gameObject.SetActive(toggle);
     }
+
+    /*public void OnItemClicked()
+    {
+        //check which item was clicked.
+        Debug.Log("Clicked on " + )
+    }*/
 }
