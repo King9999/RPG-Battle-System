@@ -14,6 +14,7 @@ public class CombatMenu : MonoBehaviour
     public Button skillButton;
     public Button itemButton;
     public Button escapeButton;
+    public Button backButton;           //used to go back to combat menu from different screens.
     public Inventory inv;
 
     // Start is called before the first frame update
@@ -42,7 +43,8 @@ public class CombatMenu : MonoBehaviour
     public void OnItemButtonClicked()
     {
         //open inventory
-        inv.ShowInventory(true);  
+        inv.ShowInventory(true);
+        backButton.gameObject.SetActive(true);  
     }
 
     public void ShowCombatMenu(bool toggle)
