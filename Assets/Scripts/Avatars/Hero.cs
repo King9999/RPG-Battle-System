@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //A hero is a player-controlled entity. A hero has restrictions on which weapons they can use.
 public class Hero : Avatar
@@ -187,6 +188,32 @@ public class Hero : Avatar
             }         
         }
 
+    }
+
+    public override void OnPointerClick(PointerEventData pointer)
+    {
+        if (cs.selectingHero)
+        {
+            //activate item or skill
+            Inventory inv = Inventory.instance;
+            cs.currentTarget = cs.heroesInCombat.IndexOf(this);
+            inv.copiedSlot.item.itemEffect.Activate(this, cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
+            inv.copiedSlot.quantity--;
+
+            //delete item
+            if(inv.copiedSlot.quantity <= 0)
+            {
+                inv.copiedSlot.item = null; //this also deletes the item in the original slot since copied slot holds a reference.
+            }
+
+
+           
+            //cs.currentHero = cs.heroesInCombat.IndexOf(this);
+            cs.selectingHero = false;
+            UI ui = UI.instance;
+            ui.selectTargetUI.gameObject.SetActive(false);
+            ui.combatMenu.ShowCombatMenu(false);
+        }
     }
 
     public override void TakeAction()

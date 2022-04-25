@@ -32,6 +32,7 @@ public class CombatMenu : MonoBehaviour
         cs.selectingTargetToAttack = true;
         //cs.playerState = CombatSystem.PlayerState.SelectingTargetToAttack;
         UI ui = UI.instance;
+        ui.selectTargetUI.text = "Click a target to attack";
         ui.selectTargetUI.gameObject.SetActive(true);
         //Debug.Log("Targeting " + cs.enemiesInCombat[cs.currentTarget].className + " at location " + cs.currentTarget);
         //Debug.Log(Mouse.current.position.ReadValue());

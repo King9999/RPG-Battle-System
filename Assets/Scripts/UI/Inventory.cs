@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     Dictionary<Item, int> items;
     public Button[] itemButtons;           //when these are clicked, item is used.
     public ItemSlot[] itemSlots;
+    public ItemSlot copiedSlot;            //copy of an item that is about to be used.
     int money;
     int maxMoney {get;} = 10000000;
     public int currentItem;                //iterator
@@ -20,6 +21,18 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     bool animateHighlightCoroutineOn;
 
     ItemManager im;
+    public static Inventory instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

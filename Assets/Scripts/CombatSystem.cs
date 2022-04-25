@@ -36,7 +36,8 @@ public class CombatSystem : MonoBehaviour
     public enum PlayerState {None, SelectingTargetToAttack, InventoryOpen, SkillOpen}
     public PlayerState playerState;
 
-    public bool selectingTargetToAttack;
+    public bool selectingTargetToAttack {get; set;}
+    public bool selectingHero {get; set;}           //when true, player is using an item or a skill on a hero
     
     public static CombatSystem instance;
     HeroManager hm;

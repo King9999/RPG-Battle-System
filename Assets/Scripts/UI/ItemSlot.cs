@@ -9,10 +9,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int slotID;
     public Consumable item;
     public int quantity;           //99 is the max
+
+    Inventory inv;
     // Start is called before the first frame update
     void Start()
     {
-        
+        inv = Inventory.instance;
     }
 
     // Update is called once per frame
@@ -36,7 +38,15 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Debug.Log("Clicked slot " + slotID);
         if (item != null)
         {
+            //copy the item
+            inv.copiedSlot = this;
+
             //select the hero who gets the item
+            CombatSystem cs = CombatSystem.instance;
+            cs.selectingHero = true;
+            UI ui = UI.instance;
+            ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
+            ui.selectTargetUI.gameObject.SetActive(true);
         }
     }
 }
