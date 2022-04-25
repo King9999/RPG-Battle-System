@@ -197,7 +197,7 @@ public class Hero : Avatar
             //activate item or skill
             Inventory inv = Inventory.instance;
             cs.currentTarget = cs.heroesInCombat.IndexOf(this);
-            inv.copiedSlot.item.itemEffect.Activate(this, cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
+            inv.copiedSlot.item.itemEffect.Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
             inv.copiedSlot.quantity--;
 
             //delete item
@@ -205,14 +205,15 @@ public class Hero : Avatar
             {
                 inv.copiedSlot.item = null; //this also deletes the item in the original slot since copied slot holds a reference.
             }
-
-
            
             //cs.currentHero = cs.heroesInCombat.IndexOf(this);
             cs.selectingHero = false;
             UI ui = UI.instance;
             ui.selectTargetUI.gameObject.SetActive(false);
             ui.combatMenu.ShowCombatMenu(false);
+
+            //End turn.
+            cs.heroesInCombat[cs.currentHero].Invoke("PassTurn", invokeTime);
         }
     }
 
@@ -585,6 +586,7 @@ public class Hero : Avatar
     public override void PassTurn()
     {
         base.PassTurn();
+        Debug.Log(className + " turn ended");
 
         UI ui = UI.instance;
         ui.combatMenu.ShowCombatMenu(false);

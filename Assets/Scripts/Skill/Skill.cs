@@ -27,6 +27,7 @@ public abstract class Skill : ScriptableObject
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
 
     }
+
     public virtual void Activate(Color borderColor)
     {
         UI ui = UI.instance;

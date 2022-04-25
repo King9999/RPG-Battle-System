@@ -40,6 +40,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             //copy the item
             inv.copiedSlot = this;
+            inv.ShowInventory(false);
 
             //select the hero who gets the item
             CombatSystem cs = CombatSystem.instance;
