@@ -312,10 +312,15 @@ public class CombatSystem : MonoBehaviour
                 //add to inventory
                 if (item.Key.itemType == Item.ItemType.Consumable)
                     ui.inventory.AddItem((Consumable)item.Key, item.Value);
-                else
-                {
-                    //add equipment to equipment inventory
-                }
+
+                if (item.Key.itemType == Item.ItemType.Weapon)
+                    ui.inventory.AddItem((Weapon)item.Key, item.Value);
+
+                if (item.Key.itemType == Item.ItemType.Armor)
+                    ui.inventory.AddItem((Armor)item.Key, item.Value);
+
+                if (item.Key.itemType == Item.ItemType.Trinket)
+                    ui.inventory.AddItem((Trinket)item.Key, item.Value);
             }
         }
 

@@ -45,11 +45,14 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     {
         im = ItemManager.instance;
         items = new Dictionary<Consumable, int>();
+        weapons = new Dictionary<Weapon, int>();
+        armor = new Dictionary<Armor, int>();
+        trinkets = new Dictionary<Trinket, int>();
 
         currentItem = 0;
         gameObject.SetActive(false);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
+        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
+        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
     }
 
     // Update is called once per frame
@@ -90,7 +93,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         {
             //add item to a new slot
             int i = 0;
-            while(itemSlots[i].ItemInSlot() != null && itemSlots.Length < maxItems)
+            while(itemSlots[i].ItemInSlot() != null && i < itemSlots.Length)
             {
                 i++;
             }
@@ -106,17 +109,17 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public void AddItem(Weapon item, int amount)
     {
         //TODO: Modify the code below for non-consumable items. The items must go into an inventory specifically for non-consumables.
-        /*bool itemFound = false;
-        foreach(ItemSlot slot in itemSlots)
+        bool itemFound = false;
+        foreach(WeaponSlot slot in weaponSlots)
         {
             //if item already in inventory, just add 1 to quantity
-            if (slot.item == null) continue;
+            if (slot.WeaponInSlot() == null) continue;
 
-            if (slot.item.itemName == item.itemName)
+            if (slot.WeaponInSlot().itemName == item.itemName)
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.item.itemName + " " + slot.quantity;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " " + slot.quantity;
                 break;
             }
         }
@@ -125,24 +128,78 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         {
             //add item to a new slot
             int i = 0;
-            while(itemSlots[i].item != null && itemSlots.Length < maxItems)
+            while(weaponSlots[i].WeaponInSlot() != null && i < weaponSlots.Length)
             {
                 i++;
             }
 
-            itemSlots[i].item = item;
-            itemSlots[i].quantity += amount;
-            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].item.itemName + " " + itemSlots[i].quantity;
-        }*/
+            weaponSlots[i].AddWeapon(item);
+            weaponSlots[i].quantity += amount;
+            weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " " + weaponSlots[i].quantity;
+        }
     }
 
     public void AddItem(Armor item, int amount)
     {
+        bool itemFound = false;
+        foreach(ArmorSlot slot in armorSlots)
+        {
+            //if item already in inventory, just add 1 to quantity
+            if (slot.ArmorInSlot() == null) continue;
 
+            if (slot.ArmorInSlot().itemName == item.itemName)
+            {
+                slot.quantity += amount;
+                itemFound = true;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ArmorInSlot().itemName + " " + slot.quantity;
+                break;
+            }
+        }
+
+        if (!itemFound)
+        {
+            //add item to a new slot
+            int i = 0;
+            while(armorSlots[i].ArmorInSlot() != null && i < armorSlots.Length)
+            {
+                i++;
+            }
+            
+            armorSlots[i].AddArmor(item);
+            armorSlots[i].quantity += amount;
+            armorSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = armorSlots[i].ArmorInSlot().itemName + " " + armorSlots[i].quantity;
+        }
     }
     public void AddItem(Trinket item, int amount)
     {
+        bool itemFound = false;
+        foreach(TrinketSlot slot in trinketSlots)
+        {
+            //if item already in inventory, just add 1 to quantity
+            if (slot.TrinketInSlot() == null) continue;
 
+            if (slot.TrinketInSlot().itemName == item.itemName)
+            {
+                slot.quantity += amount;
+                itemFound = true;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.TrinketInSlot().itemName + " " + slot.quantity;
+                break;
+            }
+        }
+
+        if (!itemFound)
+        {
+            //add item to a new slot
+            int i = 0;
+            while(trinketSlots[i].TrinketInSlot() != null && i < trinketSlots.Length)
+            {
+                i++;
+            }
+            
+            trinketSlots[i].AddTrinket(item);
+            trinketSlots[i].quantity += amount;
+            trinketSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = trinketSlots[i].TrinketInSlot().itemName + " " + trinketSlots[i].quantity;
+        }
     }
 
     public void AddMoney(int amount)

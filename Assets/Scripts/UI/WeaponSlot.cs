@@ -22,4 +22,8 @@ public class WeaponSlot : ItemSlot
 
     public Weapon WeaponInSlot() { return weaponInSlot; }
     public void RemoveWeapon() { weaponInSlot = null; }
+    public void AddWeapon(Weapon weapon)
+    {
+        weaponInSlot = weapon;
+    }
 }
