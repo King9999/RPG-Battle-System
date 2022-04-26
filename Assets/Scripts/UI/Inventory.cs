@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     }*/
 
     //add item to first available slot
-    public void AddItem(Item item, int amount)
+    public void AddItem(Consumable item, int amount)
     {
         bool itemFound = false;
         foreach(ItemSlot slot in itemSlots)
@@ -89,7 +89,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
                 i++;
             }
 
-            itemSlots[i].item = (Consumable)item;
+            itemSlots[i].item = item;
             itemSlots[i].quantity += amount;
             itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].item.itemName + " " + itemSlots[i].quantity;
         }
@@ -126,6 +126,39 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             else
                 return;
         }  */   
+    }
+
+    public void AddItem(Weapon item, int amount)
+    {
+        //TODO: Modify the code below for non-consumable items. The items must go into an inventory specifically for non-consumables.
+        /*bool itemFound = false;
+        foreach(ItemSlot slot in itemSlots)
+        {
+            //if item already in inventory, just add 1 to quantity
+            if (slot.item == null) continue;
+
+            if (slot.item.itemName == item.itemName)
+            {
+                slot.quantity += amount;
+                itemFound = true;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.item.itemName + " " + slot.quantity;
+                break;
+            }
+        }
+
+        if (!itemFound)
+        {
+            //add item to a new slot
+            int i = 0;
+            while(itemSlots[i].item != null && itemSlots.Length < maxItems)
+            {
+                i++;
+            }
+
+            itemSlots[i].item = item;
+            itemSlots[i].quantity += amount;
+            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].item.itemName + " " + itemSlots[i].quantity;
+        }*/
     }
 
     public void AddMoney(int amount)

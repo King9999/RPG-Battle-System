@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Skill : ScriptableObject
 {
     public string skillName;
-    Color skillNameBorderColor;
+    protected Color skillNameBorderColor;
     public Sprite skillIcon;
     public string description;
     public int manaCost;
@@ -12,6 +12,12 @@ public abstract class Skill : ScriptableObject
     public ActionGauge actGauge;    //skills typically have 1 token
     public bool isPassive;          //if true, skill is always active and has no mana cost.
     protected float totalDamage;
+    protected bool skillActivated;  //applies mainly to skills that have have a duration
+    public bool hasDuration;
+    public int turnDuration;        //only counts if a skill has a duration.
+    protected int durationLeft {get; set;}
+
+    protected UI ui;
 
     public enum Target
     {
@@ -22,15 +28,19 @@ public abstract class Skill : ScriptableObject
 
     public virtual void Activate(Avatar skillUser, Avatar target, Color borderColor) 
     {
-        UI ui = UI.instance;
+        skillActivated = true;
+        durationLeft = hasDuration == true ? turnDuration : 0;
+
+        ui = UI.instance;
         skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
-
     }
 
     public virtual void Activate(Color borderColor)
     {
-        UI ui = UI.instance;
+        skillActivated = true;
+        durationLeft = hasDuration == true ? turnDuration : 0;
+        ui = UI.instance;
         skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
         //Debug.Log("Displaying skill name");
@@ -39,10 +49,34 @@ public abstract class Skill : ScriptableObject
     //used when a skill is executed on the user
     public virtual void Activate(Avatar self, Color borderColor) 
     {
-        UI ui = UI.instance;
+        skillActivated = true;
+        durationLeft = hasDuration == true ? turnDuration : 0;
+        ui = UI.instance;
         skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
     }
+
+    public bool SkillActivated() {return skillActivated;}
+    public void SetActiveStatus(bool state)
+    {
+        skillActivated = state;
+    }
+
+    public void ReduceDuration()
+    {
+        if (!hasDuration) return;
+
+        durationLeft--;
+        if (durationLeft <= 0)
+        {
+            skillActivated = false;
+        }
+    }
+
+    //only applies to skills with a duration
+    public virtual void RemoveEffects(Avatar target) {}
+    public bool EffectExpired() {return durationLeft <= 0;}
+
 
     public enum StatusEffect
     {

@@ -183,7 +183,6 @@ public class Hero : Avatar
 
                 isTheirTurn = false;
 
-               
                 Invoke("PassTurn", invokeTime);
             }         
         }
@@ -590,9 +589,36 @@ public class Hero : Avatar
 
         UI ui = UI.instance;
         ui.combatMenu.ShowCombatMenu(false);
+
         //reduce bonus turn
         if (cs.bonusTurns > 0)
             cs.bonusTurns--;
+
+        //skill duration check
+        foreach(Skill skill in skills)
+        {
+            if (skill.SkillActivated() && skill.hasDuration)
+            {
+                skill.ReduceDuration();
+                if (skill.EffectExpired())
+                {
+                    skill.RemoveEffects(this);
+                }
+            }
+        }
+
+        //weapon skill check
+        if (weapon.weaponSkill != null)
+        {
+            if (weapon.weaponSkill.SkillActivated() && weapon.weaponSkill.hasDuration)
+            {
+                weapon.weaponSkill.ReduceDuration();
+                if (weapon.weaponSkill.EffectExpired())
+                {
+                    weapon.weaponSkill.RemoveEffects(this);
+                }
+            }
+        }
     }
 
     //static hero sprite dashes forward and back

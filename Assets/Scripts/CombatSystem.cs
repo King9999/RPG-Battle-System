@@ -310,7 +310,12 @@ public class CombatSystem : MonoBehaviour
                 lootString += item.Key.itemName + " x" + item.Value + "\n";
 
                 //add to inventory
-                ui.inventory.AddItem(item.Key, item.Value);
+                if (item.Key.itemType == Item.ItemType.Consumable)
+                    ui.inventory.AddItem((Consumable)item.Key, item.Value);
+                else
+                {
+                    //add equipment to equipment inventory
+                }
             }
         }
 

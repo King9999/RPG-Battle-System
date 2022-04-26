@@ -23,7 +23,7 @@ public class Haymaker : Skill
         else
         {
             totalDamage = 0;
-            UI ui = UI.instance;
+            //UI ui = UI.instance;
             ui.DisplayStatusUpdate("MISS", target.transform.position);
             //Debug.Log("Miss");  
         }
