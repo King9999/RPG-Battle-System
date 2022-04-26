@@ -8,9 +8,15 @@ using UnityEngine.EventSystems;
 /* All items are kept in a dictionary, and interacting with them requires mouse events and buttons. */
 public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
 {
-    Dictionary<Item, int> items;
-    public Button[] itemButtons;           //when these are clicked, item is used.
-    public ItemSlot[] itemSlots;
+    Dictionary<Consumable, int> items;
+    Dictionary<Weapon, int> weapons;
+    Dictionary<Armor, int> armor;
+    Dictionary<Trinket, int> trinkets;
+    //public Button[] itemButtons;           //when these are clicked, item is used.
+    public ItemSlot[] itemSlots;            //contains consumables only
+    public WeaponSlot[] weaponSlots;
+    public ArmorSlot[] armorSlots;
+    public TrinketSlot[] trinketSlots;
     public ItemSlot copiedSlot;            //copy of an item that is about to be used.
     int money;
     int maxMoney {get;} = 10000000;
@@ -38,7 +44,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     void Start()
     {
         im = ItemManager.instance;
-        items = new Dictionary<Item, int>();
+        items = new Dictionary<Consumable, int>();
 
         currentItem = 0;
         gameObject.SetActive(false);
@@ -69,13 +75,13 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         foreach(ItemSlot slot in itemSlots)
         {
             //if item already in inventory, just add 1 to quantity
-            if (slot.item == null) continue;
+            if (slot.ItemInSlot() == null) continue;
 
-            if (slot.item.itemName == item.itemName)
+            if (slot.ItemInSlot().itemName == item.itemName)
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.item.itemName + " " + slot.quantity;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ItemInSlot().itemName + " " + slot.quantity;
                 break;
             }
         }
@@ -84,48 +90,17 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         {
             //add item to a new slot
             int i = 0;
-            while(itemSlots[i].item != null && itemSlots.Length < maxItems)
+            while(itemSlots[i].ItemInSlot() != null && itemSlots.Length < maxItems)
             {
                 i++;
             }
 
-            itemSlots[i].item = item;
+            //itemSlots[i].item = item;
+            itemSlots[i].AddItem(item);
             itemSlots[i].quantity += amount;
-            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].item.itemName + " " + itemSlots[i].quantity;
+            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].ItemInSlot().itemName + " " + itemSlots[i].quantity;
         }
 
-        /*if (items.ContainsKey(item))
-        {
-            items[item] += amount;
-
-            //find where the item is located so we can update the text
-            int i = 0; 
-            foreach(Item itemInInventory in items.Keys)
-            {
-                if (itemInInventory.Equals(item))
-                {
-                    itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
-                    break;
-                }
-                else
-                {
-                    i++;
-                }
-            }
-            //itemButtons[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
-        }
-        else
-        {
-            if (items.Count < maxItems)
-            {
-                items.Add(item, amount);
-                itemSlots[currentItem].item = (Consumable)item;
-                itemSlots[currentItem].GetComponentInChildren<TextMeshProUGUI>().text = item.itemName + " " + items[item];
-                currentItem++;
-            }
-            else
-                return;
-        }  */   
     }
 
     public void AddItem(Weapon item, int amount)
@@ -159,6 +134,15 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             itemSlots[i].quantity += amount;
             itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].item.itemName + " " + itemSlots[i].quantity;
         }*/
+    }
+
+    public void AddItem(Armor item, int amount)
+    {
+
+    }
+    public void AddItem(Trinket item, int amount)
+    {
+
     }
 
     public void AddMoney(int amount)

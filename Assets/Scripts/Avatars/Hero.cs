@@ -196,13 +196,13 @@ public class Hero : Avatar
             //activate item or skill
             Inventory inv = Inventory.instance;
             cs.currentTarget = cs.heroesInCombat.IndexOf(this);
-            inv.copiedSlot.item.itemEffect.Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
+            inv.copiedSlot.ItemInSlot().itemEffect.Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
             inv.copiedSlot.quantity--;
 
             //delete item
             if(inv.copiedSlot.quantity <= 0)
             {
-                inv.copiedSlot.item = null; //this also deletes the item in the original slot since copied slot holds a reference.
+                inv.copiedSlot.RemoveItem(); //this also deletes the item in the original slot since copied slot holds a reference.
             }
            
             //cs.currentHero = cs.heroesInCombat.IndexOf(this);

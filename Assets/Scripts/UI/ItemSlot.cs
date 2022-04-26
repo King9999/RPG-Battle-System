@@ -7,10 +7,10 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int slotID;
-    public Consumable item;
+    private Consumable item;
     public int quantity;           //99 is the max
 
-    Inventory inv;
+    protected Inventory inv;
     CombatMenu menu;
     // Start is called before the first frame update
     void Start()
@@ -19,12 +19,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         menu = CombatMenu.instance;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
@@ -52,5 +47,20 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
             ui.selectTargetUI.gameObject.SetActive(true);
         }
+    }
+
+    public Consumable ItemInSlot()
+    {
+        return item;
+    }
+
+    public void RemoveItem()
+    {
+        item = null;
+    }
+
+    public void AddItem(Consumable item)
+    {
+        this.item = item;
     }
 }
