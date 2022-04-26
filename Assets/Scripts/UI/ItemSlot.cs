@@ -11,10 +11,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int quantity;           //99 is the max
 
     Inventory inv;
+    CombatMenu menu;
     // Start is called before the first frame update
     void Start()
     {
         inv = Inventory.instance;
+        menu = CombatMenu.instance;
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //copy the item
             inv.copiedSlot = this;
             inv.ShowInventory(false);
+            menu.menuState = CombatMenu.MenuState.SelectingHeroToTakeItem;
 
             //select the hero who gets the item
             CombatSystem cs = CombatSystem.instance;
