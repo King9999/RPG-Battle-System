@@ -19,6 +19,8 @@ MonoBehaviour:
   power: 0
   actGauge: {fileID: 0}
   isPassive: 0
+  hasDuration: 1
+  turnDuration: 2
   targetType: 1
   element: 0
   statusEffect: 0
