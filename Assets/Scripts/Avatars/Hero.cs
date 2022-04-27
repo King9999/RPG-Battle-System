@@ -595,7 +595,7 @@ public class Hero : Avatar
             cs.bonusTurns--;
 
         //skill duration check
-        foreach(Skill skill in skills)
+        /*foreach(Skill skill in skills)
         {
             if (skill.SkillActivated() && skill.hasDuration)
             {
@@ -605,10 +605,21 @@ public class Hero : Avatar
                     skill.RemoveEffects(this);
                 }
             }
+        }*/
+        
+        for (int i = 0; i < skillEffects.Count; i++)
+        {
+            skillEffects[i].ReduceDuration();
+            if (skillEffects[i].EffectExpired())
+            {
+                skillEffects[i].RemoveEffects(this);
+                skillEffects.Remove(skillEffects[i]);
+                i--;
+            }  
         }
 
         //weapon skill check
-        if (weapon.weaponSkill != null)
+        /*if (weapon.weaponSkill != null)
         {
             if (weapon.weaponSkill.SkillActivated() && weapon.weaponSkill.hasDuration)
             {
@@ -618,7 +629,7 @@ public class Hero : Avatar
                     weapon.weaponSkill.RemoveEffects(this);
                 }
             }
-        }
+        }*/
     }
 
     //static hero sprite dashes forward and back

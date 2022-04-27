@@ -20,17 +20,23 @@ public class GoldenAxe : Skill
             Debug.Log("ATP buff, ATP is now " + user.atp * user.atpMod);
             ui.DisplayStatusUpdate("ATP UP +10%", user.transform.position);
             durationLeft = turnDuration;
+
+            if (!user.skillEffects.Contains(this))
+            {
+                user.skillEffects.Add(this);
+            }
+           
         }
         else
         {
-            ui.DisplayStatusUpdate("MAXED OUT", user.transform.position);
+            ui.DisplayStatusUpdate("ATP MAX", user.transform.position);
         }   
     }
 
     public override void RemoveEffects(Avatar user)
     {
         user.atpMod = 1;
-        ui.DisplayStatusUpdate("BUFF ENDED", user.transform.position);
+        ui.DisplayStatusUpdate("ATP BUFF END", user.transform.position);
     }
 
 

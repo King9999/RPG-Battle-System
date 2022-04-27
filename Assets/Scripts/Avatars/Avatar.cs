@@ -41,7 +41,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
    
     
 
-    public List<Skill> skills;
+    public List<Skill> skills;          //list of skills the avatar can choose from.
+    public List<Skill> skillEffects;    //list of skills this avatar is being affected by. Only skills with durations are stored in here.
 
     [Header("Ailment Status")]
     public bool resistPoison;

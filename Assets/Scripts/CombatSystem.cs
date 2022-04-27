@@ -9,8 +9,8 @@ public class CombatSystem : MonoBehaviour
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
     int totalEnemies {get;} = 6;
-    public int currentTarget;               //index of an avatar being targeted.
-    public int currentHero;                 //index of hero who is taking action
+    public int currentTarget {get; set;}    //index of an avatar being targeted.
+    public int currentHero {get; set;}      //index of hero who is taking action
     string group = "ABCDE";                 //used to rename enemies if there are duplicates
     //public List<Item> loot;
     public Dictionary<Item, int> loot;
@@ -29,7 +29,8 @@ public class CombatSystem : MonoBehaviour
     bool[] heroLocationOccupied;
     bool combatEnabled;         //when true, combat starts and all combat elements apppear in foreground.
     bool combatEnded;           //if true, will run the EndCombat method and prevent it from running more than once.
-    public bool turnInProgress;
+    public bool turnInProgress {get; set;}
+    public bool speedChanged {get; set;}        //if true, the turn order is reshuffled.
     public Transform actGaugeLocation;
 
     //combat states. Used to determine which steps can be taken during combat
@@ -81,16 +82,17 @@ public class CombatSystem : MonoBehaviour
 
         //add random enemies
         int randCount = Random.Range(1, totalEnemies + 1);
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             //Enemy enemy = Instantiate(em.enemies[randomEnemy]);
-            Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Golem]);
+            Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.WindDancer]);
             enemiesInCombat.Add(enemy);
         }
 
         //check enemy names and append a letter to duplicates
-        for (int i = 0; i < enemiesInCombat.Count; i++)
+        CheckDuplicateNames();
+        /*for (int i = 0; i < enemiesInCombat.Count; i++)
         {
             int j = 0;
             int count = 0;
@@ -110,7 +112,7 @@ public class CombatSystem : MonoBehaviour
                 enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1);
             }
 
-        }
+        }*/
         
         //place heroes and enemies in random positions
         heroLocationOccupied = new bool[heroLocations.Length];
@@ -145,8 +147,9 @@ public class CombatSystem : MonoBehaviour
             enemy.UpdateStatsUI();
         }
 
-        //get turn order and set up UI.              
-        turnOrder = turnOrder.OrderByDescending(x => x.spd).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
+        //get turn order and set up UI.
+        ShuffleTurnOrder();              
+        //turnOrder = turnOrder.OrderByDescending(x => x.spd * x.spdMod).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
         UpdateTurnOrderUI();
         currentTurn = 0;
         currentTarget = -1;
@@ -199,6 +202,13 @@ public class CombatSystem : MonoBehaviour
                 turnOrder[turnOrder.Count - 1] = copy;
                 turnOrder[turnOrder.Count - 1].SetTurnTaken(false); //need to do this step or we eventually end up in a loop
 
+                //reshuffle turn order if SPD was updated for any avatar
+                if (speedChanged)
+                {
+                    ShuffleTurnOrder();
+                    speedChanged = false;
+                }
+
                 //display new turn order
                 UpdateTurnOrderUI();
             }
@@ -211,17 +221,7 @@ public class CombatSystem : MonoBehaviour
             return;
 
         //roll for rare drop then common drop in that order
-        float roll = Random.Range(0, 1f) + bonusSystem.rareDropMod;
-
-        //check if rare drop bonus is active
-        /*foreach(BonusSystem.BonusValue bonusValue in bonusSystem.activeBonuses)
-        {
-            if (bonusValue == BonusSystem.BonusValue.RareDropBonus)
-            {
-                roll = 1;
-                break;
-            }
-        }*/
+        float roll = Random.Range(0, 1f) - bonusSystem.rareDropMod;
 
         if (enemy.rareItemDrop != null && roll <= enemy.rareItemDropChance)
         {
@@ -369,8 +369,44 @@ public class CombatSystem : MonoBehaviour
             if (rank == 1)
                 ui.turnOrderList.text += rank + " <color=#0ffc7e>" + a.className + "</color>\n";
             else
+            {
+                //if (a.GetType() == typeof(Enemy))
+                    //a.className = enemiesInCombat[enemiesInCombat.IndexOf((Enemy)a)].className;
                 ui.turnOrderList.text += rank + " " + a.className + "\n";
+            }
             rank++;
+        }
+    }
+
+    //relocates leading avatar to a new position in turn order. All other avatars below the current one get pushed back.
+    public void ShuffleTurnOrder()
+    {
+        turnOrder = turnOrder.OrderByDescending(x => x.spd * x.spdMod).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
+        //UpdateTurnOrderUI(); 
+    }
+
+    public void CheckDuplicateNames()
+    {
+        for (int i = 0; i < enemiesInCombat.Count; i++)
+        {
+            int j = 0;
+            int count = 0;
+            while (j < i)
+            {
+                if (enemiesInCombat[i].GetType() == enemiesInCombat[j].GetType())   //cannot compare names because they may change
+                {
+                    count++;
+                }
+                j++;
+            }
+
+            //if we have more than 0 occurrences, update name
+            if (count > 0)
+            {
+                enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1);
+                //turnOrder[turnOrder.IndexOf(enemiesInCombat[i])].className = enemiesInCombat[i].className;
+            }
+
         }
     }
 

@@ -18,6 +18,7 @@ public abstract class Skill : ScriptableObject
     protected int durationLeft {get; set;}
 
     protected UI ui;
+    protected CombatSystem cs;
 
     public enum Target
     {

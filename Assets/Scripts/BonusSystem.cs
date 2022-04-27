@@ -59,6 +59,7 @@ public class BonusSystem : MonoBehaviour
         actionGaugeMod = 1;
         manaCostMod = 1;
         ResetBonuses();
+        //GetBonus(BonusValue.RareDropBonus);
     }
 
     public void GetBonus(BonusValue bonus)
@@ -85,7 +86,7 @@ public class BonusSystem : MonoBehaviour
 
             case BonusValue.RareDropBonus:
                 ui.bonusListUI.text += "100% Rare Item Drop\n";
-                rareDropMod = 1;        //this is added to the roll when checking for loot
+                rareDropMod = 1;        //this is subtracted from the roll when checking for loot
                 break;
 
             case BonusValue.EnemyBuffsRemoved:

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
+  m_Name: enemy_winddancer
+  m_EditorClassIdentifier: 
+  className: Wind Dancer
+  details: Supports their allies by increasing SPD or decreasing hero SPD
+  maxHitPoints: 200
+  maxManaPoints: 0
+  atp: 24
+  dfp: 8
+  spd: 15
+  mag: 12
+  res: 9
+  skills:
+  - {fileID: 11400000, guid: 9f6412b8d53be0544a5fa2696af84c93, type: 2}
+  maxShieldTokens: 0
+  xp: 28
+  money: 30
+  commonItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 0}
+  commonItemDropChance: 0
+  rareItemDropChance: 0
