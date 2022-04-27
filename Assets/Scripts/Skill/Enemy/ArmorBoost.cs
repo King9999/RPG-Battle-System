@@ -11,6 +11,6 @@ public class ArmorBoost : Skill
         Enemy enemy = user.GetComponent<Enemy>();
         enemy.maxShieldTokens += 1;
         enemy.AddShield();
-        Debug.Log("Max Shield Tokens is now " + enemy.maxShieldTokens);
+        ui.DisplayStatusUpdate("+1 SHIELD", user.transform.position);
     }
 }

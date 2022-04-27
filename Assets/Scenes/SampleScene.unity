@@ -696,6 +696,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1053608721, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053608721, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053608723, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053608723, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -31
+      objectReference: {fileID: 0}
     - target: {fileID: 6144532497329781319, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -783,6 +799,10 @@ PrefabInstance:
     - target: {fileID: 6144532497329781322, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100410544287020982, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}

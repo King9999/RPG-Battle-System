@@ -13,21 +13,28 @@ public class WindDancer : Enemy
     {
         base.Start();
 
-        skillProb = 0.7f;       //chance of executing cool wind
+        skillProb = 0.6f;       //chance of executing cool wind
     }
 
     public override void ExecuteLogic()
     {
-        if (SkillActivated(skillProb))
-        {
-            int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
-            skills[coolWindSkill].Activate(cs.enemiesInCombat[randTarget], skillNameBorderColor);
+        float roll = Random.Range(0, 1f);
+        Debug.Log("Roll " + roll);
+        if (roll <= 0.1f)
+        {  
+            int randTarget = Random.Range(0, cs.heroesInCombat.Count);
+            Attack(cs.heroesInCombat[randTarget]);
         }
-        else
+        else if (roll <= 0.3f)
         {
             //use heavy wind skill
             int randTarget = Random.Range(0, cs.heroesInCombat.Count);
-            Attack(cs.heroesInCombat[randTarget]);
+            skills[heavyWindSkill].Activate(cs.heroesInCombat[randTarget], skillNameBorderColor);
+        }
+        else
+        {
+            int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+            skills[coolWindSkill].Activate(cs.enemiesInCombat[randTarget], skillNameBorderColor);
         }
         base.ExecuteLogic();
     }
