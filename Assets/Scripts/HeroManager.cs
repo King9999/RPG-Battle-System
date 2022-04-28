@@ -25,8 +25,8 @@ public class HeroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AddHero(heroData[0]);
-        AddHero(heroData[1]);
+        //AddHero(heroData[0]);
+        //AddHero(heroData[1]);
     }
 
     // Update is called once per frame
@@ -40,7 +40,6 @@ public class HeroManager : MonoBehaviour
         Hero hero = Instantiate(heroPrefab);
         hero.data = data;
         hero.GetData(hero.data);
-        //hero.xpToNextLevel -= 149;
         heroes.Add(hero);
     }
 }

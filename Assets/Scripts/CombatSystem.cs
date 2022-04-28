@@ -84,11 +84,11 @@ public class CombatSystem : MonoBehaviour
 
         //add random enemies
         int randCount = Random.Range(1, totalEnemies + 1);
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 6; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             //Enemy enemy = Instantiate(em.enemies[randomEnemy]);
-            Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.WindDancer]);
+            Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Imp]);
             enemiesInCombat.Add(enemy);
         }
 
@@ -355,6 +355,7 @@ public class CombatSystem : MonoBehaviour
     {
         //clean up
         loot.Clear();
+        modifiedEnemyNames.Clear();
         xpPool = 0;
         moneyPool = 0;
         bonusSystem.ResetBonuses();
