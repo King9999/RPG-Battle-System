@@ -11,6 +11,7 @@ using UnityEngine;
 */
 public class Node : MonoBehaviour
 {
+    public Sprite normalSprite;
     public Sprite eventSprite;
     public enum EventNode {None, HpMpBoost}
     public EventNode eventNode;
