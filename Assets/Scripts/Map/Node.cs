@@ -17,16 +17,33 @@ public class Node : MonoBehaviour
     public EventNode eventNode;
 
     public Path[] paths;
+    public int northPath {get;} = 0;
+    public int eastPath {get;} = 1;
+    public int westPath {get;} = 2;
+    public int southPath {get;} = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //nodes have random number of paths but it must have at least one. It will be possible to fine tune the node
+        //if necessary.
+        int i = 0;
+        while(i < 3)
+        {
+            int randPath = Random.Range(0, paths.Length);
+            float roll = Random.Range(0, 1f);
+            bool pathState = roll <= 0.5f ? true : false;
+            paths[randPath].ShowPath(pathState);
+            i++;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   public bool NoPath()
+   {
+       return (!paths[northPath].PathVisible() && !paths[southPath].PathVisible() 
+        && !paths[eastPath].PathVisible() && !paths[westPath].PathVisible());
+   }
+
+   
+
 }
