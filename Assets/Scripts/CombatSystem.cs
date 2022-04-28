@@ -8,6 +8,7 @@ public class CombatSystem : MonoBehaviour
 {
     public List<Hero> heroesInCombat;
     public List<Enemy> enemiesInCombat;
+    public Dictionary<int, string> modifiedEnemyNames;  //modified names of duplicate enemies.
     int totalEnemies {get;} = 6;
     public int currentTarget {get; set;}    //index of an avatar being targeted.
     public int currentHero {get; set;}      //index of hero who is taking action
@@ -65,6 +66,7 @@ public class CombatSystem : MonoBehaviour
         em = EnemyManager.instance;
         gm = GameManager.instance;
         ui = UI.instance;
+        modifiedEnemyNames = new Dictionary<int, string>();
 
         //action gauge setup
         actGauge.gameObject.SetActive(false);
@@ -366,13 +368,32 @@ public class CombatSystem : MonoBehaviour
         int rank = 1;
         foreach(Avatar a in turnOrder)
         {
+            string modName;
             if (rank == 1)
-                ui.turnOrderList.text += rank + " <color=#0ffc7e>" + a.className + "</color>\n";
+            {
+                //if the current avatar is an enemy, update their name if it's a duplicate
+                if (a.TryGetComponent(out Enemy enemy))
+                {
+                    if (modifiedEnemyNames.TryGetValue(enemiesInCombat.IndexOf(enemy), out modName))
+                        ui.turnOrderList.text += rank + " <color=#0ffc7e>" + modName + "</color>\n";                 
+                    else
+                        ui.turnOrderList.text += rank + " <color=#0ffc7e>" + a.className + "</color>\n";
+                }
+                else
+                    ui.turnOrderList.text += rank + " <color=#0ffc7e>" + a.className + "</color>\n";
+            }
             else
             {
-                //if (a.GetType() == typeof(Enemy))
-                    //a.className = enemiesInCombat[enemiesInCombat.IndexOf((Enemy)a)].className;
-                ui.turnOrderList.text += rank + " " + a.className + "\n";
+                //if the current avatar is an enemy, update their name if it's a duplicate
+                if (a.TryGetComponent(out Enemy enemy))
+                {
+                    if (modifiedEnemyNames.TryGetValue(enemiesInCombat.IndexOf(enemy), out modName))
+                        ui.turnOrderList.text += rank + " " + modName + "\n";
+                    else
+                        ui.turnOrderList.text += rank + " " + a.className + "\n";
+                }
+                else
+                    ui.turnOrderList.text += rank + " " + a.className + "\n";
             }
             rank++;
         }
@@ -403,7 +424,9 @@ public class CombatSystem : MonoBehaviour
             //if we have more than 0 occurrences, update name
             if (count > 0)
             {
-                enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1);
+                modifiedEnemyNames.Add(i, enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1));
+                //enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1);
+                enemiesInCombat[i].className = modifiedEnemyNames[i];
                 //turnOrder[turnOrder.IndexOf(enemiesInCombat[i])].className = enemiesInCombat[i].className;
             }
 

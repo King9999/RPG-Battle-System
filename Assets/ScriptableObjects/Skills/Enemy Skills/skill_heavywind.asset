@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9767478b0130f742b90cf73481e910f, type: 3}
   m_Name: skill_heavywind
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Heavy Wind
   skillIcon: {fileID: 0}
-  description: 
+  description: Reduces target's SPD by 50%
   manaCost: 0
   power: 0
   actGauge: {fileID: 0}
   isPassive: 0
-  hasDuration: 0
-  turnDuration: 0
-  targetType: 0
+  hasDuration: 1
+  turnDuration: 3
+  targetType: 2
   element: 0
   statusEffect: 0

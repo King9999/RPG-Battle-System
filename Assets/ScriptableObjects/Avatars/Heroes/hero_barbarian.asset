@@ -21,32 +21,13 @@ MonoBehaviour:
   spd: 5
   mag: 1
   res: 1
-  skills:
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
-  - {fileID: 11400000, guid: 72ad6740ede96224f95aa28708b720fb, type: 2}
+  skills: []
   statFile: {fileID: 4900000, guid: 0a37c776605df6e45858017f5d510f54, type: 3}
   sprite: {fileID: 21300000, guid: 4c4e6e2907c8f9a4dae8dda384e6145c, type: 3}
   level: 1
   attackTokenMod: 0
-  weapon: {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
-  armor: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}
+  armor: {fileID: 11400000, guid: f3b6e6920a943e746a99110ca4e207ba, type: 2}
   trinket: {fileID: 0}
   swordOK: 1
   daggerOK: 1
