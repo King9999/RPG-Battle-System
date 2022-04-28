@@ -20,7 +20,7 @@ public class Dungeon : MonoBehaviour
     public byte[,] mapArray;
     public int mapRow {get; set;}
     public int mapCol {get; set;}
-    float xOffset, yOffset = 1;
+    float xOffset, yOffset = 2;
     
     // Start is called before the first frame update
     void Start()
@@ -63,7 +63,7 @@ public class Dungeon : MonoBehaviour
 
                     //place node in game
                     node.transform.SetParent(transform);
-                    node.transform.position = new Vector3(node.transform.position.x + j + xOffset, node.transform.position.y + i - yOffset, 0);
+                    node.transform.position = new Vector3(node.transform.position.x + j + xOffset, node.transform.position.y - i - yOffset, 0);
                     nodes.Add(node);
                 }  
             }
