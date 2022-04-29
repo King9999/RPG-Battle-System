@@ -84,7 +84,7 @@ public class CombatSystem : MonoBehaviour
 
         //add random enemies
         int randCount = Random.Range(1, totalEnemies + 1);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 2; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
             //Enemy enemy = Instantiate(em.enemies[randomEnemy]);

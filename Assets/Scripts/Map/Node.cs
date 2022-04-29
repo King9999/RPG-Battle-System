@@ -15,6 +15,7 @@ public class Node : MonoBehaviour
     public Sprite eventSprite;
     public enum EventNode {None, HpMpBoost}
     public EventNode eventNode;
+    public byte nodeID;                 //a way for me to identify nodes.
 
     public Path[] paths;
     public int northPath {get;} = 0;
