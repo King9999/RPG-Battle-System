@@ -21,9 +21,11 @@ public class Dungeon : MonoBehaviour
     public int mapWidth {get; set;}     //columns
     public int mapHeight {get; set;}    //rows
     float xOffset, yOffset = 3;
+    const float offset = 2;
     int nodeCount;
     int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
+    byte nodeID;
     
     // Start is called before the first frame update
     void Start()
@@ -97,11 +99,31 @@ public class Dungeon : MonoBehaviour
         totalNodes = nodeCount;
 
         //once map is generated, create rooms
-        GenerateNode(0, 0, nodeCount);
+        GenerateNode(0, 0, nodeCount, firstNode: true);
+
+        //loop through array and create nodes
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                if (mapArray[i, j] == true)
+                {
+                    Node node = Instantiate(nodePrefab);
+                    node.nodeID = nodeID;
+                    nodeID++;
+
+                    //place node in game
+                    node.transform.SetParent(transform);
+                    node.transform.position = new Vector3(transform.position.x + i, transform.position.y - j, 0);
+                    node.transform.position *= offset;  //not quite sure why I have to apply offset this way
+                    nodes.Add(node);
+                }
+            }
+        }
     }
 
     //create node at given position. Once a node is generated, it must create at least one path leading to another node.
-    public void GenerateNode(int i, int j, int nodeCount)
+    public void GenerateNode(int i, int j, int nodeCount, bool firstNode = false)
     {
 
         //invalid states
@@ -112,7 +134,7 @@ public class Dungeon : MonoBehaviour
         if (nodeCount > mapHeight * mapWidth) return;      //there are more nodes than array capacity
 
         totalNodes = nodeCount;
-        if (i == 0 && j == 0)  //first room
+        if (firstNode /*i == 0 && j == 0*/)  //first room
         {
             mapArray[i,j] = true;
 
@@ -122,6 +144,7 @@ public class Dungeon : MonoBehaviour
                 mapArray[i + 1, j] = Random.value <= 0.5f ? true : false;  //east room
                 mapArray[i, j + 1] = Random.value <= 0.5f ? true : false;  //south room
             }
+            //firstNode = false;
         }
         else
         {
@@ -132,17 +155,23 @@ public class Dungeon : MonoBehaviour
         }
         
         //check which direction we're headed from current spot
-        bool goingNorth = (j - 1 > 0 && Random.value <= 0.8f) ? true : false;
+        bool goingNorth = (!firstNode && j - 1 > 0 && Random.value <= 0.8f) ? true : false;
         bool goingSouth = (j + 1 < mapHeight && Random.value <= 0.8f) ? true : false;
         bool goingEast = (i + 1 < mapWidth && Random.value <= 0.8f) ? true : false;
-        bool goingWest = (i - 1 > 0 && Random.value <= 0.8f) ? true : false;
+        bool goingWest = (!firstNode && i - 1 > 0 && Random.value <= 0.8f) ? true : false;
 
         if (goingNorth)
             GenerateNode(i, j - 1, nodeCount - 1);
-        if (goingSouth)
-            GenerateNode(i, j + 1, nodeCount - 1);
-        if (goingEast)
-            GenerateNode(i + 1, j, nodeCount - 1);
+        if (goingSouth || firstNode)
+        {
+            firstNode = false;
+            GenerateNode(i, j + 1, nodeCount - 1, firstNode);
+        }
+        if (goingEast || firstNode)
+        {
+            firstNode = false;
+            GenerateNode(i + 1, j, nodeCount - 1, firstNode);
+        }
         if (goingWest)
             GenerateNode(i - 1, j, nodeCount - 1);
     }
