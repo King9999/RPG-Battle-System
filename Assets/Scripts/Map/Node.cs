@@ -28,7 +28,7 @@ public class Node : MonoBehaviour
     {
         //nodes have random number of paths but it must have at least one. It will be possible to fine tune the node
         //if necessary.
-        int i = 0;
+        /*int i = 0;
         while(i < 3)
         {
             int randPath = Random.Range(0, paths.Length);
@@ -36,7 +36,7 @@ public class Node : MonoBehaviour
             bool pathState = roll <= 0.5f ? true : false;
             paths[randPath].ShowPath(pathState);
             i++;
-        }
+        }*/
     }
 
    public bool NoPath()
