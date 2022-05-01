@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/* This game is a concept for a battle system. It's not intended to be a fully-featured game, as I just wanted to show off the idea.
+    The dungeon consists of randomly generated rooms (called "nodes"). The player must explore each dungeon and find the missing heroes.*/
 public class GameManager : MonoBehaviour
 {
 

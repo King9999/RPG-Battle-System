@@ -16,6 +16,8 @@ public class Dungeon : MonoBehaviour
 {
     public List<Node> nodes;
     public Node nodePrefab;
+    public Player player;
+    //public List<
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
