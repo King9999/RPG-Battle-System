@@ -63,12 +63,73 @@ public class Node : MonoBehaviour
 
    public bool PlayerAdjacentToNode()
    {
+       bool playerAdjacent = false;
        Player player = Player.instance;
        Dungeon dungeon = Dungeon.instance;
-       return col > 0 && dungeon.mapArray[col - 1, row] == dungeon.mapArray[player.col, player.row] || 
+       Node adjacentNode;
+
+        if (col > 0 && col - 1 == player.col && row == player.row /*&& paths[westPath].PathVisible()*/)
+        {
+            //find the adjacent node and check if there's a path leading to the node we want to move to.
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.col == col - 1 && node.row == row)
+                {
+                    if (paths[westPath].PathVisible() || node.paths[eastPath].PathVisible())
+                    playerAdjacent = true;
+                    break;
+                }
+            }
+                //return true;
+        }
+        else if (col < dungeon.mapWidth - 1 && col + 1 == player.col && row == player.row /*&& paths[eastPath].PathVisible()*/)
+        {
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.col == col + 1 && node.row == row)
+                {
+                    if (paths[eastPath].PathVisible() || node.paths[westPath].PathVisible())
+                    playerAdjacent = true;
+                    break;
+                }
+            }
+            //return true;
+        }
+        else if (row > 0 && col == player.col && row - 1 == player.row /*&& paths[northPath].PathVisible()*/)
+        {   
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.row == row - 1 && node.col == col)
+                {
+                    if (paths[northPath].PathVisible() || node.paths[southPath].PathVisible())
+                    playerAdjacent = true;
+                    break;
+                }
+            }
+            //return true;
+        }
+        else if (row < dungeon.mapHeight - 1 && col == player.col && row + 1 == player.row /*&& paths[southPath].PathVisible()*/)
+        {
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.row == row + 1 && node.col == col)
+                {
+                    if (paths[southPath].PathVisible() || node.paths[northPath].PathVisible())
+                    playerAdjacent = true;
+                    break;
+                }
+            }
+            //return true;
+        }
+        //else
+            //return false;
+
+        return playerAdjacent;
+
+       /*return col > 0 && dungeon.mapArray[col - 1, row] == dungeon.mapArray[player.col, player.row] || 
             col < dungeon.mapWidth && dungeon.mapArray[col + 1, row] == dungeon.mapArray[player.col, player.row] ||
             row > 0 && dungeon.mapArray[col, row - 1] == dungeon.mapArray[player.col, player.row] ||
-            row < dungeon.mapHeight && dungeon.mapArray[col, row + 1] == dungeon.mapArray[player.col, player.row];
+            row < dungeon.mapHeight && dungeon.mapArray[col, row + 1] == dungeon.mapArray[player.col, player.row];*/
    }
 
 }

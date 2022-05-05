@@ -8,6 +8,7 @@ public class Player : MapObject
 {
     //public int currentCol, currentRow;             //position in map array
     bool hasControl;                                //when false, no input is accepted.
+    float yOffset = 0.2f;                       //used to position player object so they aren't sticking outside of the node.
 
     public static Player instance;
 
@@ -27,6 +28,10 @@ public class Player : MapObject
     {
         base.Start();
         hasControl = true;
+
+        //player always begins at the first node
+        //transform.position = new Vector3(dungeon.nodes[0].transform.position.x, dungeon.nodes[0].transform.position.y + yOffset, 0);
+        MovePlayer(0, 0);
     }
 
     // Update is called once per frame
@@ -45,7 +50,7 @@ public class Player : MapObject
         {
             if (row == node.row && col == node.col)
             {
-                transform.position = node.transform.position;
+                transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, 0);
                 break;
             }
         }
