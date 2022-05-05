@@ -28,6 +28,19 @@ public class Dungeon : MonoBehaviour
     int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
     byte nodeID;
+
+    public static Dungeon instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -98,10 +111,10 @@ public class Dungeon : MonoBehaviour
     public void GenerateDungeon(int nodeCount)
     {
         mapArray = new bool[mapWidth, mapHeight];
-        totalNodes = nodeCount;
+        this.nodeCount = nodeCount;
 
         //once map is generated, create rooms
-        GenerateNode(0, 0, nodeCount, firstNode: true);
+        GenerateNode(0, 0, this.nodeCount, firstNode: true);
 
         //loop through array and create nodes
         bool firstNode = true;
@@ -113,6 +126,8 @@ public class Dungeon : MonoBehaviour
                 {
                     Node node = Instantiate(nodePrefab);
                     node.nodeID = nodeID;
+                    node.row = j;
+                    node.col = i;
                     nodeID++;
 
                     //check adajacent spots in the array for other rooms. If this node is the first, then there can only be a path to the east and south.

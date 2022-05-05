@@ -16,6 +16,7 @@ public class Node : MonoBehaviour
     public enum EventNode {None, HpMpBoost}
     public EventNode eventNode;
     public byte nodeID;                 //a way for me to identify nodes.
+    public int row, col;                //its location in the map. info is provided by the dungeon when it's generated.
 
     public Path[] paths;
     public int northPath {get;} = 0;
@@ -45,6 +46,29 @@ public class Node : MonoBehaviour
         && !paths[eastPath].PathVisible() && !paths[westPath].PathVisible());
    }
 
-   
+    //this method is called when the node is clicked.
+   public void MovePlayer()
+   {
+       Debug.Log("clicked node " + nodeID);
+
+       //check if player is adjacent to this node
+       Player player = Player.instance;
+       Dungeon dungeon = Dungeon.instance;
+       if (PlayerAdjacentToNode())
+       {
+           Debug.Log("Player adjacent");
+           player.MovePlayer(row, col);
+       }
+   }
+
+   public bool PlayerAdjacentToNode()
+   {
+       Player player = Player.instance;
+       Dungeon dungeon = Dungeon.instance;
+       return col > 0 && dungeon.mapArray[col - 1, row] == dungeon.mapArray[player.col, player.row] || 
+            col < dungeon.mapWidth && dungeon.mapArray[col + 1, row] == dungeon.mapArray[player.col, player.row] ||
+            row > 0 && dungeon.mapArray[col, row - 1] == dungeon.mapArray[player.col, player.row] ||
+            row < dungeon.mapHeight && dungeon.mapArray[col, row + 1] == dungeon.mapArray[player.col, player.row];
+   }
 
 }

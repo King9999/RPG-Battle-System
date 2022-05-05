@@ -6,13 +6,16 @@ using UnityEngine;
 public abstract class MapObject : MonoBehaviour
 {
     public new string name;
-    protected int currentCol, currentRow;
+    public int col {get; set;}
+    public int row {get; set;}
     public Sprite mapSprite;
+
+    protected Dungeon dungeon;              //singleton
     
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        
+        dungeon = Dungeon.instance;
     }
 
     // Update is called once per frame
