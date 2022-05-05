@@ -6,6 +6,10 @@ using UnityEngine;
 (to protect something, for example). When an enemy is touched, combat is initiated. The enemies encountered can be random or they can be fixed. */
 public class MapEnemy : MapObject
 {
+    public Sprite minorEnemySprite;
+    public Sprite majorEnemySprite;
+    public Sprite bossSprite;
+
     // Start is called before the first frame update
     void Start()
     {

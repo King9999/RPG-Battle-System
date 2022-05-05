@@ -53,7 +53,6 @@ public class Node : MonoBehaviour
 
        //check if player is adjacent to this node
        Player player = Player.instance;
-       Dungeon dungeon = Dungeon.instance;
        if (PlayerAdjacentToNode())
        {
            Debug.Log("Player adjacent");
@@ -66,9 +65,8 @@ public class Node : MonoBehaviour
        bool playerAdjacent = false;
        Player player = Player.instance;
        Dungeon dungeon = Dungeon.instance;
-       Node adjacentNode;
 
-        if (col > 0 && col - 1 == player.col && row == player.row /*&& paths[westPath].PathVisible()*/)
+        if (col > 0 && col - 1 == player.col && row == player.row)
         {
             //find the adjacent node and check if there's a path leading to the node we want to move to.
             foreach(Node node in dungeon.nodes)
@@ -80,9 +78,8 @@ public class Node : MonoBehaviour
                     break;
                 }
             }
-                //return true;
         }
-        else if (col < dungeon.mapWidth - 1 && col + 1 == player.col && row == player.row /*&& paths[eastPath].PathVisible()*/)
+        else if (col < dungeon.mapWidth - 1 && col + 1 == player.col && row == player.row)
         {
             foreach(Node node in dungeon.nodes)
             {
@@ -93,9 +90,8 @@ public class Node : MonoBehaviour
                     break;
                 }
             }
-            //return true;
         }
-        else if (row > 0 && col == player.col && row - 1 == player.row /*&& paths[northPath].PathVisible()*/)
+        else if (row > 0 && col == player.col && row - 1 == player.row)
         {   
             foreach(Node node in dungeon.nodes)
             {
@@ -106,9 +102,8 @@ public class Node : MonoBehaviour
                     break;
                 }
             }
-            //return true;
         }
-        else if (row < dungeon.mapHeight - 1 && col == player.col && row + 1 == player.row /*&& paths[southPath].PathVisible()*/)
+        else if (row < dungeon.mapHeight - 1 && col == player.col && row + 1 == player.row)
         {
             foreach(Node node in dungeon.nodes)
             {
@@ -119,17 +114,10 @@ public class Node : MonoBehaviour
                     break;
                 }
             }
-            //return true;
         }
-        //else
-            //return false;
 
         return playerAdjacent;
 
-       /*return col > 0 && dungeon.mapArray[col - 1, row] == dungeon.mapArray[player.col, player.row] || 
-            col < dungeon.mapWidth && dungeon.mapArray[col + 1, row] == dungeon.mapArray[player.col, player.row] ||
-            row > 0 && dungeon.mapArray[col, row - 1] == dungeon.mapArray[player.col, player.row] ||
-            row < dungeon.mapHeight && dungeon.mapArray[col, row + 1] == dungeon.mapArray[player.col, player.row];*/
    }
 
 }

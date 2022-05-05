@@ -17,7 +17,7 @@ public class Dungeon : MonoBehaviour
     public List<Node> nodes;
     public Node nodePrefab;
     public Player player;
-    //public List<
+    public List<MapEnemy> enemies;
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
@@ -97,7 +97,7 @@ public class Dungeon : MonoBehaviour
 
         Debug.Log(arrayString);  */
         GenerateDungeon(nodeCount);
-        for (int i = 0; i < mapWidth; i++)
+        /*for (int i = 0; i < mapWidth; i++)
         {
             for (int j = 0; j < mapHeight; j++)
             {
@@ -105,7 +105,8 @@ public class Dungeon : MonoBehaviour
             }
             arrayString += "\n";
         }
-        Debug.Log(arrayString);
+        Debug.Log(arrayString);*/
+        player.MovePlayer(0, 0);
     }
 
     public void GenerateDungeon(int nodeCount)
@@ -223,7 +224,8 @@ public class Dungeon : MonoBehaviour
         if (nodeCount > mapHeight * mapWidth) return;      //there are more nodes than array capacity
 
         totalNodes = nodeCount;
-        if (firstNode /*i == 0 && j == 0*/)  //first room
+        
+        if (firstNode)  //first room
         {
             mapArray[i,j] = true;
 
@@ -266,7 +268,7 @@ public class Dungeon : MonoBehaviour
             GenerateNode(i - 1, j, nodeCount - 1);
     }
 
-    public void GenerateMap(int width, int height)
+    public void GenerateMapObjects(int width, int height)
     {
         mapWidth = width;
         mapHeight = height;

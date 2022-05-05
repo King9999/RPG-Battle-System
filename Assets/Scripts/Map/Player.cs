@@ -10,6 +10,12 @@ public class Player : MapObject
     bool hasControl;                                //when false, no input is accepted.
     float yOffset = 0.2f;                       //used to position player object so they aren't sticking outside of the node.
 
+    //map sprites
+    public Sprite barbSprite;
+    public Sprite rogueSprite;
+    public Sprite wizardSprite;
+    public Sprite clericSprite;
+
     public static Player instance;
 
     private void Awake()
@@ -31,7 +37,7 @@ public class Player : MapObject
 
         //player always begins at the first node
         //transform.position = new Vector3(dungeon.nodes[0].transform.position.x, dungeon.nodes[0].transform.position.y + yOffset, 0);
-        MovePlayer(0, 0);
+        //MovePlayer(0, 0);
     }
 
     // Update is called once per frame
