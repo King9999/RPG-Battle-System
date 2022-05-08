@@ -9,10 +9,13 @@ public class MapEnemy : MapObject
     public Sprite minorEnemySprite;
     public Sprite majorEnemySprite;
     public Sprite bossSprite;
+    int turnsBeforeMoving;                          //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
+    public bool isStationary {get; set;}            //if true, enemy does not move.
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         
     }
 
@@ -25,12 +28,18 @@ public class MapEnemy : MapObject
     //combat against random enemies. The encountered enemies are determined from a table
     public void InitiateCombat()
     {
-        
+        //check which enemies can be generated from a table.
+        //get a random number of enemies, proportional to the number of heroes.
     }
 
     //used to battle specific enemies
     public void InitiateCombat(Enemy[] enemies)
     {
+        //pick an enemy from Enemy Manager
+    }
 
+    public void SetTurnsToMove(int count)
+    {
+        turnsBeforeMoving = count;
     }
 }

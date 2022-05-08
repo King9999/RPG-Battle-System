@@ -52,6 +52,7 @@ public class Player : MapObject
         row = rowDestination;
         col = colDestination;
 
+        Dungeon dungeon = Dungeon.instance;
         foreach(Node node in dungeon.nodes)
         {
             if (row == node.row && col == node.col)
