@@ -58,6 +58,7 @@ public class Player : MapObject
             if (row == node.row && col == node.col)
             {
                 transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, 0);
+                //Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
                 break;
             }
         }

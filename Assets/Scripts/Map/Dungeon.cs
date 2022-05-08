@@ -335,10 +335,10 @@ public class Dungeon : MonoBehaviour
 
             while (!goingNorth && !goingSouth && !goingEast && !goingWest)
             {
-                goingNorth = (j - 1 >= 0 /*&& j - 1 != jPrevious*/ && Random.value <= directionChance) ? true : false;
-                goingSouth = (j + 1 < mapHeight /*&& j + 1 != jPrevious*/ && Random.value <= directionChance) ? true : false;
-                goingEast = (i + 1 < mapWidth /*&& i + 1 != iPrevious*/ && Random.value <= directionChance) ? true : false;
-                goingWest = (i - 1 >= 0 /*&& i - 1 != iPrevious*/ && Random.value <= directionChance) ? true : false;
+                goingNorth = (j - 1 >= 0 && Random.value <= directionChance) ? true : false;
+                goingSouth = (j + 1 < mapHeight && Random.value <= directionChance) ? true : false;
+                goingEast = (i + 1 < mapWidth && Random.value <= directionChance) ? true : false;
+                goingWest = (i - 1 >= 0  && Random.value <= directionChance) ? true : false;
             }
 
             if (goingNorth)
