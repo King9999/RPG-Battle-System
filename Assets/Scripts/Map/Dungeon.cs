@@ -18,6 +18,7 @@ public class Dungeon : MonoBehaviour
     public Node nodePrefab;
     public Player playerPrefab;
     public MapEnemy enemyPrefab;
+    public Stairs stairsPrefab;
     public List<MapEnemy> enemies;
     public CameraFollow cameraFollow;   //used to keep camera focused on player 
 
@@ -455,6 +456,12 @@ public class Dungeon : MonoBehaviour
         enemy.PlaceEnemy(1, 0);
         enemy.SetTurnCounter(2);
         enemies.Add(enemy);
+
+        //create exit (stairs)
+        Stairs stairs = Instantiate(stairsPrefab);
+        stairs.row = nodes[nodes.Count - 1].row;    //stairs is always at the last node, which should be the furthest one from the player.
+        stairs.col = nodes[nodes.Count - 1].col;
+        stairs.transform.position = new Vector3(nodes[nodes.Count - 1].transform.position.x, nodes[nodes.Count - 1].transform.position.y, stairs.transform.position.z);
 
     }
 

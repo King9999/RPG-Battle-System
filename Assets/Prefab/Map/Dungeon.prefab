@@ -47,5 +47,6 @@ MonoBehaviour:
   nodePrefab: {fileID: 7150178703026938382, guid: bf92ae819342c43478464e457237e103, type: 3}
   playerPrefab: {fileID: 6013689435623790531, guid: 2be7ac9bc49c2be43a33ff1295e3a775, type: 3}
   enemyPrefab: {fileID: 6050175250908520527, guid: 3ca9b0bc2b47556499dd191f03b147b1, type: 3}
+  stairsPrefab: {fileID: 6348930136094405602, guid: 54f254cfe8b6b42428cb22771121c3b1, type: 3}
   enemies: []
   cameraFollow: {fileID: 0}

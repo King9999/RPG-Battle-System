@@ -17,10 +17,9 @@ public class MapEnemy : MapObject
     float yOffset = -0.2f;
 
     // Start is called before the first frame update
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        
+       
         turnsBeforeMoving = turnCounter;
     }
 

@@ -32,9 +32,8 @@ public class Player : MapObject
     }
 
     // Start is called before the first frame update
-    protected override void Start()
+   void Start()
     {
-        base.Start();
         hasControl = true;
 
         //applying offset
