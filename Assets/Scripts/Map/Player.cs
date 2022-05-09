@@ -9,6 +9,8 @@ public class Player : MapObject
     //public int currentCol, currentRow;             //position in map array
     bool hasControl;                                //when false, no input is accepted.
     float yOffset = 0.2f;                       //used to position player object so they aren't sticking outside of the node.
+    Vector3 destination;
+    bool animateMoveCoroutineOn;
 
     //map sprites
     public Sprite barbSprite;
@@ -36,18 +38,26 @@ public class Player : MapObject
         hasControl = true;
 
         //player always begins at the first node
-        //transform.position = new Vector3(dungeon.nodes[0].transform.position.x, dungeon.nodes[0].transform.position.y + yOffset, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
         //MovePlayer(0, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!hasControl)
+        {
+            if (!animateMoveCoroutineOn)
+            {
+                StartCoroutine(AnimateMovement());
+            }
+        }
     }
 
     public void MovePlayer(int rowDestination, int colDestination)
     {
+        if (!hasControl) return;
+
         //can only move to an adjacent node that has a path.
         row = rowDestination;
         col = colDestination;
@@ -57,8 +67,10 @@ public class Player : MapObject
         {
             if (row == node.row && col == node.col)
             {
-                transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, 0);
-                //Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+                //get node's position and begin moving player
+                destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                hasControl = false;
+                //transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, 0);
                 break;
             }
         }
@@ -67,6 +79,27 @@ public class Player : MapObject
 
     IEnumerator AnimateMovement()
     {
-        yield return null;
+        animateMoveCoroutineOn = true;
+        Vector3 direction = destination - transform.position;
+        float moveSpeed = 2;
+
+        while (transform.position != destination)
+        {
+            float vx = moveSpeed * direction.x * Time.deltaTime;
+            float vy = moveSpeed * direction.y * Time.deltaTime;
+
+            transform.position = new Vector3(transform.position.x + vx, transform.position.y + vy, transform.position.z);
+
+            //check if we're close to destination
+            float diffX = Mathf.Abs(destination.x - transform.position.x);
+            float diffY = Mathf.Abs(destination.y - transform.position.y);
+            if (diffX >= 0 && diffX <= 0.05f && diffY >= 0 && diffY <= 0.05f)
+                transform.position = destination;
+
+            yield return null;
+        }
+       
+        animateMoveCoroutineOn = false;
+        hasControl = true;
     }
 }

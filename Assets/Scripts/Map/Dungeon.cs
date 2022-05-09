@@ -333,6 +333,7 @@ public class Dungeon : MonoBehaviour
             bool goingEast = false;
             bool goingWest = false;
 
+            //TODO: Need to figure out how to get the minimum number of nodes
             while (!goingNorth && !goingSouth && !goingEast && !goingWest)
             {
                 goingNorth = (j - 1 >= 0 && Random.value <= directionChance) ? true : false;
