@@ -9,7 +9,7 @@ public class MapEnemy : MapObject
     public Sprite minorEnemySprite;
     public Sprite majorEnemySprite;
     public Sprite bossSprite;
-    public int turnsBeforeMoving {get; set;}        //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
+    public int turnsBeforeMoving;                   //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
     public int turnCounter;                         //the maximum number of turns before enemy moves.
     public bool isStationary {get; set;}            //if true, enemy does not move.
     bool animateMoveCoroutineOn;
@@ -56,8 +56,8 @@ public class MapEnemy : MapObject
         turnsBeforeMoving = turnCounter;
     }
 
-    public void Move(Vector3 destination)
-    {      
+    public void Move()
+    {   
         if (!animateMoveCoroutineOn)
             StartCoroutine(AnimateMovement(destination));     
     }
@@ -65,6 +65,30 @@ public class MapEnemy : MapObject
     public bool CanMove()
     {
         return turnsBeforeMoving <= 0;
+    }
+
+    public void PlaceEnemy(int col, int row)
+    {
+        Dungeon dungeon = Dungeon.instance;
+        Player player = Player.instance;
+
+        if (col < 0 || col >= dungeon.mapWidth) return;
+        if (row < 0 || row >= dungeon.mapHeight) return;
+        if (row == player.row && col == player.col) return;
+
+        this.row = row;
+        this.col = col;
+
+        //find node TODO: make sure an enemy isn't occupied in the same space
+        
+        foreach(Node node in dungeon.nodes)
+        {
+            if (node.row == row && node.col == col)
+            {
+                transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
+                break;
+            }
+        }
     }
 
     public void SearchForNearestNode()
@@ -77,58 +101,63 @@ public class MapEnemy : MapObject
         bool goingWest = false;
 
         //TODO: Need to figure out how to get the minimum number of nodes
+        Dungeon dungeon = Dungeon.instance;
         while (!goingNorth && !goingSouth && !goingEast && !goingWest)
         {
-            goingNorth = (row - 1 >= 0 && Random.value <= directionChance) ? true : false;
-            goingSouth = (row + 1 < dungeon.mapHeight && Random.value <= directionChance) ? true : false;
-            goingEast = (col + 1 < dungeon.mapWidth && Random.value <= directionChance) ? true : false;
-            goingWest = (col - 1 >= 0  && Random.value <= directionChance) ? true : false;
+            goingNorth = (row - 1 >= 0 && dungeon.mapArray[col, row-1] == true && Random.value <= directionChance) ? true : false;
+            goingSouth = (row + 1 < dungeon.mapHeight && dungeon.mapArray[col, row+1] == true && Random.value <= directionChance) ? true : false;
+            goingEast = (col + 1 < dungeon.mapWidth && dungeon.mapArray[col+1, row] == true && Random.value <= directionChance) ? true : false;
+            goingWest = (col - 1 >= 0  && dungeon.mapArray[col-1, row] == true && Random.value <= directionChance) ? true : false;
         }
 
         if (goingNorth)
         {
-            Dungeon dungeon = Dungeon.instance;
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row - 1 && node.col == col)
                 {
-                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    row = node.row;
+                    col = node.col;
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
             }
         }
         else if (goingSouth)
         {
-            Dungeon dungeon = Dungeon.instance;
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row + 1 && node.col == col)
                 {
-                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    row = node.row;
+                    col = node.col;
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
             }
         }
         else if (goingEast)
         {
-            Dungeon dungeon = Dungeon.instance;
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row && node.col == col + 1)
                 {
-                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    row = node.row;
+                    col = node.col;
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
             }
         }
         else if (goingWest)
         {
-            Dungeon dungeon = Dungeon.instance;
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row && node.col == col - 1)
                 {
-                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    row = node.row;
+                    col = node.col;
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
             }

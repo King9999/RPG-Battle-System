@@ -17,6 +17,7 @@ public class Dungeon : MonoBehaviour
     public List<Node> nodes;
     public Node nodePrefab;
     public Player playerPrefab;
+    public MapEnemy enemyPrefab;
     public List<MapEnemy> enemies;
     public CameraFollow cameraFollow;   //used to keep camera focused on player 
 
@@ -445,8 +446,15 @@ public class Dungeon : MonoBehaviour
         
         //create player
         Player player = Instantiate(playerPrefab);
+        //TODO: change sprite to the hero player picked at the start
         player.MovePlayer(0, 0);
         cameraFollow.objectTransform = player.transform;
+
+        //create enemy. This enemy is always minor 
+        MapEnemy enemy = Instantiate(enemyPrefab);
+        enemy.PlaceEnemy(1, 0);
+        enemy.SetTurnCounter(2);
+        enemies.Add(enemy);
 
     }
 

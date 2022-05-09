@@ -76,13 +76,14 @@ public class Player : MapObject
 
         //update enemy movement
         foreach(MapEnemy enemy in dungeon.enemies)
-        {
+        {   
             enemy.turnsBeforeMoving--;
             if (enemy.CanMove())
             {
+                Debug.Log("here");
                 //move enemy to a random node that's close to them
                 enemy.SearchForNearestNode();
-                enemy.Move(enemy.destination);
+                enemy.Move();
             }
         }
         
