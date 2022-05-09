@@ -37,9 +37,8 @@ public class Player : MapObject
         base.Start();
         hasControl = true;
 
-        //player always begins at the first node
+        //applying offset
         transform.position = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
-        //MovePlayer(0, 0);
     }
 
     // Update is called once per frame

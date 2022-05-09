@@ -159,6 +159,79 @@ public class CombatSystem : MonoBehaviour
 
     }
 
+    public void SetupCombat()
+    {
+        //use this instead of Start() to determine the enemies encountered and to set up combat
+        modifiedEnemyNames = new Dictionary<int, string>();
+
+        //action gauge setup
+        actGauge.gameObject.SetActive(false);
+
+        actGauge.transform.position = actGaugeLocation.position;
+
+        loot = new Dictionary<Item, int>();
+
+        //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
+        foreach(Hero hero in hm.heroes)
+        {
+            heroesInCombat.Add(hero);
+        }
+
+        //add random enemies
+        int randCount = Random.Range(1, totalEnemies + 1);
+        for (int i = 0; i < 2; i++)
+        {
+            int randomEnemy = Random.Range(0, em.enemies.Length);
+            //Enemy enemy = Instantiate(em.enemies[randomEnemy]);
+            Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Imp]);
+            enemiesInCombat.Add(enemy);
+        }
+
+        //check enemy names and append a letter to duplicates
+        CheckDuplicateNames();
+        
+        //place heroes and enemies in random positions
+        heroLocationOccupied = new bool[heroLocations.Length];
+        enemyLocationOccupied = new bool[enemyLocations.Length];
+
+        foreach (Hero hero in heroesInCombat)
+        {
+            int randIndex = Random.Range(0, heroLocationOccupied.Length);
+
+            while(heroLocationOccupied[randIndex] == true)
+            {
+                randIndex = Random.Range(0, heroLocationOccupied.Length);
+            }
+            hero.transform.position = heroLocations[randIndex].position;
+            heroLocationOccupied[randIndex] = true;
+            turnOrder.Add(hero);
+            hero.UpdateStatsUI();
+        }
+
+        foreach (Enemy enemy in enemiesInCombat)
+        {
+            int randIndex = Random.Range(0, enemyLocationOccupied.Length);
+
+            while(enemyLocationOccupied[randIndex] == true)
+            {
+                randIndex = Random.Range(0, enemyLocationOccupied.Length);
+            }
+            enemy.transform.position = enemyLocations[randIndex].position;
+            enemyLocationOccupied[randIndex] = true;
+
+            turnOrder.Add(enemy);
+            enemy.UpdateStatsUI();
+        }
+
+        //get turn order and set up UI.
+        ShuffleTurnOrder();              
+        //turnOrder = turnOrder.OrderByDescending(x => x.spd * x.spdMod).ToList();   //IMPORTANT: Lambda operations should not execute in update loop
+        UpdateTurnOrderUI();
+        currentTurn = 0;
+        currentTarget = -1;
+        currentHero = -1;
+    }
+
     
     // Update is called once per frame
     void Update()
