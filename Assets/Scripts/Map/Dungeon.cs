@@ -16,8 +16,9 @@ public class Dungeon : MonoBehaviour
 {
     public List<Node> nodes;
     public Node nodePrefab;
-    public Player player;
+    public Player playerPrefab;
     public List<MapEnemy> enemies;
+    public CameraFollow cameraFollow;   //used to keep camera focused on player 
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
@@ -106,7 +107,7 @@ public class Dungeon : MonoBehaviour
             arrayString += "\n";
         }
         Debug.Log(arrayString);*/
-        player.MovePlayer(0, 0);
+        //player.MovePlayer(0, 0);
     }
 
     public void GenerateDungeon(int nodeCount)
@@ -211,6 +212,10 @@ public class Dungeon : MonoBehaviour
                 }
             }
         }
+
+        //generate map objects, including player, enemies, chests, etc.
+        GenerateMapObjects(nodeCount / 2);
+
     }
 
     //create node at given position. Once a node is generated, it must create at least one path leading to another node.
@@ -431,13 +436,17 @@ public class Dungeon : MonoBehaviour
         
     }
 
-    public void GenerateMapObjects(int width, int height)
+    public void GenerateMapObjects(int objectCount)
     {
-        mapWidth = width;
-        mapHeight = height;
-        mapArray = new bool[mapWidth, mapHeight];
-
-        //go through array and decide the rooms. The first room is always at [0,0]
+        /* there must be a minimum of 3 objects in each dungeon:
+            1 player
+            1 enemy
+            1 exit */
+        
+        //create player
+        Player player = Instantiate(playerPrefab);
+        player.MovePlayer(0, 0);
+        cameraFollow.objectTransform = player.transform;
 
     }
 

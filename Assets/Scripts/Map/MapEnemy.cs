@@ -9,16 +9,19 @@ public class MapEnemy : MapObject
     public Sprite minorEnemySprite;
     public Sprite majorEnemySprite;
     public Sprite bossSprite;
-    int turnsBeforeMoving;                          //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
+    public int turnsBeforeMoving {get; set;}        //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
+    public int turnCounter;                         //the maximum number of turns before enemy moves.
     public bool isStationary {get; set;}            //if true, enemy does not move.
     bool animateMoveCoroutineOn;
-    Vector3 destination;
+    public Vector3 destination;
+    float yOffset = -0.2f;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         
+        turnsBeforeMoving = turnCounter;
     }
 
     // Update is called once per frame
@@ -42,16 +45,94 @@ public class MapEnemy : MapObject
         CombatSystem cs = CombatSystem.instance;
     }
 
-    public void SetTurnsToMove(int count)
+    public void ResetTurns()
     {
-        turnsBeforeMoving = count;
+        turnsBeforeMoving = turnCounter;
+    }
+
+    public void SetTurnCounter(int counter)
+    {
+        turnCounter = counter;
+        turnsBeforeMoving = turnCounter;
     }
 
     public void Move(Vector3 destination)
+    {      
+        if (!animateMoveCoroutineOn)
+            StartCoroutine(AnimateMovement(destination));     
+    }
+
+    public bool CanMove()
     {
-        if (turnsBeforeMoving <= 0)
-            if (!animateMoveCoroutineOn)
-                StartCoroutine(AnimateMovement(destination));
+        return turnsBeforeMoving <= 0;
+    }
+
+    public void SearchForNearestNode()
+    {
+        //check surrounding indexes to see where we can move
+        float directionChance = 0.8f;
+        bool goingNorth = false;
+        bool goingSouth = false;
+        bool goingEast = false;
+        bool goingWest = false;
+
+        //TODO: Need to figure out how to get the minimum number of nodes
+        while (!goingNorth && !goingSouth && !goingEast && !goingWest)
+        {
+            goingNorth = (row - 1 >= 0 && Random.value <= directionChance) ? true : false;
+            goingSouth = (row + 1 < dungeon.mapHeight && Random.value <= directionChance) ? true : false;
+            goingEast = (col + 1 < dungeon.mapWidth && Random.value <= directionChance) ? true : false;
+            goingWest = (col - 1 >= 0  && Random.value <= directionChance) ? true : false;
+        }
+
+        if (goingNorth)
+        {
+            Dungeon dungeon = Dungeon.instance;
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.row == row - 1 && node.col == col)
+                {
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    break;
+                }
+            }
+        }
+        else if (goingSouth)
+        {
+            Dungeon dungeon = Dungeon.instance;
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.row == row + 1 && node.col == col)
+                {
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    break;
+                }
+            }
+        }
+        else if (goingEast)
+        {
+            Dungeon dungeon = Dungeon.instance;
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.row == row && node.col == col + 1)
+                {
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    break;
+                }
+            }
+        }
+        else if (goingWest)
+        {
+            Dungeon dungeon = Dungeon.instance;
+            foreach(Node node in dungeon.nodes)
+            {
+                if (node.row == row && node.col == col - 1)
+                {
+                    destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
+                    break;
+                }
+            }
+        }
     }
 
     IEnumerator AnimateMovement(Vector3 destination)
@@ -77,5 +158,6 @@ public class MapEnemy : MapObject
         }
        
         animateMoveCoroutineOn = false;
+        ResetTurns();
     }
 }
