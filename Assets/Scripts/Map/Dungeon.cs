@@ -56,8 +56,8 @@ public class Dungeon : MonoBehaviour
         nodeCount = minNodeCount;
 
         //get seed
-        Random.InitState(-32767018);
-        Debug.Log("Seed: " + Random.state.GetHashCode());
+        //Random.InitState(-32767018);
+        //Debug.Log("Seed: " + Random.state.GetHashCode());
 
         //create the map
         GenerateDungeon(nodeCount);
@@ -224,6 +224,9 @@ public class Dungeon : MonoBehaviour
             if (!goingInCircles)
             { 
                 previousNodes.Add(node);
+
+                //TODO: Add code to see how close we are to the exit by comparing row and col to the exit's row and col.
+                //Generate a path based on this logic. The code below will have to be modified.
                 
                 //check paths in current node
                 if (node.paths[node.eastPath].PathVisible())
@@ -248,11 +251,41 @@ public class Dungeon : MonoBehaviour
                 foreach(Node n in previousNodes)
                 {
                     //check for a node to the east
-                    if (!n.paths[n.eastPath].PathVisible() && mapArray[n.col + 1, n.row] == true)
+                    if (n.col + 1 < mapWidth && !n.paths[n.eastPath].PathVisible() && mapArray[n.col + 1, n.row] == true)
                     {
                         n.paths[n.eastPath].ShowPath(true);
                         row = n.row;
                         col = n.col + 1;
+                        goingInCircles = false;
+                        break;
+                    }
+
+                    //check west
+                    else if (n.col - 1 >= 0 && !n.paths[n.westPath].PathVisible() && mapArray[n.col - 1, n.row] == true)
+                    {
+                        n.paths[n.westPath].ShowPath(true);
+                        row = n.row;
+                        col = n.col - 1;
+                        goingInCircles = false;
+                        break;
+                    }
+
+                    //check north
+                    else if (n.row - 1 >= 0 && !n.paths[n.northPath].PathVisible() && mapArray[n.col, n.row - 1] == true)
+                    {
+                        n.paths[n.northPath].ShowPath(true);
+                        row = n.row - 1;
+                        col = n.col;
+                        goingInCircles = false;
+                        break;
+                    }
+
+                    //check south
+                    else if (n.row + 1 < mapHeight && !n.paths[n.southPath].PathVisible() && mapArray[n.col, n.row + 1] == true)
+                    {
+                        n.paths[n.southPath].ShowPath(true);
+                        row = n.row + 1;
+                        col = n.col;
                         goingInCircles = false;
                         break;
                     }
