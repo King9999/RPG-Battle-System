@@ -63,7 +63,7 @@ public class MapEnemy : MapObject
 
     public bool CanMove()
     {
-        return turnsBeforeMoving <= 0;
+        return !isStationary && turnsBeforeMoving <= 0;
     }
 
     public void PlaceEnemy(int col, int row)

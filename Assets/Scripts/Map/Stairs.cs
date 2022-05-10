@@ -18,7 +18,8 @@ public class Stairs : MapObject
         //player = Player.instance;
         if (row == player.row && col == player.col)
         {
-            //advance to new level.
+            //display a prompt asking player to advance to new level.
+            Debug.Log("Found stairs");
         }
     }
 }

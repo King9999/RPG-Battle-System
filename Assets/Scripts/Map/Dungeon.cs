@@ -25,6 +25,7 @@ public class Dungeon : MonoBehaviour
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
     public int mapHeight {get; set;}    //rows
+    int minMapSize {get;} = 4;          //applies to both width and height
     float xOffset, yOffset = 3;
     const float offset = 2;
     int nodeCount;
@@ -48,8 +49,8 @@ public class Dungeon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mapWidth = 4;
-        mapHeight = 4;
+        mapWidth = minMapSize;
+        mapHeight = minMapSize;
         mapArray = new bool[mapWidth, mapHeight];
         nodeCount = minNodeCount;
 
@@ -371,69 +372,36 @@ public class Dungeon : MonoBehaviour
             }
 
             //where do we move next?
-            /*iPrevious = i;
-            jPrevious = j;
-            int iRandom;
-            int jRandom;
-
-            do
+            bool pathChosen = false;
+            directionChance = 0.4f;
+            while(pathChosen == false)
             {
-                iRandom = Random.Range(i - 1, i + 2);
-                jRandom = Random.Range (j - 1, j + 2);
-            }
-            while (iRandom == i && jRandom == j && (iRandom < 0 || jRandom < 0) && (iRandom >= mapWidth || 
-                jRandom >= mapHeight) || mapArray[iRandom, jRandom] == false);
-           
-            //once we get here, we found an index to generate next set of nodes.
-            i = iRandom;
-            j = jRandom;*/
-
-            /*if (goingNorth && goingSouth && goingEast && goingWest)
-            {
-                //pick a random path
-                float roll = Random.Range(0, 1f);
-                if (roll <= 0.25f)
-                    i += 1;     //east
-                else if (roll <= 0.5f)
-                    i -= 1;     //west
-                else if (roll <= 0.75f)
-                    j += 1;     //south
-                else
-                    j -= 1;     //north
-            }
-            else
-            {*/
-                bool pathChosen = false;
-                directionChance = 0.4f;
-                while(pathChosen == false)
-                {
-                    if (goingNorth && Random.value <= directionChance)
-                    {    
-                        jPrevious = j;
-                        j -= 1;
-                        pathChosen = true;
-                    }
-                    else if (goingSouth && Random.value <= directionChance)
-                    {
-                        jPrevious = j;
-                        j += 1;
-                        pathChosen = true;     
-                    }
-                    else if (goingEast && Random.value <= directionChance)
-                    {
-                        iPrevious = i;
-                        i += 1;
-                        pathChosen = true;
-                    }
-                    else if (goingWest && Random.value <= directionChance)
-                    {
-                        iPrevious = i;
-                        i -= 1;
-                        pathChosen = true;
-                    }
-                    directionChance += 0.2f;    //I do this to limit the time spent in this loop, and in case there's only one direction.
+                if (goingNorth && Random.value <= directionChance)
+                {    
+                    jPrevious = j;
+                    j -= 1;
+                    pathChosen = true;
                 }
-            //}
+                else if (goingSouth && Random.value <= directionChance)
+                {
+                    jPrevious = j;
+                    j += 1;
+                    pathChosen = true;     
+                }
+                else if (goingEast && Random.value <= directionChance)
+                {
+                    iPrevious = i;
+                    i += 1;
+                    pathChosen = true;
+                }
+                else if (goingWest && Random.value <= directionChance)
+                {
+                    iPrevious = i;
+                    i -= 1;
+                    pathChosen = true;
+                }
+                directionChance += 0.2f;    //I do this to limit the time spent in this loop, and in case there's only one direction.
+            }
         }
         
     }
@@ -451,23 +419,67 @@ public class Dungeon : MonoBehaviour
         player.MovePlayer(0, 0);
         cameraFollow.objectTransform = player.transform;
 
-        //create enemy. This enemy is always minor 
-        MapEnemy enemy = Instantiate(enemyPrefab);
-        enemy.PlaceEnemy(1, 0);
-        enemy.SetTurnCounter(2);
-        enemies.Add(enemy);
-
-        //create exit (stairs)
-        Stairs stairs = Instantiate(stairsPrefab);
-        stairs.row = nodes[nodes.Count - 1].row;    //stairs is always at the last node, which should be the furthest one from the player.
-        stairs.col = nodes[nodes.Count - 1].col;
-        stairs.transform.position = new Vector3(nodes[nodes.Count - 1].transform.position.x, nodes[nodes.Count - 1].transform.position.y, stairs.transform.position.z);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
+        //create exit (stairs)
+        //check if there's an existing object
+        if (TryGetComponent(out Stairs stairs))
+        {
+            stairs.row = nodes[nodes.Count - 1].row;    //stairs is always at the last node, which should be the furthest one from the player.
+            stairs.col = nodes[nodes.Count - 1].col;
+            stairs.transform.position = new Vector3(nodes[nodes.Count - 1].transform.position.x, nodes[nodes.Count - 1].transform.position.y, stairs.transform.position.z);
+        }
+        else    //create new instance
+        {
+            Stairs newStairs = Instantiate(stairsPrefab);
+            int randNode = Random.Range(nodes.Count - 3, nodes.Count);
+            newStairs.row = nodes[randNode].row; 
+            newStairs.col = nodes[randNode].col;
+            newStairs.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, newStairs.transform.position.z);
+        }
+
+        //create enemy. The number of enemies is (total nodes / 4)
+        int enemyCount = nodes.Count / 4;
+        int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
+        for (int i = 0; i < enemyCount; i++)
+        {
+            MapEnemy enemy = Instantiate(enemyPrefab);
+
+            //is this a major enemy?
+            if (majorEnemyCount > 0)
+            {
+                if (Random.value <= 0.3f)
+                {
+                    SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    sr.sprite = enemy.majorEnemySprite;
+                    //TODO: have a separate array in Enemy Manager for major enemies and pick one.
+                    majorEnemyCount--;
+                }
+            }
+
+            //find a random node to occupy
+            int randRow;
+            int randCol;
+
+            do
+            {
+                randRow = Random.Range(0, mapHeight);
+                randCol = Random.Range(0, mapWidth);
+            }
+            while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false);
+            enemy.PlaceEnemy(randCol, randRow);
+
+            //set turns. if the enemy is standing over a chest or stairs, they will not move.
+            Stairs exit = FindObjectOfType<Stairs>();
+            Debug.Log("Exit is located at " + exit.col + "," + exit.row);
+            if (enemy.row == exit.row && enemy.col == exit.col)
+                enemy.isStationary = true;
+            else
+                enemy.SetTurnCounter(2);
+                
+            enemies.Add(enemy);
+        } 
+        
+
     }
+
 }
