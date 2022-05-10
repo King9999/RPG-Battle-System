@@ -19,6 +19,7 @@ public class Dungeon : MonoBehaviour
     public Player playerPrefab;
     public MapEnemy enemyPrefab;
     public Stairs stairsPrefab;
+    public Stairs exit;
     public List<MapEnemy> enemies;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
 
@@ -168,13 +169,96 @@ public class Dungeon : MonoBehaviour
 
         //generate map objects, including player, enemies, chests, etc.
         GenerateMapObjects();
+
+        //validate the dungeon.
+        ValidateDungeon();
     }
 
-    void ValidatePath()
+    void ValidateDungeon()
     {
         //test the dungeon by creating a path from the start to the exit, checking each node for valid paths.
         //every time we test a node, we must record which nodes we've been to.
         //if there are no new nodes to traverse, then that means there's a missing path somewhere.
+        //once this method is finished executing, the dungeon should be valid.
+
+        if (nodes.Count <= 0) return;
+
+        List<Node> previousNodes = new List<Node>();
+        int row = 0;
+        int col = 0;    //used to navigate the map array.
+        int currentNode = 0;
+        List<int> nodeIndexRecord = new List<int>();    //indexes of which nodes in the node list we've been to.
+        bool exitFound = false;
+        bool goingInCircles = false;
+        while (!exitFound)
+        {
+            if (row == 0 && col == 0)
+            {
+                currentNode = 0;
+            }
+            else
+            {
+                foreach(Node n in nodes)
+                {
+                    if (n.row == row && n.col == col)
+                    {
+                        currentNode = nodes.IndexOf(n);
+                        break;
+                    }
+                }
+            }
+            Node node = nodes[currentNode];
+
+            //check previous nodes list to see if this node exists
+            foreach(Node n in previousNodes)
+            {
+                if (n.nodeID == node.nodeID)
+                {
+                    //we're going in circles, find out where a path needs to be added.
+                    Debug.Log("going in circles");
+                    goingInCircles = true;
+                    break;
+                }
+            }
+
+            if (!goingInCircles)
+            { 
+                previousNodes.Add(node);
+                
+                //check paths in current node
+                if (node.paths[node.eastPath].PathVisible())
+                    col += 1;
+                else if (node.paths[node.southPath].PathVisible())
+                    row += 1;
+                else if (node.paths[node.westPath].PathVisible())
+                    col -= 1;
+                else if (node.paths[node.northPath].PathVisible())
+                    row -= 1;
+
+                //are we at the exit?
+                if (row == exit.row && col == exit.col)
+                {
+                    exitFound = true;   //valid path
+                    Debug.Log("Found exit!");
+                }
+            }
+            else
+            {
+                //check previous nodes and look for a path to create
+                foreach(Node n in previousNodes)
+                {
+                    //check for a node to the east
+                    if (!n.paths[n.eastPath].PathVisible() && mapArray[n.col + 1, n.row] == true)
+                    {
+                        n.paths[n.eastPath].ShowPath(true);
+                        row = n.row;
+                        col = n.col + 1;
+                        goingInCircles = false;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     //create node at given position. Once a node is generated, it must create at least one path leading to another node.
@@ -377,24 +461,21 @@ public class Dungeon : MonoBehaviour
         //TODO: change sprite to the hero player picked at the start
         player.MovePlayer(0, 0);
         cameraFollow.objectTransform = player.transform;
+        player.transform.SetParent(transform);
 
         
         //create exit (stairs)
         //check if there's an existing object
-        if (TryGetComponent(out Stairs stairs))
+        if (exit == null)
         {
-            stairs.row = nodes[nodes.Count - 1].row;    //stairs is always at the last node, which should be the furthest one from the player.
-            stairs.col = nodes[nodes.Count - 1].col;
-            stairs.transform.position = new Vector3(nodes[nodes.Count - 1].transform.position.x, nodes[nodes.Count - 1].transform.position.y, stairs.transform.position.z);
+            exit = Instantiate(stairsPrefab);
+            exit.transform.SetParent(transform);
         }
-        else    //create new instance
-        {
-            Stairs newStairs = Instantiate(stairsPrefab);
-            int randNode = Random.Range(nodes.Count - 3, nodes.Count);
-            newStairs.row = nodes[randNode].row; 
-            newStairs.col = nodes[randNode].col;
-            newStairs.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, newStairs.transform.position.z);
-        }
+        
+        int randNode = Random.Range(nodes.Count - 3, nodes.Count);
+        exit.row = nodes[randNode].row; 
+        exit.col = nodes[randNode].col;
+        exit.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, exit.transform.position.z);
 
         //create enemy. The number of enemies is (total nodes / 4)
         int enemyCount = nodes.Count / 4;
@@ -438,6 +519,7 @@ public class Dungeon : MonoBehaviour
             else
                 enemy.SetTurnCounter(2);
 
+            enemy.transform.SetParent(transform);
             enemies.Add(enemy);
         } 
         
