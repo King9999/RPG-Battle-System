@@ -10,5 +10,5 @@ public abstract class MapObject : MonoBehaviour
     public int row {get; set;}
     public Sprite mapSprite;                //the sprite that is displayed on the screen. this sprite can change.
 
-    
+    public bool occupiedByEnemy {get; set;}            //if true, an enemy is standing on this object.
 }

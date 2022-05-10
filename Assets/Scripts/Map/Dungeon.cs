@@ -20,7 +20,7 @@ public class Dungeon : MonoBehaviour
     public MapEnemy enemyPrefab;
     public Stairs stairsPrefab;
     public List<MapEnemy> enemies;
-    public CameraFollow cameraFollow;   //used to keep camera focused on player 
+    public CameraFollow cameraFollow;   //used to keep camera focused on player
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
@@ -54,63 +54,13 @@ public class Dungeon : MonoBehaviour
         mapArray = new bool[mapWidth, mapHeight];
         nodeCount = minNodeCount;
 
-        string arrayString = "";
+        //get seed
+        Random.InitState(-32767018);
+        Debug.Log("Seed: " + Random.state.GetHashCode());
+
         //create the map
-        /*for (int i = 0; i < mapWidth; i++)
-        {
-            for (int j = 0; j < mapHeight; j++)
-            {
-                float roll = Random.Range(0, 1f);
-                if (Random.value <= 1f)
-                {
-                    mapArray[i, j] = true;
-                    Node node = Instantiate(nodePrefab);
-                    node.nodeID = nodeCount;
-                    nodeCount++;
-
-                    //if this is a corner node, some paths cannot be visible
-                    if (i == 0 && j == 0)
-                    {
-                        node.paths[node.northPath].ShowPath(false);
-                        node.paths[node.westPath].ShowPath(false);
-
-                        //make sure this node is accessible
-                        if (node.NoPath())
-                        {
-                            while (!node.paths[node.eastPath].PathVisible() && !node.paths[node.southPath].PathVisible())
-                            {
-                                float roll1 = Random.Range(0, 1f);
-                                float roll2 = Random.Range(0, 1f);
-                                bool eastPathVisible = roll1 <= 0.5f ? true : false;
-                                bool southPathVisible = roll2 <= 0.5f ? true : false;
-                                node.paths[node.eastPath].ShowPath(eastPathVisible);
-                                node.paths[node.southPath].ShowPath(southPathVisible);
-                            }
-                        }
-                    }
-
-                    //place node in game
-                    node.transform.SetParent(transform);
-                    node.transform.position = new Vector3(i, j, 0);
-                    nodes.Add(node);
-                }
-                arrayString += mapArray[i, j] + " ";
-            }
-            arrayString += "\n";
-        }
-
-        Debug.Log(arrayString);  */
         GenerateDungeon(nodeCount);
-        /*for (int i = 0; i < mapWidth; i++)
-        {
-            for (int j = 0; j < mapHeight; j++)
-            {
-                arrayString += mapArray[i, j] + " ";
-            }
-            arrayString += "\n";
-        }
-        Debug.Log(arrayString);*/
-        //player.MovePlayer(0, 0);
+        
     }
 
     public void GenerateDungeon(int nodeCount)
@@ -145,8 +95,8 @@ public class Dungeon : MonoBehaviour
                         while (!node.paths[node.eastPath].PathVisible() && !node.paths[node.southPath].PathVisible())
                         {
                             float pathChance = 0.5f;
-                            bool eastPathVisible = Random.value <= pathChance ? true : false;
-                            bool southPathVisible = Random.value <= pathChance ? true : false;
+                            bool eastPathVisible = mapArray[i + 1, j] == true && Random.value <= pathChance ? true : false;
+                            bool southPathVisible = mapArray[i, j + 1] == true && Random.value <= pathChance ? true : false;
                             node.paths[node.eastPath].ShowPath(eastPathVisible);
                             node.paths[node.southPath].ShowPath(southPathVisible);
                         }
@@ -157,10 +107,10 @@ public class Dungeon : MonoBehaviour
                     {
                         //check for any adjacent nodes
                         //check if there's a path leading to the node
-                        bool northNode = (j > 0 && mapArray[i, j - 1] == true) ? true : false;
+                        bool northNode = (j - 1 >= 0 && mapArray[i, j - 1] == true) ? true : false;
                         bool southNode = (j + 1 < mapHeight && mapArray[i, j + 1] == true) ? true : false;
                         bool eastNode = (i + 1 < mapWidth && mapArray[i + 1, j] == true) ? true : false;
-                        bool westNode = (i > 0 && mapArray[i - 1, j] == true) ? true : false;
+                        bool westNode = (i - 1 >= 0 && mapArray[i - 1, j] == true) ? true : false;
 
                         //if there are 2 or more adjacent rooms, see if all paths are opened.
                         float pathChance = 0.6f;
@@ -217,12 +167,18 @@ public class Dungeon : MonoBehaviour
         }
 
         //generate map objects, including player, enemies, chests, etc.
-        GenerateMapObjects(nodeCount / 2);
+        GenerateMapObjects();
+    }
 
+    void ValidatePath()
+    {
+        //test the dungeon by creating a path from the start to the exit, checking each node for valid paths.
+        //every time we test a node, we must record which nodes we've been to.
+        //if there are no new nodes to traverse, then that means there's a missing path somewhere.
     }
 
     //create node at given position. Once a node is generated, it must create at least one path leading to another node.
-    void GenerateNode(int i, int j, int nodeCount, bool firstNode = false)
+    /*void GenerateNode(int i, int j, int nodeCount, bool firstNode = false)
     {
 
         //invalid states
@@ -234,9 +190,6 @@ public class Dungeon : MonoBehaviour
 
         totalNodes = nodeCount;
 
-        
-
-        
         if (firstNode)  //first room
         {
             mapArray[i,j] = true;
@@ -278,7 +231,7 @@ public class Dungeon : MonoBehaviour
         }
         if (goingWest)
             GenerateNode(i - 1, j, nodeCount - 1);
-    }
+    }*/
 
     void GenerateNode(int nodeCount)
     {
@@ -300,8 +253,6 @@ public class Dungeon : MonoBehaviour
             mapArray[i + 1, j] = Random.value <= 0.5f ? true : false;  //east room
             mapArray[i, j + 1] = Random.value <= 0.5f ? true : false;  //south room
         }
-
-        
 
         //find out where we're going next
         if (mapArray[i + 1, j] == true && mapArray[i, j + 1] == true)
@@ -344,10 +295,18 @@ public class Dungeon : MonoBehaviour
             //TODO: Need to figure out how to get the minimum number of nodes
             while (!goingNorth && !goingSouth && !goingEast && !goingWest)
             {
-                goingNorth = (j - 1 >= 0 && Random.value <= directionChance) ? true : false;
-                goingSouth = (j + 1 < mapHeight && Random.value <= directionChance) ? true : false;
-                goingEast = (i + 1 < mapWidth && Random.value <= directionChance) ? true : false;
-                goingWest = (i - 1 >= 0  && Random.value <= directionChance) ? true : false;
+                goingNorth = (j - 1 >= 0 && (i != iPrevious && j - 1 != jPrevious) && Random.value <= directionChance) ? true : false;
+                goingSouth = (j + 1 < mapHeight && (i != iPrevious && j + 1 != jPrevious) && Random.value <= directionChance) ? true : false;
+                goingEast = (i + 1 < mapWidth && (i + 1 != iPrevious && j != jPrevious) && Random.value <= directionChance) ? true : false;
+                goingWest = (i - 1 >= 0  && (i - 1 != iPrevious && j != jPrevious) && Random.value <= directionChance) ? true : false;
+
+                //if we get to the edge of the array, start over.
+                if (i >= mapWidth - 1 && j >= mapHeight - 1)
+                {
+                    i = 0;
+                    j = 0;
+                }
+                Debug.Log("North: " + goingNorth + "\nSouth: " + goingSouth + "\nEast: " + goingEast + "\nWest: " + goingWest + "\n------\n");
             }
 
             if (goingNorth)
@@ -406,7 +365,7 @@ public class Dungeon : MonoBehaviour
         
     }
 
-    public void GenerateMapObjects(int objectCount)
+    public void GenerateMapObjects()
     {
         /* there must be a minimum of 3 objects in each dungeon:
             1 player
@@ -470,12 +429,15 @@ public class Dungeon : MonoBehaviour
 
             //set turns. if the enemy is standing over a chest or stairs, they will not move.
             Stairs exit = FindObjectOfType<Stairs>();
-            Debug.Log("Exit is located at " + exit.col + "," + exit.row);
-            if (enemy.row == exit.row && enemy.col == exit.col)
+            //Debug.Log("Exit is located at " + exit.col + "," + exit.row);
+            if (!exit.occupiedByEnemy && enemy.row == exit.row && enemy.col == exit.col)
+            {
                 enemy.isStationary = true;
+                exit.occupiedByEnemy = true;
+            }
             else
                 enemy.SetTurnCounter(2);
-                
+
             enemies.Add(enemy);
         } 
         

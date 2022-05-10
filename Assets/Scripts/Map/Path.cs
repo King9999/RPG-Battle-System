@@ -23,5 +23,5 @@ public class Path : MonoBehaviour
         gameObject.SetActive(toggle);
     }
 
-    public bool PathVisible() {  Debug.Log(gameObject.activeSelf); return gameObject.activeSelf;}
+    public bool PathVisible() {  return gameObject.activeSelf;}
 }
