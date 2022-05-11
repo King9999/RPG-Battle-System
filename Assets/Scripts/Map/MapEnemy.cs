@@ -168,6 +168,32 @@ public class MapEnemy : MapObject
         }
     }
 
+    public bool StandingOnObject()
+    {
+        bool standingOnChest = false;
+        bool standingOnExit = false;
+
+        //check if enemy is on a chest or on the exit.
+        Dungeon dungeon = Dungeon.instance;
+        if (nodeID == dungeon.exit.nodeID && !dungeon.exit.occupiedByEnemy)
+        {
+            standingOnExit = true;
+            dungeon.exit.occupiedByEnemy = true;
+        }
+
+        foreach(TreasureChest chest in dungeon.chests)
+        {
+            if (nodeID == chest.nodeID && !chest.occupiedByEnemy)
+            {
+                standingOnChest = true;
+                chest.occupiedByEnemy = true;
+                break;
+            }
+        }
+
+        return standingOnChest || standingOnExit;
+    }
+
     IEnumerator AnimateMovement(Vector3 destination)
     {
         animateMoveCoroutineOn = true;

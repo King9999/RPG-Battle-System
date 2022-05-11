@@ -528,6 +528,7 @@ public class Dungeon : MonoBehaviour
         int randNode = Random.Range(nodes.Count - 3, nodes.Count);
         exit.row = nodes[randNode].row; 
         exit.col = nodes[randNode].col;
+        exit.nodeID = nodes[randNode].nodeID;
         exit.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, exit.transform.position.z);
 
         /****Create chests****/
@@ -605,13 +606,23 @@ public class Dungeon : MonoBehaviour
             enemy.PlaceEnemy(randCol, randRow);
 
             //set turns. if the enemy is standing over a chest or stairs, they will not move.
-            //Stairs exit = FindObjectOfType<Stairs>();
             if (!exit.occupiedByEnemy && enemy.row == exit.row && enemy.col == exit.col)
             {
                 enemy.isStationary = true;
                 exit.occupiedByEnemy = true;
             }
-            else
+
+            foreach(TreasureChest chest in chests)
+            {
+                if (!chest.occupiedByEnemy && enemy.nodeID == chest.nodeID)
+                {
+                    enemy.isStationary = true;
+                    chest.occupiedByEnemy = true;
+                    break;
+                }
+            }
+
+            if (!enemy.isStationary)
             {
                 int randTurn = Random.Range(1, enemy.defaultTurnCount + 1);
                 enemy.SetTurnCounter(randTurn);

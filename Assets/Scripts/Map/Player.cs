@@ -66,7 +66,7 @@ public class Player : MapObject
             if (row == node.row && col == node.col)
             {
                 dungeon.nodes[nodeID].isOccupied = false;
-                
+
                 //get node's position and begin moving player
                 destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
                 nodeID = node.nodeID;
@@ -86,6 +86,10 @@ public class Player : MapObject
                 //move enemy to a random node that's close to them
                 enemy.SearchForNearestNode();
                 enemy.Move();
+
+                //if enemy is now on a treasure chest or exit, they will guard it
+                if (enemy.StandingOnObject())
+                    enemy.isStationary = true;
             }
         }
         
