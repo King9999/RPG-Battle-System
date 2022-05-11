@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 4809186627354802860, guid: 18d88a343e08e494195150996c0efeea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   mapSprite: {fileID: 4809186627354802860, guid: 18d88a343e08e494195150996c0efeea, type: 3}
+  nodeID: 0
   barbSprite: {fileID: 4809186627354802860, guid: 18d88a343e08e494195150996c0efeea, type: 3}
   rogueSprite: {fileID: -957248350204049089, guid: 18d88a343e08e494195150996c0efeea, type: 3}
   wizardSprite: {fileID: -3091030034821009358, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}

@@ -19,8 +19,11 @@ public class Dungeon : MonoBehaviour
     public Player playerPrefab;
     public MapEnemy enemyPrefab;
     public Stairs stairsPrefab;
+    public TreasureChest chestPrefab;
     public Stairs exit;
+    public Player player;
     public List<MapEnemy> enemies;
+    public List<TreasureChest> chests;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
 
     public bool[,] mapArray;
@@ -499,15 +502,22 @@ public class Dungeon : MonoBehaviour
             1 enemy
             1 exit */
         
-        //create player
-        Player player = Instantiate(playerPrefab);
+        enemies = new List<MapEnemy>();
+        chests = new List<TreasureChest>();
+        
+        /****create player****/
+        if (player == null)
+        {
+            player = Instantiate(playerPrefab);
+            player.transform.SetParent(transform);
+            cameraFollow.objectTransform = player.transform;
+        }
+
         //TODO: change sprite to the hero player picked at the start
         player.MovePlayer(0, 0);
-        cameraFollow.objectTransform = player.transform;
-        player.transform.SetParent(transform);
-
         
-        //create exit (stairs)
+        
+        /****create exit (stairs)****/
         //check if there's an existing object
         if (exit == null)
         {
@@ -520,7 +530,41 @@ public class Dungeon : MonoBehaviour
         exit.col = nodes[randNode].col;
         exit.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, exit.transform.position.z);
 
-        //create enemy. The number of enemies is (total nodes / 4)
+        /****Create chests****/
+        //It's possible for a dungeon to have no chests.
+        int chestCount = Random.Range(0, nodes.Count / 4);
+        for (int i = 0; i < chestCount; i++)
+        {
+            TreasureChest chest = Instantiate(chestPrefab);
+
+            //find a random node to occupy
+            int randRow;
+            int randCol;
+            Node node = null;
+            do
+            {
+                randRow = Random.Range(0, mapHeight);
+                randCol = Random.Range(0, mapWidth);
+                
+                foreach(Node n in nodes)
+                {
+                    if (n.row == randRow && n.col == randCol)
+                    {
+                        node = n;
+                        break;
+                    }
+                }
+            }
+            while ((randRow == player.row && randCol == player.col) || (randRow == exit.row && randCol == exit.col) || 
+                mapArray[randCol, randRow] == false || node.isOccupied);
+
+            chest.PlaceChest(randCol, randRow);
+            chest.transform.SetParent(transform);
+            chests.Add(chest);
+
+        }
+
+        /****create enemy. The number of enemies is (total nodes / 4)****/
         int enemyCount = nodes.Count / 4;
         int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
         for (int i = 0; i < enemyCount; i++)

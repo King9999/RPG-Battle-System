@@ -6,6 +6,18 @@ using UnityEngine;
 public class Stairs : MapObject
 {
     Player player;
+    public static Stairs instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     void Start()
     {

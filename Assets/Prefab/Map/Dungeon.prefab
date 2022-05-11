@@ -48,5 +48,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 6013689435623790531, guid: 2be7ac9bc49c2be43a33ff1295e3a775, type: 3}
   enemyPrefab: {fileID: 6050175250908520527, guid: 3ca9b0bc2b47556499dd191f03b147b1, type: 3}
   stairsPrefab: {fileID: 6348930136094405602, guid: 54f254cfe8b6b42428cb22771121c3b1, type: 3}
+  chestPrefab: {fileID: 8369716022333130971, guid: 71ac7320df0dd4345ac6db5ded20bf75, type: 3}
+  exit: {fileID: 0}
   enemies: []
+  chests: []
   cameraFollow: {fileID: 0}

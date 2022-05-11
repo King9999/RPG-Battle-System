@@ -97,8 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   mapSprite: {fileID: 0}
+  nodeID: 0
   minorEnemySprite: {fileID: 1901625293369345724, guid: d554160955bff9c4fb159c08b8ffcc2e, type: 3}
   majorEnemySprite: {fileID: -545356228540491581, guid: e30d54b215256704bb98a3a46dd54839, type: 3}
   bossSprite: {fileID: -8460514153119739858, guid: e30d54b215256704bb98a3a46dd54839, type: 3}
+  turnsBeforeMoving: 0
   turnCounter: 0
-  destination: {x: 0, y: 0, z: 0}
