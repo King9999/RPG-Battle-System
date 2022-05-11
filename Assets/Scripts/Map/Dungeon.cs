@@ -60,13 +60,13 @@ public class Dungeon : MonoBehaviour
         nodeCount = minNodeCount;
 
         //get seed
-        System.Random rnd = new System.Random();
-        int p = rnd.Next();
-        Random.InitState(1205261848);
-        Debug.Log("Seed: " + p);
+        //System.Random rnd = new System.Random();
+        //int p = rnd.Next();
+        //Random.InitState(1205261848);
+        //Debug.Log("Seed: " + p);
         
 
-        File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
+        //File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
 
         //create the map
         GenerateDungeon(nodeCount);
@@ -240,9 +240,8 @@ public class Dungeon : MonoBehaviour
                 if (row < exit.row && node.paths[node.southPath].PathVisible())
                     row += 1;
                 else if (row > exit.row && node.paths[node.northPath].PathVisible())
-                    row -= 1;
-                
-                if (col < exit.col && node.paths[node.eastPath].PathVisible())
+                    row -= 1; 
+                else if (col < exit.col && node.paths[node.eastPath].PathVisible())
                     col += 1;
                 else if (col > exit.col && node.paths[node.westPath].PathVisible())
                     col -= 1;
@@ -267,6 +266,7 @@ public class Dungeon : MonoBehaviour
             else
             {
                 //check previous nodes and look for a path to create
+                //TODO: There's an infinite loop in here
                 foreach(Node n in previousNodes)
                 {
                     //check for a node to the east
