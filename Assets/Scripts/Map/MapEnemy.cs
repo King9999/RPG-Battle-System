@@ -84,7 +84,7 @@ public class MapEnemy : MapObject
     public void SearchForNearestNode()
     {
         //check surrounding indexes to see where we can move
-        float directionChance = 0.8f;
+        float directionChance = 0.6f;
         bool goingNorth = false;
         bool goingSouth = false;
         bool goingEast = false;
@@ -97,7 +97,7 @@ public class MapEnemy : MapObject
             goingNorth = (row - 1 >= 0 && dungeon.mapArray[col, row - 1] == true && Random.value <= directionChance) ? true : false;
             goingSouth = (row + 1 < dungeon.mapHeight && dungeon.mapArray[col, row + 1] == true && Random.value <= directionChance) ? true : false;
             goingEast = (col + 1 < dungeon.mapWidth && dungeon.mapArray[col + 1, row] == true && Random.value <= directionChance) ? true : false;
-            goingWest = (col - 1 >= 0  && dungeon.mapArray[col - 1, row] == true && Random.value <= directionChance) ? true : false;
+            goingWest = (col - 1 >= 0 && dungeon.mapArray[col - 1, row] == true && Random.value <= directionChance) ? true : false;
         }
 
         if (goingNorth)

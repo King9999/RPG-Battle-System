@@ -24,6 +24,7 @@ public class TreasureChest : MapObject
     {
         //determine item category to pull from.
         //from the category, pick a random item. Devise some rule for controlling what gets picked.
+        
     }
 
     public void PlaceChest(int col, int row)

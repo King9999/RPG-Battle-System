@@ -1,0 +1,18 @@
+{
+	"tables":
+	[
+		{
+			"tableLevel": 0,
+			"tableItems":
+			[
+				{"itemName":"Herb", "chance": 0.5},
+				{"itemName":"Undershirt", "chance": 0.2},
+				{"itemName":"Sword", "chance": 0.15},
+				{"itemName":"Dagger", "chance": 0.1},
+				{"itemName":"Axe", "itemWeight": 50},
+				{"itemName":"Bow", "itemWeight": 25}
+			]	
+		}
+		
+	]
+}
