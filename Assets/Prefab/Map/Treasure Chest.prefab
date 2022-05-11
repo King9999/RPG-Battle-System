@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Treasure Chest
-  mapSprite: {fileID: 0}
   nodeID: 0
   heldItem: {fileID: 0}
+  emptyChestSprite: {fileID: 21300000, guid: be7e39205a019b74186778cbf390395b, type: 3}
+  closedChestSprite: {fileID: 21300000, guid: f95fe660e84ef5d49a79cd86974ade5b, type: 3}

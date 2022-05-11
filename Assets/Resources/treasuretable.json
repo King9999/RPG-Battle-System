@@ -5,12 +5,11 @@
 			"tableLevel": 0,
 			"tableItems":
 			[
-				{"itemName":"Herb", "chance": 0.5},
-				{"itemName":"Undershirt", "chance": 0.2},
-				{"itemName":"Sword", "chance": 0.15},
-				{"itemName":"Dagger", "chance": 0.1},
-				{"itemName":"Axe", "itemWeight": 50},
-				{"itemName":"Bow", "itemWeight": 25}
+				{"itemType":0, "itemName":"Axe", "chance": 0.15},
+				{"itemType":0, "itemName":"Dagger", "chance": 0.2},
+				{"itemType":0, "itemName":"Sword", "chance": 0.25},
+				{"itemType":1, "itemName":"Undershirt", "chance": 0.4},
+				{"itemType":2, "itemName":"Herb", "chance": 1}
 			]	
 		}
 		

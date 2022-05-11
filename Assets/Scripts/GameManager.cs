@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState { Normal, Combat, ShowCombatRewards, GameOver }
     public GameState gameState;                 //used by input manager to perform different actions with the same button press.
+    public int dungeonLevel {get; set;}         //how far into the game the player is. Dungeon complexity increases after certain thresholds.
 
     //singletons
     public static GameManager instance;

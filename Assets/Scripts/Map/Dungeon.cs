@@ -533,7 +533,7 @@ public class Dungeon : MonoBehaviour
 
         /****Create chests****/
         //It's possible for a dungeon to have no chests.
-        int chestCount = Random.Range(0, nodes.Count / 4);
+        int chestCount = 1; /*Random.Range(0, nodes.Count / 4);*/
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest = Instantiate(chestPrefab);
@@ -558,6 +558,9 @@ public class Dungeon : MonoBehaviour
             }
             while ((randRow == player.row && randCol == player.col) || (randRow == exit.row && randCol == exit.col) || 
                 mapArray[randCol, randRow] == false || node.isOccupied);
+            
+            //generate item
+            chest.GenerateLoot(tableLevel: 0);
 
             chest.PlaceChest(randCol, randRow);
             chest.transform.SetParent(transform);

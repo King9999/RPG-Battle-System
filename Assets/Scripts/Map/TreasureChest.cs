@@ -6,25 +6,44 @@ using UnityEngine;
 public class TreasureChest : MapObject
 {
     public Item heldItem;           //the item contained in this chest.
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Sprite emptyChestSprite;
+    public Sprite closedChestSprite;
 
     //When object is instantiated, this method must be run.
-    public void GenerateLoot()
+    public void GenerateLoot(int tableLevel)
     {
         //determine item category to pull from.
         //from the category, pick a random item. Devise some rule for controlling what gets picked.
+        ItemManager im = ItemManager.instance;
+        heldItem = im.GetItem(tableLevel);
+    }
+
+    public void AddItemToInventory()
+    {
+        if (heldItem == null) 
+        {
+            Debug.Log("Chest is empty!");
+            return;
+        }
         
+        //add item to player inventory. Which inventory depends on item type.
+        switch(heldItem.itemType)
+        {
+            case Item.ItemType.Weapon:
+            case Item.ItemType.Armor:
+            case Item.ItemType.Trinket:
+                //add to equipment
+                break;
+            
+            case Item.ItemType.Consumable:
+                //add to consumable inventory
+                break;
+        }
+
+        //show empty chest
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = emptyChestSprite;
+
     }
 
     public void PlaceChest(int col, int row)

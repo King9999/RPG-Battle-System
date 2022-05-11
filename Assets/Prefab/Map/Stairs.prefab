@@ -95,6 +95,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c677f39ccdb50174585253b437805e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  mapSprite: {fileID: 21300000, guid: d37f926f914473741bbb73a905cab0d5, type: 3}
+  name: Exit
   nodeID: 0
