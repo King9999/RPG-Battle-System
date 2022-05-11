@@ -56,8 +56,8 @@ public class Dungeon : MonoBehaviour
         nodeCount = minNodeCount;
 
         //get seed
-        //Random.InitState(-32767018);
-        //Debug.Log("Seed: " + Random.state.GetHashCode());
+        //Random.InitState(-1290354869);
+        Debug.Log("Seed: " + Random.state.GetHashCode());
 
         //create the map
         GenerateDungeon(nodeCount);
@@ -82,10 +82,10 @@ public class Dungeon : MonoBehaviour
                 if (mapArray[i, j] == true)
                 {
                     Node node = Instantiate(nodePrefab);
-                    node.nodeID = nodeID;
+                    node.nodeID = nodeID++;
                     node.row = j;
                     node.col = i;
-                    nodeID++;
+                    //nodeID++;
 
                     //check adajacent spots in the array for other rooms. If this node is the first, then there can only be a path to the east and south.
                     if (firstNode)
@@ -542,13 +542,22 @@ public class Dungeon : MonoBehaviour
             //find a random node to occupy
             int randRow;
             int randCol;
-
+            Node node = null;
             do
             {
                 randRow = Random.Range(0, mapHeight);
                 randCol = Random.Range(0, mapWidth);
+                
+                foreach(Node n in nodes)
+                {
+                    if (n.row == randRow && n.col == randCol)
+                    {
+                        node = n;
+                        break;
+                    }
+                }
             }
-            while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false);
+            while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false || node.isOccupied);
             enemy.PlaceEnemy(randCol, randRow);
 
             //set turns. if the enemy is standing over a chest or stairs, they will not move.

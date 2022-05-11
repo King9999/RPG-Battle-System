@@ -13,22 +13,10 @@ public class MapEnemy : MapObject
     public int turnCounter;                         //the maximum number of turns before enemy moves.
     public bool isStationary {get; set;}            //if true, enemy does not move.
     public int defaultTurnCount {get;} = 2;
+    //public int nodeID;                              //the node ID that the enemy is currently standing on.
     bool animateMoveCoroutineOn;
-    public Vector3 destination;
+    Vector3 destination;
     float yOffset = -0.2f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-        turnsBeforeMoving = turnCounter;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //combat against random enemies. The encountered enemies are determined from a table
     public void InitiateCombat()
@@ -83,9 +71,11 @@ public class MapEnemy : MapObject
         
         foreach(Node node in dungeon.nodes)
         {
-            if (node.row == row && node.col == col)
+            if (!node.isOccupied && node.row == row && node.col == col)
             {
                 transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
+                node.isOccupied = true;
+                nodeID = node.nodeID;
                 break;
             }
         }
@@ -104,20 +94,23 @@ public class MapEnemy : MapObject
         Dungeon dungeon = Dungeon.instance;
         while (!goingNorth && !goingSouth && !goingEast && !goingWest)
         {
-            goingNorth = (row - 1 >= 0 && dungeon.mapArray[col, row-1] == true && Random.value <= directionChance) ? true : false;
-            goingSouth = (row + 1 < dungeon.mapHeight && dungeon.mapArray[col, row+1] == true && Random.value <= directionChance) ? true : false;
-            goingEast = (col + 1 < dungeon.mapWidth && dungeon.mapArray[col+1, row] == true && Random.value <= directionChance) ? true : false;
-            goingWest = (col - 1 >= 0  && dungeon.mapArray[col-1, row] == true && Random.value <= directionChance) ? true : false;
+            goingNorth = (row - 1 >= 0 && dungeon.mapArray[col, row - 1] == true && Random.value <= directionChance) ? true : false;
+            goingSouth = (row + 1 < dungeon.mapHeight && dungeon.mapArray[col, row + 1] == true && Random.value <= directionChance) ? true : false;
+            goingEast = (col + 1 < dungeon.mapWidth && dungeon.mapArray[col + 1, row] == true && Random.value <= directionChance) ? true : false;
+            goingWest = (col - 1 >= 0  && dungeon.mapArray[col - 1, row] == true && Random.value <= directionChance) ? true : false;
         }
 
         if (goingNorth)
         {
+            dungeon.nodes[nodeID].isOccupied = false;
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row - 1 && node.col == col)
                 {
                     row = node.row;
                     col = node.col;
+                    node.isOccupied = true;
+                    nodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -125,12 +118,16 @@ public class MapEnemy : MapObject
         }
         else if (goingSouth)
         {
+            dungeon.nodes[nodeID].isOccupied = false;
+
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row + 1 && node.col == col)
                 {
                     row = node.row;
                     col = node.col;
+                    node.isOccupied = true;
+                    nodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -138,12 +135,16 @@ public class MapEnemy : MapObject
         }
         else if (goingEast)
         {
+            dungeon.nodes[nodeID].isOccupied = false;
+
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row && node.col == col + 1)
                 {
                     row = node.row;
                     col = node.col;
+                    node.isOccupied = true;
+                    nodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -151,12 +152,15 @@ public class MapEnemy : MapObject
         }
         else if (goingWest)
         {
+            dungeon.nodes[nodeID].isOccupied = false;
             foreach(Node node in dungeon.nodes)
             {
                 if (node.row == row && node.col == col - 1)
                 {
                     row = node.row;
                     col = node.col;
+                    node.isOccupied = true;
+                    nodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }

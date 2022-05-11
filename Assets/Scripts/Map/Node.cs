@@ -17,6 +17,7 @@ public class Node : MonoBehaviour
     public EventNode eventNode;
     public byte nodeID;                 //a way for me to identify nodes.
     public int row, col;                //its location in the map. info is provided by the dungeon when it's generated.
+    public bool isOccupied {get; set;}  //if true, then map object cannot be placed here.
 
     public Path[] paths;
     public int northPath {get;} = 0;
