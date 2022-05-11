@@ -12,6 +12,7 @@ public class MapEnemy : MapObject
     public int turnsBeforeMoving;                   //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
     public int turnCounter;                         //the maximum number of turns before enemy moves.
     public bool isStationary {get; set;}            //if true, enemy does not move.
+    public int defaultTurnCount {get;} = 2;
     bool animateMoveCoroutineOn;
     public Vector3 destination;
     float yOffset = -0.2f;

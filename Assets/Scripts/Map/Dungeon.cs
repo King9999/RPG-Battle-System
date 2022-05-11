@@ -227,16 +227,26 @@ public class Dungeon : MonoBehaviour
 
                 //TODO: Add code to see how close we are to the exit by comparing row and col to the exit's row and col.
                 //Generate a path based on this logic. The code below will have to be modified.
+
+                if (row < exit.row && node.paths[node.southPath].PathVisible())
+                    row += 1;
+                else if (row > exit.row && node.paths[node.northPath].PathVisible())
+                    row -= 1;
+                
+                if (col < exit.col && node.paths[node.eastPath].PathVisible())
+                    col += 1;
+                else if (col > exit.col && node.paths[node.westPath].PathVisible())
+                    col -= 1;
                 
                 //check paths in current node
-                if (node.paths[node.eastPath].PathVisible())
+                /*if (node.paths[node.eastPath].PathVisible())
                     col += 1;
                 else if (node.paths[node.southPath].PathVisible())
                     row += 1;
                 else if (node.paths[node.westPath].PathVisible())
                     col -= 1;
                 else if (node.paths[node.northPath].PathVisible())
-                    row -= 1;
+                    row -= 1;*/
 
                 //are we at the exit?
                 if (row == exit.row && col == exit.col)
@@ -542,15 +552,17 @@ public class Dungeon : MonoBehaviour
             enemy.PlaceEnemy(randCol, randRow);
 
             //set turns. if the enemy is standing over a chest or stairs, they will not move.
-            Stairs exit = FindObjectOfType<Stairs>();
-            //Debug.Log("Exit is located at " + exit.col + "," + exit.row);
+            //Stairs exit = FindObjectOfType<Stairs>();
             if (!exit.occupiedByEnemy && enemy.row == exit.row && enemy.col == exit.col)
             {
                 enemy.isStationary = true;
                 exit.occupiedByEnemy = true;
             }
             else
-                enemy.SetTurnCounter(2);
+            {
+                int randTurn = Random.Range(1, enemy.defaultTurnCount + 1);
+                enemy.SetTurnCounter(randTurn);
+            }
 
             enemy.transform.SetParent(transform);
             enemies.Add(enemy);
