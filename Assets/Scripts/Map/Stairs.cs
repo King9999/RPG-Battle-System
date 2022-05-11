@@ -28,7 +28,7 @@ public class Stairs : MapObject
     void Update()
     {
         //player = Player.instance;
-        if (row == player.row && col == player.col)
+        if (!occupiedByEnemy && row == player.row && col == player.col)
         {
             //display a prompt asking player to advance to new level.
             Debug.Log("Found stairs");

@@ -12,8 +12,6 @@ public class TreasureChest : MapObject
     //When object is instantiated, this method must be run.
     public void GenerateLoot(int tableLevel)
     {
-        //determine item category to pull from.
-        //from the category, pick a random item. Devise some rule for controlling what gets picked.
         ItemManager im = ItemManager.instance;
         heldItem = im.GetItem(tableLevel);
     }

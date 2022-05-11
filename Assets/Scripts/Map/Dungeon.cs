@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 /* A dungeon consists of nodes, paths, and interactable objects. Everything within a dungeon is randomized. 2D arrays are used for the map layout
     and the object placement. 
@@ -59,8 +60,13 @@ public class Dungeon : MonoBehaviour
         nodeCount = minNodeCount;
 
         //get seed
-        //Random.InitState(-1290354869);
-        Debug.Log("Seed: " + Random.state.GetHashCode());
+        System.Random rnd = new System.Random();
+        int p = rnd.Next();
+        Random.InitState(1205261848);
+        Debug.Log("Seed: " + p);
+        
+
+        File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
 
         //create the map
         GenerateDungeon(nodeCount);
@@ -533,7 +539,7 @@ public class Dungeon : MonoBehaviour
 
         /****Create chests****/
         //It's possible for a dungeon to have no chests.
-        int chestCount = 1; /*Random.Range(0, nodes.Count / 4);*/
+        int chestCount = Random.Range(0, nodes.Count / 4);
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest = Instantiate(chestPrefab);

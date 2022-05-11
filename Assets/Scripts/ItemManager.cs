@@ -28,17 +28,6 @@ public class ItemManager : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-       //lootTable = JsonUtility.FromJson<LootTables>(tableFile.text);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //get item from table.
     public Item GetItem(int tableLevel)
@@ -54,13 +43,11 @@ public class ItemManager : MonoBehaviour
         float roll = Random.value;
         for (int i = 0; i < itemCount; i++)
         {
-            Debug.Log(lootTable.tables[tableLevel].tableItems[i].chance);
             if (roll <= lootTable.tables[tableLevel].tableItems[i].chance)
             {
-                //generate item
                 Debug.Log("Generated " + lootTable.tables[tableLevel].tableItems[i].itemName);
 
-                //find this item in the array
+                //find this item in the array and generate it
                 switch((Item.ItemType)lootTable.tables[tableLevel].tableItems[i].itemType)
                 {
                     case Item.ItemType.Weapon:
