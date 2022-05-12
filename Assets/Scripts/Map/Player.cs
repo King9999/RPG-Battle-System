@@ -52,6 +52,12 @@ public class Player : MapObject
         }
     }
 
+    //This method is to prevent captive heroes from being controlled by the player.
+    public void SetCaptive(bool isCaptive)
+    {
+        hasControl = isCaptive;
+    }
+
     public void MovePlayer(int rowDestination, int colDestination)
     {
         if (!hasControl) return;

@@ -44,7 +44,7 @@ public class TreasureChest : MapObject
 
     }
 
-    public void PlaceChest(int col, int row)
+    public override void PlaceObject(int col, int row)
     {
         Dungeon dungeon = Dungeon.instance;
         Player player = Player.instance;

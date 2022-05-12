@@ -12,4 +12,6 @@ public abstract class MapObject : MonoBehaviour
 
     public bool occupiedByEnemy {get; set;}            //if true, an enemy is standing on this object.
     public int nodeID;                      //the node ID the object is resting on.
+
+    public virtual void PlaceObject(int col, int row){}
 }

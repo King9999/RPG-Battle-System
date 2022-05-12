@@ -55,7 +55,7 @@ public class MapEnemy : MapObject
         return !isStationary && turnsBeforeMoving <= 0;
     }
 
-    public void PlaceEnemy(int col, int row)
+    public override void PlaceObject(int col, int row)
     {
         Dungeon dungeon = Dungeon.instance;
         Player player = Player.instance;

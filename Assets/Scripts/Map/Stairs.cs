@@ -24,6 +24,30 @@ public class Stairs : MapObject
         name = "Stairs";
         player = Player.instance;
     }
+
+    public override void PlaceObject(int col, int row)
+    {
+        Dungeon dungeon = Dungeon.instance;
+        Player player = Player.instance;
+
+        if (col < 0 || col >= dungeon.mapWidth) return;
+        if (row < 0 || row >= dungeon.mapHeight) return;
+        if (row == player.row && col == player.col) return;
+
+        this.row = row;
+        this.col = col;
+        
+        foreach(Node node in dungeon.nodes)
+        {
+            if (!node.isOccupied && node.row == row && node.col == col)
+            {
+                transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
+                node.isOccupied = true;
+                nodeID = node.nodeID;
+                break;
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {

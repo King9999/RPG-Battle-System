@@ -18,6 +18,7 @@ public class Dungeon : MonoBehaviour
     public List<Node> nodes;
     public Node nodePrefab;
     public Player playerPrefab;
+    public List<Player> captiveHeroes;
     public MapEnemy enemyPrefab;
     public Stairs stairsPrefab;
     public TreasureChest chestPrefab;
@@ -26,6 +27,7 @@ public class Dungeon : MonoBehaviour
     public List<MapEnemy> enemies;
     public List<TreasureChest> chests;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
+    public float heroAppearanceChance;  //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
@@ -58,6 +60,7 @@ public class Dungeon : MonoBehaviour
         mapHeight = minMapSize;
         mapArray = new bool[mapWidth, mapHeight];
         nodeCount = minNodeCount;
+        heroAppearanceChance = 0;                   //this increases by 40% after each level
 
         //get seed
         //System.Random rnd = new System.Random();
@@ -465,10 +468,11 @@ public class Dungeon : MonoBehaviour
         }
         
         int randNode = Random.Range(nodes.Count - 3, nodes.Count);
-        exit.row = nodes[randNode].row; 
-        exit.col = nodes[randNode].col;
-        exit.nodeID = nodes[randNode].nodeID;
-        exit.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, exit.transform.position.z);
+        exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
+        //exit.row = nodes[randNode].row; 
+        //exit.col = nodes[randNode].col;
+        //exit.nodeID = nodes[randNode].nodeID;
+        //exit.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, exit.transform.position.z);
 
         /****Create chests****/
         //It's possible for a dungeon to have no chests.
@@ -510,11 +514,21 @@ public class Dungeon : MonoBehaviour
 
             chest.GenerateLoot(tableLevel);
 
-            chest.PlaceChest(randCol, randRow);
+            chest.PlaceObject(randCol, randRow);
             chest.transform.SetParent(transform);
             chests.Add(chest);
 
         }
+
+        /****Create captive hero. This no longer applies if party size is 4.****/
+        HeroManager hm = HeroManager.instance;
+        /*if (hm.heroes.Count < 4)
+        {
+            if (Random.value <= heroAppearanceChance)
+            {
+                //generate a hero. The hero must not be the same class as any heroes in the active party.
+            }
+        }*/
 
         /****create enemy. The number of enemies is (total nodes / 4)****/
         int enemyCount = nodes.Count / 4;
@@ -545,7 +559,7 @@ public class Dungeon : MonoBehaviour
             {
                 //place a forced major enemy to introduce players to shield tokens.
                 forcedMajorEnemy = true;
-                enemy.PlaceEnemy(exit.col, exit.row);
+                enemy.PlaceObject(exit.col, exit.row);
             }
             else
             {
@@ -568,7 +582,7 @@ public class Dungeon : MonoBehaviour
                     }
                 }
                 while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false || node.isOccupied);
-                enemy.PlaceEnemy(randCol, randRow);
+                enemy.PlaceObject(randCol, randRow);
             }
 
             //set turns. if the enemy is standing over a chest or stairs, they will not move.
@@ -590,7 +604,7 @@ public class Dungeon : MonoBehaviour
 
             if (!enemy.isStationary)
             {
-                int randTurn = Random.Range(1, enemy.defaultTurnCount + 1);
+                int randTurn = Random.Range(enemy.defaultTurnCount, enemy.defaultTurnCount + 2);
                 enemy.SetTurnCounter(randTurn);
             }
 
