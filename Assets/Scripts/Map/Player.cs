@@ -58,6 +58,32 @@ public class Player : MapObject
         hasControl = isCaptive;
     }
 
+    //This is used mainly for captive heroes
+    public override void PlaceObject(int col, int row)
+    {
+        Dungeon dungeon = Dungeon.instance;
+        Stairs exit = Stairs.instance;
+
+        if (col < 0 || col >= dungeon.mapWidth) return;
+        if (row < 0 || row >= dungeon.mapHeight) return;
+        if (row == exit.row && col == exit.col) return;
+
+        this.row = row;
+        this.col = col;
+
+        //find node
+        foreach(Node node in dungeon.nodes)
+        {
+            if (!node.isOccupied && node.row == row && node.col == col)
+            {
+                transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
+                node.isOccupied = true;
+                nodeID = node.nodeID;
+                break;
+            }
+        }
+    }
+
     public void MovePlayer(int rowDestination, int colDestination)
     {
         if (!hasControl) return;
