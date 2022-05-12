@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*combatSystem = CombatSystem.instance;
+        combatSystem = CombatSystem.instance;
         hm = HeroManager.instance;
         //hm.gameObject.SetActive(false);
-        combatSystem.gameObject.SetActive(false);*/
+        //combatSystem.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

@@ -21,11 +21,12 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     float ailmentCureChance = 0.05f;        //base value for curing certain ailments naturally
     protected bool isTheirTurn; //if true, avatar can perform actions.
     protected bool turnTaken;
-    protected float invokeTime = 1f;          //used to call PassTurn method after elapsed time
+    protected float invokeTime = 1.1f;          //used to call PassTurn method after elapsed time
     public TextMeshProUGUI statsUI;             //displays HP and MP underneath sprite
     protected GameObject aura;                  //used to highlight sprite
     public GameObject auraPrefab;
     bool mouseOverAvatar;
+    protected Color skillNameBorderColor;
 
     //stat modifiers
     public float hpMod = 1;
@@ -42,7 +43,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     
 
     public List<Skill> skills;          //list of skills the avatar can choose from.
-    public List<Skill> skillEffects;    //list of skills this avatar is being affected by. Only skills with durations are stored in here.
+    public List<Skill> skillEffects;    //list of skills this avatar is being affected by. Includes both permanent effects and those with durations.
 
     [Header("Ailment Status")]
     public bool resistPoison;
@@ -83,7 +84,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         //show healed amount
         UI ui = UI.instance;
         //Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        ui.DisplayHealing(amount.ToString(), target.transform.position);
+        ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healColor);
 
         target.UpdateStatsUI();
     }
@@ -191,6 +192,10 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         
     }
 
+    //used to activate any passive effects or remove effects that expired.
+    public virtual void UpdateSkillEffects() {}
+   
+
     public void UpdateStatsUI()
     {
         statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + maxHitPoints + "\n" + "<color=#4be4fc>MP</color> " + manaPoints + "/" + maxManaPoints;
@@ -220,6 +225,14 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         StartCoroutine(AnimateRun());
     }
 
+    public void EndTurn()
+    {
+        if (skillEffects.Count > 0)
+            StartCoroutine(DelayPassiveSkillActivation());
+        else
+            Invoke("PassTurn", invokeTime);
+    }
+
     public bool SkillActivated(float probability)
     {
         float roll = Random.Range(0, 1f);
@@ -231,6 +244,12 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     protected virtual IEnumerator HighlightAvatar(){ yield return null; }
     protected virtual IEnumerator AnimateRun() { yield return null; } 
+
+    //This adds a delay after before checking for passive skill activations. This is to allow any other recently activated skills to finish.
+    protected virtual IEnumerator DelayPassiveSkillActivation()
+    {
+        yield return null;
+    }
      
     #endregion
     

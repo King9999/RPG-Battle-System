@@ -20,7 +20,7 @@ public class Hero : Avatar
     public int currentXp;
     public int xpToNextLevel;   //this will be grabbed from a xp table
     [HideInInspector]public int currentLevel;   //points to current level in the stat table.
-    protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
+    //protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
     public bool actionCompleted;
     public bool isAttacking;
     public int currentActions;
@@ -83,6 +83,7 @@ public class Hero : Avatar
             trinket.Equip(hero: this);
         //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
         //cs = CombatSystem.instance;
+        skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
         hm = HeroManager.instance;
         cim = CombatInputManager.instance;
         gm = GameManager.instance;
@@ -182,11 +183,34 @@ public class Hero : Avatar
                     shield.ShowToken(false);
 
                 isTheirTurn = false;
-
-                Invoke("PassTurn", invokeTime);
+                EndTurn();
+                //UpdateSkillEffects();
+                //Invoke("PassTurn", invokeTime);
             }         
         }
 
+    }
+
+    public override void UpdateSkillEffects()
+    {
+        //skill activation check    
+        for (int i = 0; i < skillEffects.Count; i++)
+        {
+            if (skillEffects[i].hasDuration)
+            {
+                skillEffects[i].ReduceDuration();
+                if (skillEffects[i].EffectExpired())
+                {
+                    skillEffects[i].RemoveEffects(this);
+                    skillEffects.Remove(skillEffects[i]);
+                    i--;
+                }
+            }
+            else //permanent effect/passive
+            {
+                skillEffects[i].Activate(this, skillNameBorderColor);
+            }  
+        }
     }
 
     public override void OnPointerClick(PointerEventData pointer)
@@ -212,7 +236,11 @@ public class Hero : Avatar
             ui.combatMenu.ShowCombatMenu(false);
 
             //End turn.
-            cs.heroesInCombat[cs.currentHero].Invoke("PassTurn", invokeTime);
+            cs.heroesInCombat[cs.currentHero].EndTurn();
+            //StartCoroutine(cs.heroesInCombat[cs.currentHero].DelayPassiveSkillActivation());
+            //cs.heroesInCombat[cs.currentHero].UpdateSkillEffects();
+            
+            //cs.heroesInCombat[cs.currentHero].Invoke("PassTurn", invokeTime);
         }
     }
 
@@ -235,7 +263,8 @@ public class Hero : Avatar
             
             case Status.Paralyzed:
                 TryRemoveAilment();
-                Invoke("PassTurn", invokeTime);
+                EndTurn();
+                //Invoke("PassTurn", invokeTime);
                 break;
 
             case Status.Blind:
@@ -249,12 +278,10 @@ public class Hero : Avatar
                 Debug.Log(className + " is charmed!");
                 int randTarget = Random.Range(0, cs.heroesInCombat.Count);
                 Attack(cs.heroesInCombat[randTarget]);
-                Invoke("PassTurn", invokeTime);
+                EndTurn();
+                //Invoke("PassTurn", invokeTime);
                 break;
-        }
-
-        //isAttacking = true;
-        
+        }    
     }
 
    
@@ -594,41 +621,24 @@ public class Hero : Avatar
         if (cs.bonusTurns > 0)
             cs.bonusTurns--;
 
-        //skill duration check
-        /*foreach(Skill skill in skills)
+        //skill activation check
+        //UpdateSkillEffects();    
+        /*for (int i = 0; i < skillEffects.Count; i++)
         {
-            if (skill.SkillActivated() && skill.hasDuration)
+            if (skillEffects[i].hasDuration)
             {
-                skill.ReduceDuration();
-                if (skill.EffectExpired())
+                skillEffects[i].ReduceDuration();
+                if (skillEffects[i].EffectExpired())
                 {
-                    skill.RemoveEffects(this);
+                    skillEffects[i].RemoveEffects(this);
+                    skillEffects.Remove(skillEffects[i]);
+                    i--;
                 }
             }
-        }*/
-        
-        for (int i = 0; i < skillEffects.Count; i++)
-        {
-            skillEffects[i].ReduceDuration();
-            if (skillEffects[i].EffectExpired())
+            else //permanent effect/passive
             {
-                skillEffects[i].RemoveEffects(this);
-                skillEffects.Remove(skillEffects[i]);
-                i--;
+                skillEffects[i].Activate(this, skillNameBorderColor);
             }  
-        }
-
-        //weapon skill check
-        /*if (weapon.weaponSkill != null)
-        {
-            if (weapon.weaponSkill.SkillActivated() && weapon.weaponSkill.hasDuration)
-            {
-                weapon.weaponSkill.ReduceDuration();
-                if (weapon.weaponSkill.EffectExpired())
-                {
-                    weapon.weaponSkill.RemoveEffects(this);
-                }
-            }
         }*/
     }
 
@@ -687,6 +697,16 @@ public class Hero : Avatar
         aura.SetActive(false);
     }
 
+    protected override IEnumerator DelayPassiveSkillActivation()
+    {
+        yield return new WaitForSeconds(1);
+
+        UpdateSkillEffects();
+
+        yield return new WaitForSeconds(invokeTime);
+
+       PassTurn();
+    } 
     
 
 }

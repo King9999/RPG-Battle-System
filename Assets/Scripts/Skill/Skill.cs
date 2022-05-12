@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 //base class for all effects in the game, including spells, consumable item effects.
 public abstract class Skill : ScriptableObject
@@ -90,7 +91,6 @@ public abstract class Skill : ScriptableObject
     }
 
     public Element element;
-    public StatusEffect statusEffect;    
-
+    public StatusEffect statusEffect;
     
 }

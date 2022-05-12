@@ -24,7 +24,7 @@ public abstract class Enemy : Avatar
 
     //protected CombatSystem cs;
     protected EnemyManager em;
-    protected Color skillNameBorderColor = new Color(0.7f, 0.1f, 0.1f);       //used to change skill display border color. Always red
+    //protected Color skillNameBorderColor = new Color(0.7f, 0.1f, 0.1f);       //used to change skill display border color. Always red
     [HideInInspector]public List<int> currentShieldTokenIndex;
     [HideInInspector]public List<float> currentShieldTokenSize;
     [HideInInspector]public List<short> shieldTokenDirection;
@@ -74,6 +74,7 @@ public abstract class Enemy : Avatar
             AddShield();
         }
 
+        skillNameBorderColor = new Color(0.7f, 0.1f, 0.1f);
         cs = CombatSystem.instance;
         em = EnemyManager.instance;
     }
@@ -330,7 +331,13 @@ public abstract class Enemy : Avatar
         shieldTokenDirection.Add(-1);
     }
 
-    public virtual void ExecuteLogic() { Invoke("PassTurn", invokeTime); }
+    public virtual void ExecuteLogic() 
+    {
+        if (skillEffects.Count > 0) 
+            StartCoroutine(DelayPassiveSkillActivation());
+        else
+            Invoke("PassTurn", invokeTime);
+    }
 
     protected override IEnumerator AnimateAttack()
     {
@@ -390,7 +397,8 @@ public abstract class Enemy : Avatar
 
             case Status.Paralyzed:
                 TryRemoveAilment();
-                Invoke("PassTurn", invokeTime);
+                EndTurn();
+                //Invoke("PassTurn", invokeTime);
                 break;
 
             case Status.Blind:
@@ -403,7 +411,8 @@ public abstract class Enemy : Avatar
                 Debug.Log(className + " is charmed!");
                 int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
                 Attack(cs.enemiesInCombat[randTarget]);
-                Invoke("PassTurn", invokeTime);
+                EndTurn();
+                //Invoke("PassTurn", invokeTime);
                 break;
 
             case Status.GuardBroken:
@@ -411,7 +420,8 @@ public abstract class Enemy : Avatar
                 UI ui = UI.instance;
                 ui.DisplayStatusUpdate("GUARD CRUSHED", transform.position);
                 Debug.Log(className + " is guard crushed!");
-                Invoke("PassTurn", invokeTime);
+                EndTurn();
+                //Invoke("PassTurn", invokeTime);
                 break;
         }
     }
@@ -429,6 +439,17 @@ public abstract class Enemy : Avatar
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1); 
         SendToGraveyard(ranAway: true);
           
+    }
+
+    protected override IEnumerator DelayPassiveSkillActivation()
+    {
+        yield return new WaitForSeconds(1);
+
+        UpdateSkillEffects();
+
+        yield return new WaitForSeconds(invokeTime);
+
+       PassTurn();
     }
     
 }

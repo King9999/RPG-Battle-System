@@ -82,10 +82,10 @@ public class UI : MonoBehaviour
         StartCoroutine(animateDamage);
     }
 
-    public void DisplayHealing(string value, Vector3 location)
+    public void DisplayHealing(string value, Vector3 location, Color textColor)
     {
-        damageDisplay.color = healColor;  //default color
-        animateDamage = AnimateHealing(value, location);
+        damageDisplay.color = textColor;  //default color
+        animateDamage = AnimateHealing(value, location, textColor);
         StopCoroutine(animateDamage);
         StartCoroutine(animateDamage);
     }
@@ -173,13 +173,14 @@ public class UI : MonoBehaviour
         animateDamageCoroutineOn = false;
     }
 
-    private IEnumerator AnimateHealing(string value, Vector3 location)
+    private IEnumerator AnimateHealing(string value, Vector3 location, Color textColor)
     {
         float displayDuration = 0.5f;
         Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
         damageDisplay.gameObject.SetActive(true);
         damageDisplay.transform.position = avatarPos;
         damageDisplay.text = value;
+        damageDisplay.color = textColor;
 
         //each digit is animated individually
         Vector3 initPos = damageDisplay.transform.position;

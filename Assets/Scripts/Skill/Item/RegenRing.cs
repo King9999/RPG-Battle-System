@@ -8,13 +8,13 @@ public class RegenRing : Skill
         base.Activate(user, borderColor);
         
         //restore 15% HP at the end of turn
-        if (user.TurnTaken())
-        {
+        //if (user.TurnTaken())
+        //{
             //UI ui = UI.instance;
-            float hpAmount = user.hitPoints < user.maxHitPoints ? Mathf.Round(user.maxHitPoints * 0.15f) : 0;
+            float hpAmount = Mathf.Round(user.maxHitPoints * 0.15f);
             //ui.damageDisplay.color = ui.healColor;
             user.RestoreHitPoints(user, hpAmount);
-        }
+        //}
         
     }
 }
