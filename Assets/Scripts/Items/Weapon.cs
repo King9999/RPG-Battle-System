@@ -35,8 +35,8 @@ public class Weapon : Item
             hero.actGauge = actGauge;
             hero.totalAttackTokens = hero.attackTokenMod + tokenCount;
 
-            if (weaponSkill != null)
-                hero.skills.Add(weaponSkill);
+            //if (weaponSkill != null)
+               // hero.skills.Add(weaponSkill);
             isEquipped = true;
         }
     }
@@ -50,8 +50,8 @@ public class Weapon : Item
         hero.actGauge = null;
         hero.totalAttackTokens -= tokenCount;
 
-        //find weaponskill to remove in list.       
-        if (weaponSkill != null)
+        //find weaponskill to remove in list.    NOTE: weapon skills are used directly from the weapon and not the hero.   
+        /*if (weaponSkill != null)
         {
             int i = 0;
             bool skillFound = false;
@@ -67,7 +67,7 @@ public class Weapon : Item
                     i++;
                 }
             }
-        }
+        }*/
         isEquipped = false;
     }
    

@@ -41,8 +41,18 @@ public class Trinket : Item
         hero.resistBlind = resistBlind == true ? true : hero.resistBlind;
         hero.resistParalysis = resistParalysis == true ? true : hero.resistParalysis;
 
+        //passive skill check
         if (trinketSkill != null)
-            hero.skills.Add(trinketSkill);
+        {
+            if (trinketSkill.isPassive && !hero.skillEffects.Contains(trinketSkill))
+            {
+                hero.skillEffects.Add(trinketSkill);
+            }
+            else
+            {
+                hero.skills.Add(trinketSkill);
+            }
+        }
         isEquipped = true;
         
     }
@@ -76,18 +86,39 @@ public class Trinket : Item
         //find trinket skill to remove in list.       
         if (trinketSkill != null)
         {
-            int i = 0;
-            bool skillFound = false;
-            while(!skillFound && i < hero.skills.Count)
+            if (trinketSkill.isPassive)
             {
-                if (trinketSkill == hero.skills[i])
+                int i = 0;
+                bool skillFound = false;
+                while(!skillFound && i < hero.skillEffects.Count)
                 {
-                    hero.skills.RemoveAt(i);
-                    skillFound = true;
+                    if (trinketSkill == hero.skillEffects[i])
+                    {
+                        hero.skillEffects[i].RemoveEffects(hero);
+                        hero.skillEffects.RemoveAt(i);
+                        skillFound = true;
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
-                else
+            }
+            else    //remove from skill list.
+            {
+                int i = 0;
+                bool skillFound = false;
+                while(!skillFound && i < hero.skills.Count)
                 {
-                    i++;
+                    if (trinketSkill == hero.skills[i])
+                    {
+                        hero.skills.RemoveAt(i);
+                        skillFound = true;
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
             }
         }
