@@ -74,6 +74,11 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     //add item to first available slot
     public void AddItem(Consumable item, int amount)
     {
+        if (items.Count >= maxItems)
+        {
+            //prevent item from being destroyed so player has a chance to make room
+            return;
+        }
         bool itemFound = false;
         foreach(ItemSlot slot in itemSlots)
         {
@@ -108,6 +113,11 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     public void AddItem(Weapon item, int amount)
     {
+        if (weapons.Count >= maxItems)
+        {
+            //prevent item from being destroyed so player has a chance to make room
+            return;
+        }
         //TODO: Modify the code below for non-consumable items. The items must go into an inventory specifically for non-consumables.
         bool itemFound = false;
         foreach(WeaponSlot slot in weaponSlots)
@@ -141,6 +151,11 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     public void AddItem(Armor item, int amount)
     {
+        if (armor.Count >= maxItems)
+        {
+            //prevent item from being destroyed so player has a chance to make room
+            return;
+        }
         bool itemFound = false;
         foreach(ArmorSlot slot in armorSlots)
         {
@@ -172,6 +187,11 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     }
     public void AddItem(Trinket item, int amount)
     {
+        if (trinkets.Count >= maxItems)
+        {
+            //prevent item from being destroyed so player has a chance to make room
+            return;
+        }
         bool itemFound = false;
         foreach(TrinketSlot slot in trinketSlots)
         {

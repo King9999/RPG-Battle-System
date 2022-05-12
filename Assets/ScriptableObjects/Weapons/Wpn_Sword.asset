@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
   m_Name: wpn_sword
   m_EditorClassIdentifier: 
-  itemName: Broadsword
+  itemName: Sword
   details: Common weapon for heroes
   cost: 100
   sprite: {fileID: 0}

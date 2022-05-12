@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
   m_Name: wpn_staff
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Staff
+  details: Provides a small boost to MAG, and comes with a random skill
+  cost: 500
   sprite: {fileID: 0}
   itemType: 0
-  weaponType: 0
+  weaponType: 2
   atp: 0
-  mag: 0
-  actGauge: {fileID: 0}
-  tokenCount: 3
+  mag: 10
+  actGauge: {fileID: 11400000, guid: 9ca53e820617763479a860ca1bf4d076, type: 2}
+  tokenCount: 1
   weaponSkill: {fileID: 0}

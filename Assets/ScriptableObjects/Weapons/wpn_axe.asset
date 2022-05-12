@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
   m_Name: wpn_axe
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Axe
+  details: Can deal potentially high ATP, but it's unwieldy
+  cost: 200
   sprite: {fileID: 0}
   itemType: 0
-  weaponType: 0
-  atp: 0
+  weaponType: 4
+  atp: 32
   mag: 0
-  actGauge: {fileID: 0}
-  tokenCount: 3
+  actGauge: {fileID: 11400000, guid: 253ab31551e97ee42853fd80607720a5, type: 2}
+  tokenCount: 2
   weaponSkill: {fileID: 0}
