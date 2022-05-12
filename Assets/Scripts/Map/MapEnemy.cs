@@ -81,6 +81,23 @@ public class MapEnemy : MapObject
         }
     }
 
+    //map enemies are sent to a graveyard so they can be reused.
+    public void SendToGraveyard(bool ranAway = false)
+    {
+        Dungeon dungeon = Dungeon.instance;
+        if (dungeon.enemies.Count <= 0) return;
+      
+        dungeon.graveyard.Add(this);
+        dungeon.enemies.Remove(this);
+        gameObject.SetActive(false);
+    }
+
+    //resets the sprite and encountered enemies.
+    public void ResetEnemy()
+    {
+
+    }
+
     public void SearchForNearestNode()
     {
         //check surrounding indexes to see where we can move

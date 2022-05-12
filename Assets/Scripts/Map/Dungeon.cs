@@ -25,6 +25,7 @@ public class Dungeon : MonoBehaviour
     public Stairs exit;
     public Player player;
     public List<MapEnemy> enemies;
+    public List<MapEnemy> graveyard;    //defeated map enemies go in here
     public List<TreasureChest> chests;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
     public float heroAppearanceChance;  //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
@@ -72,7 +73,25 @@ public class Dungeon : MonoBehaviour
         //File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
 
         //create the map
-        GenerateDungeon(nodeCount);
+        GenerateDungeon(nodeCount);  
+    }
+
+    void Update()
+    {
+        /*GameManager gm = GameManager.instance;
+        if (gm.gameState != GameManager.GameState.Combat)
+        {
+            //check if player is standng on an enemy, treasure chest, exit, or captive hero. Enemies are always checked first.
+            foreach (MapEnemy enemy in enemies)
+            {
+                if (player.nodeID == enemy.nodeID)
+                {
+                    //start combat
+                    gm.gameState = GameManager.GameState.Combat;
+                    break;
+                }
+            }
+        }*/
         
     }
 
