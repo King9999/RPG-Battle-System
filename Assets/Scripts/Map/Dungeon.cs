@@ -179,7 +179,7 @@ public class Dungeon : MonoBehaviour
         //generate map objects, including player, enemies, chests, etc.
         GenerateMapObjects();
 
-        //validate the dungeon.
+        //validate the dungeon, adding paths where necessary to reach the exit.
         ValidateDungeon();
     }
 
@@ -246,27 +246,16 @@ public class Dungeon : MonoBehaviour
                 else if (col > exit.col && node.paths[node.westPath].PathVisible())
                     col -= 1;
                 
-                //check paths in current node
-                /*if (node.paths[node.eastPath].PathVisible())
-                    col += 1;
-                else if (node.paths[node.southPath].PathVisible())
-                    row += 1;
-                else if (node.paths[node.westPath].PathVisible())
-                    col -= 1;
-                else if (node.paths[node.northPath].PathVisible())
-                    row -= 1;*/
-
                 //are we at the exit?
                 if (row == exit.row && col == exit.col)
                 {
-                    exitFound = true;   //valid path
+                    exitFound = true;
                     Debug.Log("Found exit!");
                 }
             }
             else
             {
-                //check previous nodes and look for a path to create
-                //TODO: There's an infinite loop in here
+                //There's a path missing. check previous nodes and look for a path to create
                 foreach(Node n in previousNodes)
                 {
                     //check for a node to the east
@@ -313,62 +302,6 @@ public class Dungeon : MonoBehaviour
         }
     }
 
-    //create node at given position. Once a node is generated, it must create at least one path leading to another node.
-    /*void GenerateNode(int i, int j, int nodeCount, bool firstNode = false)
-    {
-
-        //invalid states
-        if (i < 0 || i >= mapWidth) return;
-        if (j < 0 || j >= mapHeight) return;
-        if (nodeCount <= 0) return;         //no more nodes to create
-        if (mapArray[i, j] == true) return; //room already exists
-        if (nodeCount > mapHeight * mapWidth) return;      //there are more nodes than array capacity
-
-        totalNodes = nodeCount;
-
-        if (firstNode)  //first room
-        {
-            mapArray[i,j] = true;
-
-            //there must be at least one path leading to the next room
-            while(mapArray[i + 1, j] == false && mapArray[i, j + 1] == false)
-            {
-                mapArray[i + 1, j] = Random.value <= 0.5f ? true : false;  //east room
-                mapArray[i, j + 1] = Random.value <= 0.5f ? true : false;  //south room
-            }
-            //firstNode = false;
-        }
-        else
-        {
-            mapArray[i,j] = true;
-
-            //check for adjacent nodes
-
-        }
-        
-        //check which direction we're headed from current spot
-        float nodeChance = 0.6f;
-        bool goingNorth = (!firstNode && j - 1 >= 0 && Random.value <= nodeChance) ? true : false;
-        bool goingSouth = (j + 1 < mapHeight && Random.value <= nodeChance) ? true : false;
-        bool goingEast = (i + 1 < mapWidth && Random.value <= nodeChance) ? true : false;
-        bool goingWest = (!firstNode && i - 1 >= 0 && Random.value <= nodeChance) ? true : false;
-
-        if (goingNorth)
-            GenerateNode(i, j - 1, nodeCount - 1);
-        if (goingSouth || firstNode)
-        {
-            firstNode = false;
-            GenerateNode(i, j + 1, nodeCount - 1, firstNode);
-        }
-        if (goingEast || firstNode)
-        {
-            firstNode = false;
-            GenerateNode(i + 1, j, nodeCount - 1, firstNode);
-        }
-        if (goingWest)
-            GenerateNode(i - 1, j, nodeCount - 1);
-    }*/
-
     void GenerateNode(int nodeCount)
     {
         if (nodeCount < minNodeCount) return;
@@ -376,7 +309,7 @@ public class Dungeon : MonoBehaviour
 
         int i = 0;
         int j = 0;
-        int totalNodes = 0; //tracks how many nodes have been generated, and will not exceed nodeCount
+        int totalNodes = 0;                 //tracks how many nodes have been generated, and will not exceed nodeCount
         int iPrevious = 0, jPrevious = 0;   //tracks which index I was in previously so I don't return there.
 
         //set index 0,0 to true and then have at least one adjacent index set to true
@@ -442,7 +375,7 @@ public class Dungeon : MonoBehaviour
                     i = 0;
                     j = 0;
                 }
-                Debug.Log("North: " + goingNorth + "\nSouth: " + goingSouth + "\nEast: " + goingEast + "\nWest: " + goingWest + "\n------\n");
+                //Debug.Log("North: " + goingNorth + "\nSouth: " + goingSouth + "\nEast: " + goingEast + "\nWest: " + goingWest + "\n------\n");
             }
 
             if (goingNorth)
@@ -566,7 +499,16 @@ public class Dungeon : MonoBehaviour
                 mapArray[randCol, randRow] == false || node.isOccupied);
             
             //generate item
-            chest.GenerateLoot(tableLevel: 0);
+            int tableLevel;
+            GameManager gm = GameManager.instance;
+            if (gm.dungeonLevel <= 5)
+                tableLevel = 0;
+            else if (gm.dungeonLevel <= 10)
+                tableLevel = 1;
+            else
+                tableLevel = 2;
+
+            chest.GenerateLoot(tableLevel);
 
             chest.PlaceChest(randCol, randRow);
             chest.transform.SetParent(transform);
@@ -577,45 +519,60 @@ public class Dungeon : MonoBehaviour
         /****create enemy. The number of enemies is (total nodes / 4)****/
         int enemyCount = nodes.Count / 4;
         int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
+        bool forcedMajorEnemy = false;  
         for (int i = 0; i < enemyCount; i++)
         {
             MapEnemy enemy = Instantiate(enemyPrefab);
 
-            //is this a major enemy?
-            if (majorEnemyCount > 0)
+            //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
+            GameManager gm = GameManager.instance;
+            //gm.dungeonLevel = 5;
+            if (majorEnemyCount > 0 || (gm.dungeonLevel == 5 && !forcedMajorEnemy))
             {
-                if (Random.value <= 0.3f)
+                if (Random.value <= 0.3f || (gm.dungeonLevel == 5 && !forcedMajorEnemy))
                 {
                     SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
                     sr.sprite = enemy.majorEnemySprite;
                     //TODO: have a separate array in Enemy Manager for major enemies and pick one.
-                    majorEnemyCount--;
+
+                    if (majorEnemyCount > 0) majorEnemyCount--;
                 }
             }
 
             //find a random node to occupy
-            int randRow;
-            int randCol;
-            Node node = null;
-            do
+          
+            if ((gm.dungeonLevel == 5 && !forcedMajorEnemy))
             {
-                randRow = Random.Range(0, mapHeight);
-                randCol = Random.Range(0, mapWidth);
-                
-                foreach(Node n in nodes)
+                //place a forced major enemy to introduce players to shield tokens.
+                forcedMajorEnemy = true;
+                enemy.PlaceEnemy(exit.col, exit.row);
+            }
+            else
+            {
+                int randRow;
+                int randCol;
+                Node node = null;
+
+                do
                 {
-                    if (n.row == randRow && n.col == randCol)
+                    randRow = Random.Range(0, mapHeight);
+                    randCol = Random.Range(0, mapWidth);
+                    
+                    foreach(Node n in nodes)
                     {
-                        node = n;
-                        break;
+                        if (n.row == randRow && n.col == randCol)
+                        {
+                            node = n;
+                            break;
+                        }
                     }
                 }
+                while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false || node.isOccupied);
+                enemy.PlaceEnemy(randCol, randRow);
             }
-            while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false || node.isOccupied);
-            enemy.PlaceEnemy(randCol, randRow);
 
             //set turns. if the enemy is standing over a chest or stairs, they will not move.
-            if (!exit.occupiedByEnemy && enemy.row == exit.row && enemy.col == exit.col)
+            if (!exit.occupiedByEnemy && enemy.nodeID == exit.nodeID)
             {
                 enemy.isStationary = true;
                 exit.occupiedByEnemy = true;
