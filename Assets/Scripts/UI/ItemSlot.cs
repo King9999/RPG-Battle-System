@@ -35,17 +35,25 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Debug.Log("Clicked slot " + slotID);
         if (item != null)
         {
-            //copy the item
-            inv.copiedSlot = this;
-            inv.ShowInventory(false);
-            menu.menuState = CombatMenu.MenuState.SelectingHeroToTakeItem;
+            GameManager gm = GameManager.instance;
+            if (gm.gameState == GameManager.GameState.Combat)
+            { 
+                //copy the item
+                inv.copiedSlot = this;
+                inv.ShowInventory(false);
+                menu.menuState = CombatMenu.MenuState.SelectingHeroToTakeItem;
 
-            //select the hero who gets the item
-            CombatSystem cs = CombatSystem.instance;
-            cs.selectingHero = true;
-            UI ui = UI.instance;
-            ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
-            ui.selectTargetUI.gameObject.SetActive(true);
+                //select the hero who gets the item
+                CombatSystem cs = CombatSystem.instance;
+                cs.selectingHero = true;
+                UI ui = UI.instance;
+                ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
+                ui.selectTargetUI.gameObject.SetActive(true);
+            }
+            else //using item outside of combat
+            {
+                Debug.Log("Using " + item.itemName + " outside of combat");
+            }
         }
     }
 

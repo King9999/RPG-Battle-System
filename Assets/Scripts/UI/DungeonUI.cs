@@ -6,7 +6,21 @@ using UnityEngine;
 public class DungeonUI : MonoBehaviour
 {
     public Inventory inv;
-    public DungeonMenu menu;   
+    public DungeonMenu menu;
+
+    public static DungeonUI instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -157,10 +157,13 @@ public class CombatSystem : MonoBehaviour
         currentTarget = -1;
         currentHero = -1;
 
+        gm.gameState = GameManager.GameState.Combat;
     }
 
     public void SetupCombat()
     {
+        gm.gameState = GameManager.GameState.Combat;
+        
         //use this instead of Start() to determine the enemies encountered and to set up combat
         modifiedEnemyNames = new Dictionary<int, string>();
 

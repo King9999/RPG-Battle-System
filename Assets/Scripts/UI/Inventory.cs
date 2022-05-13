@@ -17,6 +17,13 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public WeaponSlot[] weaponSlots;
     public ArmorSlot[] armorSlots;
     public TrinketSlot[] trinketSlots;
+
+    //containers
+    public GameObject itemSlotContainer;    
+    public GameObject weaponSlotContainer;
+    public GameObject armorSlotContainer;
+    public GameObject trinketSlotContainer;
+
     public ItemSlot copiedSlot;            //copy of an item that is about to be used.
     int money;
     int maxMoney {get;} = 10000000;
@@ -51,8 +58,15 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
         currentItem = 0;
         gameObject.SetActive(false);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 1);
-        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 2);
+        itemSlotContainer.gameObject.SetActive(false);
+        weaponSlotContainer.gameObject.SetActive(false);
+        trinketSlotContainer.gameObject.SetActive(false);
+        armorSlotContainer.gameObject.SetActive(false);
+
+        //add test items
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
+        AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
+        AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
     }
 
     // Update is called once per frame
@@ -70,6 +84,19 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     {
         //remove highlight
     }*/
+
+    public void HideAllSlots()
+    {
+        itemSlotContainer.gameObject.SetActive(false);
+        weaponSlotContainer.gameObject.SetActive(false);
+        trinketSlotContainer.gameObject.SetActive(false);
+        armorSlotContainer.gameObject.SetActive(false);
+    }
+
+    public void ShowItemSlots(bool toggle){ itemSlotContainer.gameObject.SetActive(toggle); }
+    public void ShowWeaponSlots(bool toggle){ weaponSlotContainer.gameObject.SetActive(toggle); }
+    public void ShowArmorSlots(bool toggle){ armorSlotContainer.gameObject.SetActive(toggle); }
+    public void ShowTrinketSlots(bool toggle){ trinketSlotContainer.gameObject.SetActive(toggle); }
 
     //add item to first available slot
     public void AddItem(Consumable item, int amount)

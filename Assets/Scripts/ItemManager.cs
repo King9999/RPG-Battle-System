@@ -15,6 +15,7 @@ public class ItemManager : MonoBehaviour
     //enums
     public enum ConsumableItem {Herb}
     public enum WeaponItem {Dagger, Sword, GoldenAxe}
+    public enum ArmorItem {Undershirt, Vest, Robe}
     public static ItemManager instance;
 
     private void Awake()

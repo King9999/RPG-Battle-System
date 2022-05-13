@@ -16,6 +16,7 @@ public class ArmorSlot : ItemSlot
         if (armorInSlot != null)
         {
             //choose who to give item to, and then equip. Keep in mind equip restrictions.
+            Debug.Log("Selecting " + armorInSlot.itemName);
         }
     }
 
