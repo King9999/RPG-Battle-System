@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class DungeonMenu : MonoBehaviour
 {
     public Image border;
-    public Button equipMenuButton;
+    public Button weaponMenuButton;
+    public Button armorMenuButton;
+    public Button trinketMenuButton;
     public Button consumableMenuButton;
     public Button backButton;           //used to go back to combat menu from different screens.
     public Inventory inv;
