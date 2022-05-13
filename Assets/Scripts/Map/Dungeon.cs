@@ -78,11 +78,11 @@ public class Dungeon : MonoBehaviour
 
     void Update()
     {
-        /*GameManager gm = GameManager.instance;
+        GameManager gm = GameManager.instance;
         if (gm.gameState != GameManager.GameState.Combat)
         {
             //check if player is standng on an enemy, treasure chest, exit, or captive hero. Enemies are always checked first.
-            foreach (MapEnemy enemy in enemies)
+            /*foreach (MapEnemy enemy in enemies)
             {
                 if (player.nodeID == enemy.nodeID)
                 {
@@ -90,8 +90,17 @@ public class Dungeon : MonoBehaviour
                     gm.gameState = GameManager.GameState.Combat;
                     break;
                 }
-            }
-        }*/
+            }*/
+
+            //treasure chest
+            /*foreach(TreasureChest chest in chests)
+            {
+                if(chest.heldItem != null && player.nodeID == chest.nodeID)
+                {
+                    //take chest's contents
+                }
+            }*/
+        }
         
     }
 
@@ -495,7 +504,7 @@ public class Dungeon : MonoBehaviour
 
         /****Create chests****/
         //It's possible for a dungeon to have no chests.
-        int chestCount = Random.Range(0, nodes.Count / 4);
+        int chestCount = /*Random.Range(0, nodes.Count / 4);*/ 1;
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest = Instantiate(chestPrefab);

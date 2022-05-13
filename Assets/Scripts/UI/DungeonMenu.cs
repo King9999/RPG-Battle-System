@@ -66,6 +66,26 @@ public class DungeonMenu : MonoBehaviour
         menuState = MenuState.ConsumableMenuOpened;
     }
 
+    public void OnArmorButtonClicked()
+    {
+        if (menuState > MenuState.TrinketMenuOpened) return;
+        inv.ShowInventory(true);
+        inv.HideAllSlots();
+        inv.ShowArmorSlots(true);
+        backButton.gameObject.SetActive(true);
+        menuState = MenuState.ArmorMenuOpened;
+    }
+
+    public void OnTrinketButtonClicked()
+    {
+        if (menuState > MenuState.TrinketMenuOpened) return;
+        inv.ShowInventory(true);
+        inv.HideAllSlots();
+        inv.ShowTrinketSlots(true);
+        backButton.gameObject.SetActive(true);
+        menuState = MenuState.TrinketMenuOpened;
+    }
+
     public void OnBackButtonClicked()
     {
         DungeonUI ui = DungeonUI.instance;
@@ -73,9 +93,6 @@ public class DungeonMenu : MonoBehaviour
         switch(menuState)
         {
             case MenuState.WeaponMenuOpened:
-                //cs.selectingTargetToAttack = false;
-                //ui.selectTargetUI.text = "";
-                //ui.selectTargetUI.gameObject.SetActive(false);
                 inv.ShowInventory(false);
                 inv.ShowWeaponSlots(false);
                 backButton.gameObject.SetActive(false);
@@ -90,15 +107,39 @@ public class DungeonMenu : MonoBehaviour
                 menuState = MenuState.Main;
                 break;
 
+            case MenuState.ArmorMenuOpened:
+                //close
+                inv.ShowInventory(false);
+                inv.ShowArmorSlots(false);
+                backButton.gameObject.SetActive(false);
+                menuState = MenuState.Main;
+                break;
+
+            case MenuState.TrinketMenuOpened:
+                //close
+                inv.ShowInventory(false);
+                inv.ShowTrinketSlots(false);
+                backButton.gameObject.SetActive(false);
+                menuState = MenuState.Main;
+                break;
+
             case MenuState.SelectingWeaponToEquip:
                 inv.ShowInventory(true);
                 menuState = MenuState.WeaponMenuOpened;
                 break;
+
+            case MenuState.SelectingArmorToEquip:
+                inv.ShowInventory(true);
+                menuState = MenuState.ArmorMenuOpened;
+                break;
+
+            case MenuState.SelectingTrinketToEquip:
+                inv.ShowInventory(true);
+                menuState = MenuState.TrinketMenuOpened;
+                break;
             
             case MenuState.SelectingHeroToTakeItem:
                 inv.ShowInventory(true);
-                //ui.selectTargetUI.text = "";
-                //ui.selectTargetUI.gameObject.SetActive(false);
                 menuState = MenuState.ConsumableMenuOpened;
                 break;
         }

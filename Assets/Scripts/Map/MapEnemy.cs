@@ -200,7 +200,7 @@ public class MapEnemy : MapObject
 
         foreach(TreasureChest chest in dungeon.chests)
         {
-            if (nodeID == chest.nodeID && !chest.occupiedByEnemy)
+            if (chest.heldItem != null && nodeID == chest.nodeID && !chest.occupiedByEnemy)
             {
                 standingOnChest = true;
                 chest.occupiedByEnemy = true;

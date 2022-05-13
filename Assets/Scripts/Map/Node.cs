@@ -57,7 +57,7 @@ public class Node : MonoBehaviour
        if (PlayerAdjacentToNode())
        {
            Debug.Log("Player adjacent");
-           player.MovePlayer(row, col);
+           player.MovePlayer(col, row);
        }
    }
 

@@ -577,7 +577,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6044994061025685281}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
-        m_MethodName: OnWeaponButtonClicked
+        m_MethodName: OnArmorButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1179,7 +1179,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6044994061025685281}
         m_TargetAssemblyTypeName: DungeonMenu, Assembly-CSharp
-        m_MethodName: OnWeaponButtonClicked
+        m_MethodName: OnTrinketButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

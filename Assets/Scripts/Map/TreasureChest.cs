@@ -9,6 +9,20 @@ public class TreasureChest : MapObject
     public Sprite emptyChestSprite;
     public Sprite closedChestSprite;
 
+    void Update()
+    {
+        GameManager gm = GameManager.instance;
+        if (gm.gameState != GameManager.GameState.Combat)
+        {
+            //check if player is standing on the object. player takes treasure if necessary
+            Player player = Player.instance;
+            if(heldItem != null && player.nodeID == nodeID)
+            {
+                AddItemToInventory();
+            }
+        }
+    }
+
     //When object is instantiated, this method must be run.
     public void GenerateLoot(int tableLevel)
     {
@@ -25,20 +39,28 @@ public class TreasureChest : MapObject
         }
         
         //add item to player inventory. Which inventory depends on item type.
+        Inventory inv = Inventory.instance;
         switch(heldItem.itemType)
         {
             case Item.ItemType.Weapon:
+                inv.AddItem((Weapon)heldItem, 1);
+                break;
+
             case Item.ItemType.Armor:
+                inv.AddItem((Armor)heldItem, 1);
+                break;
+
             case Item.ItemType.Trinket:
-                //add to equipment
+                inv.AddItem((Trinket)heldItem, 1);
                 break;
             
             case Item.ItemType.Consumable:
-                //add to consumable inventory
+                inv.AddItem((Consumable)heldItem, 1);
                 break;
         }
 
         //show empty chest
+        heldItem = null;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.sprite = emptyChestSprite;
 

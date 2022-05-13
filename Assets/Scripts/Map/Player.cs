@@ -10,6 +10,7 @@ public class Player : MapObject
     bool hasControl;                                //when false, no input is accepted.
     float yOffset = 0.2f;                       //used to position player object so they aren't sticking outside of the node.
     Vector3 destination;
+    int desinationNodeID;                       //used to update player nodeID after coroutine finishes.
     bool animateMoveCoroutineOn;
 
     //map sprites
@@ -84,7 +85,7 @@ public class Player : MapObject
         }
     }
 
-    public void MovePlayer(int rowDestination, int colDestination)
+    public void MovePlayer(int colDestination, int rowDestination)
     {
         if (!hasControl) return;
 
@@ -101,7 +102,8 @@ public class Player : MapObject
 
                 //get node's position and begin moving player
                 destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
-                nodeID = node.nodeID;
+                //nodeID = node.nodeID;
+                desinationNodeID = node.nodeID;
                 node.isOccupied = true;
                 hasControl = false;
                 //transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, 0);
@@ -148,7 +150,9 @@ public class Player : MapObject
 
             yield return null;
         }
-       
+        
+        //after moving, update player's node ID so that appropriate actions will trigger.
+        nodeID = desinationNodeID;
         animateMoveCoroutineOn = false;
         hasControl = true;
     }
