@@ -17,10 +17,11 @@ public class PartyStats : MonoBehaviour
         for (int i = 0; i < hm.heroes.Count; i++)
         {
             Hero hero = hm.heroes[i];
-            heroStats[i].text = hero.className + " - " + hero.status + "\n" + 
-                "<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + "\n" + 
-                "<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + "\n" +
-                "<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
+            heroStats[i].text = hero.className + " Lv " + hero.level + 
+                "\n<color=#0fbe1f>Status</color> " +  hero.status +
+                "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + 
+                "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + 
+                "\n<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
             
             //sprite setup
             Player player = Player.instance;
