@@ -39,6 +39,10 @@ public class Player : MapObject
 
         //applying offset
         transform.position = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
+
+        //setup map sprite
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        mapSprite = sr.sprite;
     }
 
     // Update is called once per frame

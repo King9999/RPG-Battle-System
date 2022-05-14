@@ -7,6 +7,8 @@ public class DungeonUI : MonoBehaviour
 {
     public Inventory inv;
     public DungeonMenu menu;
+    public PartyStats partyDisplay;             //handles party UI in dungeon screen.
+
 
     public static DungeonUI instance;
 
@@ -21,15 +23,9 @@ public class DungeonUI : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -64,13 +64,13 @@ public class Dungeon : MonoBehaviour
         heroAppearanceChance = 0;                   //this increases by 40% after each level
 
         //get seed
-        //System.Random rnd = new System.Random();
-        //int p = rnd.Next();
-        //Random.InitState(1205261848);
-        //Debug.Log("Seed: " + p);
+        System.Random rnd = new System.Random();
+        int p = rnd.Next();
+        Random.InitState(p);
+        Debug.Log("Seed: " + p);
         
 
-        //File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
+        File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
 
         //create the map
         GenerateDungeon(nodeCount);  
@@ -212,6 +212,10 @@ public class Dungeon : MonoBehaviour
 
         //validate the dungeon, adding paths where necessary to reach the exit.
         ValidateDungeon();
+
+        //UI update
+        DungeonUI ui = DungeonUI.instance;
+        ui.partyDisplay.UpdateUI();
     }
 
     void ValidateDungeon()
@@ -497,14 +501,10 @@ public class Dungeon : MonoBehaviour
         
         int randNode = Random.Range(nodes.Count - 3, nodes.Count);
         exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
-        //exit.row = nodes[randNode].row; 
-        //exit.col = nodes[randNode].col;
-        //exit.nodeID = nodes[randNode].nodeID;
-        //exit.transform.position = new Vector3(nodes[randNode].transform.position.x, nodes[randNode].transform.position.y, exit.transform.position.z);
 
         /****Create chests****/
         //It's possible for a dungeon to have no chests.
-        int chestCount = /*Random.Range(0, nodes.Count / 4);*/ 1;
+        int chestCount = Random.Range(0, nodes.Count / 4);
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest = Instantiate(chestPrefab);

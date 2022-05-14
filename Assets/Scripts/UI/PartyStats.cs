@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /* This script manages the party UI in the dungeon outside of combat. All of the data can be acquired from Hero Manager.*/
 public class PartyStats : MonoBehaviour
 {
     HeroManager hm;
-    public Sprite[] heroSprites;
+    public Image[] heroSprites;
     public TextMeshProUGUI[] heroStats;                 //displays HP, MP, EXP and status
-    // Start is called before the first frame update
-    void Start()
-    {
-        hm = HeroManager.instance;
-    }
 
     public void UpdateUI()
     {
+        hm = HeroManager.instance;
         for (int i = 0; i < hm.heroes.Count; i++)
         {
             Hero hero = hm.heroes[i];
@@ -24,6 +21,14 @@ public class PartyStats : MonoBehaviour
                 "<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + "\n" + 
                 "<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + "\n" +
                 "<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
+            
+            //sprite setup
+            Player player = Player.instance;
+            if (heroSprites[i].sprite == null)
+            {
+                Debug.Log("Player state " + player);
+                heroSprites[i].sprite = player.mapSprite;
+            }
         }
         
     }

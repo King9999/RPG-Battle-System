@@ -20,12 +20,13 @@ public class HeroManager : MonoBehaviour
         }
 
         instance = this;
+        AddHero(heroData[0]);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        AddHero(heroData[0]);
+        //AddHero(heroData[0]);
         AddHero(heroData[1]);
     }
 
@@ -40,6 +41,7 @@ public class HeroManager : MonoBehaviour
         Hero hero = Instantiate(heroPrefab);
         hero.data = data;
         hero.GetData(hero.data);
+        hero.gameObject.SetActive(false);       //disabled by default since they're only active in combat.
         heroes.Add(hero);
     }
 }

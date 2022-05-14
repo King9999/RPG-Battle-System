@@ -177,6 +177,8 @@ public class CombatSystem : MonoBehaviour
         //heroes and enemies must be instantiated here. We check graveyard before instantiating new enemies.
         foreach(Hero hero in hm.heroes)
         {
+            hero.gameObject.SetActive(true);
+            hero.transform.SetParent(transform);
             heroesInCombat.Add(hero);
         }
 
@@ -187,6 +189,7 @@ public class CombatSystem : MonoBehaviour
             int randomEnemy = Random.Range(0, em.enemies.Length);
             //Enemy enemy = Instantiate(em.enemies[randomEnemy]);
             Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Imp]);
+            enemy.transform.SetParent(transform);
             enemiesInCombat.Add(enemy);
         }
 

@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 522872482732183829}
   - component: {fileID: 5056526882601303838}
   m_Layer: 5
-  m_Name: Sprite
+  m_Name: Hero 3 Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 4260677281472978951}
   - component: {fileID: 6408805972891113075}
   m_Layer: 5
-  m_Name: Sprite
+  m_Name: Hero 2 Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1428,10 +1428,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 730905250312023510}
+  - {fileID: 6408805972891113075}
+  - {fileID: 5056526882601303838}
+  - {fileID: 4928178816213017179}
   heroStats:
   - {fileID: 8661150025139434104}
   - {fileID: 5116487361064396761}
@@ -2006,7 +2006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inv: {fileID: 0}
-  menu: {fileID: 0}
+  menu: {fileID: 6044994061025685281}
+  partyDisplay: {fileID: 901722424}
 --- !u!1 &6044994062208547881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,7 +2363,7 @@ GameObject:
   - component: {fileID: 2398608400668530746}
   - component: {fileID: 4928178816213017179}
   m_Layer: 5
-  m_Name: Sprite
+  m_Name: Hero 4 Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2587,7 +2588,7 @@ GameObject:
   - component: {fileID: 4438671759342836030}
   - component: {fileID: 730905250312023510}
   m_Layer: 5
-  m_Name: Sprite
+  m_Name: Hero 1 Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
