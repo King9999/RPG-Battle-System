@@ -18,7 +18,9 @@ public class Dungeon : MonoBehaviour
     public List<Node> nodes;
     public Node nodePrefab;
     public Player playerPrefab;
-    public List<Player> captiveHeroes;
+    public Captive captivePrefab;
+    public List<Captive> captiveHeroes;
+    bool captivesGenerated;                 //prevents adding captive heroes to list more than once.
     public MapEnemy enemyPrefab;
     public Stairs stairsPrefab;
     public TreasureChest chestPrefab;
@@ -548,8 +550,63 @@ public class Dungeon : MonoBehaviour
 
         }
 
-        /****Create captive hero. This no longer applies if party size is 4.****/
+        /****Create captive heroes****/
         HeroManager hm = HeroManager.instance;
+        if (!captivesGenerated)
+        {
+            captivesGenerated = true;
+            Hero hero = hm.heroes[0];
+
+            if (hero.heroClass == Hero.HeroClass.Barbarian)
+            {
+                Captive captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.rogueSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+
+                captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.wizardSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+
+                captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.clericSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+            }
+            
+            /*if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Barbarian]))
+            {
+                Captive captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.barbSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+            }
+
+            if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Rogue]))
+            {
+                Captive captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.rogueSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+            }
+
+            if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Wizard]))
+            {
+                Captive captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.wizardSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+            }
+
+            if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Cleric]))
+            {
+                Captive captive = Instantiate(captivePrefab);
+                captive.SetSprite(captive.clericSprite);
+                captive.transform.SetParent(transform);
+                captiveHeroes.Add(captive);
+            }*/
+        }
         /*if (hm.heroes.Count < 4)
         {
             if (Random.value <= heroAppearanceChance)

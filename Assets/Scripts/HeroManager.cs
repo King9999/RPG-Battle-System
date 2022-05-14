@@ -6,8 +6,7 @@ public class HeroManager : MonoBehaviour
 {
     public List<Hero> heroes;
     public Hero heroPrefab;
-    public HeroData[] heroData;           //this should be a data manager
-    
+    public HeroData[] heroData;           //this should be a data manager    
 
     public static HeroManager instance;
 

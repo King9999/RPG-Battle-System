@@ -27,7 +27,6 @@ public class PartyStats : MonoBehaviour
             Player player = Player.instance;
             if (heroSprites[i].sprite == null)
             {
-                Debug.Log("Player state " + player);
                 heroSprites[i].sprite = player.mapSprite;
             }
         }

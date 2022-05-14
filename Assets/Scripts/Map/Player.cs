@@ -63,6 +63,13 @@ public class Player : MapObject
         hasControl = isCaptive;
     }
 
+    public void SetSprite(Sprite sprite)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        mapSprite = sprite;
+    }
+
     //This is used mainly for captive heroes
     public override void PlaceObject(int col, int row)
     {

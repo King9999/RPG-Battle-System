@@ -145,7 +145,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             //prevent item from being destroyed so player has a chance to make room
             return;
         }
-        //TODO: Modify the code below for non-consumable items. The items must go into an inventory specifically for non-consumables.
+        
         bool itemFound = false;
         foreach(WeaponSlot slot in weaponSlots)
         {

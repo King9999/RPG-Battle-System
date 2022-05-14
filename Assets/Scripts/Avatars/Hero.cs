@@ -24,6 +24,8 @@ public class Hero : Avatar
     public bool actionCompleted;
     public bool isAttacking;
     public int currentActions;
+    public enum HeroClass {Barbarian, Rogue, Mage, Cleric}
+    public HeroClass heroClass;
 
     //coroutines
     bool highlightAvatarCoroutineOn;
@@ -96,6 +98,7 @@ public class Hero : Avatar
         statFile = data.statFile;
         className = data.className;
         details = data.details;
+        heroClass = (Hero.HeroClass)data.heroClass;
         skills = data.skills;
         swordOK = data.swordOK;
         daggerOK = data.daggerOK;
