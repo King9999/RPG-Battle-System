@@ -157,7 +157,7 @@ public class CombatSystem : MonoBehaviour
         currentTarget = -1;
         currentHero = -1;
 
-        gm.gameState = GameManager.GameState.Combat;
+        //gm.gameState = GameManager.GameState.Combat;
     }
 
     public void SetupCombat()
