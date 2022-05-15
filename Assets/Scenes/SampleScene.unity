@@ -820,10 +820,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 3550024790719593381, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3550024790719593383, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
       propertyPath: m_RootOrder
       value: 5
