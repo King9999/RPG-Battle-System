@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   statFile: {fileID: 4900000, guid: 252c36f3b7dce4b4d91065c94dfd2c48, type: 3}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 2a9f2f1a396e7344880bee22bb180fd8, type: 3}
   heroClass: 2
   level: 1
   attackTokenMod: -2

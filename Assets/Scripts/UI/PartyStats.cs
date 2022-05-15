@@ -13,6 +13,11 @@ public class PartyStats : MonoBehaviour
 
     void Start()
     {
+        //disable sprite display except the first one since that one will always be populated.
+        for (int i = 1; i < heroSprites.Length; i++)
+        {
+            heroSprites[i].gameObject.SetActive(false);
+        }
         
     }
 
@@ -27,14 +32,6 @@ public class PartyStats : MonoBehaviour
                 "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + 
                 "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + 
                 "\n<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
-            
-            //sprite setup
-            Player player = Player.instance;
-            if (heroSprites[i].sprite == null)
-            {
-                heroSprites[i].gameObject.SetActive(true);
-                heroSprites[i].sprite = player.mapSprite;
-            }
         }
         
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //this must be attached to "dungeon HUD" object
 public class DungeonUI : MonoBehaviour
@@ -21,11 +22,6 @@ public class DungeonUI : MonoBehaviour
         }
 
         instance = this;
-    }
-
-    void Start()
-    {
-        
     }
 
 }

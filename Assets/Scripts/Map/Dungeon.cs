@@ -298,9 +298,6 @@ public class Dungeon : MonoBehaviour
         //validate the dungeon, adding paths where necessary to reach the exit.
         ValidateDungeon();
 
-        //UI update
-        DungeonUI ui = DungeonUI.instance;
-        ui.partyDisplay.UpdateUI();
     }
 
     void ValidateDungeon()
@@ -568,11 +565,17 @@ public class Dungeon : MonoBehaviour
         if (player == null)
         {
             player = Instantiate(playerPrefab);
+            player.SetSprite(player.barbSprite);        //this must change to whatever player picked at the beginning
             player.transform.SetParent(transform);
             cameraFollow.objectTransform = player.transform;
         }
 
-        //TODO: change sprite to the hero player picked at the start
+        //UI update
+        DungeonUI ui = DungeonUI.instance;
+        ui.partyDisplay.heroSprites[0].gameObject.SetActive(true);
+        ui.partyDisplay.heroSprites[0].sprite = player.mapSprite;
+        ui.partyDisplay.UpdateUI();
+
         player.PlaceObject(0, 0);
         
         

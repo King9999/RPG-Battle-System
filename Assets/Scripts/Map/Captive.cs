@@ -45,7 +45,12 @@ public class Captive : MapObject
                 hm.AddHero(hm.heroData[hm.clericData]);
             }
 
+            //Update party UI
             Dungeon dungeon = Dungeon.instance;
+            DungeonUI ui = DungeonUI.instance;
+            ui.partyDisplay.heroSprites[hm.heroes.Count - 1].gameObject.SetActive(true);
+            ui.partyDisplay.heroSprites[hm.heroes.Count - 1].sprite = mapSprite;
+            ui.partyDisplay.UpdateUI();
             dungeon.captiveHeroes.Remove(this);
             Destroy(gameObject);
         }
