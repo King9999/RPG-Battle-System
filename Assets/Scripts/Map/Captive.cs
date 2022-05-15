@@ -7,19 +7,49 @@ public class Captive : MapObject
 {
     public Sprite barbSprite;
     public Sprite rogueSprite;
-    public Sprite wizardSprite;
+    public Sprite mageSprite;
     public Sprite clericSprite;
+    float yOffset = 0.2f;
+    float activeTime;               //used to prevent Update loop from executing immediately when a captive is instantiated, resulting in incorrect behaviour.
+    float currentTime;
 
-    // Start is called before the first frame update
     void Start()
     {
-           
+        activeTime = 2;
+        currentTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
         //check if player is standing on this object
+        Player player = Player.instance;
+        if (nodeID == player.nodeID)
+        {
+            HeroManager hm = HeroManager.instance;
+
+            if (mapSprite == barbSprite)
+            {
+                hm.AddHero(hm.heroData[hm.barbData]);
+            }
+            else if (mapSprite == rogueSprite)
+            {
+                hm.AddHero(hm.heroData[hm.rogueData]);
+            }
+            else if (mapSprite == mageSprite)
+            {
+                hm.AddHero(hm.heroData[hm.mageData]);
+            }
+            else if (mapSprite == clericSprite)
+            {
+                hm.AddHero(hm.heroData[hm.clericData]);
+            }
+
+            Dungeon dungeon = Dungeon.instance;
+            dungeon.captiveHeroes.Remove(this);
+            Destroy(gameObject);
+        }
+      
     }
 
     public override void PlaceObject(int col, int row)
@@ -38,7 +68,7 @@ public class Captive : MapObject
         {
             if (!node.isOccupied && node.row == row && node.col == col)
             {
-                transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
+                transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
                 node.isOccupied = true;
                 nodeID = node.nodeID;
                 break;

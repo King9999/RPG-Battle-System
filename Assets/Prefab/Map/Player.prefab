@@ -139,5 +139,5 @@ MonoBehaviour:
   nodeID: 0
   barbSprite: {fileID: 4809186627354802860, guid: 18d88a343e08e494195150996c0efeea, type: 3}
   rogueSprite: {fileID: -957248350204049089, guid: 18d88a343e08e494195150996c0efeea, type: 3}
-  wizardSprite: {fileID: -3091030034821009358, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}
+  mageSprite: {fileID: -3091030034821009358, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}
   clericSprite: {fileID: 8410064034215650148, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}

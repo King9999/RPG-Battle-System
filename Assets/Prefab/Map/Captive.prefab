@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 369237633741959866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 606.0798, y: 355.76184, z: -39.24075}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   nodeID: 0
   barbSprite: {fileID: 4809186627354802860, guid: 18d88a343e08e494195150996c0efeea, type: 3}
   rogueSprite: {fileID: -957248350204049089, guid: 18d88a343e08e494195150996c0efeea, type: 3}
-  wizardSprite: {fileID: -3091030034821009358, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}
+  mageSprite: {fileID: -3091030034821009358, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}
   clericSprite: {fileID: 8410064034215650148, guid: 3f6a368befbb3804b95477a5fdaf49e6, type: 3}
 --- !u!212 &587182221406902001
 SpriteRenderer:
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

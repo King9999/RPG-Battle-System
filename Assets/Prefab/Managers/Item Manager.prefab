@@ -49,6 +49,9 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: b98c69b938d5cf4448b221aa2c70f157, type: 2}
   - {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}
+  - {fileID: 11400000, guid: 095c7f42d8957bb41a1e52eda6766bb3, type: 2}
+  - {fileID: 11400000, guid: 71ac7d0b6e3c4904586cc1d36eb4d6eb, type: 2}
+  - {fileID: 11400000, guid: aac24e715b3338446b3f149df3d879da, type: 2}
   - {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
   armor:
   - {fileID: 11400000, guid: ed5af7bd6dea06245b4073db94130ef5, type: 2}

@@ -11,6 +11,11 @@ public class PartyStats : MonoBehaviour
     public Image[] heroSprites;
     public TextMeshProUGUI[] heroStats;                 //displays HP, MP, EXP and status
 
+    void Start()
+    {
+        
+    }
+
     public void UpdateUI()
     {
         hm = HeroManager.instance;
@@ -27,6 +32,7 @@ public class PartyStats : MonoBehaviour
             Player player = Player.instance;
             if (heroSprites[i].sprite == null)
             {
+                heroSprites[i].gameObject.SetActive(true);
                 heroSprites[i].sprite = player.mapSprite;
             }
         }

@@ -106,6 +106,89 @@ public class Dungeon : MonoBehaviour
         
     }
 
+    //creates captive heroes for the player to rescue.
+    void GenerateCaptives()
+    {
+        HeroManager hm = HeroManager.instance;
+        Hero hero = hm.heroes[0];
+
+        Captive captive;
+        if (hero.heroClass == Hero.HeroClass.Barbarian)
+        {
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.rogueSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.mageSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.clericSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+        }
+        else if (hero.heroClass == Hero.HeroClass.Rogue)
+        {
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.mageSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.clericSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.barbSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+        }
+        else if (hero.heroClass == Hero.HeroClass.Mage)
+        {
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.clericSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.barbSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.rogueSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+        }
+        else if (hero.heroClass == Hero.HeroClass.Cleric)
+        {
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.barbSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.rogueSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+
+            captive = Instantiate(captivePrefab);
+            captive.SetSprite(captive.mageSprite);
+            captive.transform.SetParent(transform);
+            captiveHeroes.Add(captive);
+        }
+
+        //deactivate all captives until they're needed
+        foreach(Captive captiveHero in captiveHeroes)
+        {
+            captiveHero.gameObject.SetActive(false);
+        }   
+    }
+
     public void GenerateDungeon(int nodeCount)
     {
         mapArray = new bool[mapWidth, mapHeight];
@@ -490,7 +573,7 @@ public class Dungeon : MonoBehaviour
         }
 
         //TODO: change sprite to the hero player picked at the start
-        player.MovePlayer(0, 0);
+        player.PlaceObject(0, 0);
         
         
         /****create exit (stairs)****/
@@ -529,7 +612,7 @@ public class Dungeon : MonoBehaviour
                     }
                 }
             }
-            while ((randRow == player.row && randCol == player.col) || (randRow == exit.row && randCol == exit.col) || 
+            while (/*(randRow == player.row && randCol == player.col) || (randRow == exit.row && randCol == exit.col) ||*/ 
                 mapArray[randCol, randRow] == false || node.isOccupied);
             
             //generate item
@@ -550,70 +633,51 @@ public class Dungeon : MonoBehaviour
 
         }
 
-        /****Create captive heroes****/
-        HeroManager hm = HeroManager.instance;
+        /****Create and place captive heroes****/
         if (!captivesGenerated)
         {
+            GenerateCaptives();
             captivesGenerated = true;
-            Hero hero = hm.heroes[0];
-
-            if (hero.heroClass == Hero.HeroClass.Barbarian)
-            {
-                Captive captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.rogueSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-
-                captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.wizardSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-
-                captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.clericSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-            }
-            
-            /*if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Barbarian]))
-            {
-                Captive captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.barbSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-            }
-
-            if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Rogue]))
-            {
-                Captive captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.rogueSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-            }
-
-            if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Wizard]))
-            {
-                Captive captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.wizardSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-            }
-
-            if (!hm.heroes.Contains(hm.heroes[(int)HeroManager.HeroClass.Cleric]))
-            {
-                Captive captive = Instantiate(captivePrefab);
-                captive.SetSprite(captive.clericSprite);
-                captive.transform.SetParent(transform);
-                captiveHeroes.Add(captive);
-            }*/
         }
-        /*if (hm.heroes.Count < 4)
+
+        if (captiveHeroes.Count > 0)
         {
-            if (Random.value <= heroAppearanceChance)
+            //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
+            GameManager gm = GameManager.instance;
+            heroAppearanceChance = 1;
+            if (Random.value <= heroAppearanceChance || gm.dungeonLevel == 5)
             {
-                //generate a hero. The hero must not be the same class as any heroes in the active party.
+                int randCaptive = Random.Range(0, captiveHeroes.Count);
+                Captive captive = captiveHeroes[randCaptive];
+                captive.gameObject.SetActive(true);
+                int randRow;
+                int randCol;
+                Node node = null;
+
+                do
+                {
+                    randRow = Random.Range(0, mapHeight);
+                    randCol = Random.Range(0, mapWidth);
+                    
+                    foreach(Node n in nodes)
+                    {
+                        if (n.row == randRow && n.col == randCol)
+                        {
+                            node = n;
+                            break;
+                        }
+                    }
+                }
+                while (/*(randRow == player.row && randCol == player.col) ||*/ mapArray[randCol, randRow] == false || node.isOccupied);
+                captive.PlaceObject(randCol, randRow);
+                heroAppearanceChance = 0;
             }
-        }*/
+            else
+            {
+                //raise appearance chance for next time.
+                heroAppearanceChance += 0.1f;
+            }
+        }
 
         /****create enemy. The number of enemies is (total nodes / 4)****/
         int enemyCount = nodes.Count / 4;
@@ -666,7 +730,7 @@ public class Dungeon : MonoBehaviour
                         }
                     }
                 }
-                while ((randRow == player.row && randCol == player.col) || mapArray[randCol, randRow] == false || node.isOccupied);
+                while (/*(randRow == player.row && randCol == player.col) ||*/ mapArray[randCol, randRow] == false || node.isOccupied);
                 enemy.PlaceObject(randCol, randRow);
             }
 

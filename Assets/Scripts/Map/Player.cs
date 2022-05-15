@@ -16,7 +16,7 @@ public class Player : MapObject
     //map sprites
     public Sprite barbSprite;
     public Sprite rogueSprite;
-    public Sprite wizardSprite;
+    public Sprite mageSprite;
     public Sprite clericSprite;
 
     public static Player instance;
@@ -55,12 +55,13 @@ public class Player : MapObject
                 StartCoroutine(AnimateMovement());
             }
         }
-    }
 
-    //This method is to prevent captive heroes from being controlled by the player.
-    public void SetCaptive(bool isCaptive)
-    {
-        hasControl = isCaptive;
+        //check for captives
+        /*Dungeon dungeon = Dungeon.instance;
+        if (dungeon.captiveHeroes.Count > 0)
+        {
+
+        }*/
     }
 
     public void SetSprite(Sprite sprite)
@@ -78,7 +79,7 @@ public class Player : MapObject
 
         if (col < 0 || col >= dungeon.mapWidth) return;
         if (row < 0 || row >= dungeon.mapHeight) return;
-        if (row == exit.row && col == exit.col) return;
+        //if (row == exit.row && col == exit.col) return;
 
         this.row = row;
         this.col = col;
