@@ -9,6 +9,7 @@ public class DungeonUI : MonoBehaviour
     public Inventory inv;
     public DungeonMenu menu;
     public PartyStats partyDisplay;             //handles party UI in dungeon screen.
+    public Notification notification;
 
 
     public static DungeonUI instance;

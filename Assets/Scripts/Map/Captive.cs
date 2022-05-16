@@ -48,6 +48,7 @@ public class Captive : MapObject
             //Update party UI
             Dungeon dungeon = Dungeon.instance;
             DungeonUI ui = DungeonUI.instance;
+            ui.notification.DisplayMessage(name + " added to party!");
             ui.partyDisplay.heroSprites[hm.heroes.Count - 1].gameObject.SetActive(true);
             ui.partyDisplay.heroSprites[hm.heroes.Count - 1].sprite = mapSprite;
             ui.partyDisplay.UpdateUI();
@@ -86,5 +87,15 @@ public class Captive : MapObject
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.sprite = sprite;
         mapSprite = sprite;
+
+        //set the name
+        if (mapSprite == barbSprite)
+            name = "Barbarian";
+        else if (mapSprite == rogueSprite)
+            name = "Rogue";
+        else if (mapSprite == mageSprite)
+            name = "Mage";
+        else if (mapSprite == clericSprite)
+            name = "Cleric";
     }
 }

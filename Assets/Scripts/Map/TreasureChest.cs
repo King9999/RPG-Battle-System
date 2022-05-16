@@ -18,6 +18,8 @@ public class TreasureChest : MapObject
             Player player = Player.instance;
             if(heldItem != null && player.nodeID == nodeID)
             {
+                DungeonUI ui = DungeonUI.instance;
+                ui.notification.DisplayMessage("Found " + heldItem.itemName + "!");
                 AddItemToInventory();
             }
         }
