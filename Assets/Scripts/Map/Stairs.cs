@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /* Stairs allows the player to move to next level upon contact.*/
 public class Stairs : MapObject
 {
-    Player player;
     public static Stairs instance;
+    public Image advanceTimer;             //controls when player advances to new level
 
     private void Awake()
     {
@@ -22,7 +23,10 @@ public class Stairs : MapObject
     void Start()
     {
         name = "Stairs";
-        player = Player.instance;
+        //advanceTimer.gameObject.SetActive(false);
+        advanceTimer.fillAmount = 0;
+
+        
     }
 
     public override void PlaceObject(int col, int row)
@@ -47,15 +51,32 @@ public class Stairs : MapObject
                 break;
             }
         }
+
+        //set timer's position
+        /*ClampMapImage clamp = GetComponent<ClampMapImage>();
+        Vector3 timerPos = new Vector3(transform.position.x + 10, transform.position.y + 10, transform.position.z);
+        advanceTimer.transform.position = timerPos;
+        clamp.Clamp(advanceTimer.transform.position);*/
     }
     // Update is called once per frame
     void Update()
     {
-        //player = Player.instance;
-        if (!occupiedByEnemy && row == player.row && col == player.col)
+        Player player = Player.instance;
+        if (!occupiedByEnemy && nodeID == player.nodeID)
         {
-            //display a prompt asking player to advance to new level.
+            //player must remain on stairs for 1 second before advancing. This allows player
+            //to move to another node without worrying about missing anything of interest.
+            
+            advanceTimer.fillAmount += Time.deltaTime;
+            if (advanceTimer.fillAmount >= 1 && player.row == row && player.col == col) //if player moves off stairs last minute, don't advance.
+            {
+                //advance to next level
+            }
             Debug.Log("Found stairs");
+        }
+        else
+        {
+            advanceTimer.fillAmount = 0;
         }
     }
 }

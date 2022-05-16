@@ -23,7 +23,14 @@ public class ClampMapImage : MonoBehaviour
     void Update()
     {
         //need this bit of code so that the hitboxes are repositioned correctly when the camera moves.
-        Vector3 imgPos = Camera.main.WorldToScreenPoint(transform.position); 
+        //Vector3 imgPos = Camera.main.WorldToScreenPoint(transform.position); 
+        //mapImg.transform.position = imgPos;
+        Clamp(transform.position);
+    }
+
+    public void Clamp(Vector3 position)
+    {
+        Vector3 imgPos = Camera.main.WorldToScreenPoint(position); 
         mapImg.transform.position = imgPos;
     }
 }
