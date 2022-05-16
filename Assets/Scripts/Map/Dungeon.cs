@@ -68,7 +68,7 @@ public class Dungeon : MonoBehaviour
         //get seed
         System.Random rnd = new System.Random();
         int p = rnd.Next();
-        Random.InitState(p);
+        Random.InitState(596852315);        //596852315 is a bad seed, can use it for testing.
         Debug.Log("Seed: " + p);
         
 
@@ -195,29 +195,36 @@ public class Dungeon : MonoBehaviour
         this.nodeCount = nodeCount;
 
         //once map is generated, create rooms
-        //GenerateNode(0, 0, this.nodeCount, firstNode: true);
         GenerateNode(this.nodeCount);
 
-        //loop through array and create nodes
+        //loop through array and create nodes. ANy existing nodes in the nodes list are re-used instead of instantiating new ones.
         bool firstNode = true;
+        int currentNode = 0;
+        bool nodeInstantiated = false;
         for (int i = 0; i < mapWidth; i++)
         {
             for (int j = 0; j < mapHeight; j++)
             {
                 if (mapArray[i, j] == true)
                 {
-                    Node node = Instantiate(nodePrefab);
+                    Node node;
+                    if (nodes.Count <= 0 || currentNode >= nodes.Count /*nodes[currentNode] == null*/)
+                    {
+                        node = Instantiate(nodePrefab);
+                        nodeInstantiated = true;
+                    }
+                    else
+                    {
+                        node = nodes[currentNode];
+                    }
                     node.nodeID = nodeID++;
                     node.row = j;
                     node.col = i;
-                    //nodeID++;
+                    currentNode++;
 
                     //check adajacent spots in the array for other rooms. If this node is the first, then there can only be a path to the east and south.
                     if (firstNode)
                     {
-                        //node.paths[node.northPath].ShowPath(false);
-                        //node.paths[node.westPath].ShowPath(false);
-
                         while (!node.paths[node.eastPath].PathVisible() && !node.paths[node.southPath].PathVisible())
                         {
                             float pathChance = 0.5f;
@@ -284,10 +291,15 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //place node in game
-                    node.transform.SetParent(transform);
                     node.transform.position = new Vector3(transform.position.x + i, transform.position.y - j, 0);
                     node.transform.position *= offset;  //not quite sure why I have to apply offset this way
-                    nodes.Add(node);
+
+                    if (nodeInstantiated)
+                    {
+                        node.transform.SetParent(transform);
+                        nodes.Add(node);
+                    }
+                    
                 }
             }
         }
@@ -316,8 +328,10 @@ public class Dungeon : MonoBehaviour
         List<int> nodeIndexRecord = new List<int>();    //indexes of which nodes in the node list we've been to.
         bool exitFound = false;
         bool goingInCircles = false;
-        while (!exitFound)
+        int loopCount = 0;                              //tracks the number of times we go through the while loop. If it goes past 100, this dungeon is abandoned.
+        while (!exitFound && loopCount <= 100)
         {
+            loopCount++;
             if (row == 0 && col == 0)
             {
                 currentNode = 0;
@@ -357,8 +371,9 @@ public class Dungeon : MonoBehaviour
                 if (row < exit.row && node.paths[node.southPath].PathVisible())
                     row += 1;
                 else if (row > exit.row && node.paths[node.northPath].PathVisible())
-                    row -= 1; 
-                else if (col < exit.col && node.paths[node.eastPath].PathVisible())
+                    row -= 1;
+
+                if (col < exit.col && node.paths[node.eastPath].PathVisible())
                     col += 1;
                 else if (col > exit.col && node.paths[node.westPath].PathVisible())
                     col -= 1;
@@ -376,7 +391,7 @@ public class Dungeon : MonoBehaviour
                 foreach(Node n in previousNodes)
                 {
                     //check for a node to the east
-                    if (n.col + 1 < mapWidth && !n.paths[n.eastPath].PathVisible() && mapArray[n.col + 1, n.row] == true)
+                    if (n.col + 1 < mapWidth /*&& !n.paths[n.eastPath].PathVisible()*/ && mapArray[n.col + 1, n.row] == true)
                     {
                         n.paths[n.eastPath].ShowPath(true);
                         row = n.row;
@@ -386,7 +401,7 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //check west
-                    else if (n.col - 1 >= 0 && !n.paths[n.westPath].PathVisible() && mapArray[n.col - 1, n.row] == true)
+                    else if (n.col - 1 >= 0 /*&& !n.paths[n.westPath].PathVisible()*/ && mapArray[n.col - 1, n.row] == true)
                     {
                         n.paths[n.westPath].ShowPath(true);
                         row = n.row;
@@ -396,7 +411,7 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //check north
-                    else if (n.row - 1 >= 0 && !n.paths[n.northPath].PathVisible() && mapArray[n.col, n.row - 1] == true)
+                    else if (n.row - 1 >= 0 /*&& !n.paths[n.northPath].PathVisible()*/ && mapArray[n.col, n.row - 1] == true)
                     {
                         n.paths[n.northPath].ShowPath(true);
                         row = n.row - 1;
@@ -406,7 +421,7 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //check south
-                    else if (n.row + 1 < mapHeight && !n.paths[n.southPath].PathVisible() && mapArray[n.col, n.row + 1] == true)
+                    else if (n.row + 1 < mapHeight /*&& !n.paths[n.southPath].PathVisible()*/ && mapArray[n.col, n.row + 1] == true)
                     {
                         n.paths[n.southPath].ShowPath(true);
                         row = n.row + 1;
@@ -416,6 +431,14 @@ public class Dungeon : MonoBehaviour
                     }
                 }
             }
+        }
+
+        Debug.Log("Loops " + loopCount);
+        //if we get here, there was a problem with this dungeon and it must be abandoned.
+        if (loopCount >= 100)
+        {
+            Debug.Log("Bad dungeon");
+            //GenerateDungeon(nodeCount);
         }
     }
 
@@ -553,27 +576,25 @@ public class Dungeon : MonoBehaviour
 
     public void GenerateMapObjects()
     {
-        /* there must be a minimum of 3 objects in each dungeon:
-            1 player
-            1 enemy
-            1 exit */
+        /* When generating objects, I must take care to reuse existing objects instead of instantiating new ones whenever new dungeons are generated. */      
         
         enemies = new List<MapEnemy>();
         chests = new List<TreasureChest>();
         
-        /****create player****/
+        /****Player & Party setup****/
+        DungeonUI ui = DungeonUI.instance;
         if (player == null)
         {
             player = Instantiate(playerPrefab);
             player.SetSprite(player.barbSprite);        //this must change to whatever player picked at the beginning
             player.transform.SetParent(transform);
             cameraFollow.objectTransform = player.transform;
+            ui.partyDisplay.heroSprites[0].gameObject.SetActive(true);
+            ui.partyDisplay.heroSprites[0].sprite = player.mapSprite;
         }
 
         //UI update
-        DungeonUI ui = DungeonUI.instance;
-        ui.partyDisplay.heroSprites[0].gameObject.SetActive(true);
-        ui.partyDisplay.heroSprites[0].sprite = player.mapSprite;
+        //DungeonUI ui = DungeonUI.instance;
         ui.partyDisplay.UpdateUI();
 
         player.PlaceObject(0, 0);
@@ -595,7 +616,17 @@ public class Dungeon : MonoBehaviour
         int chestCount = Random.Range(0, nodes.Count / 4);
         for (int i = 0; i < chestCount; i++)
         {
-            TreasureChest chest = Instantiate(chestPrefab);
+            TreasureChest chest;
+            bool chestInstantiated = false;
+            if (i >= chests.Count)
+            {
+                chest = Instantiate(chestPrefab);
+                chestInstantiated = true;
+            }
+            else
+            {
+                chest = chests[i];
+            }
 
             //find a random node to occupy
             int randRow;
@@ -615,8 +646,7 @@ public class Dungeon : MonoBehaviour
                     }
                 }
             }
-            while (/*(randRow == player.row && randCol == player.col) || (randRow == exit.row && randCol == exit.col) ||*/ 
-                mapArray[randCol, randRow] == false || node.isOccupied);
+            while (mapArray[randCol, randRow] == false || node.isOccupied);
             
             //generate item
             int tableLevel;
@@ -629,10 +659,13 @@ public class Dungeon : MonoBehaviour
                 tableLevel = 2;
 
             chest.GenerateLoot(tableLevel);
-
             chest.PlaceObject(randCol, randRow);
-            chest.transform.SetParent(transform);
-            chests.Add(chest);
+            
+            if (chestInstantiated)
+            {
+                chest.transform.SetParent(transform);
+                chests.Add(chest);
+            }
 
         }
 
@@ -647,7 +680,7 @@ public class Dungeon : MonoBehaviour
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
             GameManager gm = GameManager.instance;
-            heroAppearanceChance = 1;
+            //heroAppearanceChance = 1;
             if (Random.value <= heroAppearanceChance || gm.dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
@@ -671,7 +704,7 @@ public class Dungeon : MonoBehaviour
                         }
                     }
                 }
-                while (/*(randRow == player.row && randCol == player.col) ||*/ mapArray[randCol, randRow] == false || node.isOccupied);
+                while (mapArray[randCol, randRow] == false || node.isOccupied);
                 captive.PlaceObject(randCol, randRow);
                 heroAppearanceChance = 0;
             }
@@ -688,7 +721,17 @@ public class Dungeon : MonoBehaviour
         bool forcedMajorEnemy = false;  
         for (int i = 0; i < enemyCount; i++)
         {
-            MapEnemy enemy = Instantiate(enemyPrefab);
+            MapEnemy enemy;
+            bool enemyInstantiated = false;
+            if (i >= enemies.Count)
+            {
+                enemy = Instantiate(enemyPrefab);
+                enemyInstantiated = true;
+            }
+            else
+            {
+                enemy = enemies[i];
+            }
 
             //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
             GameManager gm = GameManager.instance;
@@ -733,7 +776,7 @@ public class Dungeon : MonoBehaviour
                         }
                     }
                 }
-                while (/*(randRow == player.row && randCol == player.col) ||*/ mapArray[randCol, randRow] == false || node.isOccupied);
+                while (mapArray[randCol, randRow] == false || node.isOccupied);
                 enemy.PlaceObject(randCol, randRow);
             }
 
@@ -760,8 +803,11 @@ public class Dungeon : MonoBehaviour
                 enemy.SetTurnCounter(randTurn);
             }
 
-            enemy.transform.SetParent(transform);
-            enemies.Add(enemy);
+            if (enemyInstantiated)
+            {
+                enemy.transform.SetParent(transform);
+                enemies.Add(enemy);
+            }
         } 
         
 

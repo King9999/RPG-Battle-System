@@ -30,6 +30,10 @@ public class TreasureChest : MapObject
     {
         ItemManager im = ItemManager.instance;
         heldItem = im.GetItem(tableLevel);
+
+        //show closed chest in case we're reusing an existing object.
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = closedChestSprite;
     }
 
     public void AddItemToInventory()
