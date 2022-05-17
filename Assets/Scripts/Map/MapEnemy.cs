@@ -229,7 +229,8 @@ public class MapEnemy : MapObject
             {
                 standingOnCaptive = true;
                 isStationary = true;
-
+                captive.occupiedByEnemy = true;
+                
                 //enemy becomes semi-transparent so player can see what's being guarded
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
                 sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
@@ -268,7 +269,7 @@ public class MapEnemy : MapObject
         //if enemy is now on a treasure chest, exit, or captive, they will guard it
         if (StandingOnObject())
            isStationary = true;
-           
+
         animateMoveCoroutineOn = false;
         ResetTurns();
     }

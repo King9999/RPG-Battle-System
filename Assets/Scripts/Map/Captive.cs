@@ -24,7 +24,7 @@ public class Captive : MapObject
     {
         //check if player is standing on this object
         Player player = Player.instance;
-        if (nodeID == player.nodeID)
+        if (!occupiedByEnemy && nodeID == player.nodeID)
         {
             HeroManager hm = HeroManager.instance;
 

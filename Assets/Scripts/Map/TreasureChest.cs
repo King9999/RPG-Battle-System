@@ -16,7 +16,7 @@ public class TreasureChest : MapObject
         {
             //check if player is standing on the object. player takes treasure if necessary
             Player player = Player.instance;
-            if(heldItem != null && player.nodeID == nodeID)
+            if(!occupiedByEnemy && heldItem != null && player.nodeID == nodeID)
             {
                 DungeonUI ui = DungeonUI.instance;
                 ui.notification.DisplayMessage("Found " + heldItem.itemName + "!");

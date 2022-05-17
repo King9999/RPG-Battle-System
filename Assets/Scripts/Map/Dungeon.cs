@@ -847,6 +847,7 @@ public class Dungeon : MonoBehaviour
                 if (captive.gameObject.activeSelf && enemy.nodeID == captive.nodeID)
                 {
                     enemy.isStationary = true;
+                    captive.occupiedByEnemy = true;
                     //enemy becomes semi-transparent so player can see what's being guarded
                     SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
                     sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
