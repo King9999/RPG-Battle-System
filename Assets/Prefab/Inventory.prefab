@@ -2723,7 +2723,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1046651339217077921}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3421,7 +3421,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8011742021080825810}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5336,7 +5336,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9126617604953893267}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7430,7 +7430,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3652967851484989068}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7994,7 +7994,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4432872966428979620}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8276,7 +8276,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7768232885049875084}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12096,7 +12096,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4372486487226456721}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12392,7 +12392,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 161964280679751215}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12942,7 +12942,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5220951381917867523}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13090,7 +13090,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3846157181177187993}
         m_TargetAssemblyTypeName: TrinketSlot, Assembly-CSharp
-        m_MethodName: EquipTrinket
+        m_MethodName: SelectTrinket
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

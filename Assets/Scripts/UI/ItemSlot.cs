@@ -11,8 +11,8 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
     CombatMenu menu;
-    Inventory inv;
-    DungeonMenu dungeonMenu;
+    protected Inventory inv;
+    protected DungeonMenu dungeonMenu;
     
     public virtual void OnPointerEnter(PointerEventData pointer)
     {

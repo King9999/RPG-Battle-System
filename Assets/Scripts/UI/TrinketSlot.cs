@@ -11,7 +11,7 @@ public class TrinketSlot : ItemSlot
     public override void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         if (trinketInSlot != null)
         {
             inv.itemDetailsContainer.gameObject.SetActive(true);
@@ -25,20 +25,29 @@ public class TrinketSlot : ItemSlot
 
     public override void OnPointerExit(PointerEventData pointer)
     {
-        Inventory inv = Inventory.instance;
-        inv.itemDetailsContainer.gameObject.SetActive(false);
-        inv.itemDetailsUI.text = "";
-        
-        //highlight
-        Image img = GetComponent<Image>();
-        img.enabled = false;
+        inv = Inventory.instance;
+        dungeonMenu = DungeonMenu.instance;
+        if (dungeonMenu.menuState != DungeonMenu.MenuState.SelectingTrinketToEquip)
+        {
+            inv.itemDetailsContainer.gameObject.SetActive(false);
+            inv.itemDetailsUI.text = "";
+            
+            //highlight
+            Image img = GetComponent<Image>();
+            img.enabled = false;
+        }
     }
 
-    public void EquipTrinket()
+    public void SelectTrinket()
     {
         if (trinketInSlot != null)
         {
             //choose who to give item to, and then equip. Keep in mind equip restrictions.
+            dungeonMenu = DungeonMenu.instance;
+            inv.copiedSlot = this;
+            dungeonMenu.menuState = DungeonMenu.MenuState.SelectingTrinketToEquip;
+            DungeonUI ui = DungeonUI.instance;
+            ui.selectTargetUI.gameObject.SetActive(true);
         }
     }
 
