@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /* Item slots are a way to identify which item is clicked in the inventory. Item slots only accept consumable items. */
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -10,12 +9,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Consumable item;
     public int quantity;           //99 is the max
 
+
     protected Inventory inv;
     CombatMenu menu;
     // Start is called before the first frame update
     void Start()
     {
-        inv = Inventory.instance;
         menu = CombatMenu.instance;
     }
 
@@ -23,11 +22,27 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public virtual void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
+        Inventory inv = Inventory.instance;
+        if (item != null)
+        {
+            inv.itemDetailsContainer.gameObject.SetActive(true);
+            inv.itemDetailsUI.text = item.details;
+
+            //highlight
+            Image img = GetComponent<Image>();
+            img.enabled = true;
+        }
     }
 
     public virtual void OnPointerExit(PointerEventData pointer)
     {
-        //remove highlight
+        Inventory inv = Inventory.instance;
+        inv.itemDetailsContainer.gameObject.SetActive(false);
+        inv.itemDetailsUI.text = "";
+        
+        //highlight
+        Image img = GetComponent<Image>();
+        img.enabled = false;
     }
 
     public void UseItem()

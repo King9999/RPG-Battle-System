@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class WeaponSlot : ItemSlot
 {
@@ -15,6 +16,10 @@ public class WeaponSlot : ItemSlot
             inv.actGaugeWindow.UpdateGaugeData(weaponInSlot.actGauge);
             inv.itemDetailsContainer.gameObject.SetActive(true);
             inv.itemDetailsUI.text = weaponInSlot.details;
+
+            //highlight item
+            Image img = GetComponent<Image>();
+            img.enabled = true;
         }
     }
 
@@ -25,6 +30,10 @@ public class WeaponSlot : ItemSlot
         inv.actGaugeWindow.ShowWindow(false);
         inv.itemDetailsContainer.gameObject.SetActive(false);
         inv.itemDetailsUI.text = "";
+
+        //remove highlight
+        Image img = GetComponent<Image>();
+        img.enabled = false;
     }
 
     public void EquipWeapon()

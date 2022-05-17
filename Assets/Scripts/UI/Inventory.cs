@@ -70,10 +70,11 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         //itemDetailsUI.text = "";
 
         //add test items
-        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
-        //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
-        AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
+        AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
+        //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
         AddItem(im.weapons[(int)ItemManager.WeaponItem.Axe], 1);
+        AddItem(im.trinkets[(int)ItemManager.TrinketItem.SpeedBoots], 1);
     }
 
     // Update is called once per frame
