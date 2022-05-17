@@ -24,9 +24,7 @@ public class Stairs : MapObject
     {
         name = "Stairs";
         //advanceTimer.gameObject.SetActive(false);
-        advanceTimer.fillAmount = 0;
-
-        
+        advanceTimer.fillAmount = 0;      
     }
 
     public override void PlaceObject(int col, int row)
@@ -52,13 +50,9 @@ public class Stairs : MapObject
             }
         }
 
-        //set timer's position
-        /*ClampMapImage clamp = GetComponent<ClampMapImage>();
-        Vector3 timerPos = new Vector3(transform.position.x + 10, transform.position.y + 10, transform.position.z);
-        advanceTimer.transform.position = timerPos;
-        clamp.Clamp(advanceTimer.transform.position);*/
     }
-    // Update is called once per frame
+
+
     void Update()
     {
         Player player = Player.instance;
@@ -71,8 +65,9 @@ public class Stairs : MapObject
             if (advanceTimer.fillAmount >= 1 && player.row == row && player.col == col) //if player moves off stairs last minute, don't advance.
             {
                 //advance to next level
+                Debug.Log("Advancing to next level");
             }
-            Debug.Log("Found stairs");
+            
         }
         else
         {

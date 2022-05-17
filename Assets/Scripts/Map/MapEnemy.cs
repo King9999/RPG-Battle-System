@@ -13,7 +13,7 @@ public class MapEnemy : MapObject
     public int turnCounter;                         //the maximum number of turns before enemy moves.
     public bool isStationary {get; set;}            //if true, enemy does not move.
     public int defaultTurnCount {get;} = 2;
-    //public int nodeID;                              //the node ID that the enemy is currently standing on.
+    int desinationNodeID;                       //used to update enemy nodeID after coroutine finishes.
     bool animateMoveCoroutineOn;
     Vector3 destination;
     float yOffset = -0.2f;
@@ -127,7 +127,8 @@ public class MapEnemy : MapObject
                     row = node.row;
                     col = node.col;
                     node.isOccupied = true;
-                    nodeID = node.nodeID;
+                    //nodeID = node.nodeID;
+                    desinationNodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -144,7 +145,8 @@ public class MapEnemy : MapObject
                     row = node.row;
                     col = node.col;
                     node.isOccupied = true;
-                    nodeID = node.nodeID;
+                    //nodeID = node.nodeID;
+                    desinationNodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -161,7 +163,8 @@ public class MapEnemy : MapObject
                     row = node.row;
                     col = node.col;
                     node.isOccupied = true;
-                    nodeID = node.nodeID;
+                    //nodeID = node.nodeID;
+                    desinationNodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -177,7 +180,8 @@ public class MapEnemy : MapObject
                     row = node.row;
                     col = node.col;
                     node.isOccupied = true;
-                    nodeID = node.nodeID;
+                    //nodeID = node.nodeID;
+                    desinationNodeID = node.nodeID;
                     destination = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                     break;
                 }
@@ -189,6 +193,7 @@ public class MapEnemy : MapObject
     {
         bool standingOnChest = false;
         bool standingOnExit = false;
+        bool standingOnCaptive = false;
 
         //check if enemy is on a chest or on the exit.
         Dungeon dungeon = Dungeon.instance;
@@ -196,19 +201,43 @@ public class MapEnemy : MapObject
         {
             standingOnExit = true;
             dungeon.exit.occupiedByEnemy = true;
+
+            //enemy becomes semi-transparent so player can see what's being guarded
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
         }
 
+        //chest
         foreach(TreasureChest chest in dungeon.chests)
         {
             if (chest.heldItem != null && nodeID == chest.nodeID && !chest.occupiedByEnemy)
             {
                 standingOnChest = true;
                 chest.occupiedByEnemy = true;
+
+                 //enemy becomes semi-transparent so player can see what's being guarded
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                 break;
             }
         }
 
-        return standingOnChest || standingOnExit;
+        //captive
+        foreach(Captive captive in dungeon.captiveHeroes)
+        {
+            if (captive.gameObject.activeSelf && nodeID == captive.nodeID)
+            {
+                standingOnCaptive = true;
+                isStationary = true;
+
+                //enemy becomes semi-transparent so player can see what's being guarded
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                break;
+            }
+        }
+
+        return standingOnChest || standingOnExit || standingOnCaptive;
     }
 
     IEnumerator AnimateMovement(Vector3 destination)
@@ -232,7 +261,14 @@ public class MapEnemy : MapObject
 
             yield return null;
         }
-       
+
+        //after moving, update enemy's node ID so that appropriate actions will trigger.
+        nodeID = desinationNodeID;
+
+        //if enemy is now on a treasure chest, exit, or captive, they will guard it
+        if (StandingOnObject())
+           isStationary = true;
+           
         animateMoveCoroutineOn = false;
         ResetTurns();
     }

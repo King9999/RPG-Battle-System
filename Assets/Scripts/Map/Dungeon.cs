@@ -42,6 +42,7 @@ public class Dungeon : MonoBehaviour
     int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
     byte nodeID;
+    int dungeonLevel;
 
     public static Dungeon instance;
 
@@ -310,6 +311,10 @@ public class Dungeon : MonoBehaviour
         //validate the dungeon, adding paths where necessary to reach the exit.
         ValidateDungeon();
 
+        //if everything is good, we assign a level
+        dungeonLevel++;
+        DungeonUI ui = DungeonUI.instance;
+        ui.dungeonLevelUI.text = "Level " + dungeonLevel.ToString();
     }
 
     void ValidateDungeon()
@@ -682,9 +687,9 @@ public class Dungeon : MonoBehaviour
             //generate item
             int tableLevel;
             GameManager gm = GameManager.instance;
-            if (gm.dungeonLevel <= 5)
+            if (dungeonLevel <= 5)
                 tableLevel = 0;
-            else if (gm.dungeonLevel <= 10)
+            else if (dungeonLevel <= 10)
                 tableLevel = 1;
             else
                 tableLevel = 2;
@@ -711,8 +716,8 @@ public class Dungeon : MonoBehaviour
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
             GameManager gm = GameManager.instance;
-            //heroAppearanceChance = 1;
-            if (Random.value <= heroAppearanceChance || gm.dungeonLevel == 5)
+            heroAppearanceChance = 1;
+            if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
                 Captive captive = captiveHeroes[randCaptive];
@@ -767,9 +772,9 @@ public class Dungeon : MonoBehaviour
             //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
             GameManager gm = GameManager.instance;
             //gm.dungeonLevel = 5;
-            if (majorEnemyCount > 0 || (gm.dungeonLevel == 5 && !forcedMajorEnemy))
+            if (majorEnemyCount > 0 || (dungeonLevel == 5 && !forcedMajorEnemy))
             {
-                if (Random.value <= 0.3f || (gm.dungeonLevel == 5 && !forcedMajorEnemy))
+                if (Random.value <= 0.3f || (dungeonLevel == 5 && !forcedMajorEnemy))
                 {
                     SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
                     sr.sprite = enemy.majorEnemySprite;
@@ -781,7 +786,7 @@ public class Dungeon : MonoBehaviour
 
             //find a random node to occupy
           
-            if ((gm.dungeonLevel == 5 && !forcedMajorEnemy))
+            if ((dungeonLevel == 5 && !forcedMajorEnemy))
             {
                 //place a forced major enemy to introduce players to shield tokens.
                 forcedMajorEnemy = true;
@@ -811,19 +816,40 @@ public class Dungeon : MonoBehaviour
                 enemy.PlaceObject(randCol, randRow);
             }
 
-            //set turns. if the enemy is standing over a chest or stairs, they will not move.
+            //set turns. if the enemy is standing over a chest, stairs, or captive, they will not move.
+            //exit check
             if (!exit.occupiedByEnemy && enemy.nodeID == exit.nodeID)
             {
                 enemy.isStationary = true;
+                //enemy becomes semi-transparent so player can see what's being guarded
+                SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                 exit.occupiedByEnemy = true;
             }
 
+            //chest check
             foreach(TreasureChest chest in chests)
             {
                 if (!chest.occupiedByEnemy && enemy.nodeID == chest.nodeID)
                 {
                     enemy.isStationary = true;
                     chest.occupiedByEnemy = true;
+                    //enemy becomes semi-transparent so player can see what's being guarded
+                    SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                    break;
+                }
+            }
+
+            //captive check
+            foreach(Captive captive in captiveHeroes)
+            {
+                if (captive.gameObject.activeSelf && enemy.nodeID == captive.nodeID)
+                {
+                    enemy.isStationary = true;
+                    //enemy becomes semi-transparent so player can see what's being guarded
+                    SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                     break;
                 }
             }

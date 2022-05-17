@@ -134,8 +134,8 @@ public class Player : MapObject
                 enemy.Move();
 
                 //if enemy is now on a treasure chest or exit, they will guard it
-                if (enemy.StandingOnObject())
-                    enemy.isStationary = true;
+                //if (enemy.StandingOnObject())
+                    //enemy.isStationary = true;
             }
         }
         
