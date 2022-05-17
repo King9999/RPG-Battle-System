@@ -68,7 +68,7 @@ public class Dungeon : MonoBehaviour
         //get seed
         System.Random rnd = new System.Random();
         int p = rnd.Next();
-        Random.InitState(596852315);        //596852315 is a bad seed, can use it for testing.
+        Random.InitState(p);        //596852315 is a bad seed, can use it for testing.
         Debug.Log("Seed: " + p);
         
 
@@ -365,18 +365,34 @@ public class Dungeon : MonoBehaviour
             { 
                 previousNodes.Add(node);
 
-                //TODO: Add code to see how close we are to the exit by comparing row and col to the exit's row and col.
-                //Generate a path based on this logic. The code below will have to be modified.
+                //We check for a path that leads to the exit node. Column must be checked first, then row.
+                if (col < exit.col && node.paths[node.eastPath].PathVisible())
+                {
+                    col += 1;
+                    currentNode = UpdateNode(currentNode, col, row);
+                    node = nodes[currentNode];
+                }
+                else if (col > exit.col && node.paths[node.westPath].PathVisible())
+                {
+                    col -= 1;
+                    currentNode = UpdateNode(currentNode, col, row);
+                    node = nodes[currentNode];
+                }
 
                 if (row < exit.row && node.paths[node.southPath].PathVisible())
+                {
                     row += 1;
+                    currentNode = UpdateNode(currentNode, col, row);
+                    node = nodes[currentNode];
+                }
                 else if (row > exit.row && node.paths[node.northPath].PathVisible())
+                {
                     row -= 1;
+                    currentNode = UpdateNode(currentNode, col, row);
+                    node = nodes[currentNode];
+                }
 
-                if (col < exit.col && node.paths[node.eastPath].PathVisible())
-                    col += 1;
-                else if (col > exit.col && node.paths[node.westPath].PathVisible())
-                    col -= 1;
+               
                 
                 //are we at the exit?
                 if (row == exit.row && col == exit.col)
@@ -391,7 +407,7 @@ public class Dungeon : MonoBehaviour
                 foreach(Node n in previousNodes)
                 {
                     //check for a node to the east
-                    if (n.col + 1 < mapWidth /*&& !n.paths[n.eastPath].PathVisible()*/ && mapArray[n.col + 1, n.row] == true)
+                    if (n.col + 1 < mapWidth && !n.paths[n.eastPath].PathVisible() && mapArray[n.col + 1, n.row] == true)
                     {
                         n.paths[n.eastPath].ShowPath(true);
                         row = n.row;
@@ -401,7 +417,7 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //check west
-                    else if (n.col - 1 >= 0 /*&& !n.paths[n.westPath].PathVisible()*/ && mapArray[n.col - 1, n.row] == true)
+                    else if (n.col - 1 >= 0 && !n.paths[n.westPath].PathVisible() && mapArray[n.col - 1, n.row] == true)
                     {
                         n.paths[n.westPath].ShowPath(true);
                         row = n.row;
@@ -411,7 +427,7 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //check north
-                    else if (n.row - 1 >= 0 /*&& !n.paths[n.northPath].PathVisible()*/ && mapArray[n.col, n.row - 1] == true)
+                    else if (n.row - 1 >= 0 && !n.paths[n.northPath].PathVisible() && mapArray[n.col, n.row - 1] == true)
                     {
                         n.paths[n.northPath].ShowPath(true);
                         row = n.row - 1;
@@ -421,7 +437,7 @@ public class Dungeon : MonoBehaviour
                     }
 
                     //check south
-                    else if (n.row + 1 < mapHeight /*&& !n.paths[n.southPath].PathVisible()*/ && mapArray[n.col, n.row + 1] == true)
+                    else if (n.row + 1 < mapHeight && !n.paths[n.southPath].PathVisible() && mapArray[n.col, n.row + 1] == true)
                     {
                         n.paths[n.southPath].ShowPath(true);
                         row = n.row + 1;
@@ -440,6 +456,21 @@ public class Dungeon : MonoBehaviour
             Debug.Log("Bad dungeon");
             //GenerateDungeon(nodeCount);
         }
+    }
+
+    //used with ValidateNode method
+    private int UpdateNode(int nodeIndex, int playerCol, int playerRow)
+    {
+        foreach(Node n in nodes)
+        {
+            if (n.row == playerRow && n.col == playerCol)
+            {
+                nodeIndex = nodes.IndexOf(n);
+                break;
+            }
+        }
+
+        return nodeIndex;
     }
 
     void GenerateNode(int nodeCount)
