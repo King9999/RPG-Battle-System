@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 //This is used to access equip and consumable buttons
 public class DungeonMenu : MonoBehaviour
@@ -12,6 +13,11 @@ public class DungeonMenu : MonoBehaviour
     public Button trinketMenuButton;
     public Button consumableMenuButton;
     public Button backButton;           //used to go back to combat menu from different screens.
+    public Image weaponIcon;
+    public Image armorIcon;             //when an item is selected, one of the icons follows the mouse cursor.
+    public Image trinketIcon;
+    public Image consumableIcon;
+    Image itemIcon;                 //the image that will follow the mouse.
     public Inventory inv;
 
     public enum MenuState {Main, ConsumableMenuOpened, WeaponMenuOpened, ArmorMenuOpened, TrinketMenuOpened, SelectingWeaponToEquip, 
@@ -20,7 +26,7 @@ public class DungeonMenu : MonoBehaviour
 
     //singletons
     public static DungeonMenu instance;
-    UI ui;
+    DungeonUI ui;
 
     private void Awake()
     {
@@ -35,13 +41,57 @@ public class DungeonMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        backButton.gameObject.SetActive(false);   
+        backButton.gameObject.SetActive(false);
+        HideAllIcons();   
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //icon follows mouse cursor
+        ui = DungeonUI.instance;
+        if (!consumableIcon.gameObject.activeSelf && menuState == MenuState.SelectingHeroToTakeItem)
+        {
+            HideAllIcons();
+            itemIcon = ShowIcon(consumableIcon);
+        }
+
+        if (!weaponIcon.gameObject.activeSelf && menuState == MenuState.SelectingWeaponToEquip)
+        {
+            HideAllIcons();
+            itemIcon = ShowIcon(weaponIcon);
+        }
+
+        if (!trinketIcon.gameObject.activeSelf && menuState == MenuState.SelectingTrinketToEquip)
+        {
+            HideAllIcons();
+            itemIcon = ShowIcon(trinketIcon);
+        }
+
+        if (!armorIcon.gameObject.activeSelf && menuState == MenuState.SelectingArmorToEquip)
+        {
+            HideAllIcons();
+            itemIcon = ShowIcon(armorIcon);
+        }
+
+        if (itemIcon != null)
+            itemIcon.transform.position = Mouse.current.position.ReadValue();
+    }
+
+    Image ShowIcon(Image icon)
+    {
+        icon.gameObject.SetActive(true);
+        //Vector3 mousePos = Mouse.current.position.ReadValue();
+        //icon.transform.position = mousePos;
+        return icon;
+    }
+
+    void HideAllIcons()
+    {
+        weaponIcon.gameObject.SetActive(false);
+        trinketIcon.gameObject.SetActive(false);
+        armorIcon.gameObject.SetActive(false);
+        consumableIcon.gameObject.SetActive(false);
     }
 
     public void OnWeaponButtonClicked()
@@ -88,7 +138,7 @@ public class DungeonMenu : MonoBehaviour
 
     public void OnBackButtonClicked()
     {
-        DungeonUI ui = DungeonUI.instance;
+        ui = DungeonUI.instance;
         //check which state we're on
         switch(menuState)
         {
@@ -124,22 +174,30 @@ public class DungeonMenu : MonoBehaviour
                 break;
 
             case MenuState.SelectingWeaponToEquip:
-                inv.ShowInventory(true);
+                ui.selectTargetUI.gameObject.SetActive(false);
+                HideAllIcons();
+                itemIcon = null;
                 menuState = MenuState.WeaponMenuOpened;
                 break;
 
             case MenuState.SelectingArmorToEquip:
-                inv.ShowInventory(true);
+                ui.selectTargetUI.gameObject.SetActive(false);
+                HideAllIcons();
+                itemIcon = null;
                 menuState = MenuState.ArmorMenuOpened;
                 break;
 
             case MenuState.SelectingTrinketToEquip:
-                inv.ShowInventory(true);
+                ui.selectTargetUI.gameObject.SetActive(false);
+                HideAllIcons();
+                itemIcon = null;
                 menuState = MenuState.TrinketMenuOpened;
                 break;
             
             case MenuState.SelectingHeroToTakeItem:
-                inv.ShowInventory(true);
+                ui.selectTargetUI.gameObject.SetActive(false);
+                HideAllIcons();
+                itemIcon = null;
                 menuState = MenuState.ConsumableMenuOpened;
                 break;
         }

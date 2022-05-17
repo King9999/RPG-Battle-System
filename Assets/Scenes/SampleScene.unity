@@ -934,6 +934,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 184716589, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116581240, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286476816, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849812482, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6044994061025685281, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
       propertyPath: inv
       value: 
@@ -1034,6 +1050,10 @@ PrefabInstance:
       propertyPath: inv
       value: 
       objectReference: {fileID: 697741766}
+    - target: {fileID: 9023559060111697564, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
 --- !u!1001 &6144532497454986556
@@ -1211,6 +1231,10 @@ PrefabInstance:
     - target: {fileID: 8909469364804098306, guid: 185a7543984849e49bc31038c95b1142, type: 3}
       propertyPath: m_Name
       value: Dungeon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909469364804098306, guid: 185a7543984849e49bc31038c95b1142, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185a7543984849e49bc31038c95b1142, type: 3}

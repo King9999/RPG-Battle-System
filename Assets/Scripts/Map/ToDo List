@@ -1,4 +1,4 @@
-1. Add captive heroes in dungeon. This can only be done after player has the ability to select a hero when the game starts.
+1. Add captive heroes in dungeon. This can only be done after player has the ability to select a hero when the game starts. *DONE*
 2. When coming in contact with an enemy, combat begins. Try to add some kind of screen effect.
 3. Add a JSON file that controls which enemies appear based on dungeon level. This should be similar to the treasure table.
 4. Add UI for equipping weapons. Should be able to use code from the existing inventory script for the most part.

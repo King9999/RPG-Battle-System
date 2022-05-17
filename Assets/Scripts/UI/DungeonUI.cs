@@ -12,6 +12,7 @@ public class DungeonUI : MonoBehaviour
     public PartyStats partyDisplay;             //handles party UI in dungeon screen.
     public Notification notification;
     public TextMeshProUGUI dungeonLevelUI;
+    public TextMeshProUGUI selectTargetUI;      //appears above the party UI
 
 
     public static DungeonUI instance;
@@ -25,6 +26,11 @@ public class DungeonUI : MonoBehaviour
         }
 
         instance = this;
+    }
+
+    void Start()
+    {
+        selectTargetUI.gameObject.SetActive(false);
     }
 
 }

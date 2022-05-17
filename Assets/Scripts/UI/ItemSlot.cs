@@ -10,19 +10,14 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int quantity;           //99 is the max
 
 
-    protected Inventory inv;
     CombatMenu menu;
-    // Start is called before the first frame update
-    void Start()
-    {
-        menu = CombatMenu.instance;
-    }
-
+    Inventory inv;
+    DungeonMenu dungeonMenu;
     
     public virtual void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         if (item != null)
         {
             inv.itemDetailsContainer.gameObject.SetActive(true);
@@ -36,7 +31,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public virtual void OnPointerExit(PointerEventData pointer)
     {
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         inv.itemDetailsContainer.gameObject.SetActive(false);
         inv.itemDetailsUI.text = "";
         
@@ -51,9 +46,11 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (item != null)
         {
             GameManager gm = GameManager.instance;
+            inv = Inventory.instance;
             if (gm.gameState == GameManager.GameState.Combat)
             { 
                 //copy the item
+                menu = CombatMenu.instance;
                 inv.copiedSlot = this;
                 inv.ShowInventory(false);
                 menu.menuState = CombatMenu.MenuState.SelectingHeroToTakeItem;
@@ -68,6 +65,13 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             else //using item outside of combat
             {
                 Debug.Log("Using " + item.itemName + " outside of combat");
+                //copy the item
+                dungeonMenu = DungeonMenu.instance;
+                inv.copiedSlot = this;
+                //inv.ShowInventory(false);
+                dungeonMenu.menuState = DungeonMenu.MenuState.SelectingHeroToTakeItem;
+                DungeonUI ui = DungeonUI.instance;
+                ui.selectTargetUI.gameObject.SetActive(true);
             }
         }
     }
