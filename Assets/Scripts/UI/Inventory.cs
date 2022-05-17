@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public WeaponSlot[] weaponSlots;
     public ArmorSlot[] armorSlots;
     public TrinketSlot[] trinketSlots;
+    public ActionGaugeWindow actGaugeWindow;
 
     //containers
     public GameObject itemSlotContainer;    
@@ -62,10 +63,11 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         weaponSlotContainer.gameObject.SetActive(false);
         trinketSlotContainer.gameObject.SetActive(false);
         armorSlotContainer.gameObject.SetActive(false);
+        actGaugeWindow.ShowWindow(false);
 
         //add test items
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
-        AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
+        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
+        //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
     }
 

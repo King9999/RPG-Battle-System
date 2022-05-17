@@ -8225,7 +8225,6 @@ RectTransform:
   - {fileID: 1751627369555777426}
   - {fileID: 2523943738225838425}
   - {fileID: 7272376017594287643}
-  - {fileID: 7694639244223240321}
   m_Father: {fileID: 7293731605069431836}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8554,7 +8553,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6733739374677031164}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8564,12 +8563,12 @@ RectTransform:
   - {fileID: 125157402968808262}
   - {fileID: 4113366103148193933}
   - {fileID: 906692223}
-  m_Father: {fileID: 8476727358704289287}
-  m_RootOrder: 10
+  m_Father: {fileID: 7293731605069431836}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -191}
+  m_AnchoredPosition: {x: 0, y: -228.70801}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3413896552131751259
@@ -10275,6 +10274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7293731605069431836}
   - component: {fileID: 7293731605069431837}
+  - component: {fileID: 3845610724920225640}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -10298,6 +10298,7 @@ RectTransform:
   - {fileID: 8476727358704289287}
   - {fileID: 6539821862084194796}
   - {fileID: 6680451839097504237}
+  - {fileID: 7694639244223240321}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10368,6 +10369,35 @@ MonoBehaviour:
   trinketSlotContainer: {fileID: 7264627727115615392}
   copiedSlot: {fileID: 0}
   currentItem: 0
+--- !u!114 &3845610724920225640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293731605069431839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241714437296f5e408d602e25cc8b667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalPanel: {fileID: 8778330708360908613}
+  reducedPanel: {fileID: 7544855587244118453}
+  missPanel: {fileID: 2129577254548294683}
+  critPanel: {fileID: 6856427733392662907}
+  specialPanel: {fileID: 163667001738851584}
+  panels:
+  - {fileID: 823707016}
+  - {fileID: 964727066}
+  - {fileID: 2147068218}
+  - {fileID: 1059370421}
+  - {fileID: 1272988726}
+  - {fileID: 293626129}
+  - {fileID: 701609261}
+  - {fileID: 35034895}
+  - {fileID: 475115328}
+  - {fileID: 331007518}
+  data: {fileID: 0}
 --- !u!1 &7293731605365992514
 GameObject:
   m_ObjectHideFlags: 0

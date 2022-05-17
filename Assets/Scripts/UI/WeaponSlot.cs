@@ -4,25 +4,29 @@ using UnityEngine.EventSystems;
 public class WeaponSlot : ItemSlot
 {
     private Weapon weaponInSlot;
-    ActionGaugeWindow actGaugeWindow;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        inv = Inventory.instance;
-        actGaugeWindow.ShowWindow(false);
+        
     }
 
     public override void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index. Display action gauge
-        actGaugeWindow.ShowWindow(true);
+        Inventory inv = Inventory.instance;
+        if (weaponInSlot != null)
+        {
+            inv.actGaugeWindow.ShowWindow(true);
+        }
     }
 
     public override void OnPointerExit(PointerEventData pointer)
     {
         //remove highlight and hide action gauge window.
-        actGaugeWindow.ShowWindow(false);
+        Inventory inv = Inventory.instance;
+        inv.actGaugeWindow.ShowWindow(false);
 
     }
 
