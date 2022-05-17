@@ -9,7 +9,7 @@ public class WeaponSlot : ItemSlot
     public override void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index. Display action gauge
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         if (weaponInSlot != null)
         {
             inv.actGaugeWindow.ShowWindow(true);
@@ -26,7 +26,7 @@ public class WeaponSlot : ItemSlot
     public override void OnPointerExit(PointerEventData pointer)
     {
         //remove highlight and hide action gauge window.
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         inv.actGaugeWindow.ShowWindow(false);
         inv.itemDetailsContainer.gameObject.SetActive(false);
         inv.itemDetailsUI.text = "";
@@ -41,7 +41,11 @@ public class WeaponSlot : ItemSlot
         if (weaponInSlot != null)
         {
             //choose who to give item to, and then equip. Keep in mind equip restrictions.
-            Debug.Log("Selecting " + weaponInSlot.itemName);
+            dungeonMenu = DungeonMenu.instance;
+            inv.copiedSlot = this;
+            dungeonMenu.menuState = DungeonMenu.MenuState.SelectingWeaponToEquip;
+            DungeonUI ui = DungeonUI.instance;
+            ui.selectTargetUI.gameObject.SetActive(true);
         }
     }
 

@@ -26,16 +26,16 @@ public class TrinketSlot : ItemSlot
     public override void OnPointerExit(PointerEventData pointer)
     {
         inv = Inventory.instance;
-        dungeonMenu = DungeonMenu.instance;
-        if (dungeonMenu.menuState != DungeonMenu.MenuState.SelectingTrinketToEquip)
-        {
+        //dungeonMenu = DungeonMenu.instance;
+        //if (dungeonMenu.menuState != DungeonMenu.MenuState.SelectingTrinketToEquip)
+        //{
             inv.itemDetailsContainer.gameObject.SetActive(false);
             inv.itemDetailsUI.text = "";
             
             //highlight
             Image img = GetComponent<Image>();
             img.enabled = false;
-        }
+        //}
     }
 
     public void SelectTrinket()

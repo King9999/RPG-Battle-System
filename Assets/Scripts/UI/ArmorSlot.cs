@@ -9,7 +9,7 @@ public class ArmorSlot : ItemSlot
     public override void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         if (armorInSlot != null)
         {
             inv.itemDetailsContainer.gameObject.SetActive(true);
@@ -23,7 +23,7 @@ public class ArmorSlot : ItemSlot
 
     public override void OnPointerExit(PointerEventData pointer)
     {
-        Inventory inv = Inventory.instance;
+        inv = Inventory.instance;
         inv.itemDetailsContainer.gameObject.SetActive(false);
         inv.itemDetailsUI.text = "";
         
@@ -37,7 +37,11 @@ public class ArmorSlot : ItemSlot
         if (armorInSlot != null)
         {
             //choose who to give item to, and then equip. Keep in mind equip restrictions.
-            Debug.Log("Selecting " + armorInSlot.itemName);
+            dungeonMenu = DungeonMenu.instance;
+            inv.copiedSlot = this;
+            dungeonMenu.menuState = DungeonMenu.MenuState.SelectingArmorToEquip;
+            DungeonUI ui = DungeonUI.instance;
+            ui.selectTargetUI.gameObject.SetActive(true);
         }
     }
 
