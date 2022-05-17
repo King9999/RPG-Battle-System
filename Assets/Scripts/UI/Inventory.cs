@@ -18,12 +18,14 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public ArmorSlot[] armorSlots;
     public TrinketSlot[] trinketSlots;
     public ActionGaugeWindow actGaugeWindow;
+    public TextMeshProUGUI itemDetailsUI;
 
     //containers
     public GameObject itemSlotContainer;    
     public GameObject weaponSlotContainer;
     public GameObject armorSlotContainer;
     public GameObject trinketSlotContainer;
+    public GameObject itemDetailsContainer;
 
     public ItemSlot copiedSlot;            //copy of an item that is about to be used.
     int money;
@@ -64,11 +66,14 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         trinketSlotContainer.gameObject.SetActive(false);
         armorSlotContainer.gameObject.SetActive(false);
         actGaugeWindow.ShowWindow(false);
+        itemDetailsContainer.gameObject.SetActive(false);
+        //itemDetailsUI.text = "";
 
         //add test items
         //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
         //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
+        AddItem(im.weapons[(int)ItemManager.WeaponItem.Axe], 1);
     }
 
     // Update is called once per frame

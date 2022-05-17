@@ -5,13 +5,6 @@ public class WeaponSlot : ItemSlot
 {
     private Weapon weaponInSlot;
     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public override void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index. Display action gauge
@@ -19,6 +12,9 @@ public class WeaponSlot : ItemSlot
         if (weaponInSlot != null)
         {
             inv.actGaugeWindow.ShowWindow(true);
+            inv.actGaugeWindow.UpdateGaugeData(weaponInSlot.actGauge);
+            inv.itemDetailsContainer.gameObject.SetActive(true);
+            inv.itemDetailsUI.text = weaponInSlot.details;
         }
     }
 
@@ -27,7 +23,8 @@ public class WeaponSlot : ItemSlot
         //remove highlight and hide action gauge window.
         Inventory inv = Inventory.instance;
         inv.actGaugeWindow.ShowWindow(false);
-
+        inv.itemDetailsContainer.gameObject.SetActive(false);
+        inv.itemDetailsUI.text = "";
     }
 
     public void EquipWeapon()
