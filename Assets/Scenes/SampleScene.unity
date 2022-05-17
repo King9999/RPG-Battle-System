@@ -934,30 +934,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3913767229580713448, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3913767229580713448, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3913767229580713448, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 3913767229580713448, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -33
-      objectReference: {fileID: 0}
-    - target: {fileID: 5026662776273127460, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 5026662776273127460, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6044994061025685281, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
       propertyPath: inv
       value: 

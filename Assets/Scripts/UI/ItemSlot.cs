@@ -20,12 +20,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
     
-    public void OnPointerEnter(PointerEventData pointer)
+    public virtual void OnPointerEnter(PointerEventData pointer)
     {
         //highlight item and capture its index
     }
 
-    public void OnPointerExit(PointerEventData pointer)
+    public virtual void OnPointerExit(PointerEventData pointer)
     {
         //remove highlight
     }

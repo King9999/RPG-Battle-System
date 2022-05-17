@@ -314,7 +314,7 @@ public class Dungeon : MonoBehaviour
         //if everything is good, we assign a level
         dungeonLevel++;
         DungeonUI ui = DungeonUI.instance;
-        ui.dungeonLevelUI.text = "Level " + dungeonLevel.ToString();
+        ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
     }
 
     void ValidateDungeon()
