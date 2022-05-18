@@ -124,7 +124,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ItemInSlot().itemName + " " + slot.quantity;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ItemInSlot().itemName + " -- " + slot.quantity;
                 break;
             }
         }
@@ -141,7 +141,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             //itemSlots[i].item = item;
             itemSlots[i].AddItem(item);
             itemSlots[i].quantity += amount;
-            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].ItemInSlot().itemName + " " + itemSlots[i].quantity;
+            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].ItemInSlot().itemName + " -- " + itemSlots[i].quantity;
         }
 
     }
@@ -164,7 +164,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " " + slot.quantity;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
                 break;
             }
         }
@@ -180,7 +180,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
             weaponSlots[i].AddWeapon(item);
             weaponSlots[i].quantity += amount;
-            weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " " + weaponSlots[i].quantity;
+            weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
         }
     }
 
@@ -201,7 +201,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ArmorInSlot().itemName + " " + slot.quantity;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ArmorInSlot().itemName + " -- " + slot.quantity;
                 break;
             }
         }
@@ -217,7 +217,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             
             armorSlots[i].AddArmor(item);
             armorSlots[i].quantity += amount;
-            armorSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = armorSlots[i].ArmorInSlot().itemName + " " + armorSlots[i].quantity;
+            armorSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = armorSlots[i].ArmorInSlot().itemName + " -- " + armorSlots[i].quantity;
         }
     }
     public void AddItem(Trinket item, int amount)
@@ -237,7 +237,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.TrinketInSlot().itemName + " " + slot.quantity;
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.TrinketInSlot().itemName + " -- " + slot.quantity;
                 break;
             }
         }
@@ -253,7 +253,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             
             trinketSlots[i].AddTrinket(item);
             trinketSlots[i].quantity += amount;
-            trinketSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = trinketSlots[i].TrinketInSlot().itemName + " " + trinketSlots[i].quantity;
+            trinketSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = trinketSlots[i].TrinketInSlot().itemName + " -- " + trinketSlots[i].quantity;
         }
     }
 
