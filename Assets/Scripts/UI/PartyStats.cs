@@ -16,7 +16,9 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     Color normalColor;
     Color highlightColor;
 
+    //singletons
     DungeonMenu menu;
+    Inventory inv;
 
     void Start()
     {
@@ -73,11 +75,34 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             statsDisplay.UpdateStats(hero);
         }
 
+        if (hero != null && (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
+            || menu.menuState == DungeonMenu.MenuState.SelectingTrinketToEquip))
+        {
+            //update equip stats display. Need to get the correct slot type to access the correct item.
+            inv = Inventory.instance;
+            //inv.statsDisplay.ShowDisplay(true);
+            if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
+            {
+                inv.statsDisplay.UpdateStats(hero, wSlot.WeaponInSlot());
+            }
+        }
+
     }
 
     public void OnPointerExit(PointerEventData pointer)
     {
+        menu = DungeonMenu.instance;
+        //hide hero stats
         background.color = normalColor;
         statsDisplay.ShowDisplay(false);
+
+        //hide equip stats
+        if (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
+            || menu.menuState == DungeonMenu.MenuState.SelectingTrinketToEquip)
+        {
+            inv = Inventory.instance;
+            //inv.statsDisplay.ShowDisplay(false);
+            inv.statsDisplay.ClearDisplay();
+        }
     }
 }

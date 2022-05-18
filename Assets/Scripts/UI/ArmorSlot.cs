@@ -42,7 +42,7 @@ public class ArmorSlot : ItemSlot
             inv.copiedSlot = this;
             inv.ShowInventory(false);
             inv.statsDisplay.ShowDisplay(true);
-            inv.statsDisplay.itemToEquipUI.text = armorInSlot.itemName;
+            //inv.statsDisplay.itemToEquipUI.text = armorInSlot.itemName;
             dungeonMenu.menuState = DungeonMenu.MenuState.SelectingArmorToEquip;
             DungeonUI ui = DungeonUI.instance;
             ui.selectTargetUI.gameObject.SetActive(true);

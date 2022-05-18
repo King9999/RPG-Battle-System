@@ -48,7 +48,7 @@ public class TrinketSlot : ItemSlot
             inv.copiedSlot = this;
             inv.ShowInventory(false);
             inv.statsDisplay.ShowDisplay(true);
-            inv.statsDisplay.itemToEquipUI.text = trinketInSlot.itemName;
+            //inv.statsDisplay.itemToEquipUI.text = trinketInSlot.itemName;
             dungeonMenu.menuState = DungeonMenu.MenuState.SelectingTrinketToEquip;
             DungeonUI ui = DungeonUI.instance;
             ui.selectTargetUI.gameObject.SetActive(true);
