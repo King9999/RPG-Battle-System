@@ -1701,6 +1701,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3652716566822490616}
+  - component: {fileID: 596885380}
   m_Layer: 5
   m_Name: Member 4
   m_TagString: Untagged
@@ -1730,6 +1731,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -342}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &596885380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870973189303016781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e4c3eaafe4b67419927dabcb372a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 0}
+  heroSprite: {fileID: 0}
+  heroStats: {fileID: 134696688478720230}
 --- !u!1 &1593446656426511710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,6 +1889,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2159896294722830157}
+  - component: {fileID: 1443169356}
   m_Layer: 5
   m_Name: Member 3
   m_TagString: Untagged
@@ -1902,6 +1919,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -228}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1443169356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823118629694052887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e4c3eaafe4b67419927dabcb372a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 0}
+  heroSprite: {fileID: 0}
+  heroStats: {fileID: 6820766326303844835}
 --- !u!1 &2760877095024644695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,6 +2018,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5797435132254983192}
+  - component: {fileID: 2114970503}
   m_Layer: 5
   m_Name: Member 2
   m_TagString: Untagged
@@ -2015,6 +2048,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -114}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2114970503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157099722386838084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e4c3eaafe4b67419927dabcb372a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 0}
+  heroSprite: {fileID: 0}
+  heroStats: {fileID: 5116487361064396761}
 --- !u!1 &3534721073356859803
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,16 +3116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e4c3eaafe4b67419927dabcb372a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroSprites:
-  - {fileID: 730905250312023510}
-  - {fileID: 6408805972891113075}
-  - {fileID: 5056526882601303838}
-  - {fileID: 4928178816213017179}
-  heroStats:
-  - {fileID: 8661150025139434104}
-  - {fileID: 5116487361064396761}
-  - {fileID: 6820766326303844835}
-  - {fileID: 134696688478720230}
+  hero: {fileID: 0}
+  heroSprite: {fileID: 0}
+  heroStats: {fileID: 0}
 --- !u!1 &6044994061187689802
 GameObject:
   m_ObjectHideFlags: 0
@@ -3239,6 +3280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6044994061694755450}
+  - component: {fileID: 1423512581}
   m_Layer: 5
   m_Name: Member 1
   m_TagString: Untagged
@@ -3268,6 +3310,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1423512581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044994061694755449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e4c3eaafe4b67419927dabcb372a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 0}
+  heroSprite: {fileID: 0}
+  heroStats: {fileID: 8661150025139434104}
 --- !u!1 &6044994061883261526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3652,7 +3709,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inv: {fileID: 0}
   menu: {fileID: 6044994061025685281}
-  partyDisplay: {fileID: 901722424}
+  partyDisplay:
+  - {fileID: 1423512581}
+  - {fileID: 2114970503}
+  - {fileID: 1443169356}
+  - {fileID: 596885380}
   notification: {fileID: 315978158}
   dungeonLevelUI: {fileID: 5026662776273127460}
   selectTargetUI: {fileID: 629004802}

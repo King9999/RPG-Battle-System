@@ -625,13 +625,16 @@ public class Dungeon : MonoBehaviour
             player.SetSprite(player.barbSprite);        //this must change to whatever player picked at the beginning
             player.transform.SetParent(transform);
             cameraFollow.objectTransform = player.transform;
-            ui.partyDisplay.heroSprites[0].gameObject.SetActive(true);
-            ui.partyDisplay.heroSprites[0].sprite = player.mapSprite;
+            //ui.partyDisplay[0].heroSprite.gameObject.SetActive(true);
+            //ui.partyDisplay[0].heroSprite.sprite = player.mapSprite;
+            HeroManager hm = HeroManager.instance;
+            ui.partyDisplay[0].hero = hm.heroes[0];
+            ui.partyDisplay[0].SetSprite(player.mapSprite);
         }
 
         //UI update
         //DungeonUI ui = DungeonUI.instance;
-        ui.partyDisplay.UpdateUI();
+        ui.partyDisplay[0].UpdateUI();
 
         player.PlaceObject(0, 0);
         

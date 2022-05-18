@@ -9,7 +9,7 @@ public class DungeonUI : MonoBehaviour
 {
     public Inventory inv;
     public DungeonMenu menu;
-    public PartyStats partyDisplay;             //handles party UI in dungeon screen.
+    public PartyStats[] partyDisplay;             //handles party UI in dungeon screen.
     public Notification notification;
     public TextMeshProUGUI dungeonLevelUI;
     public TextMeshProUGUI selectTargetUI;      //appears above the party UI
