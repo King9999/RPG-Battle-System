@@ -80,10 +80,17 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             //update equip stats display. Need to get the correct slot type to access the correct item.
             inv = Inventory.instance;
-            //inv.statsDisplay.ShowDisplay(true);
             if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
             {
                 inv.statsDisplay.UpdateStats(hero, wSlot.WeaponInSlot());
+            }
+            if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
+            {
+                inv.statsDisplay.UpdateStats(hero, aSlot.ArmorInSlot());
+            }
+            if (inv.copiedSlot.TryGetComponent(out TrinketSlot tSlot))
+            {
+                inv.statsDisplay.UpdateStats(hero, tSlot.TrinketInSlot());
             }
         }
 
@@ -91,17 +98,16 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerExit(PointerEventData pointer)
     {
-        menu = DungeonMenu.instance;
         //hide hero stats
         background.color = normalColor;
         statsDisplay.ShowDisplay(false);
 
         //hide equip stats
+        menu = DungeonMenu.instance;
         if (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
             || menu.menuState == DungeonMenu.MenuState.SelectingTrinketToEquip)
         {
             inv = Inventory.instance;
-            //inv.statsDisplay.ShowDisplay(false);
             inv.statsDisplay.ClearDisplay();
         }
     }
