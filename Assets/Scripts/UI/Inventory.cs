@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public ArmorSlot[] armorSlots;
     public TrinketSlot[] trinketSlots;
     public ActionGaugeWindow actGaugeWindow;
+    public StatsDisplay statsDisplay;
     public TextMeshProUGUI itemDetailsUI;
 
     //containers

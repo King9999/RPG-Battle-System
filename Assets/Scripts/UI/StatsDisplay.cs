@@ -12,6 +12,9 @@ public class StatsDisplay : MonoBehaviour
     void Start()
     {
         ShowDisplay(false);
+        currentValuesUI.text = "";
+        newValuesUI.text = "";
+        itemToEquipUI.text = "";
     }
 
     public void ShowDisplay(bool toggle)

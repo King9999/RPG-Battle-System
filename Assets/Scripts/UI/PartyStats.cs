@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /* This script manages the party UI in the dungeon outside of combat. All of the data can be acquired from Hero Manager.*/
-public class PartyStats : MonoBehaviour
+public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     HeroManager hm;
     public Image[] heroSprites;
@@ -34,5 +33,18 @@ public class PartyStats : MonoBehaviour
                 "\n<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
         }
         
+    }
+
+    public void OnPointerClick(PointerEventData pointer)
+    {
+    }
+
+    public void OnPointerEnter(PointerEventData pointer)
+    {
+        //check which hero the mouse is on.
+    }
+
+    public void OnPointerExit(PointerEventData pointer)
+    {
     }
 }

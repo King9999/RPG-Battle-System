@@ -18,7 +18,7 @@ public class DungeonMenu : MonoBehaviour
     public Image trinketIcon;
     public Image consumableIcon;
     Image itemIcon;                 //the image that will follow the mouse.
-    public Inventory inv;
+    Inventory inv;
 
     public enum MenuState {Main, ConsumableMenuOpened, WeaponMenuOpened, ArmorMenuOpened, TrinketMenuOpened, SelectingWeaponToEquip, 
                           SelectingArmorToEquip, SelectingTrinketToEquip, SelectingHeroToTakeItem, SelectingHeroToUseSkill}
@@ -97,6 +97,7 @@ public class DungeonMenu : MonoBehaviour
     public void OnWeaponButtonClicked()
     {
         //open inventory
+        inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;    //this allows player to select other menus without closing current one.
 
         inv.ShowInventory(true);
@@ -108,6 +109,7 @@ public class DungeonMenu : MonoBehaviour
 
     public void OnConsumableButtonClicked()
     {
+        inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;
         inv.ShowInventory(true);
         inv.HideAllSlots();
@@ -118,6 +120,7 @@ public class DungeonMenu : MonoBehaviour
 
     public void OnArmorButtonClicked()
     {
+        inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;
         inv.ShowInventory(true);
         inv.HideAllSlots();
@@ -128,6 +131,7 @@ public class DungeonMenu : MonoBehaviour
 
     public void OnTrinketButtonClicked()
     {
+        inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;
         inv.ShowInventory(true);
         inv.HideAllSlots();
@@ -139,6 +143,7 @@ public class DungeonMenu : MonoBehaviour
     public void OnBackButtonClicked()
     {
         ui = DungeonUI.instance;
+        inv = Inventory.instance;
         //check which state we're on
         switch(menuState)
         {
@@ -177,6 +182,8 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
+                inv.ShowInventory(true);
+                inv.statsDisplay.ShowDisplay(false);
                 menuState = MenuState.WeaponMenuOpened;
                 break;
 
@@ -184,6 +191,8 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
+                inv.ShowInventory(true);
+                inv.statsDisplay.ShowDisplay(false);
                 menuState = MenuState.ArmorMenuOpened;
                 break;
 
@@ -191,6 +200,8 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
+                inv.ShowInventory(true);
+                inv.statsDisplay.ShowDisplay(false);
                 menuState = MenuState.TrinketMenuOpened;
                 break;
             

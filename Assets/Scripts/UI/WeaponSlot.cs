@@ -41,8 +41,12 @@ public class WeaponSlot : ItemSlot
         if (weaponInSlot != null)
         {
             //choose who to give item to, and then equip. Keep in mind equip restrictions.
+            inv = Inventory.instance;
             dungeonMenu = DungeonMenu.instance;
             inv.copiedSlot = this;
+            inv.ShowInventory(false);
+            inv.statsDisplay.ShowDisplay(true);
+            inv.statsDisplay.itemToEquipUI.text = weaponInSlot.itemName;
             dungeonMenu.menuState = DungeonMenu.MenuState.SelectingWeaponToEquip;
             DungeonUI ui = DungeonUI.instance;
             ui.selectTargetUI.gameObject.SetActive(true);
