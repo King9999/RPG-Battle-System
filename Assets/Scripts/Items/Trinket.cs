@@ -48,7 +48,7 @@ public class Trinket : Item
             {
                 hero.skillEffects.Add(trinketSkill);
             }
-            else
+            else if (!trinketSkill.isPassive)
             {
                 hero.skills.Add(trinketSkill);
             }

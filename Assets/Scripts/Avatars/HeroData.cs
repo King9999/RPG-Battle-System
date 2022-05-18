@@ -17,6 +17,5 @@ public class HeroData : AvatarData
     public Armor armor;
     public Trinket trinket; 
    public bool swordOK, daggerOK, axeOK, bowOK, staffOK;
-   //add a XP table
 
 }

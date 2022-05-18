@@ -15,5 +15,5 @@ public abstract class AvatarData : ScriptableObject
     public float mag;           //magic power
     public float res;           //resistance
 
-    public List<Skill> skills;
+   public List<Skill> skills;
 }

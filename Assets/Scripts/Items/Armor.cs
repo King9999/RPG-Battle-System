@@ -39,7 +39,7 @@ public class Armor : Item
                 {
                     hero.skillEffects.Add(armorSkill);
                 }
-                else
+                else if (!armorSkill.isPassive)
                 {
                     hero.skills.Add(armorSkill);
                 }

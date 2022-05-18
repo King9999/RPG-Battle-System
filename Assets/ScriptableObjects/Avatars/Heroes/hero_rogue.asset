@@ -22,10 +22,7 @@ MonoBehaviour:
   spd: 0
   mag: 0
   res: 0
-  skills:
-  - {fileID: 11400000, guid: d8982e848a347e64ea5b1c379ad8d848, type: 2}
-  - {fileID: 11400000, guid: d8982e848a347e64ea5b1c379ad8d848, type: 2}
-  - {fileID: 11400000, guid: d8982e848a347e64ea5b1c379ad8d848, type: 2}
+  skills: []
   statFile: {fileID: 4900000, guid: f5ef3a3596a9900498056ac7b3b1baae, type: 3}
   sprite: {fileID: 21300000, guid: 6727f157f9600844893e2ad9ad8378f4, type: 3}
   heroClass: 1
