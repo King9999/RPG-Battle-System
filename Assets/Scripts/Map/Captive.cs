@@ -52,6 +52,7 @@ public class Captive : MapObject
             int currentHero = hm.heroes.Count - 1;
             ui.partyDisplay[currentHero].hero = hm.heroes[currentHero];
             ui.partyDisplay[currentHero].SetSprite(mapSprite);
+            ui.partyDisplay[currentHero].heroID = currentHero;
             ui.partyDisplay[currentHero].UpdateUI();
             ui.notification.DisplayMessage(name + " added to party!");
 

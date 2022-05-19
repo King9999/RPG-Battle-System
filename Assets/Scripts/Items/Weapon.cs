@@ -18,30 +18,28 @@ public class Weapon : Item
     }
     
 
-    //A weapon can have a special effect that is triggered during a battle by landing a token in the correct area on the action gauge.
-    //public virtual void ActivateSkill() {}
-
+    public bool CanBeEquipped(Hero hero)
+    {
+        return weaponType == WeaponType.Sword && hero.swordOK || weaponType == WeaponType.Axe && hero.axeOK || 
+            weaponType == WeaponType.Bow && hero.bowOK || weaponType == WeaponType.Dagger && hero.daggerOK ||
+            weaponType == WeaponType.Staff && hero.staffOK;
+    }
     public override void Equip(Hero hero)
     {
         if (isEquipped || itemType != ItemType.Weapon) return;
 
         //check weapon type
-        if (weaponType == WeaponType.Sword && hero.swordOK || weaponType == WeaponType.Axe && hero.axeOK || 
-            weaponType == WeaponType.Bow && hero.bowOK || weaponType == WeaponType.Dagger && hero.daggerOK ||
-            weaponType == WeaponType.Staff && hero.staffOK)
-        {
-            if (hero.weapon != null)
-                hero.weapon.Unequip(hero);
-            hero.weapon = this;
-            hero.atp += atp;
-            hero.mag += mag;
-            hero.actGauge = actGauge;
-            hero.totalAttackTokens = hero.attackTokenMod + tokenCount;
+        if (hero.weapon != null)
+            hero.weapon.Unequip(hero);
+        hero.weapon = this;
+        hero.atp += atp;
+        hero.mag += mag;
+        hero.actGauge = actGauge;
+        hero.totalAttackTokens = hero.attackTokenMod + tokenCount;
 
-            //if (weaponSkill != null)
-               // hero.skills.Add(weaponSkill);
-            isEquipped = true;
-        }
+        //if (weaponSkill != null)
+            // hero.skills.Add(weaponSkill);
+        isEquipped = true;
     }
 
     public override void Unequip(Hero hero)

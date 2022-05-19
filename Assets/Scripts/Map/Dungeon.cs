@@ -629,6 +629,7 @@ public class Dungeon : MonoBehaviour
             
             ui.partyDisplay[0].hero = hm.heroes[0];
             ui.partyDisplay[0].SetSprite(player.mapSprite); //TODO: Why isn't this working correctly??
+            //ui.partyDisplay[0].heroID = hm.heroes.Count;
         }
         ui.partyDisplay[0].UpdateUI();
         player.PlaceObject(0, 0);

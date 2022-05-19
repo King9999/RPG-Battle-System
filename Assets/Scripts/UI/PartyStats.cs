@@ -15,6 +15,8 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public Image background;
     Color normalColor;
     Color highlightColor;
+    public int heroID;                                     //used to target heroes for item use. Corresponds to HeroManager index.
+    int currentHero;
 
     //singletons
     DungeonMenu menu;
@@ -27,6 +29,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         normalColor = new Color(0.08f, 0.13f, 0.5f, 0.4f);
         highlightColor = new Color(0.8f, 0.2f, 0.2f, 0.4f);
         statsDisplay.ShowDisplay(false);
+        heroID = 0;
     }
 
     public void UpdateUI()
@@ -66,6 +69,10 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 Debug.Log(iSlot.ItemInSlot().itemName + " used!");
 
                 //TODO: get the hero who the item was used on and apply item effects, then update UI
+                DungeonUI ui = DungeonUI.instance;
+                //int targetHero = ui.partyDisplay[ui.partyDisplay[ui.partyDisplay]]
+                iSlot.ItemInSlot().itemEffect.Activate(hero, ui.partyDisplay[currentHero].hero, hero.SkillBorderColor());
+                Debug.Log("Using item on " + ui.partyDisplay[currentHero].hero.className);
 
                 inv.RemoveItem(iSlot.ItemInSlot(), 1);
 
@@ -82,13 +89,21 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             {
                 Debug.Log(wSlot.WeaponInSlot().itemName + " equipped!");
                 Weapon oldWeapon = hero.weapon;
-                wSlot.WeaponInSlot().Equip(hero);
-                inv.RemoveItem(wSlot.WeaponInSlot(), 1);
 
-                if (oldWeapon != null)
-                    inv.AddItem(oldWeapon, 1);
+                if (wSlot.WeaponInSlot().CanBeEquipped(hero))
+                {
+                    wSlot.WeaponInSlot().Equip(hero);
+                    statsDisplay.UpdateStats(hero);
+                    inv.statsDisplay.UpdateStats(hero, hero.weapon);    //showing updated stats
+                    inv.RemoveItem(wSlot.WeaponInSlot(), 1);
 
-                inv.statsDisplay.UpdateStats(hero, hero.weapon);    //showing updated stats
+                    if (oldWeapon != null)
+                        inv.AddItem(oldWeapon, 1);
+                }
+                else
+                {
+                    Debug.Log(wSlot.WeaponInSlot().itemName + " can't be equipped by " + hero.className);
+                }
 
                 //TODO: send player back to inventory after briefly showing an "Equipped" message
                 menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
@@ -105,6 +120,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                     inv.AddItem(oldArmor, 1);
 
                 inv.statsDisplay.UpdateStats(hero, hero.armor);    //showing updated stats
+                statsDisplay.UpdateStats(hero);
                 
                 //TODO: send player back to inventory after briefly showing an "Equipped" message
                 menu.SetState(DungeonMenu.MenuState.ArmorMenuOpened);
@@ -121,6 +137,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                     inv.AddItem(oldTrinket, 1);
 
                 inv.statsDisplay.UpdateStats(hero, hero.trinket);    //showing updated stats
+                statsDisplay.UpdateStats(hero);
                 
                 //TODO: send player back to inventory after briefly showing an "Equipped" message
                 menu.SetState(DungeonMenu.MenuState.TrinketMenuOpened);
@@ -139,6 +156,13 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             Vector3 newPos = transform.position;
             statsDisplay.transform.position = new Vector3(statsDisplay.transform.position.x, newPos.y, statsDisplay.transform.position.z);
             statsDisplay.UpdateStats(hero);
+        }
+
+        //using item
+        if (hero != null && menu.menuState == DungeonMenu.MenuState.SelectingHeroToTakeItem)
+        {
+            DungeonUI ui = DungeonUI.instance;
+            currentHero = heroID;
         }
 
         if (hero != null && (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
@@ -167,6 +191,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         //hide hero stats
         background.color = normalColor;
         statsDisplay.ShowDisplay(false);
+        currentHero = -1;
 
         //hide equip stats
         menu = DungeonMenu.instance;
@@ -177,4 +202,5 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             inv.statsDisplay.ClearDisplay();
         }
     }
+
 }

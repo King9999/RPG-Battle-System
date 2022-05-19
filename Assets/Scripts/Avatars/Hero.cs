@@ -194,6 +194,8 @@ public class Hero : Avatar
 
     }
 
+    public Color SkillBorderColor() { return skillNameBorderColor; }
+
     public override void UpdateSkillEffects()
     {
         //skill activation check    
