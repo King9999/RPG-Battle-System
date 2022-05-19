@@ -26,16 +26,12 @@ public class TrinketSlot : ItemSlot
     public override void OnPointerExit(PointerEventData pointer)
     {
         inv = Inventory.instance;
-        //dungeonMenu = DungeonMenu.instance;
-        //if (dungeonMenu.menuState != DungeonMenu.MenuState.SelectingTrinketToEquip)
-        //{
-            inv.itemDetailsContainer.gameObject.SetActive(false);
-            inv.itemDetailsUI.text = "";
-            
-            //highlight
-            Image img = GetComponent<Image>();
-            img.enabled = false;
-        //}
+        inv.itemDetailsContainer.gameObject.SetActive(false);
+        inv.itemDetailsUI.text = "";
+        
+        //highlight
+        Image img = GetComponent<Image>();
+        img.enabled = false;
     }
 
     public void SelectTrinket()
@@ -47,12 +43,6 @@ public class TrinketSlot : ItemSlot
             dungeonMenu = DungeonMenu.instance;
             inv.copiedSlot = this;
             dungeonMenu.SetState(DungeonMenu.MenuState.SelectingTrinketToEquip);
-            //inv.ShowInventory(false);
-            //inv.statsDisplay.ShowDisplay(true);
-            //inv.statsDisplay.itemToEquipUI.text = trinketInSlot.itemName;
-            //dungeonMenu.menuState = DungeonMenu.MenuState.SelectingTrinketToEquip;
-            //DungeonUI ui = DungeonUI.instance;
-            //ui.selectTargetUI.gameObject.SetActive(true);
         }
     }
 

@@ -81,8 +81,6 @@ public class DungeonMenu : MonoBehaviour
     Image ShowIcon(Image icon)
     {
         icon.gameObject.SetActive(true);
-        //Vector3 mousePos = Mouse.current.position.ReadValue();
-        //icon.transform.position = mousePos;
         return icon;
     }
 
@@ -172,51 +170,21 @@ public class DungeonMenu : MonoBehaviour
 
     public void OnWeaponButtonClicked()
     {
-        //open inventory
-        /*inv = Inventory.instance;
-        if (menuState > MenuState.TrinketMenuOpened) return;    //this allows player to select other menus without closing current one.
-
-        inv.ShowInventory(true);
-        inv.HideAllSlots();
-        inv.ShowWeaponSlots(true);
-        backButton.gameObject.SetActive(true);
-        menuState = MenuState.WeaponMenuOpened;*/
         SetState(MenuState.WeaponMenuOpened);  
     }
 
     public void OnConsumableButtonClicked()
     {
-        /*inv = Inventory.instance;
-        if (menuState > MenuState.TrinketMenuOpened) return;
-        inv.ShowInventory(true);
-        inv.HideAllSlots();
-        inv.ShowItemSlots(true);
-        backButton.gameObject.SetActive(true);
-        menuState = MenuState.ConsumableMenuOpened;*/
         SetState(MenuState.ConsumableMenuOpened);
     }
 
     public void OnArmorButtonClicked()
     {
-        /*inv = Inventory.instance;
-        if (menuState > MenuState.TrinketMenuOpened) return;
-        inv.ShowInventory(true);
-        inv.HideAllSlots();
-        inv.ShowArmorSlots(true);
-        backButton.gameObject.SetActive(true);
-        menuState = MenuState.ArmorMenuOpened;*/
         SetState(MenuState.ArmorMenuOpened);
     }
 
     public void OnTrinketButtonClicked()
     {
-        /*inv = Inventory.instance;
-        if (menuState > MenuState.TrinketMenuOpened) return;
-        inv.ShowInventory(true);
-        inv.HideAllSlots();
-        inv.ShowTrinketSlots(true);
-        backButton.gameObject.SetActive(true);
-        menuState = MenuState.TrinketMenuOpened;*/
         SetState(MenuState.TrinketMenuOpened);
     }
 
@@ -262,9 +230,6 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
-                //inv.ShowInventory(true);
-                //inv.statsDisplay.ShowDisplay(false);
-                //menuState = MenuState.WeaponMenuOpened;
                 SetState(MenuState.WeaponMenuOpened);
                 break;
 
@@ -272,9 +237,6 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
-                //inv.ShowInventory(true);
-                //inv.statsDisplay.ShowDisplay(false);
-                //menuState = MenuState.ArmorMenuOpened;
                 SetState(MenuState.ArmorMenuOpened);
                 break;
 
@@ -282,9 +244,6 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
-                //inv.ShowInventory(true);
-                //inv.statsDisplay.ShowDisplay(false);
-                //menuState = MenuState.TrinketMenuOpened;
                 SetState(MenuState.TrinketMenuOpened);
                 break;
             

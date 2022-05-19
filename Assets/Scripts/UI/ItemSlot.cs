@@ -69,10 +69,6 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 dungeonMenu = DungeonMenu.instance;
                 inv.copiedSlot = this;
                 dungeonMenu.SetState(DungeonMenu.MenuState.SelectingHeroToTakeItem);
-                //inv.ShowInventory(false);
-                //dungeonMenu.menuState = DungeonMenu.MenuState.SelectingHeroToTakeItem;
-                //DungeonUI ui = DungeonUI.instance;
-                //ui.selectTargetUI.gameObject.SetActive(true);
             }
         }
     }
