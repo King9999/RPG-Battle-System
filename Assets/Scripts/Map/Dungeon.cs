@@ -30,7 +30,7 @@ public class Dungeon : MonoBehaviour
     public List<MapEnemy> graveyard;    //defeated map enemies go in here
     public List<TreasureChest> chests;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
-    public float heroAppearanceChance;  //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
+    float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
@@ -64,12 +64,12 @@ public class Dungeon : MonoBehaviour
         mapHeight = minMapSize;
         mapArray = new bool[mapWidth, mapHeight];
         nodeCount = minNodeCount;
-        heroAppearanceChance = 0;                   //this increases by 40% after each level
+        heroAppearanceChance = 0;                   //this increases by 10% if no captive is generated, then resets to 0 after success.
 
         //get seed
         System.Random rnd = new System.Random();
         int p = rnd.Next();
-        Random.InitState(p);        //596852315 is a bad seed, can use it for testing.
+        Random.InitState(p);        
         Debug.Log("Seed: " + p);
         
 
@@ -209,7 +209,7 @@ public class Dungeon : MonoBehaviour
                 if (mapArray[i, j] == true)
                 {
                     Node node;
-                    if (nodes.Count <= 0 || currentNode >= nodes.Count /*nodes[currentNode] == null*/)
+                    if (nodes.Count <= 0 || currentNode >= nodes.Count)
                     {
                         node = Instantiate(nodePrefab);
                         nodeInstantiated = true;
@@ -619,23 +619,18 @@ public class Dungeon : MonoBehaviour
         
         /****Player & Party setup****/
         DungeonUI ui = DungeonUI.instance;
+        HeroManager hm = HeroManager.instance;
         if (player == null)
         {
             player = Instantiate(playerPrefab);
-            player.SetSprite(player.barbSprite);        //this must change to whatever player picked at the beginning
+            player.SetSprite(player.barbSprite);        //TODO: this must change to whatever player picked at the beginning
             player.transform.SetParent(transform);
             cameraFollow.objectTransform = player.transform;
-            //ui.partyDisplay[0].heroSprite.gameObject.SetActive(true);
-            //ui.partyDisplay[0].heroSprite.sprite = player.mapSprite;
-            HeroManager hm = HeroManager.instance;
+            
             ui.partyDisplay[0].hero = hm.heroes[0];
-            ui.partyDisplay[0].SetSprite(player.mapSprite);
+            ui.partyDisplay[0].SetSprite(player.mapSprite); //TODO: Why isn't this working correctly??
         }
-
-        //UI update
-        //DungeonUI ui = DungeonUI.instance;
         ui.partyDisplay[0].UpdateUI();
-
         player.PlaceObject(0, 0);
         
         
@@ -689,7 +684,6 @@ public class Dungeon : MonoBehaviour
             
             //generate item
             int tableLevel;
-            GameManager gm = GameManager.instance;
             if (dungeonLevel <= 5)
                 tableLevel = 0;
             else if (dungeonLevel <= 10)
@@ -712,13 +706,21 @@ public class Dungeon : MonoBehaviour
         if (!captivesGenerated)
         {
             GenerateCaptives();
+
+            //disable party UI sprites for the remaining missing heroes
+            ui = DungeonUI.instance;
+            for (int i = 1; i < ui.partyDisplay.Length; i++)
+            {
+                ui.partyDisplay[i].ShowSprite(false);
+            }
+        
             captivesGenerated = true;
         }
 
         if (captiveHeroes.Count > 0)
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
-            GameManager gm = GameManager.instance;
+            //GameManager gm = GameManager.instance;
             heroAppearanceChance = 1;
             if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
             {
@@ -773,7 +775,7 @@ public class Dungeon : MonoBehaviour
             }
 
             //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
-            GameManager gm = GameManager.instance;
+            //GameManager gm = GameManager.instance;
             //gm.dungeonLevel = 5;
             if (majorEnemyCount > 0 || (dungeonLevel == 5 && !forcedMajorEnemy))
             {

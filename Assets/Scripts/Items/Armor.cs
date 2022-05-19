@@ -23,6 +23,9 @@ public class Armor : Item
             weaponType == WeaponType.Bow && hero.bowOK || weaponType == WeaponType.Dagger && hero.daggerOK ||
             weaponType == WeaponType.Staff && hero.staffOK)*/
         //{
+            if (hero.armor != null)
+                hero.armor.Unequip(hero);
+            hero.armor = this;
             hero.dfp += dfp;
             hero.res += res;
 
@@ -50,8 +53,9 @@ public class Armor : Item
 
     public override void Unequip(Hero hero)
     {
-        if (!isEquipped) return;
+        if (!isEquipped || hero.armor == null) return;
 
+        hero.armor = null;
         hero.dfp -= dfp;
         hero.res -= res;
 

@@ -23,11 +23,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     void Start()
     {
         //disable sprite display except the first one since that one will always be populated.
-        /*for (int i = 1; i < heroSprites.Length; i++)
-        {
-            heroSprites[i].gameObject.SetActive(false);
-        }*/
-        heroSprite.gameObject.SetActive(false);
+        //heroSprite.gameObject.SetActive(false);
         normalColor = new Color(0.08f, 0.13f, 0.5f, 0.4f);
         highlightColor = new Color(0.8f, 0.2f, 0.2f, 0.4f);
         statsDisplay.ShowDisplay(false);
@@ -35,18 +31,13 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void UpdateUI()
     {
-        if (heroSprite)
-        //hm = HeroManager.instance;
-        //for (int i = 0; i < hm.heroes.Count; i++)
-        //{
-            //Hero hero = hm.heroes[i];
-            heroStats.text = hero.className + " Lv " + hero.level + 
-                "\n<color=#0fbe1f>Status</color> " +  hero.status +
-                "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + 
-                "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + 
-                "\n<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
-        //}
         
+        heroStats.text = hero.className + " Lv " + hero.level + 
+            "\n<color=#0fbe1f>Status</color> " +  hero.status +
+            "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + 
+            "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + 
+            "\n<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
+    
     }
 
     public void SetSprite(Sprite sprite)
@@ -57,9 +48,35 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         heroSprite.sprite = sprite;
     }
 
+    public void ShowSprite(bool toggle)
+    {
+        heroSprite.gameObject.SetActive(toggle);
+    }
+
     public void OnPointerClick(PointerEventData pointer)
     {
+        //equip or use an item
+        inv = Inventory.instance;
+        if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
+        {
+            Debug.Log(wSlot.WeaponInSlot().itemName + " equipped!");
+            Weapon oldWeapon = hero.weapon;
+            wSlot.WeaponInSlot().Equip(hero);
+            inv.RemoveItem(wSlot.WeaponInSlot(), 1);
+            
+            if (oldWeapon != null)
+                inv.AddItem(oldWeapon, 1);
 
+            inv.statsDisplay.UpdateStats(hero, hero.weapon);    //showing new weapon
+        }
+        if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
+        {
+            inv.statsDisplay.UpdateStats(hero, aSlot.ArmorInSlot());
+        }
+        if (inv.copiedSlot.TryGetComponent(out TrinketSlot tSlot))
+        {
+            inv.statsDisplay.UpdateStats(hero, tSlot.TrinketInSlot());
+        }
     }
 
     public void OnPointerEnter(PointerEventData pointer)

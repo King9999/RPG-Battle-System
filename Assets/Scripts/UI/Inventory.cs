@@ -8,10 +8,14 @@ using UnityEngine.EventSystems;
 /* All items are kept in a dictionary, and interacting with them requires mouse events and buttons. */
 public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
 {
-    Dictionary<Consumable, int> items;
-    Dictionary<Weapon, int> weapons;
-    Dictionary<Armor, int> armor;
-    Dictionary<Trinket, int> trinkets;
+    //Dictionary<Consumable, int> items;
+    //Dictionary<Weapon, int> weapons;
+    int weaponCount;
+    int itemCount;          //consumables
+    int armorCount;
+    int trinketCount;
+    //Dictionary<Armor, int> armor;
+    //Dictionary<Trinket, int> trinkets;
     //public Button[] itemButtons;           //when these are clicked, item is used.
     public ItemSlot[] itemSlots;            //contains consumables only
     public WeaponSlot[] weaponSlots;
@@ -55,10 +59,15 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     void Start()
     {
         im = ItemManager.instance;
-        items = new Dictionary<Consumable, int>();
+        /*items = new Dictionary<Consumable, int>();
         weapons = new Dictionary<Weapon, int>();
         armor = new Dictionary<Armor, int>();
-        trinkets = new Dictionary<Trinket, int>();
+        trinkets = new Dictionary<Trinket, int>();*/
+
+        weaponCount = 0;
+        itemCount = 0;
+        trinketCount = 0;
+        armorCount = 0;
 
         currentItem = 0;
         gameObject.SetActive(false);
@@ -110,11 +119,13 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     //add item to first available slot
     public void AddItem(Consumable item, int amount)
     {
-        if (items.Count >= maxItems)
+        /*if (items.Count >= maxItems)
         {
             //prevent item from being destroyed so player has a chance to make room
             return;
-        }
+        }*/
+        if (itemCount >= maxItems) return;
+
         bool itemFound = false;
         foreach(ItemSlot slot in itemSlots)
         {
@@ -140,6 +151,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
             }
 
             //itemSlots[i].item = item;
+            itemCount++;
             itemSlots[i].AddItem(item);
             itemSlots[i].quantity += amount;
             itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].ItemInSlot().itemName + " -- " + itemSlots[i].quantity;
@@ -149,11 +161,12 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     public void AddItem(Weapon item, int amount)
     {
-        if (weapons.Count >= maxItems)
+        /*if (weapons.Count >= maxItems)
         {
             //prevent item from being destroyed so player has a chance to make room
             return;
-        }
+        }*/
+        if (weaponCount >= maxItems) return;
         
         bool itemFound = false;
         foreach(WeaponSlot slot in weaponSlots)
@@ -179,6 +192,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
                 i++;
             }
 
+            weaponCount++;
             weaponSlots[i].AddWeapon(item);
             weaponSlots[i].quantity += amount;
             weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
@@ -187,11 +201,13 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     public void AddItem(Armor item, int amount)
     {
-        if (armor.Count >= maxItems)
+        /*if (armor.Count >= maxItems)
         {
             //prevent item from being destroyed so player has a chance to make room
             return;
-        }
+        }*/
+        if (armorCount >= maxItems) return;
+
         bool itemFound = false;
         foreach(ArmorSlot slot in armorSlots)
         {
@@ -216,6 +232,7 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
                 i++;
             }
             
+            armorCount++;
             armorSlots[i].AddArmor(item);
             armorSlots[i].quantity += amount;
             armorSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = armorSlots[i].ArmorInSlot().itemName + " -- " + armorSlots[i].quantity;
@@ -223,11 +240,13 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     }
     public void AddItem(Trinket item, int amount)
     {
-        if (trinkets.Count >= maxItems)
+        /*if (trinkets.Count >= maxItems)
         {
             //prevent item from being destroyed so player has a chance to make room
             return;
-        }
+        }*/
+        if (trinketCount >= maxItems) return;
+
         bool itemFound = false;
         foreach(TrinketSlot slot in trinketSlots)
         {
@@ -252,9 +271,109 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
                 i++;
             }
             
+            trinketCount++;
             trinketSlots[i].AddTrinket(item);
             trinketSlots[i].quantity += amount;
             trinketSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = trinketSlots[i].TrinketInSlot().itemName + " -- " + trinketSlots[i].quantity;
+        }
+    }
+
+    public void RemoveItem(Weapon item, int amount)
+    {
+        //if (weapons.Count <= 0) return;
+        if (weaponCount <= 0) return;
+        
+        foreach(WeaponSlot slot in weaponSlots)
+        {
+            if (slot.WeaponInSlot() == null) continue;
+
+            if (slot.WeaponInSlot().itemName == item.itemName)
+            {
+                slot.quantity -= amount;
+                if (slot.quantity <= 0)
+                {
+                    //remove from slot
+                    slot.RemoveWeapon();
+                    weaponCount--;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                }
+                else
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
+                break;
+            }
+        }
+    }
+    public void RemoveItem(Armor item, int amount)
+    {
+        if (armorCount <= 0) return;
+        
+        foreach(ArmorSlot slot in armorSlots)
+        {
+            if (slot.ArmorInSlot() == null) continue;
+
+            if (slot.ArmorInSlot().itemName == item.itemName)
+            {
+                slot.quantity -= amount;
+                if (slot.quantity <= 0)
+                {
+                    //remove from slot
+                    slot.RemoveArmor();
+                    armorCount--;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                }
+                else
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ArmorInSlot().itemName + " -- " + slot.quantity;
+                break;
+            }
+        }
+    }
+
+    public void RemoveItem(Trinket item, int amount)
+    {
+        if (trinketCount <= 0) return;
+        
+        foreach(TrinketSlot slot in trinketSlots)
+        {
+            if (slot.TrinketInSlot() == null) continue;
+
+            if (slot.TrinketInSlot().itemName == item.itemName)
+            {
+                slot.quantity -= amount;
+                if (slot.quantity <= 0)
+                {
+                    //remove from slot
+                    slot.RemoveTrinket();
+                    trinketCount--;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                }
+                else
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.TrinketInSlot().itemName + " -- " + slot.quantity;
+                break;
+            }
+        }
+    }
+    public void RemoveItem(Consumable item, int amount)
+    {
+        if (itemCount <= 0) return;
+        
+        foreach(ItemSlot slot in itemSlots)
+        {
+            if (slot.ItemInSlot() == null) continue;
+
+            if (slot.ItemInSlot().itemName == item.itemName)
+            {
+                slot.quantity -= amount;
+                if (slot.quantity <= 0)
+                {
+                    //remove from slot
+                    slot.RemoveItem();
+                    itemCount--;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                }
+                else
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ItemInSlot().itemName + " -- " + slot.quantity;
+                break;
+            }
         }
     }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -13,6 +11,9 @@ public class HeroStatsDisplay : MonoBehaviour
     void Start()
     {
         //ShowDisplay(false);
+        statValuesUI.text = "";
+        equipmentUI.text = "";
+        skillsUI.text = "";
     }
 
     public void ShowDisplay(bool toggle)

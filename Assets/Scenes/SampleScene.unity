@@ -953,6 +953,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 291283358, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 319.8822
+      objectReference: {fileID: 0}
+    - target: {fileID: 291283358, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 286.7835
+      objectReference: {fileID: 0}
+    - target: {fileID: 291283358, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -23.9755
+      objectReference: {fileID: 0}
+    - target: {fileID: 291283358, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -23.1832
+      objectReference: {fileID: 0}
+    - target: {fileID: 659893366, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6044994061025685281, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
       propertyPath: border
       value: 

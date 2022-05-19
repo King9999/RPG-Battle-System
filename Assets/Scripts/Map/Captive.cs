@@ -48,13 +48,13 @@ public class Captive : MapObject
             //Update party UI
             Dungeon dungeon = Dungeon.instance;
             DungeonUI ui = DungeonUI.instance;
-            ui.notification.DisplayMessage(name + " added to party!");
-            //ui.partyDisplay[hm.heroes.Count - 1].heroSprite.gameObject.SetActive(true);
-            //ui.partyDisplay[hm.heroes.Count - 1].heroSprite.sprite = mapSprite;
+            
             int currentHero = hm.heroes.Count - 1;
             ui.partyDisplay[currentHero].hero = hm.heroes[currentHero];
             ui.partyDisplay[currentHero].SetSprite(mapSprite);
             ui.partyDisplay[currentHero].UpdateUI();
+            ui.notification.DisplayMessage(name + " added to party!");
+
             dungeon.captiveHeroes.Remove(this);
             Destroy(gameObject);
         }

@@ -18,7 +18,10 @@ public class Trinket : Item
     {
         if (isEquipped || itemType != ItemType.Trinket) return;
 
+        if (hero.trinket != null)
+                hero.trinket.Unequip(hero);
         //add all stats
+        hero.trinket = this;
         hero.maxHitPoints += maxHitPoints;
         hero.manaPoints += maxManaPoints;
         hero.atp += atp;
@@ -59,8 +62,9 @@ public class Trinket : Item
 
     public override void Unequip(Hero hero)
     {
-        if (!isEquipped) return;
+        if (!isEquipped || hero.trinket == null) return;
 
+        hero.trinket = null;
         hero.maxHitPoints -= maxHitPoints;
         hero.manaPoints -= maxManaPoints;
         hero.atp -= atp;
