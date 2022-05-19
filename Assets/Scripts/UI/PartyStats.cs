@@ -58,27 +58,73 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         //equip or use an item
         inv = Inventory.instance;
         menu = DungeonMenu.instance;
-        if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
-        {
-            Debug.Log(wSlot.WeaponInSlot().itemName + " equipped!");
-            Weapon oldWeapon = hero.weapon;
-            wSlot.WeaponInSlot().Equip(hero);
-            inv.RemoveItem(wSlot.WeaponInSlot(), 1);
 
-            if (oldWeapon != null)
-                inv.AddItem(oldWeapon, 1);
+        if (hero != null && menu.menuState == DungeonMenu.MenuState.SelectingHeroToTakeItem)
+        {
+            if (inv.copiedSlot.TryGetComponent(out ItemSlot iSlot))
+            {
+                Debug.Log(iSlot.ItemInSlot().itemName + " used!");
 
-            inv.statsDisplay.UpdateStats(hero, hero.weapon);    //showing new weapon
-            //TODO: send player back to inventory after briefly showing an "Equipped" message
-            menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
+                //TODO: get the hero who the item was used on and apply item effects, then update UI
+
+                inv.RemoveItem(iSlot.ItemInSlot(), 1);
+
+                //TODO: send player back to inventory after briefly showing an "Equipped" message
+                menu.SetState(DungeonMenu.MenuState.ConsumableMenuOpened);
+            }
         }
-        if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
+
+        if (hero != null && (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
+            || menu.menuState == DungeonMenu.MenuState.SelectingTrinketToEquip))
         {
-            inv.statsDisplay.UpdateStats(hero, aSlot.ArmorInSlot());
-        }
-        if (inv.copiedSlot.TryGetComponent(out TrinketSlot tSlot))
-        {
-            inv.statsDisplay.UpdateStats(hero, tSlot.TrinketInSlot());
+            
+            if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
+            {
+                Debug.Log(wSlot.WeaponInSlot().itemName + " equipped!");
+                Weapon oldWeapon = hero.weapon;
+                wSlot.WeaponInSlot().Equip(hero);
+                inv.RemoveItem(wSlot.WeaponInSlot(), 1);
+
+                if (oldWeapon != null)
+                    inv.AddItem(oldWeapon, 1);
+
+                inv.statsDisplay.UpdateStats(hero, hero.weapon);    //showing updated stats
+
+                //TODO: send player back to inventory after briefly showing an "Equipped" message
+                menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
+            }
+
+            if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
+            {
+                Debug.Log(aSlot.ArmorInSlot().itemName + " equipped!");
+                Armor oldArmor = hero.armor == null ? null : hero.armor;
+                aSlot.ArmorInSlot().Equip(hero);
+                inv.RemoveItem(aSlot.ArmorInSlot(), 1);
+
+                if (oldArmor != null)
+                    inv.AddItem(oldArmor, 1);
+
+                inv.statsDisplay.UpdateStats(hero, hero.armor);    //showing updated stats
+                
+                //TODO: send player back to inventory after briefly showing an "Equipped" message
+                menu.SetState(DungeonMenu.MenuState.ArmorMenuOpened);
+            }
+
+            if (inv.copiedSlot.TryGetComponent(out TrinketSlot tSlot))
+            {
+                Debug.Log(tSlot.TrinketInSlot().itemName + " equipped!");
+                Trinket oldTrinket = hero.trinket;
+                tSlot.TrinketInSlot().Equip(hero);
+                inv.RemoveItem(tSlot.TrinketInSlot(), 1);
+
+                if (oldTrinket != null)
+                    inv.AddItem(oldTrinket, 1);
+
+                inv.statsDisplay.UpdateStats(hero, hero.trinket);    //showing updated stats
+                
+                //TODO: send player back to inventory after briefly showing an "Equipped" message
+                menu.SetState(DungeonMenu.MenuState.TrinketMenuOpened);
+            }
         }
     }
 
