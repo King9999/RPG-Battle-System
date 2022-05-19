@@ -18,8 +18,8 @@ MonoBehaviour:
   sprite: {fileID: 0}
   itemType: 0
   weaponType: 3
-  atp: 30
+  atp: 14
   mag: 0
   actGauge: {fileID: 11400000, guid: 2595642dce56e254bbc95209eb3b6cbd, type: 2}
-  tokenCount: 4
+  tokenCount: 3
   weaponSkill: {fileID: 0}

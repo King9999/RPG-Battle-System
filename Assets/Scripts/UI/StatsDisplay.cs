@@ -7,6 +7,7 @@ public class StatsDisplay : MonoBehaviour
     public TextMeshProUGUI currentValuesUI; //display order: maxHP, maxMP, ATP, DFP, SPD, MAG, RES, skill.
     public TextMeshProUGUI newValuesUI;
     public TextMeshProUGUI itemToEquipUI;
+    public TextMeshProUGUI equippedItemUI;
     string upColor;          //changes the color of values when there's a difference in stats
     string downColor;
     string endColor;
@@ -15,9 +16,7 @@ public class StatsDisplay : MonoBehaviour
     void Start()
     {
         ShowDisplay(false);
-        currentValuesUI.text = "";
-        newValuesUI.text = "";
-        itemToEquipUI.text = "";
+        ClearDisplay();
         upColor = "<color=#5EFF41>";
         downColor = "<color=#B22626>";
         endColor = "</color>";
@@ -33,6 +32,7 @@ public class StatsDisplay : MonoBehaviour
         currentValuesUI.text = "";
         newValuesUI.text = "";
         itemToEquipUI.text = "";
+        equippedItemUI.text = "";
     }
 
     public void UpdateStats(Hero hero, Item newItem)
@@ -46,14 +46,17 @@ public class StatsDisplay : MonoBehaviour
         {
             case Item.ItemType.Weapon:
                 newWeapon = (Weapon)newItem;
+                equippedItemUI.text = hero.weapon.itemName;
                 break;
 
             case Item.ItemType.Armor:
                 newArmor = (Armor)newItem;
+                equippedItemUI.text = hero.armor == null ? "<NONE>" : hero.armor.itemName;
                 break;
 
             case Item.ItemType.Trinket:
                 newTrinket = (Trinket)newItem;
+                equippedItemUI.text = hero.trinket == null ? "<NONE>" : hero.trinket.itemName;
                 break;
 
         }
