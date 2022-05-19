@@ -46,12 +46,13 @@ public class TrinketSlot : ItemSlot
             inv = Inventory.instance;
             dungeonMenu = DungeonMenu.instance;
             inv.copiedSlot = this;
-            inv.ShowInventory(false);
-            inv.statsDisplay.ShowDisplay(true);
+            dungeonMenu.SetState(DungeonMenu.MenuState.SelectingTrinketToEquip);
+            //inv.ShowInventory(false);
+            //inv.statsDisplay.ShowDisplay(true);
             //inv.statsDisplay.itemToEquipUI.text = trinketInSlot.itemName;
-            dungeonMenu.menuState = DungeonMenu.MenuState.SelectingTrinketToEquip;
-            DungeonUI ui = DungeonUI.instance;
-            ui.selectTargetUI.gameObject.SetActive(true);
+            //dungeonMenu.menuState = DungeonMenu.MenuState.SelectingTrinketToEquip;
+            //DungeonUI ui = DungeonUI.instance;
+            //ui.selectTargetUI.gameObject.SetActive(true);
         }
     }
 

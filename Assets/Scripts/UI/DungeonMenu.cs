@@ -94,50 +94,130 @@ public class DungeonMenu : MonoBehaviour
         consumableIcon.gameObject.SetActive(false);
     }
 
+    public void SetState(MenuState state)
+    {
+        inv = Inventory.instance;
+        menuState = state;
+        switch(menuState)
+        {
+            case MenuState.Main:
+                HideAllIcons();
+                itemIcon = null;
+                inv.HideAllSlots();
+                inv.ShowInventory(false);
+                backButton.gameObject.SetActive(false);
+                break;
+            
+            case MenuState.ConsumableMenuOpened:
+                if (menuState > MenuState.TrinketMenuOpened) return; //this allows player to select other menus without closing current one.
+                inv.ShowInventory(true);
+                inv.HideAllSlots();
+                HideAllIcons();
+                itemIcon = null;
+                inv.ShowItemSlots(true);
+                backButton.gameObject.SetActive(true);
+                break;
+            
+            case MenuState.WeaponMenuOpened:
+                if (menuState > MenuState.TrinketMenuOpened) return;    
+                inv.ShowInventory(true);
+                inv.HideAllSlots();
+                HideAllIcons();
+                itemIcon = null;
+                inv.ShowWeaponSlots(true);
+                inv.statsDisplay.ShowDisplay(false);
+                backButton.gameObject.SetActive(true);
+                break;
+            
+            case MenuState.ArmorMenuOpened:
+                if (menuState > MenuState.TrinketMenuOpened) return;
+                inv.ShowInventory(true);
+                inv.HideAllSlots();
+                HideAllIcons();
+                itemIcon = null;
+                inv.ShowArmorSlots(true);
+                inv.statsDisplay.ShowDisplay(false);
+                backButton.gameObject.SetActive(true);
+                break;
+
+            case MenuState.TrinketMenuOpened:
+                if (menuState > MenuState.TrinketMenuOpened) return;
+                inv.ShowInventory(true);
+                inv.HideAllSlots();
+                HideAllIcons();
+                itemIcon = null;
+                inv.ShowTrinketSlots(true);
+                inv.statsDisplay.ShowDisplay(false);
+                backButton.gameObject.SetActive(true);
+                break;
+
+            case MenuState.SelectingWeaponToEquip:
+            case MenuState.SelectingArmorToEquip:
+            case MenuState.SelectingTrinketToEquip:
+                inv.ShowInventory(false);
+                inv.statsDisplay.ShowDisplay(true); 
+                ui = DungeonUI.instance;
+                ui.selectTargetUI.gameObject.SetActive(true);
+                break;
+
+            
+            case MenuState.SelectingHeroToTakeItem:
+            case MenuState.SelectingHeroToUseSkill:
+                ui = DungeonUI.instance;
+                ui.selectTargetUI.gameObject.SetActive(true);
+                break;
+        
+        }   
+    }
+
     public void OnWeaponButtonClicked()
     {
         //open inventory
-        inv = Inventory.instance;
+        /*inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;    //this allows player to select other menus without closing current one.
 
         inv.ShowInventory(true);
         inv.HideAllSlots();
         inv.ShowWeaponSlots(true);
         backButton.gameObject.SetActive(true);
-        menuState = MenuState.WeaponMenuOpened;  
+        menuState = MenuState.WeaponMenuOpened;*/
+        SetState(MenuState.WeaponMenuOpened);  
     }
 
     public void OnConsumableButtonClicked()
     {
-        inv = Inventory.instance;
+        /*inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;
         inv.ShowInventory(true);
         inv.HideAllSlots();
         inv.ShowItemSlots(true);
         backButton.gameObject.SetActive(true);
-        menuState = MenuState.ConsumableMenuOpened;
+        menuState = MenuState.ConsumableMenuOpened;*/
+        SetState(MenuState.ConsumableMenuOpened);
     }
 
     public void OnArmorButtonClicked()
     {
-        inv = Inventory.instance;
+        /*inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;
         inv.ShowInventory(true);
         inv.HideAllSlots();
         inv.ShowArmorSlots(true);
         backButton.gameObject.SetActive(true);
-        menuState = MenuState.ArmorMenuOpened;
+        menuState = MenuState.ArmorMenuOpened;*/
+        SetState(MenuState.ArmorMenuOpened);
     }
 
     public void OnTrinketButtonClicked()
     {
-        inv = Inventory.instance;
+        /*inv = Inventory.instance;
         if (menuState > MenuState.TrinketMenuOpened) return;
         inv.ShowInventory(true);
         inv.HideAllSlots();
         inv.ShowTrinketSlots(true);
         backButton.gameObject.SetActive(true);
-        menuState = MenuState.TrinketMenuOpened;
+        menuState = MenuState.TrinketMenuOpened;*/
+        SetState(MenuState.TrinketMenuOpened);
     }
 
     public void OnBackButtonClicked()
@@ -182,27 +262,30 @@ public class DungeonMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
-                inv.ShowInventory(true);
-                inv.statsDisplay.ShowDisplay(false);
-                menuState = MenuState.WeaponMenuOpened;
+                //inv.ShowInventory(true);
+                //inv.statsDisplay.ShowDisplay(false);
+                //menuState = MenuState.WeaponMenuOpened;
+                SetState(MenuState.WeaponMenuOpened);
                 break;
 
             case MenuState.SelectingArmorToEquip:
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
-                inv.ShowInventory(true);
-                inv.statsDisplay.ShowDisplay(false);
-                menuState = MenuState.ArmorMenuOpened;
+                //inv.ShowInventory(true);
+                //inv.statsDisplay.ShowDisplay(false);
+                //menuState = MenuState.ArmorMenuOpened;
+                SetState(MenuState.ArmorMenuOpened);
                 break;
 
             case MenuState.SelectingTrinketToEquip:
                 ui.selectTargetUI.gameObject.SetActive(false);
                 HideAllIcons();
                 itemIcon = null;
-                inv.ShowInventory(true);
-                inv.statsDisplay.ShowDisplay(false);
-                menuState = MenuState.TrinketMenuOpened;
+                //inv.ShowInventory(true);
+                //inv.statsDisplay.ShowDisplay(false);
+                //menuState = MenuState.TrinketMenuOpened;
+                SetState(MenuState.TrinketMenuOpened);
                 break;
             
             case MenuState.SelectingHeroToTakeItem:

@@ -57,17 +57,20 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         //equip or use an item
         inv = Inventory.instance;
+        menu = DungeonMenu.instance;
         if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
         {
             Debug.Log(wSlot.WeaponInSlot().itemName + " equipped!");
             Weapon oldWeapon = hero.weapon;
             wSlot.WeaponInSlot().Equip(hero);
             inv.RemoveItem(wSlot.WeaponInSlot(), 1);
-            
+
             if (oldWeapon != null)
                 inv.AddItem(oldWeapon, 1);
 
             inv.statsDisplay.UpdateStats(hero, hero.weapon);    //showing new weapon
+            //TODO: send player back to inventory after briefly showing an "Equipped" message
+            menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
         }
         if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
         {
