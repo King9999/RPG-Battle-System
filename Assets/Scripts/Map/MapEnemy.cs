@@ -23,15 +23,25 @@ public class MapEnemy : MapObject
     public void InitiateCombat()
     {
         CombatSystem cs = CombatSystem.instance;
-        //check which enemies can be generated from a table.
-        //get a random number of enemies, proportional to the number of heroes.
+        cs.SetupCombat(encounters);
     }
 
-    //used to battle specific enemies
-    public void InitiateCombat(Enemy[] enemies)
+    void Update()
     {
-        //pick an enemy from Enemy Manager
-        CombatSystem cs = CombatSystem.instance;
+        //combat check
+        GameManager gm = GameManager.instance;
+        if (gm.gameState <= GameManager.GameState.Normal)
+        {
+            Player player = Player.instance;
+            if (nodeID == player.nodeID)
+            {
+                //we must temporarily disable camera follow so combatants are displayed properly.
+                gm.SetCameraFollow(false);
+                CombatSystem cs = CombatSystem.instance;
+                cs.SetupCombat(encounters);
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void ResetTurns()

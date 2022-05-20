@@ -62,7 +62,7 @@ public class CombatSystem : MonoBehaviour
 
     void Start()
     {
-        hm = HeroManager.instance;
+        /*hm = HeroManager.instance;
         em = EnemyManager.instance;
         gm = GameManager.instance;
         ui = UI.instance;
@@ -114,7 +114,7 @@ public class CombatSystem : MonoBehaviour
                 enemiesInCombat[i].className += "-" + group.Substring(count - 1, 1);
             }
 
-        }*/
+        }
         
         //place heroes and enemies in random positions
         heroLocationOccupied = new bool[heroLocations.Length];
@@ -157,12 +157,16 @@ public class CombatSystem : MonoBehaviour
         currentTarget = -1;
         currentHero = -1;
 
-        //gm.gameState = GameManager.GameState.Combat;
+        //gm.gameState = GameManager.GameState.Combat;*/
     }
 
-    public void SetupCombat()
+    public void SetupCombat(List<Enemy> enemies)
     {
-        gm.gameState = GameManager.GameState.Combat;
+        hm = HeroManager.instance;
+        em = EnemyManager.instance;
+        gm = GameManager.instance;
+        ui = UI.instance;
+        gm.SetState(GameManager.GameState.Combat);
         
         //use this instead of Start() to determine the enemies encountered and to set up combat
         modifiedEnemyNames = new Dictionary<int, string>();
@@ -182,8 +186,15 @@ public class CombatSystem : MonoBehaviour
             heroesInCombat.Add(hero);
         }
 
-        //add random enemies
-        int randCount = Random.Range(1, totalEnemies + 1);
+        //add enemies
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            int enemyID = em.enemies[i].enemyID;
+            Enemy enemy = Instantiate(em.enemies[enemyID]);
+            enemy.transform.SetParent(transform);
+            enemiesInCombat.Add(enemy);
+        }
+        /*int randCount = Random.Range(1, totalEnemies + 1);
         for (int i = 0; i < 2; i++)
         {
             int randomEnemy = Random.Range(0, em.enemies.Length);
@@ -191,7 +202,7 @@ public class CombatSystem : MonoBehaviour
             Enemy enemy = Instantiate(em.enemies[(int)EnemyManager.EnemyName.Imp]);
             enemy.transform.SetParent(transform);
             enemiesInCombat.Add(enemy);
-        }
+        }*/
 
         //check enemy names and append a letter to duplicates
         CheckDuplicateNames();
@@ -438,8 +449,11 @@ public class CombatSystem : MonoBehaviour
         xpPool = 0;
         moneyPool = 0;
         bonusSystem.ResetBonuses();
-       
-        gameObject.SetActive(false);
+
+        gm = GameManager.instance;
+        gm.SetCameraFollow(true);
+        gm.SetState(GameManager.GameState.Normal);
+        //gameObject.SetActive(false);
     }
 
     public void UpdateTurnOrderUI()

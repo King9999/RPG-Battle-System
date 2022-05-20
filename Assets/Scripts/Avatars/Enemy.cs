@@ -12,7 +12,7 @@ public abstract class Enemy : Avatar
     public List<ShieldToken> shields;
     public ShieldToken shieldPrefab;
     public bool shieldBroken {get; set;}
-    //public List<bool> shieldEnabled {get; set;}
+    public int enemyID;                         //used to identify enemy in Enemy Manager for easy access.
     public int xp;
     public int money;
     protected float skillProb;          //odds that the enemy will do certain attacks.

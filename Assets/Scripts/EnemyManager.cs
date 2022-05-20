@@ -76,6 +76,7 @@ public class EnemyManager : MonoBehaviour
                 {
                     //Debug.Log("Generated " + encounterTable.tables[tableLevel].encounters[j].objName);
                     int enemyID = encounterTable.tables[tableLevel].encounters[j].enemyID;
+                    enemies[enemyID].enemyID = enemyID;
                     enemyEncounters.Add(enemies[enemyID]);
                     break;
                 }
