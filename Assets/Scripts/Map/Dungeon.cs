@@ -791,7 +791,6 @@ public class Dungeon : MonoBehaviour
             }
 
             //find a random node to occupy
-          
             if ((dungeonLevel == 5 && !forcedMajorEnemy))
             {
                 //place a forced major enemy to introduce players to shield tokens.
@@ -821,6 +820,17 @@ public class Dungeon : MonoBehaviour
                 while (mapArray[randCol, randRow] == false || node.isOccupied);
                 enemy.PlaceObject(randCol, randRow);
             }
+
+            //generate encounters
+            int tableLevel;
+            if (dungeonLevel <= 5)
+                tableLevel = 0;
+            else if (dungeonLevel <= 10)
+                tableLevel = 1;
+            else
+                tableLevel = 2;
+            
+            enemy.AddEncounter(tableLevel);
 
             //set turns. if the enemy is standing over a chest, stairs, or captive, they will not move.
             //exit check

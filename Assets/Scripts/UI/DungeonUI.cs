@@ -70,9 +70,7 @@ public class DungeonUI : MonoBehaviour
     {
         animateStatusCoroutineOn = true;
         float displayDuration = 0.5f;
-        //Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
         statusUI.gameObject.SetActive(true);
-        //statusUI.transform.position = avatarPos;
         statusUI.transform.position = location;
         statusUI.text = value;
         statusUI.color = textColor;
@@ -104,17 +102,12 @@ public class DungeonUI : MonoBehaviour
         equipConfirmUI.text = message;
 
         yield return new WaitForSeconds(duration);
+
         equipCoroutineOn = false;
         equipConfirmUI.gameObject.SetActive(false);
+        inv.statsDisplay.ClearDisplay();
         DungeonMenu menu = DungeonMenu.instance;
         menu.SetState(returnState);
     }
-
-    //used when item can't be equipped
-    IEnumerator DisplayEquip(string message)
-    {
-        yield return null;
-    }
-
 
 }

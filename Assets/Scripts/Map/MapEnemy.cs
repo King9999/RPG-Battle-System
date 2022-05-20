@@ -17,6 +17,7 @@ public class MapEnemy : MapObject
     bool animateMoveCoroutineOn;
     Vector3 destination;
     float yOffset = -0.2f;
+    public List<Enemy> encounters;              //the enemies the player will face in combat
 
     //combat against random enemies. The encountered enemies are determined from a table
     public void InitiateCombat()
@@ -79,6 +80,19 @@ public class MapEnemy : MapObject
                 break;
             }
         }
+    }
+
+    //add specific enemies
+    public void AddEncounter(Enemy enemy)
+    {
+        encounters.Add(enemy);
+    }
+
+    public void AddEncounter(int tableLevel)
+    {
+        //add a random enemy from encounter table
+        EnemyManager em = EnemyManager.instance;
+        encounters = em.GetEnemies(tableLevel);
     }
 
     //map enemies are sent to a graveyard so they can be reused.

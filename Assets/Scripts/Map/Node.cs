@@ -50,13 +50,13 @@ public class Node : MonoBehaviour
     //this method is called when the node is clicked.
    public void MovePlayer()
    {
-       Debug.Log("clicked node " + nodeID);
+       //Debug.Log("clicked node " + nodeID);
 
        //check if player is adjacent to this node
        Player player = Player.instance;
        if (PlayerAdjacentToNode())
        {
-           Debug.Log("Player adjacent");
+           //Debug.Log("Player adjacent");
            player.MovePlayer(col, row);
        }
    }

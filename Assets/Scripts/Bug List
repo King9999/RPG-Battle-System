@@ -1,4 +1,4 @@
 1. Duplicate Enemy names are modified but then go back to normal. Need to find out how to keep the modified names. *FIXED*
 2. Some dungeons can't be completed because there not all nodes have connecting paths. Need to find a way to guarantee all dungeons are solvable. *FIXED*
 3. Prevent player from moving diagonally to an adjacent node. *FIXED*
-4. FOr some reason, the player sprite in party UI doesn't appear for the controlled hero. 
+4. FOr some reason, the player sprite in party UI doesn't appear for the controlled hero. *Fixed*

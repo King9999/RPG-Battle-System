@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &98887986831424902
 Transform:
   m_ObjectHideFlags: 0
@@ -43,8 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0767129401463c6448baba3e7f4069b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tableFile: {fileID: 4900000, guid: a1eacaae8d01be4459421058ca5904f9, type: 3}
   enemies:
   - {fileID: 7456213498400394775, guid: 71fcefbb9e6152d4a8bb612d253df612, type: 3}
   - {fileID: 3871402446318862173, guid: d7f318874dc8be64495e24255ecc8efa, type: 3}
   - {fileID: 95014635391500547, guid: a2ba859c5fea9a34995de8f96ebfbeaa, type: 3}
+  - {fileID: 6774377320802688882, guid: 2aa58d57f0ffcba46be21bd432307d8c, type: 3}
   graveyard: []
