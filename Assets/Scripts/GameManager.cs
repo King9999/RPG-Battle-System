@@ -8,10 +8,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public enum GameState { Normal, Combat, ShowCombatRewards, GameOver }
+    public enum GameState { Normal, Combat, ShowCombatRewards, CombatEnded, GameOver }  //CombatEnded is used to deal with map enemies after combat is finished.
     public GameState gameState;                 //used by input manager to perform different actions with the same button press.
     public Dungeon dungeon;
-    public Camera camera;                       
+    public Camera gameCamera;                       
 
     //singletons
     public static GameManager instance;
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         switch(gameState)
         {
             case GameState.Normal:
+            case GameState.CombatEnded:
                 dungeon.gameObject.SetActive(true);
                 combatSystem.gameObject.SetActive(false);
                 ui.gameObject.SetActive(false);
@@ -75,13 +76,14 @@ public class GameManager : MonoBehaviour
                 dungeonUI.gameObject.SetActive(false);
                 bs.gameObject.SetActive(true);
                 break;
+            
         }
     }
 
     public void SetCameraFollow(bool toggle)
     {
-        camera.GetComponent<CameraFollow>().enabled = toggle;
-        camera.transform.position = new Vector3(0, 0, camera.transform.position.z);
+        gameCamera.GetComponent<CameraFollow>().enabled = toggle;
+        gameCamera.transform.position = new Vector3(0, 0, gameCamera.transform.position.z);
     }
 
     public void GameOver()

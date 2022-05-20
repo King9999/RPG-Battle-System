@@ -39,8 +39,13 @@ public class MapEnemy : MapObject
                 gm.SetCameraFollow(false);
                 CombatSystem cs = CombatSystem.instance;
                 cs.SetupCombat(encounters);
-                Destroy(gameObject);
             }
+        }
+
+        if (gm.gameState == GameManager.GameState.CombatEnded)
+        {
+            gm.SetState(GameManager.GameState.Normal);
+            SendToGraveyard();
         }
     }
 
@@ -111,6 +116,7 @@ public class MapEnemy : MapObject
         Dungeon dungeon = Dungeon.instance;
         if (dungeon.enemies.Count <= 0) return;
       
+        encounters.Clear();
         dungeon.graveyard.Add(this);
         dungeon.enemies.Remove(this);
         gameObject.SetActive(false);

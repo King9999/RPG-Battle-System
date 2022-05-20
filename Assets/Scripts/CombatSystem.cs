@@ -452,7 +452,7 @@ public class CombatSystem : MonoBehaviour
 
         gm = GameManager.instance;
         gm.SetCameraFollow(true);
-        gm.SetState(GameManager.GameState.Normal);
+        gm.SetState(GameManager.GameState.CombatEnded);
         //gameObject.SetActive(false);
     }
 

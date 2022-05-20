@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   dungeon: {fileID: 890892284}
-  camera: {fileID: 519420031}
+  gameCamera: {fileID: 519420031}
 --- !u!4 &1059470397
 Transform:
   m_ObjectHideFlags: 0
