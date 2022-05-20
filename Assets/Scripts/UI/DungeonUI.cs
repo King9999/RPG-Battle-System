@@ -13,9 +13,11 @@ public class DungeonUI : MonoBehaviour
     public Notification notification;
     public TextMeshProUGUI dungeonLevelUI;
     public TextMeshProUGUI selectTargetUI;      //appears above the party UI
+    public TextMeshProUGUI equipConfirmUI;      //displayed after player equips a new item or can't
     public TextMeshProUGUI statusUI;         //for displaying values/messages over party UI when using items/skills
     [HideInInspector]public Color healColor, normalColor;
     bool animateStatusCoroutineOn;
+    bool equipCoroutineOn;
     public int currentHero {get; set;}      //used to track which hero is selected in the party UI
 
 
@@ -36,6 +38,7 @@ public class DungeonUI : MonoBehaviour
     {
         selectTargetUI.gameObject.SetActive(false);
         statusUI.gameObject.SetActive(false);
+        equipConfirmUI.gameObject.SetActive(false);
         healColor = new Color(0, 0.9f, 0.3f);
         normalColor = Color.white;
     }
@@ -44,6 +47,23 @@ public class DungeonUI : MonoBehaviour
     {
         if (!animateStatusCoroutineOn)
             StartCoroutine(AnimateStatus(value, location, textColor));
+    }
+
+    public void DisplayEquipStatus(bool toggle, string message = "")
+    {
+        equipConfirmUI.gameObject.SetActive(toggle);
+        equipConfirmUI.text = message;
+    }
+
+    /// <summary>
+    /// Executes DisplayEquip coroutine
+    /// </summary>
+    ///<param name="message">The message to display to indicate an item is equipped.</param>
+    ///<param name="returnState">the menu state to return to after coroutine is finished.</param>
+    public void ConfirmEquip(string message, DungeonMenu.MenuState returnState)
+    {
+        if (!equipCoroutineOn)
+            StartCoroutine(DisplayEquip(message, 1, returnState));
     }
 
     private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor)
@@ -76,5 +96,25 @@ public class DungeonUI : MonoBehaviour
         statusUI.gameObject.SetActive(false);
         animateStatusCoroutineOn = false;
     }
+
+    IEnumerator DisplayEquip(string message, float duration, DungeonMenu.MenuState returnState)
+    {
+        equipCoroutineOn = true;
+        equipConfirmUI.gameObject.SetActive(true);
+        equipConfirmUI.text = message;
+
+        yield return new WaitForSeconds(duration);
+        equipCoroutineOn = false;
+        equipConfirmUI.gameObject.SetActive(false);
+        DungeonMenu menu = DungeonMenu.instance;
+        menu.SetState(returnState);
+    }
+
+    //used when item can't be equipped
+    IEnumerator DisplayEquip(string message)
+    {
+        yield return null;
+    }
+
 
 }

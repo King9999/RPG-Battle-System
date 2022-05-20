@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 /* This script manages the party UI in the dungeon outside of combat. All of the data can be acquired from Hero Manager.*/
 public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -10,13 +11,13 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public Hero hero;
     //public Image[] heroSprites;
     public Image heroSprite;
-    public TextMeshProUGUI heroStats;                 //displays HP, MP, EXP and status
+    public TextMeshProUGUI heroStatsUI;                 //displays HP, MP, EXP and status
     public HeroStatsDisplay statsDisplay;
     public Image background;
     Color normalColor;
     Color highlightColor;
-    public int heroID;                                     //used to target heroes for item use. Corresponds to HeroManager index.
-    //int currentHero;
+    public int heroID {get; set;}                      //used to target heroes for item use. Corresponds to HeroManager index.
+
 
     //singletons
     DungeonMenu menu;
@@ -36,7 +37,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void UpdateUI()
     {
         
-        heroStats.text = hero.className + " Lv " + hero.level + 
+        heroStatsUI.text = hero.className + " Lv " + hero.level + 
             "\n<color=#0fbe1f>Status</color> " +  hero.status +
             "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + 
             "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + 
@@ -94,14 +95,16 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
                     if (oldWeapon != null)
                         inv.AddItem(oldWeapon, 1);
+                    ui.ConfirmEquip("Equipped!", DungeonMenu.MenuState.WeaponMenuOpened);
                 }
-                else
+                /*else
                 {
                     Debug.Log(wSlot.WeaponInSlot().itemName + " can't be equipped by " + hero.className);
-                }
+                    //ui.DisplayEquipStatus(true, "<color=red>Can't equip!</color>");
+                }*/
 
                 //TODO: send player back to inventory after briefly showing an "Equipped" message
-                menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
+                //menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
             }
 
             if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
@@ -143,6 +146,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerEnter(PointerEventData pointer)
     {
         menu = DungeonMenu.instance;
+        ui = DungeonUI.instance;
         if (hero != null && menu.menuState == DungeonMenu.MenuState.Main)
         {
             //display detailed stats next to the hero
@@ -156,11 +160,11 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         //using item
         if (hero != null && menu.menuState == DungeonMenu.MenuState.SelectingHeroToTakeItem)
         {
-            DungeonUI ui = DungeonUI.instance;
             ui.currentHero = heroID;
             Debug.Log("Hero ID is " + heroID);
         }
 
+        //equipment
         if (hero != null && (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
             || menu.menuState == DungeonMenu.MenuState.SelectingTrinketToEquip))
         {
@@ -169,6 +173,14 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
             {
                 inv.statsDisplay.UpdateStats(hero, wSlot.WeaponInSlot());
+                if (wSlot.WeaponInSlot().CanBeEquipped(hero))
+                {
+                    ui.DisplayEquipStatus(true, "Can equip");
+                }
+                else
+                {
+                    ui.DisplayEquipStatus(true, "<color=red>Cannot equip</color>");
+                }
             }
             if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
             {
@@ -197,7 +209,7 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             inv = Inventory.instance;
             inv.statsDisplay.ClearDisplay();
+            ui.DisplayEquipStatus(false);
         }
     }
-
 }
