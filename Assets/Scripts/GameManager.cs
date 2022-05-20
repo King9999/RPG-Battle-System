@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     {
         combatSystem = CombatSystem.instance;
         hm = HeroManager.instance;
+        gameState = GameState.Normal;
         //hm.gameObject.SetActive(false);
         //combatSystem.gameObject.SetActive(false);
     }
@@ -42,6 +43,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetState(GameState state)
+    {
+        gameState = state;
+
+        switch(gameState)
+        {
+            
+        }
     }
 
     public void GameOver()

@@ -30,7 +30,7 @@ MonoBehaviour:
   attackTokenMod: 1
   weapon: {fileID: 11400000, guid: b98c69b938d5cf4448b221aa2c70f157, type: 2}
   armor: {fileID: 0}
-  trinket: {fileID: 11400000, guid: 57272bbc5ea633c43819b6c50d86c8f6, type: 2}
+  trinket: {fileID: 0}
   swordOK: 0
   daggerOK: 1
   axeOK: 0

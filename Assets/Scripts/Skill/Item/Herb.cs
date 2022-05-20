@@ -10,4 +10,11 @@ public class Herb : Skill
         float healAmount = Mathf.Round(target.maxHitPoints * 0.3f);
         user.RestoreHitPoints(target, healAmount);
     }
+
+    //used outside of combat
+    public override void Activate(Avatar target)
+    {
+        float healAmount = Mathf.Round(target.maxHitPoints * 0.3f);
+        target.RestoreHitPoints(target, healAmount);
+    }
 }

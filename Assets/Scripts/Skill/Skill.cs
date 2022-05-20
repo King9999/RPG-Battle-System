@@ -58,6 +58,12 @@ public abstract class Skill : ScriptableObject
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
     }
 
+    //This is used outside of combat only, and only for consumable items and skills.
+    public virtual void Activate(Avatar target)
+    {
+        
+    }
+
     public bool SkillActivated() {return skillActivated;}
     public void SetActiveStatus(bool state)
     {

@@ -95,6 +95,7 @@ public class DungeonMenu : MonoBehaviour
     public void SetState(MenuState state)
     {
         inv = Inventory.instance;
+        ui = DungeonUI.instance;
         menuState = state;
         switch(menuState)
         {
@@ -103,6 +104,7 @@ public class DungeonMenu : MonoBehaviour
                 itemIcon = null;
                 inv.HideAllSlots();
                 inv.ShowInventory(false);
+                ui.selectTargetUI.gameObject.SetActive(false);
                 backButton.gameObject.SetActive(false);
                 break;
             
@@ -113,6 +115,7 @@ public class DungeonMenu : MonoBehaviour
                 HideAllIcons();
                 itemIcon = null;
                 inv.ShowItemSlots(true);
+                ui.selectTargetUI.gameObject.SetActive(false);
                 backButton.gameObject.SetActive(true);
                 break;
             
@@ -124,6 +127,7 @@ public class DungeonMenu : MonoBehaviour
                 itemIcon = null;
                 inv.ShowWeaponSlots(true);
                 inv.statsDisplay.ShowDisplay(false);
+                ui.selectTargetUI.gameObject.SetActive(false);
                 backButton.gameObject.SetActive(true);
                 break;
             
@@ -135,6 +139,7 @@ public class DungeonMenu : MonoBehaviour
                 itemIcon = null;
                 inv.ShowArmorSlots(true);
                 inv.statsDisplay.ShowDisplay(false);
+                ui.selectTargetUI.gameObject.SetActive(false);
                 backButton.gameObject.SetActive(true);
                 break;
 
@@ -146,6 +151,7 @@ public class DungeonMenu : MonoBehaviour
                 itemIcon = null;
                 inv.ShowTrinketSlots(true);
                 inv.statsDisplay.ShowDisplay(false);
+                ui.selectTargetUI.gameObject.SetActive(false);
                 backButton.gameObject.SetActive(true);
                 break;
 
@@ -154,14 +160,12 @@ public class DungeonMenu : MonoBehaviour
             case MenuState.SelectingTrinketToEquip:
                 inv.ShowInventory(false);
                 inv.statsDisplay.ShowDisplay(true); 
-                ui = DungeonUI.instance;
                 ui.selectTargetUI.gameObject.SetActive(true);
                 break;
 
             
             case MenuState.SelectingHeroToTakeItem:
             case MenuState.SelectingHeroToUseSkill:
-                ui = DungeonUI.instance;
                 ui.selectTargetUI.gameObject.SetActive(true);
                 break;
         

@@ -16,10 +16,11 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     Color normalColor;
     Color highlightColor;
     public int heroID;                                     //used to target heroes for item use. Corresponds to HeroManager index.
-    int currentHero;
+    //int currentHero;
 
     //singletons
     DungeonMenu menu;
+    DungeonUI ui;
     Inventory inv;
 
     void Start()
@@ -61,22 +62,16 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         //equip or use an item
         inv = Inventory.instance;
         menu = DungeonMenu.instance;
+        ui = DungeonUI.instance;
 
-        if (hero != null && menu.menuState == DungeonMenu.MenuState.SelectingHeroToTakeItem)
+        if (hero != null && ui.currentHero >= 0 && menu.menuState == DungeonMenu.MenuState.SelectingHeroToTakeItem)
         {
             if (inv.copiedSlot.TryGetComponent(out ItemSlot iSlot))
             {
-                Debug.Log(iSlot.ItemInSlot().itemName + " used!");
-
-                //TODO: get the hero who the item was used on and apply item effects, then update UI
-                DungeonUI ui = DungeonUI.instance;
-                //int targetHero = ui.partyDisplay[ui.partyDisplay[ui.partyDisplay]]
-                iSlot.ItemInSlot().itemEffect.Activate(hero, ui.partyDisplay[currentHero].hero, hero.SkillBorderColor());
-                Debug.Log("Using item on " + ui.partyDisplay[currentHero].hero.className);
-
+                //apply item effect
+                HeroManager hm = HeroManager.instance;
+                iSlot.ItemInSlot().itemEffect.Activate(hm.heroes[heroID]);
                 inv.RemoveItem(iSlot.ItemInSlot(), 1);
-
-                //TODO: send player back to inventory after briefly showing an "Equipped" message
                 menu.SetState(DungeonMenu.MenuState.ConsumableMenuOpened);
             }
         }
@@ -162,7 +157,8 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (hero != null && menu.menuState == DungeonMenu.MenuState.SelectingHeroToTakeItem)
         {
             DungeonUI ui = DungeonUI.instance;
-            currentHero = heroID;
+            ui.currentHero = heroID;
+            Debug.Log("Hero ID is " + heroID);
         }
 
         if (hero != null && (menu.menuState == DungeonMenu.MenuState.SelectingWeaponToEquip || menu.menuState == DungeonMenu.MenuState.SelectingArmorToEquip
@@ -191,7 +187,8 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         //hide hero stats
         background.color = normalColor;
         statsDisplay.ShowDisplay(false);
-        currentHero = -1;
+        DungeonUI ui = DungeonUI.instance;
+        ui.currentHero = -1;
 
         //hide equip stats
         menu = DungeonMenu.instance;

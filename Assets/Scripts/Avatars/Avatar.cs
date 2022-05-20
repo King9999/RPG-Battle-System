@@ -73,6 +73,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         cs = CombatSystem.instance;
     }
 
+    //this code performs differently depending on whether we're in combat or not.
     public void RestoreHitPoints(Avatar target, float amount)
     {
         target.hitPoints += amount;
@@ -81,12 +82,22 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
             target.hitPoints = target.maxHitPoints;
         }
 
-        //show healed amount
-        UI ui = UI.instance;
-        //Vector3 targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healColor);
+        GameManager gm = GameManager.instance;
+        
+        if (gm.gameState == GameManager.GameState.Normal)
+        {
+            DungeonUI ui = DungeonUI.instance;
+            ui.DisplayStatus(amount.ToString(), ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.healColor);
+            ui.partyDisplay[ui.currentHero].UpdateUI();
+        }
+        else    //we're in combat
+        {
+            //show healed amount
+            UI ui = UI.instance;
+            ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healColor);
 
-        target.UpdateStatsUI();
+            target.UpdateStatsUI();
+        }
     }
 
     /*protected virtual void Update()
