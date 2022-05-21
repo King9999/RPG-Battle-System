@@ -65,8 +65,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     {
         //aura setup
         aura = Instantiate(auraPrefab, transform.position, Quaternion.identity);
-        //SpriteRenderer auraSr = aura.GetComponent<SpriteRenderer>();
-        //auraSr.enabled = false;
+        aura.transform.SetParent(transform);
         aura.SetActive(false);
         skills = new List<Skill>();
         gm = GameManager.instance;

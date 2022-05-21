@@ -28,13 +28,13 @@ public class MapEnemy : MapObject
 
     void Update()
     {
-        if (gameObject.activeSelf)
-        {
+        //if (gameObject.activeSelf)
+        //{
             //combat check
             GameManager gm = GameManager.instance;
+            Player player = Player.instance;
             if (gm.gameState <= GameManager.GameState.Normal)
             {
-                Player player = Player.instance;
                 if (nodeID == player.nodeID)
                 {
                     //we must temporarily disable camera follow so combatants are displayed properly.
@@ -44,12 +44,12 @@ public class MapEnemy : MapObject
                 }
             }
 
-            if (gm.gameState == GameManager.GameState.CombatEnded)
+            if (gm.gameState == GameManager.GameState.CombatEnded && nodeID == player.nodeID)
             {
                 gm.SetState(GameManager.GameState.Normal);
                 SendToGraveyard();
             }
-        }
+        //}
     }
 
     public void ResetTurns()
@@ -122,6 +122,40 @@ public class MapEnemy : MapObject
         encounters.Clear();
         dungeon.graveyard.Add(this);
         dungeon.enemies.Remove(this);
+
+        //find node and map object that enemy was on and unoccupy them
+        foreach(Node node in dungeon.nodes)
+        {
+            if (node.nodeID == nodeID)
+            {
+                node.isOccupied = false;
+                break;
+            }
+        }
+
+        if (StandingOnObject())
+        {
+            foreach(TreasureChest chest in dungeon.chests)
+            {
+                if (chest.nodeID == nodeID)
+                {
+                    chest.occupiedByEnemy = false;
+                    break;
+                }
+            }
+
+            foreach(Captive captive in dungeon.captiveHeroes)
+            {
+                if (captive.nodeID == nodeID)
+                {
+                    captive.occupiedByEnemy = false;
+                    break;
+                }
+            }
+
+            if (dungeon.exit.nodeID == nodeID)
+                dungeon.exit.occupiedByEnemy = false;
+        }
         gameObject.SetActive(false);
     }
 

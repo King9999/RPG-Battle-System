@@ -13,7 +13,7 @@ public class WindDancer : Enemy
     {
         base.Start();
 
-        skillProb = 0.6f;       //chance of executing cool wind
+        skillProb = 0.5f;       //chance of executing cool wind
     }
 
     public override void ExecuteLogic()
@@ -25,7 +25,7 @@ public class WindDancer : Enemy
             int randTarget = Random.Range(0, cs.heroesInCombat.Count);
             Attack(cs.heroesInCombat[randTarget]);
         }
-        else if (roll <= 0.3f)
+        else if (roll <= 0.4f)
         {
             //use heavy wind skill
             int randTarget = Random.Range(0, cs.heroesInCombat.Count);

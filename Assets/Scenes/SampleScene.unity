@@ -538,41 +538,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 249232027, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+    - target: {fileID: 1898724807, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.44
+      value: 1.58
       objectReference: {fileID: 0}
-    - target: {fileID: 1030047229, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
+    - target: {fileID: 385814059403180445, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227423813, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 1317330534, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442156031, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 1568390643, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 294329908365554888, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3328615629138729085, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4736841933892709229, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: shieldToken
-      value: 
+      value: -1.33
       objectReference: {fileID: 0}
     - target: {fileID: 7606886612533781306, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: bonusSystem
@@ -581,10 +553,6 @@ PrefabInstance:
     - target: {fileID: 7606886612533781307, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: m_Name
       value: Combat System
-      objectReference: {fileID: 0}
-    - target: {fileID: 7606886612533781307, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7606886612533781445, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: m_RootOrder
@@ -629,14 +597,6 @@ PrefabInstance:
     - target: {fileID: 7606886612533781445, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8279719372919707633, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8778737176299853800, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
-      propertyPath: m_Name
-      value: Canvas (Shield Token)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f700202c3d77b4693828b3247d8d52, type: 3}
