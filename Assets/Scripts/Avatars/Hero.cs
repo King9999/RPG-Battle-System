@@ -647,6 +647,13 @@ public class Hero : Avatar
         }*/
     }
 
+    #region Coroutines
+
+    public override void ResetCoroutines()
+    {
+        animateAttackCoroutineOn = false;
+        highlightAvatarCoroutineOn = false;
+    }
     //static hero sprite dashes forward and back
     protected override IEnumerator AnimateAttack()
     {
@@ -712,6 +719,6 @@ public class Hero : Avatar
 
        PassTurn();
     } 
-    
+    #endregion
 
 }

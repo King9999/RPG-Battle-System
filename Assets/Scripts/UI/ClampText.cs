@@ -12,14 +12,15 @@ public class ClampText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {       
-        Vector3 textPos = Camera.main.WorldToScreenPoint(transform.position);   //attach to an avatar object
+        //Vector3 textPos = Camera.main.WorldToScreenPoint(transform.position);   //attach to an avatar object
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         //place UI underneath the sprite
-        textUI.transform.position = new Vector3(textPos.x, textPos.y - (sr.bounds.extents.y * 65), 0);
+        //textUI.transform.position = new Vector3(textPos.x, textPos.y - (sr.bounds.extents.y * 65), 0);
 
         //image must be enabled for mouse hover to work but alpha is reduced to 0
-        avatarImg.transform.position = textPos;
+        //avatarImg.transform.position = textPos;
         avatarImg.color = new Color(1, 1, 1, 0);
+        UpdateUIPosition();
     }
 
     public void UpdateUIPosition()
@@ -28,5 +29,6 @@ public class ClampText : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         //place UI underneath the sprite
         textUI.transform.position = new Vector3(textPos.x, textPos.y - (sr.bounds.extents.y * 65), 0);
+        avatarImg.transform.position = textPos;
     }
 }

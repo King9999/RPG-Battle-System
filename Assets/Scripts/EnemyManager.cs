@@ -75,7 +75,7 @@ public class EnemyManager : MonoBehaviour
                 if (roll <= encounterTable.tables[tableLevel].encounters[j].encounterChance)
                 {
                     Debug.Log("Generated " + encounterTable.tables[tableLevel].encounters[j].objName);
-                    int enemyID = encounterTable.tables[tableLevel].encounters[j].enemyID;
+                    int enemyID = /*encounterTable.tables[tableLevel].encounters[j].enemyID*/ 2;
                     enemies[enemyID].enemyID = enemyID;
                     enemyEncounters.Add(enemies[enemyID]);
                     break;

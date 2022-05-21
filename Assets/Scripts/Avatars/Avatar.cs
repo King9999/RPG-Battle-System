@@ -250,6 +250,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     }
 
     #region Coroutines
+    public virtual void ResetCoroutines() {}
     protected virtual IEnumerator AnimateAttack() { yield return null; }
 
     protected virtual IEnumerator HighlightAvatar(){ yield return null; }

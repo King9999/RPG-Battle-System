@@ -210,11 +210,17 @@ public abstract class Enemy : Avatar
     public void SendToGraveyard(bool ranAway = false)
     {
         if (hitPoints > 0 && !ranAway) return;
-      
+
         em.graveyard.Add(this);
         cs.enemiesInCombat.Remove(this);    //need to make sure the correct enemy is being removed when there are duplicates
         cs.turnOrder.Remove(this);
         cs.UpdateTurnOrderUI();
+
+        //disable any shields
+        foreach(ShieldToken shield in shields)
+        {
+            shield.gameObject.SetActive(false);
+        }
 
         //choose another target
         if (cs.enemiesInCombat.Count > 0)
@@ -322,13 +328,30 @@ public abstract class Enemy : Avatar
 
     public void AddShield()
     {
-        ShieldToken shield = Instantiate(shieldPrefab);
-        shields.Add(shield);
-        Canvas canvas = GetComponentInChildren<Canvas>();
-        shields[shields.Count - 1].transform.SetParent(canvas.transform);   //I add the token here so it's drawn over the gauge
-        currentShieldTokenSize.Add(0);
-        currentShieldTokenIndex.Add(0);
-        shieldTokenDirection.Add(-1);
+        //check if there are any existing shield objects we can reactivate
+        bool instantiated = false;
+        ShieldToken shield = null;
+        foreach(ShieldToken s in shields)
+        {
+            if (!s.gameObject.activeSelf)
+            {
+                //s.ShowToken(true);
+                instantiated = true;
+                shield = s;
+            }
+        }
+
+        if (!instantiated)
+        {
+            shield = Instantiate(shieldPrefab);
+            shields.Add(shield);
+            Canvas canvas = GetComponentInChildren<Canvas>();
+            shields[shields.Count - 1].transform.SetParent(canvas.transform);   //I add the token here so it's drawn over the gauge
+            currentShieldTokenSize.Add(0);
+            currentShieldTokenIndex.Add(0);
+            shieldTokenDirection.Add(-1);
+        }
+        
     }
 
     public virtual void ExecuteLogic() 

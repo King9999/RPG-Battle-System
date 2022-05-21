@@ -74,6 +74,7 @@ public class CombatSystem : MonoBehaviour
 
         //action gauge setup
         actGauge.gameObject.SetActive(false);
+        actGauge.actionToken.SetSpeedToDefault();
 
         actGauge.transform.position = actGaugeLocation.position;
 
@@ -83,16 +84,47 @@ public class CombatSystem : MonoBehaviour
         foreach(Hero hero in hm.heroes)
         {
             hero.gameObject.SetActive(true);
+            hero.ResetCoroutines();
             hero.transform.SetParent(transform);
             heroesInCombat.Add(hero);
         }
 
-        //add enemies
+        //add enemies. Enemies are re-used when able.
         for (int i = 0; i < enemies.Count; i++)
         {
+            bool enemyInstantiated = false;
             int enemyID = enemies[i].enemyID;
-            Enemy enemy = Instantiate(em.enemies[enemyID]);
-            enemy.transform.SetParent(transform);
+            Enemy enemy = null;
+
+            //search through graveyard
+            foreach(Enemy e in em.graveyard)
+            {
+                if (e.className == em.enemies[enemyID].className)
+                {
+                    //restore enemy from graveyard
+                    enemy = e;
+                    enemy.gameObject.SetActive(true);
+                    enemy.ResetData();
+                    //reset shield tokens if applicable  TODO: May not need to do this step
+                    for (int x = 0; x < enemy.shieldTokens; x++)
+                    {
+                        //enemy.shields[x].gameObject.SetActive(true);
+                        //enemy.shields[x].isEnabled = true;
+                        enemy.shields[x].ResetToDefault();
+                        //enemy.shields[x].SetSpeedToDefault();
+
+                    }
+
+                    em.graveyard.Remove(e);
+                    enemyInstantiated = true;
+                    break;
+                }
+            }
+            if (!enemyInstantiated)
+            {
+                enemy = Instantiate(em.enemies[enemyID]);
+                enemy.transform.SetParent(transform);
+            }
             enemiesInCombat.Add(enemy);
         }
 

@@ -55,6 +55,14 @@ public class ShieldToken : ActionToken
     }
 
     public override void SetSpeedToDefault() { moveSpeed = defaultSpeed; }
+    public void SetHitPointsToDefault() { hitPoints = defaultHitPoints; }
+    public void ResetToDefault()
+    {
+        SetTokenSpeed(defaultSpeed);
+        hitPoints = defaultHitPoints;
+        stunDuration = 2;
+        isStunned = false;
+    }
 
     public void ShowToken(bool toggle)
     {
