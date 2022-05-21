@@ -339,7 +339,7 @@ public class Hero : Avatar
                             shields[j].hitPoints -= 1;
                             if (shields[j].hitPoints <= 0)
                             { 
-                                cs.bonusTurns += cs.heroesInCombat.Count;  //ensures all heroes get a bonus
+                                cs.bonusTurns += cs.heroesInCombat.Count + 1;  //+1 ensures all heroes get a bonus, and enemy misses a turn.
                                 cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
                                 shields[j].isEnabled = false;
                                 shields[j].ShowToken(false);

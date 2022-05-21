@@ -3,3 +3,4 @@
 3. Prevent player from moving diagonally to an adjacent node. *FIXED*
 4. FOr some reason, the player sprite in party UI doesn't appear for the controlled hero. *Fixed*
 5. The encounters are getting mixed up. Player contacts 1 map enemy but then another map enemy is affected when combat ends. *FIXED*
+6. Hero aura doesn't animate correctly for the hero who ended the previous battle.

@@ -101,9 +101,14 @@ public class MapEnemy : MapObject
     }
 
     //add specific enemies
-    public void AddEncounter(Enemy enemy)
+    public void AddFixedEncounter(int enemyID)
     {
-        encounters.Add(enemy);
+        EnemyManager em = EnemyManager.instance;
+        if (enemyID < 0 || enemyID >= em.enemies.Length) return;
+
+        Enemy newEnemy = em.enemies[enemyID];
+        newEnemy.enemyID = enemyID;
+        encounters.Add(newEnemy);
     }
 
     public void AddEncounter(int tableLevel)

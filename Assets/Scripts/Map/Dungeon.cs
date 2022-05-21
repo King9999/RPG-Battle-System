@@ -831,6 +831,8 @@ public class Dungeon : MonoBehaviour
                 tableLevel = 2;
             
             enemy.AddEncounter(tableLevel);
+            //EnemyManager em = EnemyManager.instance;
+            //enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
 
             //set turns. if the enemy is standing over a chest, stairs, or captive, they will not move.
             //exit check
