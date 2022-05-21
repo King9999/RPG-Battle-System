@@ -189,7 +189,7 @@ public class CombatSystem : MonoBehaviour
         //add enemies
         for (int i = 0; i < enemies.Count; i++)
         {
-            int enemyID = em.enemies[i].enemyID;
+            int enemyID = enemies[i].enemyID;
             Enemy enemy = Instantiate(em.enemies[enemyID]);
             enemy.transform.SetParent(transform);
             enemiesInCombat.Add(enemy);

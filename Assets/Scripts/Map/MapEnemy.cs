@@ -28,24 +28,27 @@ public class MapEnemy : MapObject
 
     void Update()
     {
-        //combat check
-        GameManager gm = GameManager.instance;
-        if (gm.gameState <= GameManager.GameState.Normal)
+        if (gameObject.activeSelf)
         {
-            Player player = Player.instance;
-            if (nodeID == player.nodeID)
+            //combat check
+            GameManager gm = GameManager.instance;
+            if (gm.gameState <= GameManager.GameState.Normal)
             {
-                //we must temporarily disable camera follow so combatants are displayed properly.
-                gm.SetCameraFollow(false);
-                CombatSystem cs = CombatSystem.instance;
-                cs.SetupCombat(encounters);
+                Player player = Player.instance;
+                if (nodeID == player.nodeID)
+                {
+                    //we must temporarily disable camera follow so combatants are displayed properly.
+                    gm.SetCameraFollow(false);
+                    CombatSystem cs = CombatSystem.instance;
+                    cs.SetupCombat(encounters);
+                }
             }
-        }
 
-        if (gm.gameState == GameManager.GameState.CombatEnded)
-        {
-            gm.SetState(GameManager.GameState.Normal);
-            SendToGraveyard();
+            if (gm.gameState == GameManager.GameState.CombatEnded)
+            {
+                gm.SetState(GameManager.GameState.Normal);
+                SendToGraveyard();
+            }
         }
     }
 
