@@ -57,15 +57,22 @@ public class GameManager : MonoBehaviour
         ui = UI.instance;
         dungeonUI = DungeonUI.instance;
         bs = BonusSystem.instance;
+        hm = HeroManager.instance;
 
         switch(gameState)
         {
             case GameState.Normal:
             case GameState.CombatEnded:
+                //update dungeon party UI so that current HP, MP and XP are reflected
                 dungeon.gameObject.SetActive(true);
+                dungeonUI.gameObject.SetActive(true);
+                for (int i = 0; i < hm.heroes.Count; i++)
+                {
+                    dungeonUI.partyDisplay[i].UpdateUI();
+                }
+
                 combatSystem.gameObject.SetActive(false);
                 ui.gameObject.SetActive(false);
-                dungeonUI.gameObject.SetActive(true);
                 bs.gameObject.SetActive(false);
                 break;
 

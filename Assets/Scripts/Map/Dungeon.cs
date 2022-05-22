@@ -68,8 +68,8 @@ public class Dungeon : MonoBehaviour
 
         //get seed
         System.Random rnd = new System.Random();
-        int p = rnd.Next();
-        Random.InitState(1982010089);        
+        int p = rnd.Next(); 
+        Random.InitState(p);     //seed 1982010089 is for testing   
         Debug.Log("Seed: " + p);
         
 
