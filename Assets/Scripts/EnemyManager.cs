@@ -62,9 +62,23 @@ public class EnemyManager : MonoBehaviour
         else if (hm.heroes.Count <= 2)
             randEnemies = Random.Range(1, maxEnemies - 2);    //3 enemies total
         else if (hm.heroes.Count <= 3)
-            randEnemies = Random.Range(2, maxEnemies);        //5 enemies total
+        {
+            //low chance of encountering 5 enemies
+            if (Random.value <= 0.2f)
+                randEnemies = 5;
+            else
+                randEnemies = Random.Range(2, maxEnemies - 1);        //4 enemies total
+        }
         else
-            randEnemies = Random.Range(2, maxEnemies + 1);    //6 enemies total
+        {
+            //low chance of encountering 6 enemies
+            if (Random.value <= 0.1f)
+                randEnemies = maxEnemies;
+            else if (Random.value <= 0.2f)
+                randEnemies = 5;
+            else
+                randEnemies = Random.Range(2, maxEnemies - 1);    //4 enemies total
+        }
 
         //check which enemies are encountered
         for (int i = 0; i < randEnemies; i++)

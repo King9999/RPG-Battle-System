@@ -79,34 +79,6 @@ public class Dungeon : MonoBehaviour
         //GenerateDungeon(nodeCount);  
     }
 
-    void Update()
-    {
-        GameManager gm = GameManager.instance;
-        if (gm.gameState != GameManager.GameState.Combat)
-        {
-            //check if player is standng on an enemy, treasure chest, exit, or captive hero. Enemies are always checked first.
-            /*foreach (MapEnemy enemy in enemies)
-            {
-                if (player.nodeID == enemy.nodeID)
-                {
-                    //start combat
-                    gm.gameState = GameManager.GameState.Combat;
-                    break;
-                }
-            }*/
-
-            //treasure chest
-            /*foreach(TreasureChest chest in chests)
-            {
-                if(chest.heldItem != null && player.nodeID == chest.nodeID)
-                {
-                    //take chest's contents
-                }
-            }*/
-        }
-        
-    }
-
     //creates captive heroes for the player to rescue.
     void GenerateCaptives()
     {
@@ -213,12 +185,14 @@ public class Dungeon : MonoBehaviour
                     {
                         node = Instantiate(nodePrefab);
                         nodeInstantiated = true;
+                        node.nodeID = nodeID++;
                     }
                     else
                     {
                         node = nodes[currentNode];
+                        node.ResetNode();
                     }
-                    node.nodeID = nodeID++;
+                    
                     node.row = j;
                     node.col = i;
                     currentNode++;
@@ -458,8 +432,7 @@ public class Dungeon : MonoBehaviour
         //if we get here, there was a problem with this dungeon and it must be abandoned.
         if (loopCount >= 100)
         {
-            Debug.Log("Bad dungeon");
-            //GenerateDungeon(nodeCount);
+            Debug.Log("Bad dungeon. Seed for this dungeon is " + GameManager.instance.seed);
         }
     }
 
@@ -648,7 +621,7 @@ public class Dungeon : MonoBehaviour
 
         /****Create chests****/
         //It's possible for a dungeon to have no chests.
-        int chestCount = Random.Range(0, nodes.Count / 4);
+        int chestCount = /*Random.Range(0, nodes.Count / 4)*/ 1;
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest;
@@ -760,20 +733,30 @@ public class Dungeon : MonoBehaviour
         /****create enemy. The number of enemies is (total nodes / 4)****/
         int enemyCount = nodes.Count / 4;
         int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
-        bool forcedMajorEnemy = false;  
+        bool forcedMajorEnemy = false;
+        
         for (int i = 0; i < enemyCount; i++)
         {
+            //check graveyard for any enemies to re-use
             MapEnemy enemy;
             bool enemyInstantiated = false;
-            if (i >= enemies.Count)
+            if (graveyard.Count > 0)
+            {
+                enemy = graveyard[graveyard.Count - 1]; //I add from the end so I don't have to mess with i, and all map enemies are the same
+                enemy.ResetEnemy();
+                enemies.Add(enemy);
+                graveyard.Remove(enemy);
+            }
+            else /*if (i >= enemies.Count)*/
             {
                 enemy = Instantiate(enemyPrefab);
                 enemyInstantiated = true;
             }
-            else
+            /*else
             {
                 enemy = enemies[i];
-            }
+                enemy.ResetEnemy();
+            }*/
 
             //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
             //GameManager gm = GameManager.instance;

@@ -66,6 +66,16 @@ public class Stairs : MapObject
             {
                 //advance to next level
                 Debug.Log("Advancing to next level");
+
+                //throw remaining enemies into graveyard
+                Dungeon dungeon = Dungeon.instance;
+                for(int i = 0; i < dungeon.enemies.Count; i++)
+                {
+                    dungeon.enemies[i].SendToGraveyard();
+                    i--;
+                }
+                GameManager gm = GameManager.instance;
+                gm.SetState(GameManager.GameState.GenerateNewDungeon);
             }
             
         }

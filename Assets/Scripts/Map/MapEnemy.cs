@@ -98,6 +98,9 @@ public class MapEnemy : MapObject
                 break;
             }
         }
+
+        //check if enemy is standing on map object
+        if (StandingOnObject()) {}
     }
 
     //add specific enemies
@@ -167,7 +170,10 @@ public class MapEnemy : MapObject
     //resets the sprite and encountered enemies.
     public void ResetEnemy()
     {
-
+        encounters.Clear();
+        isStationary = false;
+        mapSprite = minorEnemySprite;
+        gameObject.SetActive(true); 
     }
 
     public void SearchForNearestNode()

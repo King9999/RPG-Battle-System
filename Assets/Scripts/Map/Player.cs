@@ -38,7 +38,7 @@ public class Player : MapObject
         hasControl = true;
 
         //applying offset
-        transform.position = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
 
         //setup map sprite
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
@@ -89,7 +89,7 @@ public class Player : MapObject
         {
             if (!node.isOccupied && node.row == row && node.col == col)
             {
-                transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
+                transform.position = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
                 node.isOccupied = true;
                 nodeID = node.nodeID;
                 break;

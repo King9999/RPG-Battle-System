@@ -41,6 +41,15 @@ public class Node : MonoBehaviour
         }*/
     }
 
+    public void ResetNode()
+    {
+        paths[northPath].ShowPath(false);
+        paths[southPath].ShowPath(false);
+        paths[eastPath].ShowPath(false);
+        paths[westPath].ShowPath(false);
+        isOccupied = false;
+    }
+
    public bool NoPath()
    {
        return (!paths[northPath].PathVisible() && !paths[southPath].PathVisible() 

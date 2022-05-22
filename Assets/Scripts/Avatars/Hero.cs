@@ -349,8 +349,7 @@ public class Hero : Avatar
 
                                 if (cs.bonusSystem.bonusValues.Contains(BonusSystem.BonusValue.FullRestore))
                                 {
-                                    float roll = Random.Range(0, 1f);
-                                    if(roll <= 0.05f)
+                                    if(Random.value <= 0.02f)
                                     {
                                         randBonus = (int)BonusSystem.BonusValue.FullRestore;
                                     }
