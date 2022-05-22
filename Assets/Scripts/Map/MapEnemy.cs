@@ -138,8 +138,8 @@ public class MapEnemy : MapObject
             }
         }
 
-        if (StandingOnObject())
-        {
+        //if (StandingOnObject())
+        //{
             foreach(TreasureChest chest in dungeon.chests)
             {
                 if (chest.nodeID == nodeID)
@@ -160,7 +160,7 @@ public class MapEnemy : MapObject
 
             if (dungeon.exit.nodeID == nodeID)
                 dungeon.exit.occupiedByEnemy = false;
-        }
+        //}
         gameObject.SetActive(false);
     }
 

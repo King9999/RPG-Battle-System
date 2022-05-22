@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 /* This game is a concept for a battle system. It's not intended to be a fully-featured game, as I just wanted to show off the idea.
@@ -8,10 +7,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public enum GameState { Normal, Combat, ShowCombatRewards, CombatEnded, GameOver }  //CombatEnded is used to deal with map enemies after combat is finished.
+    public enum GameState { Normal, Combat, ShowCombatRewards, CombatEnded, GenerateNewDungeon, GameOver }  //CombatEnded is used to deal with map enemies after combat is finished.
     public GameState gameState;                 //used by input manager to perform different actions with the same button press.
     public Dungeon dungeon;
-    public Camera gameCamera;                       
+    public Camera gameCamera;
+    public int seed {get; set;}                 //used to generate random content.
+    public int nodeCount {get; set;}                                   
 
     //singletons
     public static GameManager instance;
@@ -36,12 +37,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //combatSystem = CombatSystem.instance;
-        //hm = HeroManager.instance;
-        //gameState = GameState.Normal;
-        //hm.gameObject.SetActive(false);
-        //combatSystem.gameObject.SetActive(false);
-        SetState(GameState.Normal);
+        //get seed
+        System.Random rnd = new System.Random();
+        seed = rnd.Next(); 
+        Random.InitState(1471483880);     //seed 1982010089 & 1471483880 are for testing   
+        Debug.Log("Seed: " + seed);
+        
+        File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", seed.ToString());
+
+
+        nodeCount = dungeon.minNodeCount;
+        SetState(GameState.GenerateNewDungeon);
     }
 
     // Update is called once per frame
@@ -82,6 +88,11 @@ public class GameManager : MonoBehaviour
                 ui.gameObject.SetActive(true);
                 dungeonUI.gameObject.SetActive(false);
                 bs.gameObject.SetActive(true);
+                break;
+
+            case GameState.GenerateNewDungeon:
+                dungeon.GenerateDungeon(nodeCount);
+                SetState(GameState.Normal);
                 break;
             
         }

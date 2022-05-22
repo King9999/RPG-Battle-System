@@ -39,7 +39,7 @@ public class Dungeon : MonoBehaviour
     float xOffset, yOffset = 3;
     const float offset = 2;
     int nodeCount;
-    int minNodeCount {get;} = 10;
+    public int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
     byte nodeID;
     int dungeonLevel;
@@ -67,16 +67,16 @@ public class Dungeon : MonoBehaviour
         heroAppearanceChance = 0;                   //this increases by 10% if no captive is generated, then resets to 0 after success.
 
         //get seed
-        System.Random rnd = new System.Random();
+        /*System.Random rnd = new System.Random();
         int p = rnd.Next(); 
         Random.InitState(p);     //seed 1982010089 is for testing   
         Debug.Log("Seed: " + p);
         
 
-        File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());
+        File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", p.ToString());*/
 
         //create the map
-        GenerateDungeon(nodeCount);  
+        //GenerateDungeon(nodeCount);  
     }
 
     void Update()
