@@ -166,6 +166,7 @@ public class Dungeon : MonoBehaviour
     {
         GameManager gm = GameManager.instance;
         dungeonLevel++;
+        //dungeonLevel = 5;
         DungeonUI ui = DungeonUI.instance;
         ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
 
@@ -782,8 +783,9 @@ public class Dungeon : MonoBehaviour
             {
                 if (Random.value <= 0.3f || (dungeonLevel == 5 && !forcedMajorEnemy))
                 {
-                    SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                    sr.sprite = enemy.majorEnemySprite;
+                    //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    //sr.sprite = enemy.majorEnemySprite;
+                    enemy.SetSprite(enemy.majorEnemySprite);
                     //TODO: have a separate array in Enemy Manager for major enemies and pick one.
 
                     if (majorEnemyCount > 0) majorEnemyCount--;
@@ -794,7 +796,7 @@ public class Dungeon : MonoBehaviour
             if ((dungeonLevel == 5 && !forcedMajorEnemy))
             {
                 //place a forced major enemy to introduce players to shield tokens.
-                forcedMajorEnemy = true;
+                //forcedMajorEnemy = true;
                 enemy.PlaceObject(exit.col, exit.row);
             }
             else
@@ -830,8 +832,11 @@ public class Dungeon : MonoBehaviour
             else
                 tableLevel = 2;
             
-            if (dungeonLevel == 5)
+            if (dungeonLevel == 5 && !forcedMajorEnemy)
+            {
+                forcedMajorEnemy = true;
                 enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
+            }
             else
                 enemy.AddEncounter(tableLevel);
             //EnemyManager em = EnemyManager.instance;
@@ -843,8 +848,9 @@ public class Dungeon : MonoBehaviour
             {
                 enemy.isStationary = true;
                 //enemy becomes semi-transparent so player can see what's being guarded
-                SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                enemy.SetAlpha(0.6f);
+                //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                 exit.occupiedByEnemy = true;
             }
 
@@ -856,8 +862,9 @@ public class Dungeon : MonoBehaviour
                     enemy.isStationary = true;
                     chest.occupiedByEnemy = true;
                     //enemy becomes semi-transparent so player can see what's being guarded
-                    SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                    enemy.SetAlpha(0.6f);
+                    //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                     break;
                 }
             }
@@ -870,8 +877,9 @@ public class Dungeon : MonoBehaviour
                     enemy.isStationary = true;
                     captive.occupiedByEnemy = true;
                     //enemy becomes semi-transparent so player can see what's being guarded
-                    SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                    enemy.SetAlpha(0.6f);
+                    //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                     break;
                 }
             }

@@ -84,7 +84,8 @@ public class CombatSystem : MonoBehaviour
         foreach(Hero hero in hm.heroes)
         {
             hero.gameObject.SetActive(true);
-            hero.ResetCoroutines();
+            //hero.ResetCoroutines();
+            //hero.ResetData();
             hero.transform.SetParent(transform);
             heroesInCombat.Add(hero);
         }
@@ -355,6 +356,7 @@ public class CombatSystem : MonoBehaviour
         foreach(Hero hero in heroesInCombat)
         {
             hero.currentXp += xpPool / heroesInCombat.Count;
+            hero.ResetData();
         }
 
         //add money

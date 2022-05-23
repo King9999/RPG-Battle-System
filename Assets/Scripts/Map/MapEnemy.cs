@@ -174,7 +174,7 @@ public class MapEnemy : MapObject
     {
         encounters.Clear();
         isStationary = false;
-        mapSprite = minorEnemySprite;
+        SetSprite(minorEnemySprite);
         gameObject.SetActive(true); 
     }
 
@@ -287,6 +287,7 @@ public class MapEnemy : MapObject
         {
             standingOnExit = true;
             dungeon.exit.occupiedByEnemy = true;
+            isStationary = true;
 
             //enemy becomes semi-transparent so player can see what's being guarded
             SetAlpha(0.6f);
@@ -301,6 +302,7 @@ public class MapEnemy : MapObject
             {
                 standingOnChest = true;
                 chest.occupiedByEnemy = true;
+                isStationary = true;
 
                  //enemy becomes semi-transparent so player can see what's being guarded
                  SetAlpha(0.6f);

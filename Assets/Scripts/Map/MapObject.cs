@@ -18,4 +18,11 @@ public abstract class MapObject : MonoBehaviour
     {
         gameObject.SetActive(toggle);
     }
+
+    public void SetSprite(Sprite sprite)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        mapSprite = sprite;
+    }
 }

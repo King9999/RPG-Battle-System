@@ -6,18 +6,7 @@ public class Path : MonoBehaviour
 {
     public enum PathState {Normal, Locked}
     public PathState pathState;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+   
     public void ShowPath(bool toggle)
     {
         gameObject.SetActive(toggle);

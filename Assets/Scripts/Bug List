@@ -5,3 +5,4 @@
 5. The encounters are getting mixed up. Player contacts 1 map enemy but then another map enemy is affected when combat ends. *FIXED*
 6. Hero aura doesn't animate correctly for the hero who ended the previous battle.
 7. Fix issue with treasure chests not generating correctly after the first dungeon. *FIXED*
+8. Major enemy node ID is -1 for some reason. Need to figure out the problem. Additional issue: if I set dungeon level to 5 as a test, I immediately go into combat with major enemy.

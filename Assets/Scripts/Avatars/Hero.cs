@@ -653,6 +653,26 @@ public class Hero : Avatar
         animateAttackCoroutineOn = false;
         highlightAvatarCoroutineOn = false;
     }
+
+    //reset certain values after combat.
+    public void ResetData()
+    {
+        atpMod = 1;
+        dfpMod = 1;
+        spdMod = 1;
+        magMod = 1;
+        resMod = 1;
+
+        animateAttackCoroutineOn = false;
+        highlightAvatarCoroutineOn = false;
+
+        //remove all effects
+        skillEffects.Clear();
+        /*foreach(Skill effect in skillEffects)
+        {
+            effect.RemoveEffects(this);
+        }*/
+    }
     //static hero sprite dashes forward and back
     protected override IEnumerator AnimateAttack()
     {

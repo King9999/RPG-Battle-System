@@ -204,6 +204,12 @@ public abstract class Enemy : Avatar
         rareItemDrop = data.rareItemDrop;
         commonItemDropChance = data.commonItemDropChance;
         rareItemDropChance = data.rareItemDropChance;
+        atpMod = 1;
+        dfpMod = 1;
+        spdMod = 1;
+        magMod = 1;
+        resMod = 1;
+        skillEffects.Clear();
     }
 
     //when enemy dies, they are sent to graveyard
