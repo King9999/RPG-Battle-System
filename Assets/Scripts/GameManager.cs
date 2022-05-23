@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         //get seed
         System.Random rnd = new System.Random();
         seed = rnd.Next(); 
-        Random.InitState(2040895571);     //seed 1982010089 & 1471483880 are for testing   
+        Random.InitState(seed);     //seed 1982010089 & 1471483880 are for testing   
         Debug.Log("Seed: " + seed);
         
         File.WriteAllText(@"C:\_Projects\RPG Battle System\Logs\seeds.txt", seed.ToString());

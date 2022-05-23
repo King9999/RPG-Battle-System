@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 
 /* All items are kept in a dictionary, and interacting with them requires mouse events and buttons. */
-public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
+public class Inventory : MonoBehaviour
 {
     //Dictionary<Consumable, int> items;
     //Dictionary<Weapon, int> weapons;
@@ -80,28 +76,12 @@ public class Inventory : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         //itemDetailsUI.text = "";
 
         //add test items
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 3);
-        AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 5);
+        //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
-        AddItem(im.weapons[(int)ItemManager.WeaponItem.Axe], 1);
-        AddItem(im.trinkets[(int)ItemManager.TrinketItem.SpeedBoots], 1);
+        //AddItem(im.weapons[(int)ItemManager.WeaponItem.Axe], 1);
+        //AddItem(im.trinkets[(int)ItemManager.TrinketItem.SpeedBoots], 1);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //run coroutine to highlight item
-    }
-
-    /*public void OnPointerEnter(PointerEventData pointer)
-    {
-        //highlight item and capture its index
-    }
-
-    public void OnPointerExit(PointerEventData pointer)
-    {
-        //remove highlight
-    }*/
 
     public void HideAllSlots()
     {

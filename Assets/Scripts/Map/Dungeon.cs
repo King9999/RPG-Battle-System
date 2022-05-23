@@ -164,6 +164,13 @@ public class Dungeon : MonoBehaviour
 
     public void GenerateDungeon(int nodeCount)
     {
+        /***the size of the map increases in the following ways:
+        -map width increases by 1 every 5 levels
+        -map height increases by 1 every 10 levels */
+        mapWidth = dungeonLevel % 5 == 0 ? mapWidth += 1 : mapWidth;
+        mapHeight = dungeonLevel % 10 == 0 ? mapHeight += 1 : mapHeight;
+
+        Debug.Log("Map Width: " + mapWidth + " Map Height: " + mapHeight);
         mapArray = new bool[mapWidth, mapHeight];
         this.nodeCount = nodeCount;
 
@@ -586,9 +593,10 @@ public class Dungeon : MonoBehaviour
     public void GenerateMapObjects()
     {
         /* When generating objects, I must take care to reuse existing objects instead of instantiating new ones whenever new dungeons are generated. */      
-        
         enemies = new List<MapEnemy>();
-        chests = new List<TreasureChest>();
+
+        //if (chests.Count <= 0 || chests == null)
+            //chests = new List<TreasureChest>();     //if there were any existing chests, they will be re-used so we don't want to clear the list.
         
         /****Player & Party setup****/
         DungeonUI ui = DungeonUI.instance;
@@ -619,9 +627,8 @@ public class Dungeon : MonoBehaviour
         int randNode = Random.Range(nodes.Count - 3, nodes.Count);
         exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
 
-        /****Create chests****/
-        //It's possible for a dungeon to have no chests.
-        int chestCount = /*Random.Range(0, nodes.Count / 4)*/ 1;
+        /****Create chests. It's possible for a dungeon to have no chests.****/
+        int chestCount = Random.Range(0, nodes.Count / 4);
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest;
@@ -634,6 +641,7 @@ public class Dungeon : MonoBehaviour
             else
             {
                 chest = chests[i];
+                chest.gameObject.SetActive(true);
             }
 
             //find a random node to occupy
