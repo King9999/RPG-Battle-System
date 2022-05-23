@@ -74,6 +74,12 @@ public class Stairs : MapObject
                     dungeon.enemies[i].SendToGraveyard();
                     i--;
                 }
+                //deactiavte any unrescued heroes
+                foreach(Captive captiveHero in dungeon.captiveHeroes)
+                {
+                    captiveHero.ShowObject(false);
+                    captiveHero.nodeID = -1;
+                }
                 GameManager gm = GameManager.instance;
                 gm.SetState(GameManager.GameState.GenerateNewDungeon);
             }

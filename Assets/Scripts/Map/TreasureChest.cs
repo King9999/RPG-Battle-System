@@ -20,6 +20,7 @@ public class TreasureChest : MapObject
             {
                 DungeonUI ui = DungeonUI.instance;
                 ui.notification.DisplayMessage("Found " + heldItem.itemName + "!");
+                nodeID = -1;
                 AddItemToInventory();
             }
         }

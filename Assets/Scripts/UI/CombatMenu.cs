@@ -13,7 +13,9 @@ public class CombatMenu : MonoBehaviour
     public Button skillButton;
     public Button itemButton;
     public Button escapeButton;
-    public Button backButton;           //used to go back to combat menu from different screens.
+    public Button backButton;           //used to go back to combat menu from different screens.\
+    public Transform backButtonInventoryPos;
+    Vector3 originalBackButtonPos;
     public Inventory inv;
 
     public enum MenuState {Main, SelectingTargetToAttack, InventoryOpened, SelectingHeroToTakeItem, SelectingHeroToUseSkill, EscapeConfirmWindowOpen}
@@ -44,6 +46,7 @@ public class CombatMenu : MonoBehaviour
         backButton.gameObject.SetActive(false);
         menuState = MenuState.Main;
         UpdateMenuUI(menuState);
+        originalBackButtonPos = backButton.transform.position;
     }
 
    
@@ -57,6 +60,7 @@ public class CombatMenu : MonoBehaviour
         ui.selectTargetUI.text = "Click a target to attack";
         ui.selectTargetUI.gameObject.SetActive(true);
         backButton.gameObject.SetActive(true);
+        backButton.transform.position = originalBackButtonPos;
         menuState = MenuState.SelectingTargetToAttack;
     }
 
@@ -67,7 +71,10 @@ public class CombatMenu : MonoBehaviour
             return;
 
         inv.ShowInventory(true);
+        //itemIcon = null;
+        inv.ShowItemSlots(true);
         backButton.gameObject.SetActive(true);
+        backButton.transform.position = backButtonInventoryPos.position;
         menuState = MenuState.InventoryOpened;  
     }
 
@@ -75,6 +82,7 @@ public class CombatMenu : MonoBehaviour
     {
         gameObject.SetActive(toggle);
         backButton.gameObject.SetActive(false);
+        backButton.transform.position = originalBackButtonPos;
         menuState = MenuState.Main;
     }
 
@@ -98,6 +106,7 @@ public class CombatMenu : MonoBehaviour
                 ui.selectTargetUI.text = "";
                 ui.selectTargetUI.gameObject.SetActive(false);
                 backButton.gameObject.SetActive(false);
+                backButton.transform.position = originalBackButtonPos;
                 menuState = MenuState.Main;
                 break;
 
@@ -105,6 +114,7 @@ public class CombatMenu : MonoBehaviour
                 //close
                 inv.ShowInventory(false);
                 backButton.gameObject.SetActive(false);
+                backButton.transform.position = originalBackButtonPos;
                 menuState = MenuState.Main;
                 break;
             

@@ -30,7 +30,7 @@ public class Dungeon : MonoBehaviour
     public List<MapEnemy> graveyard;    //defeated map enemies go in here
     public List<TreasureChest> chests;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
-    float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
+    [SerializeField]float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns
@@ -41,7 +41,7 @@ public class Dungeon : MonoBehaviour
     int nodeCount;
     public int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
-    byte nodeID;
+    int nodeID;
     int dungeonLevel;
 
     public static Dungeon instance;
@@ -158,19 +158,26 @@ public class Dungeon : MonoBehaviour
         //deactivate all captives until they're needed
         foreach(Captive captiveHero in captiveHeroes)
         {
-            captiveHero.gameObject.SetActive(false);
+            captiveHero.ShowObject(false);
         }   
     }
 
     public void GenerateDungeon(int nodeCount)
     {
+        GameManager gm = GameManager.instance;
+        dungeonLevel++;
+        DungeonUI ui = DungeonUI.instance;
+        ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
+
         /***the size of the map increases in the following ways:
         -map width increases by 1 every 5 levels
-        -map height increases by 1 every 10 levels */
+        -map height increases by 1 every 10 levels 
+        -node count increases by 1 every 2 levels. */
         mapWidth = dungeonLevel % 5 == 0 ? mapWidth += 1 : mapWidth;
         mapHeight = dungeonLevel % 10 == 0 ? mapHeight += 1 : mapHeight;
+        gm.nodeCount = dungeonLevel % 2 == 0 ? gm.nodeCount += 1 : gm.nodeCount;
 
-        Debug.Log("Map Width: " + mapWidth + " Map Height: " + mapHeight);
+        Debug.Log("Map Width: " + mapWidth + " Map Height: " + mapHeight + " Node Count: " + gm.nodeCount);
         mapArray = new bool[mapWidth, mapHeight];
         this.nodeCount = nodeCount;
 
@@ -291,11 +298,6 @@ public class Dungeon : MonoBehaviour
 
         //validate the dungeon, adding paths where necessary to reach the exit.
         ValidateDungeon();
-
-        //if everything is good, we assign a level
-        dungeonLevel++;
-        DungeonUI ui = DungeonUI.instance;
-        ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
     }
 
     void ValidateDungeon()
@@ -629,6 +631,17 @@ public class Dungeon : MonoBehaviour
 
         /****Create chests. It's possible for a dungeon to have no chests.****/
         int chestCount = Random.Range(0, nodes.Count / 4);
+
+        if (chestCount <= 0)
+        {
+            //deactivate the chests since none will appear in this dungeon
+            foreach(TreasureChest chest in chests)
+            {
+                chest.ShowObject(false);
+                chest.nodeID = -1;
+            }
+        }
+
         for (int i = 0; i < chestCount; i++)
         {
             TreasureChest chest;
@@ -641,7 +654,7 @@ public class Dungeon : MonoBehaviour
             else
             {
                 chest = chests[i];
-                chest.gameObject.SetActive(true);
+                chest.ShowObject(true);
             }
 
             //find a random node to occupy
@@ -703,12 +716,12 @@ public class Dungeon : MonoBehaviour
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
             //GameManager gm = GameManager.instance;
-            heroAppearanceChance = 1;
+            //heroAppearanceChance = 1;
             if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
                 Captive captive = captiveHeroes[randCaptive];
-                captive.gameObject.SetActive(true);
+                captive.ShowObject(true);
                 int randRow;
                 int randCol;
                 Node node = null;
@@ -754,21 +767,17 @@ public class Dungeon : MonoBehaviour
                 enemy.ResetEnemy();
                 enemies.Add(enemy);
                 graveyard.Remove(enemy);
+
+                //reset alpha in case it was changed previously.
+                enemy.SetAlpha(1);
             }
-            else /*if (i >= enemies.Count)*/
+            else
             {
                 enemy = Instantiate(enemyPrefab);
                 enemyInstantiated = true;
             }
-            /*else
-            {
-                enemy = enemies[i];
-                enemy.ResetEnemy();
-            }*/
 
             //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
-            //GameManager gm = GameManager.instance;
-            //gm.dungeonLevel = 5;
             if (majorEnemyCount > 0 || (dungeonLevel == 5 && !forcedMajorEnemy))
             {
                 if (Random.value <= 0.3f || (dungeonLevel == 5 && !forcedMajorEnemy))
@@ -821,7 +830,10 @@ public class Dungeon : MonoBehaviour
             else
                 tableLevel = 2;
             
-            enemy.AddEncounter(tableLevel);
+            if (dungeonLevel == 5)
+                enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
+            else
+                enemy.AddEncounter(tableLevel);
             //EnemyManager em = EnemyManager.instance;
             //enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
 

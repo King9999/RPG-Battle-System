@@ -14,4 +14,8 @@ public abstract class MapObject : MonoBehaviour
     public int nodeID;                      //the node ID the object is resting on.
 
     public virtual void PlaceObject(int col, int row){}
+    public void ShowObject(bool toggle)
+    {
+        gameObject.SetActive(toggle);
+    }
 }

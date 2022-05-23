@@ -100,7 +100,8 @@ public class MapEnemy : MapObject
         }
 
         //check if enemy is standing on map object
-        if (StandingOnObject()) {}
+        float alpha = StandingOnObject() == true ? 0.6f : 1;
+        SetAlpha(alpha);
     }
 
     //add specific enemies
@@ -164,7 +165,8 @@ public class MapEnemy : MapObject
             if (dungeon.exit.nodeID == nodeID)
                 dungeon.exit.occupiedByEnemy = false;
         //}
-        gameObject.SetActive(false);
+        nodeID = -1;
+        ShowObject(false);
     }
 
     //resets the sprite and encountered enemies.
@@ -267,6 +269,12 @@ public class MapEnemy : MapObject
         }
     }
 
+    public void SetAlpha(float alpha)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
+    }
+
     public bool StandingOnObject()
     {
         bool standingOnChest = false;
@@ -281,8 +289,9 @@ public class MapEnemy : MapObject
             dungeon.exit.occupiedByEnemy = true;
 
             //enemy becomes semi-transparent so player can see what's being guarded
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+            SetAlpha(0.6f);
+            //SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
         }
 
         //chest
@@ -294,8 +303,9 @@ public class MapEnemy : MapObject
                 chest.occupiedByEnemy = true;
 
                  //enemy becomes semi-transparent so player can see what's being guarded
-                SpriteRenderer sr = GetComponent<SpriteRenderer>();
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                 SetAlpha(0.6f);
+                //SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                 break;
             }
         }
@@ -310,8 +320,9 @@ public class MapEnemy : MapObject
                 captive.occupiedByEnemy = true;
                 
                 //enemy becomes semi-transparent so player can see what's being guarded
-                SpriteRenderer sr = GetComponent<SpriteRenderer>();
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+                SetAlpha(0.6f);
+                //SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                 break;
             }
         }

@@ -15,7 +15,7 @@ public class Node : MonoBehaviour
     public Sprite eventSprite;
     public enum EventNode {None, HpMpBoost}
     public EventNode eventNode;
-    public byte nodeID;                 //a way for me to identify nodes.
+    public int nodeID;                 //a way for me to identify nodes.
     public int row, col;                //its location in the map. info is provided by the dungeon when it's generated.
     public bool isOccupied {get; set;}  //if true, then map object cannot be placed here.
 
@@ -48,6 +48,7 @@ public class Node : MonoBehaviour
         paths[eastPath].ShowPath(false);
         paths[westPath].ShowPath(false);
         isOccupied = false;
+        //nodeID = -1;
     }
 
    public bool NoPath()
