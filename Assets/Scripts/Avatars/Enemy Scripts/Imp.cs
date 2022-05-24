@@ -44,13 +44,15 @@ public class Imp : Enemy
             }
             else
             {
-                Attack(cs.heroesInCombat[0]);
+                int randHero = Random.Range(0, cs.heroesInCombat.Count);
+                Attack(cs.heroesInCombat[randHero]);
             }
         }
         else
         {
             //attack
-            Attack(cs.heroesInCombat[0]);
+            int randHero = Random.Range(0, cs.heroesInCombat.Count);
+            Attack(cs.heroesInCombat[randHero]);
         }
 
         base.ExecuteLogic();

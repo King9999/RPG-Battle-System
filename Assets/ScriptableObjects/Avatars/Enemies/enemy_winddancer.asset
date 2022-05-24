@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f6412b8d53be0544a5fa2696af84c93, type: 2}
   - {fileID: 11400000, guid: c5c5788222915804d8435b8cab71cde0, type: 2}
   maxShieldTokens: 0
-  xp: 28
+  xp: 65
   money: 30
   commonItemDrop: {fileID: 0}
   rareItemDrop: {fileID: 0}

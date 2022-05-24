@@ -90,10 +90,10 @@ public class TreasureChest : MapObject
         //find node
         foreach(Node node in dungeon.nodes)
         {
-            if (!node.isOccupied && node.row == row && node.col == col)
+            if (/*!node.isOccupied &&*/ node.row == row && node.col == col) //chests can't occupy nodes since enemies can be placed on them.
             {
                 transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
-                node.isOccupied = true;
+                //node.isOccupied = true;
                 nodeID = node.nodeID;
                 break;
             }

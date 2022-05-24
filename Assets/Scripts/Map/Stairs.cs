@@ -41,10 +41,10 @@ public class Stairs : MapObject
         
         foreach(Node node in dungeon.nodes)
         {
-            if (!node.isOccupied && node.row == row && node.col == col)
+            if (/*!node.isOccupied &&*/ node.row == row && node.col == col) //NOTE: a node cannot be occupied by stairs because enemies can be placed over them.
             {
                 transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
-                node.isOccupied = true;
+                //node.isOccupied = true;
                 nodeID = node.nodeID;
                 break;
             }

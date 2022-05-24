@@ -165,7 +165,7 @@ public class MapEnemy : MapObject
             if (dungeon.exit.nodeID == nodeID)
                 dungeon.exit.occupiedByEnemy = false;
         //}
-        nodeID = -1;
+        //nodeID = -1;
         ShowObject(false);
     }
 
