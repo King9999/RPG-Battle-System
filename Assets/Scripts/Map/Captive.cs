@@ -39,6 +39,12 @@ public class Captive : MapObject
             else if (mapSprite == mageSprite)
             {
                 hm.AddHero(hm.heroData[hm.mageData]);
+                //create a staff with a random skill
+                //Weapon staff = (Weapon)ScriptableObject.CreateInstance("Weapon");
+                ItemManager im = ItemManager.instance;
+                Weapon staff = Instantiate(im.weapons[(int)ItemManager.WeaponItem.Staff]);
+                staff.GenerateSkill();
+                staff.Equip(hm.heroes[hm.heroes.Count - 1]);
             }
             else if (mapSprite == clericSprite)
             {

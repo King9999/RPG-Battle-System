@@ -10,7 +10,7 @@ public class Weapon : Item
     public ActionGaugeData actGauge;
     int defaultTokenCount {get;} = 3;
     public int tokenCount = 3;    //default amount is 3
-    public Skill weaponSkill;
+    [System.NonSerialized]public Skill weaponSkill;
     [Header("Staff skills")]
     public Skill[] staffSkills;
     
@@ -79,6 +79,7 @@ public class Weapon : Item
     public void GenerateSkill()
     {
         int randSkill = Random.Range(0, staffSkills.Length);
+        weaponSkill = staffSkills[randSkill];
     }
    
 }

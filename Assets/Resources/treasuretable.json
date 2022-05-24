@@ -8,8 +8,9 @@
 				{"itemType":0, "itemName":"Axe", "chance": 0.15},
 				{"itemType":0, "itemName":"Dagger", "chance": 0.2},
 				{"itemType":0, "itemName":"Sword", "chance": 0.25},
+				{"itemType":0, "itemName":"Staff", "chance": 0.3},
 				{"itemType":1, "itemName":"Undershirt", "chance": 0.4},
-				{"itemType":2, "itemName":"Herb", "chance": 1}
+				{"itemType":0, "itemName":"Staff", "chance": 1}
 			]	
 		}
 		
