@@ -90,7 +90,7 @@ public class MapEnemy : MapObject
         
         foreach(Node node in dungeon.nodes)
         {
-            if (!node.isOccupied && node.row == row && node.col == col)
+            if (/*!node.isOccupied &&*/ node.nodeID != player.nodeID && node.row == row && node.col == col)
             {
                 transform.position = new Vector3(node.transform.position.x, node.transform.position.y, node.transform.position.z);
                 node.isOccupied = true;

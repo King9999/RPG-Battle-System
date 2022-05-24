@@ -27,7 +27,10 @@ public class HeroStatsDisplay : MonoBehaviour
         statValuesUI.text = hero.atp + "\n" + hero.dfp + "\n" + hero.spd + "\n" + hero.mag + "\n" + hero.res;
 
         //display equipment
-        equipmentUI.text = hero.weapon.itemName;
+        if (hero.weapon.weaponType == Weapon.WeaponType.Staff)
+            equipmentUI.text = hero.weapon.itemName + "(" + hero.weapon.weaponSkill.skillName + ")";
+        else
+            equipmentUI.text = hero.weapon.itemName;
         equipmentUI.text += (hero.armor == null) ? "\n<NO ARMOR>" : "\n" + hero.armor.itemName;
         equipmentUI.text += (hero.trinket == null) ? "\n<NO TRINKET>" : "\n" + hero.trinket.itemName;
 

@@ -156,9 +156,38 @@ public class Inventory : MonoBehaviour
 
             if (slot.WeaponInSlot().itemName == item.itemName)
             {
-                slot.quantity += amount;
-                itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
+                //extra check for staves
+                if (slot.WeaponInSlot().weaponType == Weapon.WeaponType.Staff)
+                {
+                    if (slot.WeaponInSlot().weaponSkill == item.weaponSkill)
+                    {
+                        slot.quantity += amount;
+                        //itemFound = true;
+                        slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
+                    }
+                    else
+                    {
+                        //put staff in its own slot
+                        int i = 0;
+                        while(weaponSlots[i].WeaponInSlot() != null && i < weaponSlots.Length)
+                        {
+                            i++;
+                        }
+
+                        weaponCount++;
+                        weaponSlots[i].AddWeapon(item);
+                        weaponSlots[i].quantity += amount;
+                        weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
+                    }
+                    itemFound = true;
+                }
+                else
+                {
+                    slot.quantity += amount;
+                    itemFound = true;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
+                }
+            
                 break;
             }
         }
