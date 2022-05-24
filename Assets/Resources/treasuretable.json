@@ -10,7 +10,7 @@
 				{"itemType":0, "itemName":"Sword", "chance": 0.25},
 				{"itemType":0, "itemName":"Staff", "chance": 0.3},
 				{"itemType":1, "itemName":"Undershirt", "chance": 0.4},
-				{"itemType":0, "itemName":"Staff", "chance": 1}
+				{"itemType":0, "itemName":"Herb", "chance": 1}
 			]	
 		}
 		
