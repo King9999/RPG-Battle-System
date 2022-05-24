@@ -11,7 +11,9 @@ public class Weapon : Item
     int defaultTokenCount {get;} = 3;
     public int tokenCount = 3;    //default amount is 3
     public Skill weaponSkill;
-
+    [Header("Staff skills")]
+    public Skill[] staffSkills;
+    
     public enum WeaponType
     {
         Sword, Dagger, Staff, Bow, Axe
@@ -71,6 +73,12 @@ public class Weapon : Item
             }
         }*/
         isEquipped = false;
+    }
+
+    //FOR STAVES ONLY. Staves come with a random skill that is acquired every time a staff weapon is generated.
+    public void GenerateSkill()
+    {
+        int randSkill = Random.Range(0, staffSkills.Length);
     }
    
 }

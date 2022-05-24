@@ -839,8 +839,6 @@ public class Dungeon : MonoBehaviour
             }
             else
                 enemy.AddEncounter(tableLevel);
-            //EnemyManager em = EnemyManager.instance;
-            //enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
 
             //set turns. if the enemy is standing over a chest, stairs, or captive, they will not move.
             //exit check
@@ -849,8 +847,6 @@ public class Dungeon : MonoBehaviour
                 enemy.isStationary = true;
                 //enemy becomes semi-transparent so player can see what's being guarded
                 enemy.SetAlpha(0.6f);
-                //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                 exit.occupiedByEnemy = true;
             }
 
@@ -863,8 +859,6 @@ public class Dungeon : MonoBehaviour
                     chest.occupiedByEnemy = true;
                     //enemy becomes semi-transparent so player can see what's being guarded
                     enemy.SetAlpha(0.6f);
-                    //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                    //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                     break;
                 }
             }
@@ -878,8 +872,6 @@ public class Dungeon : MonoBehaviour
                     captive.occupiedByEnemy = true;
                     //enemy becomes semi-transparent so player can see what's being guarded
                     enemy.SetAlpha(0.6f);
-                    //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-                    //sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
                     break;
                 }
             }

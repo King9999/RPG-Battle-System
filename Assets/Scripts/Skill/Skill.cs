@@ -21,12 +21,25 @@ public abstract class Skill : ScriptableObject
     protected UI ui;
     protected CombatSystem cs;
 
+    //enums
     public enum Target
     {
         None, Self, One, All
     }
 
+    public enum StatusEffect
+    {
+        None, Poison, Paralyze, Blind, Charm, Death
+    }
+
+    public enum Element
+    {
+        None, Fire, Water, Earth, Air
+    }
+
     public Target targetType;
+    public Element element;
+    public StatusEffect statusEffect;
 
     public virtual void Activate(Avatar skillUser, Avatar target, Color borderColor) 
     {
@@ -86,17 +99,6 @@ public abstract class Skill : ScriptableObject
     public bool EffectExpired() {return durationLeft <= 0;}
 
 
-    public enum StatusEffect
-    {
-        None, Poison, Paralyze, Blind, Charm, Death
-    }
-
-    public enum Element
-    {
-        None, Fire, Water, Earth, Air
-    }
-
-    public Element element;
-    public StatusEffect statusEffect;
+    
     
 }
