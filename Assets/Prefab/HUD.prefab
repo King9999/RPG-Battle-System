@@ -270,6 +270,41 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1937164359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1937164360}
+  m_Layer: 5
+  m_Name: Back button inventory position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1937164360
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937164359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 277366428}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 330, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2015221718877781875
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +387,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &7970775698906369301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,9 +1254,29 @@ PrefabInstance:
       propertyPath: inv
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1635577085911667659, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: backButtonInventoryPos
+      value: 
+      objectReference: {fileID: 1937164360}
     - target: {fileID: 1635577085911667661, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
       propertyPath: m_Name
       value: Combat Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938816225589931485, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 277366429}
+    - target: {fileID: 5938816225589931485, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnEscapeButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938816225589931485, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CombatMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938816225589931485, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}

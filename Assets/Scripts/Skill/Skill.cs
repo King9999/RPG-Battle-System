@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 //base class for all effects in the game, including spells, consumable item effects.
 public abstract class Skill : ScriptableObject
@@ -10,7 +10,7 @@ public abstract class Skill : ScriptableObject
     public string description;
     public int manaCost;
     public float power;             //potency of a skill. It is added to either a player's MAG or ATP stat.
-    public ActionGauge actGauge;    //skills typically have 1 token
+    public ActionGaugeData actGaugeData;    //skills typically have 1 token
     public bool isPassive;          //if true, skill is always active and has no mana cost.
     protected float totalDamage;
     protected bool skillActivated;  //applies mainly to skills that have have a duration
@@ -42,6 +42,16 @@ public abstract class Skill : ScriptableObject
     public StatusEffect statusEffect;
 
     public virtual void Activate(Avatar skillUser, Avatar target, Color borderColor) 
+    {
+        skillActivated = true;
+        durationLeft = hasDuration == true ? turnDuration : 0;
+
+        ui = UI.instance;
+        skillNameBorderColor = borderColor;
+        ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
+    }
+
+    public virtual void Activate(Avatar skillUser, List<Avatar> target, Color borderColor) 
     {
         skillActivated = true;
         durationLeft = hasDuration == true ? turnDuration : 0;

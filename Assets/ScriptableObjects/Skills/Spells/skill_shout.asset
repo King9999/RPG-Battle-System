@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd311a3388043f544985ec3df365ae6f, type: 3}
+  m_Name: skill_shout
+  m_EditorClassIdentifier: 
+  skillName: Shout
+  skillIcon: {fileID: 0}
+  description: Temporarily stuns all enemies, preventing their turn
+  manaCost: 20
+  power: 0
+  actGaugeData: {fileID: 11400000, guid: f4e59004a17d8d24d99a9e68e595c4da, type: 2}
+  isPassive: 0
+  hasDuration: 1
+  turnDuration: 3
+  targetType: 3
+  element: 0
+  statusEffect: 2
