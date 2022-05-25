@@ -242,6 +242,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &640191898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 277366429, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+  m_PrefabInstance: {fileID: 6144532497454986556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8fa1da6c3d6de344b0a9f234a197606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &697741766 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7293731605069431837, guid: 51250dcec17e83541a410c36d3495966, type: 3}
@@ -1294,6 +1305,22 @@ PrefabInstance:
     - target: {fileID: 1507720705050311223, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960808816877631627, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 640191898}
+    - target: {fileID: 4960808816877631627, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnEscapeButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960808816877631627, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CombatMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960808816877631627, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6144532497329781319, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
       propertyPath: m_Pivot.x

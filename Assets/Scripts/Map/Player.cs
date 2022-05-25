@@ -10,6 +10,10 @@ public class Player : MapObject
     bool hasControl;                                //when false, no input is accepted.
     float yOffset = 0.2f;                       //used to position player object so they aren't sticking outside of the node.
     Vector3 destination;
+    public Vector3 oldPos {get; set;}           //used to put player back in old node if they run away from battle.
+    public int oldNodeID {get; set;}
+    public int oldRow {get; set;}
+    public int oldCol {get; set;}
     int desinationNodeID;                       //used to update player nodeID after coroutine finishes.
     bool animateMoveCoroutineOn;
 
@@ -102,6 +106,8 @@ public class Player : MapObject
         if (!hasControl) return;
 
         //can only move to an adjacent node that has a path.
+        oldRow = row;
+        oldCol = col;
         row = rowDestination;
         col = colDestination;
 
@@ -113,8 +119,9 @@ public class Player : MapObject
                 dungeon.nodes[nodeID].isOccupied = false;
 
                 //get node's position and begin moving player
+                oldPos = transform.position;
+                oldNodeID = nodeID;
                 destination = new Vector3(node.transform.position.x, node.transform.position.y + yOffset, node.transform.position.z);
-                //nodeID = node.nodeID;
                 desinationNodeID = node.nodeID;
                 node.isOccupied = true;
                 hasControl = false;
@@ -139,6 +146,15 @@ public class Player : MapObject
             }
         }
         
+    }
+
+    //send player back to node before they encountered enemy if they ran away
+    public void SendToPreviousNode()
+    {
+        nodeID = oldNodeID;
+        row = oldRow;
+        col = oldCol;
+        transform.position = oldPos;
     }
 
     IEnumerator AnimateMovement()

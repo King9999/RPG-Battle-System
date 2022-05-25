@@ -78,6 +78,15 @@ public class CombatMenu : MonoBehaviour
         menuState = MenuState.InventoryOpened;  
     }
 
+    public void OnEscapeButtonClicked()
+    {
+        //open inventory
+        if (menuState != MenuState.Main) 
+            return;
+
+        cs.playerRanAway = true;
+    }
+
     public void ShowCombatMenu(bool toggle)
     {
         gameObject.SetActive(toggle);

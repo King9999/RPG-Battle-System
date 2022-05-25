@@ -28,8 +28,6 @@ public class MapEnemy : MapObject
 
     void Update()
     {
-        //if (gameObject.activeSelf)
-        //{
             //combat check
             GameManager gm = GameManager.instance;
             Player player = Player.instance;
@@ -44,12 +42,18 @@ public class MapEnemy : MapObject
                 }
             }
 
+            if (gm.gameState == GameManager.GameState.CombatEndedPlayerRanAway && nodeID == player.nodeID)
+            {
+                //player gets pushed back to the node they came from. Enemy survives
+                player.SendToPreviousNode();
+                gm.SetState(GameManager.GameState.Normal);
+            }
+
             if (gm.gameState == GameManager.GameState.CombatEnded && nodeID == player.nodeID)
             {
                 gm.SetState(GameManager.GameState.Normal);
                 SendToGraveyard();
             }
-        //}
     }
 
     public void ResetTurns()
@@ -315,7 +319,7 @@ public class MapEnemy : MapObject
         //captive
         foreach(Captive captive in dungeon.captiveHeroes)
         {
-            if (captive.gameObject.activeSelf && nodeID == captive.nodeID)
+            if (captive.gameObject.activeSelf && !captive.occupiedByEnemy && nodeID == captive.nodeID)
             {
                 standingOnCaptive = true;
                 isStationary = true;

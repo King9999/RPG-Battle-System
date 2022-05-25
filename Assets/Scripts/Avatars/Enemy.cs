@@ -215,8 +215,7 @@ public abstract class Enemy : Avatar
     //when enemy dies, they are sent to graveyard
     public void SendToGraveyard(bool ranAway = false)
     {
-        if (hitPoints > 0 && !ranAway) return;
-
+        //if (hitPoints > 0 && !ranAway) return;
         em.graveyard.Add(this);
         cs.enemiesInCombat.Remove(this);    //need to make sure the correct enemy is being removed when there are duplicates
         cs.turnOrder.Remove(this);

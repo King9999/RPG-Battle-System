@@ -32,6 +32,7 @@ public class CombatSystem : MonoBehaviour
     bool combatEnded;           //if true, will run the EndCombat method and prevent it from running more than once.
     public bool turnInProgress {get; set;}
     public bool speedChanged {get; set;}        //if true, the turn order is reshuffled.
+    public bool playerRanAway {get; set;}                 //if true, no rewards given.
     public Transform actGaugeLocation;
 
     //combat states. Used to determine which steps can be taken during combat
@@ -182,6 +183,7 @@ public class CombatSystem : MonoBehaviour
         currentHero = -1;
         combatEnded = false;
         turnInProgress = false;
+        playerRanAway = false;
     }
 
     
@@ -190,6 +192,7 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatEnded)
             return;
+        
         /*if (AllHeroesDefeated())
         {
             gm.GameOver();
@@ -203,7 +206,21 @@ public class CombatSystem : MonoBehaviour
             //return;
         }
 
-        if (bonusSystem.bonusTurnsActive && bonusTurns <= 0)
+        if (!combatEnded && playerRanAway)
+        {
+            combatEnded = true;
+
+            //send remaining enemies to graveyard
+            for (int i = 0; i < enemiesInCombat.Count; i++)
+            {
+                enemiesInCombat[i].SendToGraveyard();
+                i--;
+            }
+            
+            CloseCombatSystem();
+        }
+
+        if (!combatEnded && bonusSystem.bonusTurnsActive && bonusTurns <= 0)
         {
             bonusTurns = 0;
             //bonusSystem.bonusTurnsActive = false;
@@ -211,7 +228,7 @@ public class CombatSystem : MonoBehaviour
         }
 
         //check whose turn is next
-        if (!turnInProgress)
+        if (!combatEnded && !turnInProgress)
         {
             if (!turnOrder[currentTurn].TurnTaken())
             {
@@ -390,7 +407,11 @@ public class CombatSystem : MonoBehaviour
 
         gm = GameManager.instance;
         gm.SetCameraFollow(true);
-        gm.SetState(GameManager.GameState.CombatEnded);
+
+        if (!playerRanAway)
+            gm.SetState(GameManager.GameState.CombatEnded);
+        else
+            gm.SetState(GameManager.GameState.CombatEndedPlayerRanAway);
         //gameObject.SetActive(false);
     }
 

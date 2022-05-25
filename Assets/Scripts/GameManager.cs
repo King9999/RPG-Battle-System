@@ -7,7 +7,7 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
 
-    public enum GameState { Normal, Combat, ShowCombatRewards, CombatEnded, GenerateNewDungeon, GameOver }  //CombatEnded is used to deal with map enemies after combat is finished.
+    public enum GameState { Normal, Combat, ShowCombatRewards, CombatEnded, CombatEndedPlayerRanAway, GenerateNewDungeon, GameOver }  //CombatEnded is used to deal with map enemies after combat is finished.
     public GameState gameState;                 //used by input manager to perform different actions with the same button press.
     public Dungeon dungeon;
     public Camera gameCamera;
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Normal:
             case GameState.CombatEnded:
+            case GameState.CombatEndedPlayerRanAway:
                 //update dungeon party UI so that current HP, MP and XP are reflected
                 dungeon.gameObject.SetActive(true);
                 dungeonUI.gameObject.SetActive(true);
