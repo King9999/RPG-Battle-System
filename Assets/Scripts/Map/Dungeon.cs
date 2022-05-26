@@ -30,7 +30,7 @@ public class Dungeon : MonoBehaviour
     public List<MapEnemy> graveyard;    //defeated map enemies go in here
     public List<TreasureChest> chests;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
-    [SerializeField]float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 by the time they reach level 5.
+    [SerializeField]float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 heroes by the time they reach level 5.
 
     public bool[,] mapArray;
     public int mapWidth {get; set;}     //columns

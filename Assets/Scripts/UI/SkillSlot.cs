@@ -49,4 +49,14 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             //case (skill.)
         }
     }
+
+    public Skill SkillInSlot()
+    {
+        return skill;
+    }
+
+    public void AddSkill(Skill skill)
+    {
+        this.skill = skill;
+    }
 }

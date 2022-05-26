@@ -78,6 +78,20 @@ public class CombatMenu : MonoBehaviour
         menuState = MenuState.InventoryOpened;  
     }
 
+    public void OnSkillButtonClicked()
+    {
+        //open inventory
+        if (menuState != MenuState.Main) 
+            return;
+
+        inv.ShowInventory(true);
+        //itemIcon = null;
+        inv.ShowSkillSlots(true);
+        backButton.gameObject.SetActive(true);
+        backButton.transform.position = backButtonInventoryPos.position;
+        menuState = MenuState.InventoryOpened;  
+    }
+
     public void OnEscapeButtonClicked()
     {
         //open inventory

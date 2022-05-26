@@ -13465,6 +13465,17 @@ MonoBehaviour:
   - {fileID: 8011742021080825810}
   - {fileID: 4432872966428979620}
   - {fileID: 5220951381917867523}
+  skillSlots:
+  - {fileID: 1040757709}
+  - {fileID: 432073701}
+  - {fileID: 1082711797}
+  - {fileID: 82980024}
+  - {fileID: 1559109680}
+  - {fileID: 244823888}
+  - {fileID: 1843477885}
+  - {fileID: 673288923}
+  - {fileID: 664472021}
+  - {fileID: 235351563}
   actGaugeWindow: {fileID: 3413896552131751259}
   statsDisplay: {fileID: 0}
   itemDetailsUI: {fileID: 653639861}

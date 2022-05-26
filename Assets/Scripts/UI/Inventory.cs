@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour
     public WeaponSlot[] weaponSlots;
     public ArmorSlot[] armorSlots;
     public TrinketSlot[] trinketSlots;
+    public SkillSlot[] skillSlots;
     public ActionGaugeWindow actGaugeWindow;
     public StatsDisplay statsDisplay;
     public TextMeshProUGUI itemDetailsUI;
@@ -27,6 +28,7 @@ public class Inventory : MonoBehaviour
     public GameObject armorSlotContainer;
     public GameObject trinketSlotContainer;
     public GameObject itemDetailsContainer;
+    public GameObject skillSlotContainer;
 
     public ItemSlot copiedSlot;            //copy of an item that is about to be used.
     int money;
@@ -71,6 +73,7 @@ public class Inventory : MonoBehaviour
         weaponSlotContainer.gameObject.SetActive(false);
         trinketSlotContainer.gameObject.SetActive(false);
         armorSlotContainer.gameObject.SetActive(false);
+        skillSlotContainer.gameObject.SetActive(false);
         actGaugeWindow.ShowWindow(false);
         itemDetailsContainer.gameObject.SetActive(false);
         //itemDetailsUI.text = "";
@@ -89,12 +92,14 @@ public class Inventory : MonoBehaviour
         weaponSlotContainer.gameObject.SetActive(false);
         trinketSlotContainer.gameObject.SetActive(false);
         armorSlotContainer.gameObject.SetActive(false);
+        skillSlotContainer.gameObject.SetActive(false);
     }
 
     public void ShowItemSlots(bool toggle){ itemSlotContainer.gameObject.SetActive(toggle); }
     public void ShowWeaponSlots(bool toggle){ weaponSlotContainer.gameObject.SetActive(toggle); }
     public void ShowArmorSlots(bool toggle){ armorSlotContainer.gameObject.SetActive(toggle); }
     public void ShowTrinketSlots(bool toggle){ trinketSlotContainer.gameObject.SetActive(toggle); }
+    public void ShowSkillSlots(bool toggle){ skillSlotContainer.gameObject.SetActive(toggle); }
 
     //add item to first available slot
     public void AddItem(Consumable item, int amount)
@@ -286,6 +291,21 @@ public class Inventory : MonoBehaviour
             trinketSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = trinketSlots[i].TrinketInSlot().itemName + " -- " + trinketSlots[i].quantity;
         }
     }
+
+    public void AddSkill(Skill skill)
+    {
+       
+        //add skill to a new slot
+        int i = 0;
+        while(skillSlots[i].SkillInSlot() != null && i < skillSlots.Length)
+        {
+            i++;
+        }
+        
+        skillSlots[i].AddSkill(skill);
+        skillSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost;     
+    }
+
 
     public void RemoveItem(Weapon item, int amount)
     {
