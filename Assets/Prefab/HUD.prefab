@@ -1166,6 +1166,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6144532497329781319}
     m_Modifications:
+    - target: {fileID: 498176490992232112, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 277366429}
+    - target: {fileID: 498176490992232112, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSkillButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 498176490992232112, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CombatMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 498176490992232112, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1635577085911667658, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

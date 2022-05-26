@@ -303,7 +303,7 @@ public class Inventory : MonoBehaviour
         }
         
         skillSlots[i].AddSkill(skill);
-        skillSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost;     
+        skillSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost + "MP";     
     }
 
 

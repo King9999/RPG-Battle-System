@@ -33,58 +33,13 @@ public class Hero : Avatar
     //singletons
     protected HeroManager hm;
     CombatInputManager cim;
+    Inventory inv;                  //for populating skill inventory menu
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        /*currentLevel = 3;
-        //pull information from a scriptable object
-        statFile = data.statFile;
-        className = data.className;
-        details = data.details;
-        
-        skills = data.skills;
-        swordOK = data.swordOK;
-        daggerOK = data.daggerOK;
-        axeOK = data.axeOK;
-        bowOK = data.bowOK;
-        staffOK = data.staffOK;
-        //level = data.level;
-        currentXp = 0;
-        weapon = data.weapon;
-        armor = data.armor;
-        trinket = data.trinket;
-        attackTokenMod = data.attackTokenMod;
     
-
-        //Get stats from JSON
-        stats = JsonUtility.FromJson<Stats>(statFile.text);
-        level = stats.tableStats[currentLevel].level;
-        maxHitPoints = stats.tableStats[currentLevel].hp;
-        hitPoints = maxHitPoints;
-        maxManaPoints = stats.tableStats[currentLevel].mp;
-        manaPoints = maxManaPoints;
-        atp = stats.tableStats[currentLevel].atp;           
-        dfp = stats.tableStats[currentLevel].dfp;           
-        mag = stats.tableStats[currentLevel].mag;          
-        res = stats.tableStats[currentLevel].res;
-        xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
-
-         if (level < 1)
-            level = 1;
-        if (level > data.MaxLevel)
-            level = data.MaxLevel;
-
-         //equip check
-        if (weapon != null)      
-            weapon.Equip(hero: this);
-        if (armor != null)
-            armor.Equip(hero: this);
-        if (trinket != null)
-            trinket.Equip(hero: this);
-        //Debug.Log("Current Level: " + stats.tableStats[stats.tableStats.Length - 1]);*/
-        //cs = CombatSystem.instance;
         skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
         hm = HeroManager.instance;
         cim = CombatInputManager.instance;
@@ -155,16 +110,17 @@ public class Hero : Avatar
                 StartCoroutine(HighlightAvatar());
         }
 
+        /*if (status == Status.Dead)
+        {
+            //status = Status.Dead;
+            hitPoints = 0;
+            //remove hero from turn order
+            //TODO: put in a sprite that indicates hero is dead.
+            return;
+        }*/
+
         if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind)
         {
-            /*if (hitPoints <= 0)
-            {
-                status = Status.Dead;
-                //remove hero from turn order
-                //TODO: put in a sprite that indicates hero is dead.
-                return;
-            }*/
-
             if ((isAttacking && currentActions >= totalAttackTokens) || gm.gameState == GameManager.GameState.ShowCombatRewards)
             {
                 isAttacking = false;
@@ -255,6 +211,13 @@ public class Hero : Avatar
 
         //which hero is acting?
         cs.currentHero = cs.heroesInCombat.IndexOf(this);
+
+        //populate skill inventory if possible
+        inv = Inventory.instance;
+        foreach(Skill skill in skills)
+        {
+            inv.AddSkill(skill);
+        }
 
         //do a switch/case here for the different menu options (attack, skill, item, or run)
         UI ui = UI.instance;

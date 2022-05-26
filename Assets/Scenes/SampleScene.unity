@@ -145,17 +145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c9a88d561ecc14ca46934140391eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &493009466 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 277366429, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-  m_PrefabInstance: {fileID: 6144532497454986556}
+--- !u!1 &479868470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 479868470, guid: 51250dcec17e83541a410c36d3495966, type: 3}
+  m_PrefabInstance: {fileID: 1207966491}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8fa1da6c3d6de344b0a9f234a197606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +521,10 @@ PrefabInstance:
       propertyPath: statsDisplay
       value: 
       objectReference: {fileID: 468767732}
+    - target: {fileID: 7293731605069431837, guid: 51250dcec17e83541a410c36d3495966, type: 3}
+      propertyPath: skillSlotContainer
+      value: 
+      objectReference: {fileID: 479868470}
     - target: {fileID: 7293731605069431839, guid: 51250dcec17e83541a410c36d3495966, type: 3}
       propertyPath: m_Name
       value: Inventory
@@ -1254,22 +1252,6 @@ PrefabInstance:
       propertyPath: border
       value: 
       objectReference: {fileID: 1101036697}
-    - target: {fileID: 1178637229192000486, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 493009466}
-    - target: {fileID: 1178637229192000486, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSkillButtonClicked
-      objectReference: {fileID: 0}
-    - target: {fileID: 1178637229192000486, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CombatMenu, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1178637229192000486, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6144532497329781319, guid: 514f904bc64a8554f9940912ecd7fa69, type: 3}
       propertyPath: m_Pivot.x
       value: 0
