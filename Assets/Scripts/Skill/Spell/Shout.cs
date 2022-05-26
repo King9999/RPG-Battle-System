@@ -10,30 +10,38 @@ public class Shout : Skill
    
     public override void Activate(Avatar user, List<Avatar> targets, Color borderColor)
     {
-        base.Activate(user, targets, borderColor);
+        //base.Activate(user, targets, borderColor);
+
+        skillActivated = true;
+        ui = UI.instance;
+        skillNameBorderColor = borderColor;
+        ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
         
         float hitChance = 0.5f;
         float rateMod = 0;  //becomes 1/3 if player lands on reduced panel, 0 if miss
         CombatInputManager cim = CombatInputManager.instance;
         CombatSystem cs = CombatSystem.instance;
+        float totalCost = manaCost * user.mpMod;
 
-        if (user.manaPoints < manaCost)
+        if (user.manaPoints < totalCost)
         {
             ui.DisplayStatusUpdate("NOT ENOUGH MANA", user.transform.position);
             return;
         }
         
-        user.manaPoints -= manaCost;
-        if (user.TryGetComponent(out Hero hero))
+        ReduceMp(user);
+        //user.manaPoints -= manaCost;
+        /*if (user.TryGetComponent(out Hero hero))
         {
             hero.SetupActionGauge(cs.actGauge, actGaugeData);
-        }
+        }*/
         
-        float skillTokenSpeed = cs.actGauge.actionToken.TokenSpeed() * 2;
-        cs.actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
+        //float skillTokenSpeed = cs.actGauge.actionToken.TokenSpeed() * 2;
+        //cs.actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
 
         if (cim.buttonPressed)
         {
+            //cs.actGauge.actionToken.StopToken();
             switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
             {
                 case ActionGauge.ActionValue.Miss:
@@ -63,6 +71,10 @@ public class Shout : Skill
                     ui.DisplayStatusUpdate("MISS", target.transform.position);
                 } 
             }
+
+            //need to do this step to end turn.
+            if (user.TryGetComponent(out Hero hero))
+                hero.currentActions++;
         }
     }
 

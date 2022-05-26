@@ -298,6 +298,23 @@ public abstract class Enemy : Avatar
             hero.isAttacking = true;
             //Debug.Log(className + " at index " + cs.currentTarget);
         }
+
+        if (cs.selectingTargetToAttackWithSkill)
+        {
+            cs.selectingTargetToAttackWithSkill = false;
+            cs.currentTarget = cs.enemiesInCombat.IndexOf(this);
+            Inventory inv = Inventory.instance;
+            Hero hero = cs.heroesInCombat[cs.currentHero];
+            UI ui = UI.instance;
+            ui.selectTargetUI.gameObject.SetActive(false);
+            ui.combatMenu.ShowCombatMenu(false);
+
+            //hero is ready to attack
+            hero = cs.heroesInCombat[cs.currentHero];
+            hero.SetupActionGaugeForSkill(cs.actGauge, inv.copiedSkillSlot.SkillInSlot().actGaugeData);
+            hero.isAttacking = true;
+            //inv.copiedSkillSlot.SkillInSlot().Activate(hero, this, hero.SkillBorderColor());
+        }
     }
 
     public void ResetShieldToken(int tokenIndex)

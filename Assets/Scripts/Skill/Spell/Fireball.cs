@@ -9,14 +9,16 @@ public class Fireball : Skill
     public override void Activate(Avatar user, Avatar target, Color borderColor)
     {
         base.Activate(user, target, borderColor);
-
-        if (user.manaPoints < manaCost)
+        
+        float totalCost = manaCost * user.mpMod;
+        if (user.manaPoints < totalCost)
         {
             Debug.Log("Not enough mana!");
             return;
         }
-        
-        user.manaPoints -= manaCost;
+
+        ReduceMp(user);
+        //user.manaPoints -= manaCost;
         totalDamage = (user.mag * user.magMod) + power;
         totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f)) - target.res;
 

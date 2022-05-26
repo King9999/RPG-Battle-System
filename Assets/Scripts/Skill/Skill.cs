@@ -24,7 +24,7 @@ public abstract class Skill : ScriptableObject
     //enums
     public enum Target
     {
-        None, Self, One, All
+        None, Self, OneEnemy, OneHero, AllEnemies, AllHeroes
     }
 
     public enum StatusEffect
@@ -102,6 +102,11 @@ public abstract class Skill : ScriptableObject
         {
             skillActivated = false;
         }
+    }
+
+    public void ReduceMp(Avatar user)
+    {
+        user.manaPoints -= manaCost * user.mpMod;
     }
 
     //only applies to skills with a duration

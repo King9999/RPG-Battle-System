@@ -8,12 +8,14 @@ using UnityEngine.UI;
 public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int slotID;
-    private Skill skill;
+    [SerializeField]private Skill skill;
 
 
     CombatMenu menu;
     Inventory inv;
     DungeonMenu dungeonMenu;
+    CombatSystem cs;
+    UI ui;
     
     public void OnPointerEnter(PointerEventData pointer)
     {
@@ -42,11 +44,29 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void UseSkill()
-    {
-        if (skill != null)
+    {   
+        cs = CombatSystem.instance;
+
+        Hero hero = cs.heroesInCombat[cs.currentHero];
+        if (skill != null && hero.manaPoints >= skill.manaCost * hero.mpMod)
         {
             //use skill
-            //case (skill.)
+            Debug.Log("Clicked on " + skill.skillName);
+            menu = CombatMenu.instance;
+            
+            ui = UI.instance;
+            if (skill.targetType == Skill.Target.OneEnemy)
+            {
+                cs.selectingTargetToAttackWithSkill = true;
+                ui.selectTargetUI.text = "Choose a target";
+                inv.copiedSkillSlot = this;
+                inv.ShowInventory(false);
+                cs.heroUsingSkill = true;
+                ui.selectTargetUI.gameObject.SetActive(true);
+                menu.backButton.gameObject.SetActive(true);
+                menu.backButton.transform.position = menu.originalBackButtonPos;
+                menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
+            }
         }
     }
 
@@ -58,5 +78,10 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void AddSkill(Skill skill)
     {
         this.skill = skill;
+    }
+
+    public void RemoveSkill()
+    {
+        skill = null;
     }
 }

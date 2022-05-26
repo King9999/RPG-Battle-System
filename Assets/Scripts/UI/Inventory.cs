@@ -31,6 +31,7 @@ public class Inventory : MonoBehaviour
     public GameObject skillSlotContainer;
 
     public ItemSlot copiedSlot;            //copy of an item that is about to be used.
+    public SkillSlot copiedSkillSlot;
     int money;
     int maxMoney {get;} = 10000000;
     public int currentItem;                //iterator
@@ -292,7 +293,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddSkill(Skill skill)
+    public void AddSkill(Hero hero, Skill skill)
     {
        
         //add skill to a new slot
@@ -303,7 +304,13 @@ public class Inventory : MonoBehaviour
         }
         
         skillSlots[i].AddSkill(skill);
-        skillSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost + "MP";     
+
+        //display text in a different colour if insufficient mana
+        TextMeshProUGUI skillInfo = skillSlots[i].GetComponentInChildren<TextMeshProUGUI>();
+        if (hero.manaPoints >= skillSlots[i].SkillInSlot().manaCost)
+            skillInfo.text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost + "MP";
+        else
+            skillInfo.text = "<color=#d7510b>" + skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost + "MP</color>";     
     }
 
 

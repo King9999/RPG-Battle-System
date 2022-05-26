@@ -60,7 +60,15 @@ public class CombatInputManager : MonoBehaviour
            {
                Hero hero = cs.heroesInCombat[cs.currentHero];
                Enemy enemy = cs.enemiesInCombat[cs.currentTarget];
-               hero.Attack(enemy);
+
+               if (!cs.heroUsingSkill)
+                    hero.Attack(enemy);
+                else    //activate skill
+                {
+                    Inventory inv = Inventory.instance;
+                    inv.copiedSkillSlot.SkillInSlot().Activate(hero, enemy, hero.SkillBorderColor());
+                    cs.heroUsingSkill = false;
+                }
            }   
         }
     }

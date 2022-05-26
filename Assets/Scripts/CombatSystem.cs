@@ -40,7 +40,10 @@ public class CombatSystem : MonoBehaviour
     public PlayerState playerState;
 
     public bool selectingTargetToAttack {get; set;}
+    public bool selectingTargetToAttackWithSkill {get; set;}
     public bool selectingHero {get; set;}           //when true, player is using an item or a skill on a hero
+    public bool selectingHeroToUseSkillOn {get; set;}
+    public bool heroUsingSkill;                     //used in combat input manager to prevent standard attack.
     
     public static CombatSystem instance;
     HeroManager hm;

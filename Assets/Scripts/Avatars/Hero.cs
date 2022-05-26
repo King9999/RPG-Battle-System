@@ -214,9 +214,13 @@ public class Hero : Avatar
 
         //populate skill inventory if possible
         inv = Inventory.instance;
+        for (int i = 0; i < inv.skillSlots.Length; i++)
+        {
+            inv.skillSlots[i].RemoveSkill();
+        }
         foreach(Skill skill in skills)
         {
-            inv.AddSkill(skill);
+            inv.AddSkill(this, skill);
         }
 
         //do a switch/case here for the different menu options (attack, skill, item, or run)
@@ -400,11 +404,11 @@ public class Hero : Avatar
                                     weapon.weaponSkill.Activate(this, skillNameBorderColor);
                                     break;
                                 
-                                case Skill.Target.One:
+                                case Skill.Target.OneEnemy:
                                     weapon.weaponSkill.Activate(this, target, skillNameBorderColor);
                                     break;
 
-                                case Skill.Target.All:
+                                case Skill.Target.AllEnemies:
                                     //weapon.weaponSkill.Activate(this, skillNameBorderColor);
                                     break;
                             }
@@ -521,6 +525,23 @@ public class Hero : Avatar
             actGauge.actionToken.SetTokenSpeed(actGauge.actionToken.TokenSpeed() * cs.bonusSystem.actionGaugeMod);
             actGauge.actionToken.StartToken();
         }
+    }
+
+    public void SetupActionGaugeForSkill(ActionGauge actGauge, ActionGaugeData weaponData)
+    {
+        if (!actGauge.gameObject.activeSelf)
+        {
+            actGauge.ShowGauge(true);
+            actGauge.UpdateGaugeData(weaponData);
+            actGauge.ResetActionToken();
+        }
+
+        totalAttackTokens = 1;
+        currentActions = 0;
+
+        float skillTokenSpeed = actGauge.actionToken.TokenSpeed() * 2;
+        actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
+        actGauge.actionToken.StartToken();
     }
 
     public void SpeedUpToken()

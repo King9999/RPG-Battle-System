@@ -10,13 +10,15 @@ public class Heal : Skill
     {
         base.Activate(user, target, borderColor);
 
-        if (user.manaPoints < manaCost)
+        float totalCost = manaCost * user.mpMod;
+        if (user.manaPoints < totalCost)
         {
             Debug.Log("Not enough mana!");
             return;
         }
 
-        user.manaPoints -= manaCost;
+        ReduceMp(user);
+        //user.manaPoints -= manaCost;
         Debug.Log(user.className + " is casting " + skillName);
         float amountRestored = (user.mag * user.magMod) + power;
         amountRestored += Mathf.Round(Random.Range(0, amountRestored * 0.1f));

@@ -15,10 +15,10 @@ public class CombatMenu : MonoBehaviour
     public Button escapeButton;
     public Button backButton;           //used to go back to combat menu from different screens.\
     public Transform backButtonInventoryPos;
-    Vector3 originalBackButtonPos;
+    [HideInInspector]public Vector3 originalBackButtonPos;
     public Inventory inv;
 
-    public enum MenuState {Main, SelectingTargetToAttack, InventoryOpened, SelectingHeroToTakeItem, SelectingHeroToUseSkill, EscapeConfirmWindowOpen}
+    public enum MenuState {Main, SelectingTargetToAttack, InventoryOpened, SelectingHeroToTakeItem, SelectingSkillTarget, EscapeConfirmWindowOpen}
     public MenuState menuState;
 
     //singletons
