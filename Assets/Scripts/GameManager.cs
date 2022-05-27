@@ -51,12 +51,6 @@ public class GameManager : MonoBehaviour
         SetState(GameState.GenerateNewDungeon);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SetState(GameState state)
     {
         gameState = state;

@@ -722,7 +722,7 @@ public class Dungeon : MonoBehaviour
             if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
-                Captive captive = /*captiveHeroes[randCaptive]*/captiveHeroes[1];
+                Captive captive = captiveHeroes[randCaptive];
                 captive.ShowObject(true);
                 int randRow;
                 int randCol;
