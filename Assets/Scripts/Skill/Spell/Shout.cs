@@ -14,7 +14,7 @@ public class Shout : Skill
 
         
         
-        float hitChance = 0.5f;
+        float hitChance = user.atp / 100;
         float rateMod = 0;  //becomes 1/3 if player lands on reduced panel, 0 if miss
         CombatInputManager cim = CombatInputManager.instance;
         CombatSystem cs = CombatSystem.instance;
@@ -48,7 +48,7 @@ public class Shout : Skill
                     break;
 
                 case ActionGauge.ActionValue.Critical:
-                    rateMod = 1;
+                    rateMod = 1.25f;
                     break;
             }
 

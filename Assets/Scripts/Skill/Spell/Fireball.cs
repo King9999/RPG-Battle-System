@@ -13,7 +13,7 @@ public class Fireball : Skill
         float totalCost = manaCost * user.mpMod;
         if (user.manaPoints < totalCost)
         {
-            Debug.Log("Not enough mana!");
+            ui.DisplayStatusUpdate("NOT ENOUGH MANA", user.transform.position);
             return;
         }
 

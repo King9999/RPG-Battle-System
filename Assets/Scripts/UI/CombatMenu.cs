@@ -97,7 +97,8 @@ public class CombatMenu : MonoBehaviour
         //open inventory
         if (menuState != MenuState.Main) 
             return;
-
+            
+        ShowCombatMenu(false);
         cs.playerRanAway = true;
     }
 
