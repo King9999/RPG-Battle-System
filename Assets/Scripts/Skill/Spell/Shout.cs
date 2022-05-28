@@ -8,14 +8,11 @@ using UnityEngine;
 public class Shout : Skill
 {
    
-    public override void Activate(Avatar user, List<Avatar> targets, Color borderColor)
+    public override void Activate(Avatar user, List<Enemy> targets, Color borderColor)
     {
         //base.Activate(user, targets, borderColor);
 
-        skillActivated = true;
-        ui = UI.instance;
-        skillNameBorderColor = borderColor;
-        ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
+        
         
         float hitChance = 0.5f;
         float rateMod = 0;  //becomes 1/3 if player lands on reduced panel, 0 if miss
@@ -30,14 +27,12 @@ public class Shout : Skill
         }
         
         ReduceMp(user);
-        //user.manaPoints -= manaCost;
-        /*if (user.TryGetComponent(out Hero hero))
-        {
-            hero.SetupActionGauge(cs.actGauge, actGaugeData);
-        }*/
+
+        skillActivated = true;
+        ui = UI.instance;
+        skillNameBorderColor = borderColor;
+        ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
         
-        //float skillTokenSpeed = cs.actGauge.actionToken.TokenSpeed() * 2;
-        //cs.actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
 
         if (cim.buttonPressed)
         {
@@ -57,20 +52,29 @@ public class Shout : Skill
                     break;
             }
 
-            foreach(Avatar target in targets)
+            string[] uiMessage = new string[targets.Count];
+            Vector3[] targetPos = new Vector3[targets.Count];
+            for (int i = 0; i < targets.Count; i++)
             {
-                float newHitChance = (hitChance - (target.res / 100)) * rateMod;
+                float newHitChance = (hitChance - (targets[i].res / 100)) * rateMod;
+                Debug.Log("Shout Chance " + newHitChance);
                 if (Random.value <= newHitChance)
                 {
-                    target.status = Avatar.Status.Paralyzed;
-                    target.skillEffects.Add(this);
-                    ui.DisplayStatusUpdate("STUNNED", target.transform.position);
+                    targets[i].status = Avatar.Status.Paralyzed;
+                    targets[i].skillEffects.Add(this);
+                    uiMessage[i] = "STUNNED";
+                    targetPos[i] = targets[i].transform.position;
+                    //ui.DisplayStatusUpdate("STUNNED", targets[i].transform.position);
                 }
                 else
                 {
-                    ui.DisplayStatusUpdate("MISS", target.transform.position);
+                    uiMessage[i] = "MISS";
+                    targetPos[i] = targets[i].transform.position;
+                    //ui.DisplayStatusUpdate("MISS", targets[i].transform.position);
                 } 
             }
+
+            ui.DisplayStatusUpdate(targets, uiMessage, targetPos);
 
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))
@@ -81,6 +85,6 @@ public class Shout : Skill
     public override void RemoveEffects(Avatar user)
     {
         user.status = Avatar.Status.Normal;
-        ui.DisplayStatusUpdate("CHARM REMOVED", user.transform.position);
+        ui.DisplayStatusUpdate("STUN REMOVED", user.transform.position);
     }
 }

@@ -539,7 +539,7 @@ public class Hero : Avatar
         totalAttackTokens = 1;
         currentActions = 0;
 
-        float skillTokenSpeed = actGauge.actionToken.TokenSpeed() * 2;
+        float skillTokenSpeed = actGauge.actionToken.TokenSpeed() * 1.8f;
         actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
         actGauge.actionToken.StartToken();
     }

@@ -384,6 +384,28 @@ public abstract class Enemy : Avatar
             Invoke("PassTurn", invokeTime);
     }
 
+    public override void UpdateSkillEffects()
+    {
+        //skill activation check    
+        for (int i = 0; i < skillEffects.Count; i++)
+        {
+            if (skillEffects[i].hasDuration)
+            {
+                skillEffects[i].ReduceDuration();
+                if (skillEffects[i].EffectExpired())
+                {
+                    skillEffects[i].RemoveEffects(this);
+                    skillEffects.Remove(skillEffects[i]);
+                    i--;
+                }
+            }
+            else //permanent effect/passive
+            {
+                skillEffects[i].Activate(this, skillNameBorderColor);
+            }  
+        }
+    }
+
     protected override IEnumerator AnimateAttack()
     {
         animateAttackCoroutineOn = true;

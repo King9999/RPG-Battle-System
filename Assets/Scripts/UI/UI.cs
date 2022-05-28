@@ -9,9 +9,11 @@ public class UI : MonoBehaviour
     //public List<TextMeshProUGUI> enemyStats;    //displays name and hp
     public TextMeshProUGUI turnOrderList;
     public TextMeshProUGUI damageDisplay;
+    public TextMeshProUGUI[] allDamageDisplay;      //used for multiple targets
     public TextMeshProUGUI selectTargetUI;
     public TextMeshProUGUI shieldBlockUI;
     public TextMeshProUGUI statusUI;               //used to display ailments/buffs/debuff notifications
+    public TextMeshProUGUI[] allStatusUI;             //used for multiple targets.
     public TextMeshProUGUI bonusListUI;             //displays active bonuses from breaking shields
     //public TMP_Text damageDisplayComponent;
     //[SerializeField]TextMeshProUGUI[] damageDigits;
@@ -57,6 +59,12 @@ public class UI : MonoBehaviour
         selectTargetUI.gameObject.SetActive(false);
         shieldBlockUI.gameObject.SetActive(false);
         statusUI.gameObject.SetActive(false);
+
+        for (int i = 0; i < allStatusUI.Length; i++)
+        {
+            allStatusUI[i].gameObject.SetActive(false);
+            allDamageDisplay[i].gameObject.SetActive(false);
+        }
         //bonusListUI.gameObject.SetActive(false);
 
         //set up bonus list
@@ -98,6 +106,12 @@ public class UI : MonoBehaviour
     public void DisplayStatusUpdate(string status, Vector3 location)
     {
         StartCoroutine(AnimateStatus(status, location));
+    }
+
+    ///<param name="targets">used to determine if heroes or enemies are being targeted.</param>
+    public void DisplayStatusUpdate(List<Enemy> targets, string[] status, Vector3[] location)
+    {
+        StartCoroutine(AnimateStatus(targets, status, location));   
     }
 
     private IEnumerator AnimateDamage(string value, Vector3 location)
@@ -226,6 +240,35 @@ public class UI : MonoBehaviour
         
         yield return new WaitForSeconds(displayDuration);
         statusUI.gameObject.SetActive(false);
+    }
+
+    IEnumerator AnimateStatus(List<Enemy> targets, string[] status, Vector3[] location)
+    {
+        for (int i = 0; i < targets.Count; i++)
+        {
+            float displayDuration = 0.5f;
+            Vector3 avatarPos = Camera.main.WorldToScreenPoint(location[i]);
+            allStatusUI[i].gameObject.SetActive(true);
+            allStatusUI[i].transform.position = avatarPos;
+            allStatusUI[i].text = status[i];
+
+            //each digit is animated individually
+            Vector3 initPos = allStatusUI[i].transform.position;
+            Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+            float vy;
+            while(allStatusUI[i].transform.position.y < destination.y)
+            {
+                Vector3 newPos = allStatusUI[i].transform.position;
+                vy = 50 * Time.deltaTime;
+                allStatusUI[i].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+                yield return null;
+            }
+
+            allStatusUI[i].transform.position = destination;
+            
+            yield return new WaitForSeconds(displayDuration);
+            allStatusUI[i].gameObject.SetActive(false);
+        }
     }
 
     //shows block animation. also reduces shield HP. If shield has 0 HP, a different animation is played.

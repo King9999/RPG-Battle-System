@@ -147,6 +147,16 @@ public class CombatMenu : MonoBehaviour
                 ui.selectTargetUI.gameObject.SetActive(false);
                 menuState = MenuState.InventoryOpened;
                 break;
+
+            case MenuState.SelectingSkillTarget:
+                cs.selectingTargetToAttackWithSkill = false;
+                ui.selectTargetUI.text = "";
+                inv.ShowInventory(true);
+                ui.selectTargetUI.gameObject.SetActive(false);
+                //backButton.gameObject.SetActive(false);
+                backButton.transform.position = originalBackButtonPos;
+                menuState = MenuState.InventoryOpened;
+                break;
         }
     }
 }

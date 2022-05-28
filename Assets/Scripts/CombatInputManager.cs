@@ -66,7 +66,18 @@ public class CombatInputManager : MonoBehaviour
                 else    //activate skill
                 {
                     Inventory inv = Inventory.instance;
-                    inv.copiedSkillSlot.SkillInSlot().Activate(hero, enemy, hero.SkillBorderColor());
+
+                    switch(inv.copiedSkillSlot.SkillInSlot().targetType)
+                    {
+                        case Skill.Target.OneEnemy:
+                            inv.copiedSkillSlot.SkillInSlot().Activate(hero, enemy, hero.SkillBorderColor());
+                            break;
+                        
+                        case Skill.Target.AllEnemies:
+                            inv.copiedSkillSlot.SkillInSlot().Activate(hero, cs.enemiesInCombat, hero.SkillBorderColor());
+                            break;
+                    }
+                    
                     cs.heroUsingSkill = false;
                 }
            }   

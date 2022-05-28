@@ -67,6 +67,19 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.backButton.transform.position = menu.originalBackButtonPos;
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
+
+            if (skill.targetType == Skill.Target.AllEnemies)
+            {
+                cs.selectingTargetToAttackWithSkill = true;
+                ui.selectTargetUI.text = "Click any target to confirm";
+                inv.copiedSkillSlot = this;
+                inv.ShowInventory(false);
+                cs.heroUsingSkill = true;
+                ui.selectTargetUI.gameObject.SetActive(true);
+                menu.backButton.gameObject.SetActive(true);
+                menu.backButton.transform.position = menu.originalBackButtonPos;
+                menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
+            }
         }
     }
 
