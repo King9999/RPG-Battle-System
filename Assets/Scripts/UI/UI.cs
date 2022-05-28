@@ -108,10 +108,10 @@ public class UI : MonoBehaviour
         StartCoroutine(AnimateStatus(status, location));
     }
 
-    ///<param name="targets">used to determine if heroes or enemies are being targeted.</param>
-    public void DisplayStatusUpdate(List<Enemy> targets, string[] status, Vector3[] location)
+    ///<param name="allStatusUiIndex">The text mesh to use to display information.</param>
+    public void DisplayStatusUpdate(int allStatusUiIndex, string status, Vector3 location)
     {
-        StartCoroutine(AnimateStatus(targets, status, location));   
+        StartCoroutine(AnimateStatus(allStatusUiIndex, status, location));   
     }
 
     private IEnumerator AnimateDamage(string value, Vector3 location)
@@ -242,33 +242,33 @@ public class UI : MonoBehaviour
         statusUI.gameObject.SetActive(false);
     }
 
-    IEnumerator AnimateStatus(List<Enemy> targets, string[] status, Vector3[] location)
+    IEnumerator AnimateStatus(int index, string status, Vector3 location)
     {
-        for (int i = 0; i < targets.Count; i++)
-        {
+        //for (int i = 0; i < targets.Count; i++)
+        //{
             float displayDuration = 0.5f;
-            Vector3 avatarPos = Camera.main.WorldToScreenPoint(location[i]);
-            allStatusUI[i].gameObject.SetActive(true);
-            allStatusUI[i].transform.position = avatarPos;
-            allStatusUI[i].text = status[i];
+            Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
+            allStatusUI[index].gameObject.SetActive(true);
+            allStatusUI[index].transform.position = avatarPos;
+            allStatusUI[index].text = status;
 
             //each digit is animated individually
-            Vector3 initPos = allStatusUI[i].transform.position;
+            Vector3 initPos = allStatusUI[index].transform.position;
             Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
             float vy;
-            while(allStatusUI[i].transform.position.y < destination.y)
+            while(allStatusUI[index].transform.position.y < destination.y)
             {
-                Vector3 newPos = allStatusUI[i].transform.position;
+                Vector3 newPos = allStatusUI[index].transform.position;
                 vy = 50 * Time.deltaTime;
-                allStatusUI[i].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+                allStatusUI[index].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
                 yield return null;
             }
 
-            allStatusUI[i].transform.position = destination;
+            allStatusUI[index].transform.position = destination;
             
             yield return new WaitForSeconds(displayDuration);
-            allStatusUI[i].gameObject.SetActive(false);
-        }
+            allStatusUI[index].gameObject.SetActive(false);
+        //}
     }
 
     //shows block animation. also reduces shield HP. If shield has 0 HP, a different animation is played.

@@ -64,17 +64,17 @@ public class Shout : Skill
                     targets[i].skillEffects.Add(this);
                     uiMessage[i] = "STUNNED";
                     targetPos[i] = targets[i].transform.position;
-                    //ui.DisplayStatusUpdate("STUNNED", targets[i].transform.position);
+                    ui.DisplayStatusUpdate(i, "STUNNED", targets[i].transform.position);
                 }
                 else
                 {
                     uiMessage[i] = "MISS";
                     targetPos[i] = targets[i].transform.position;
-                    //ui.DisplayStatusUpdate("MISS", targets[i].transform.position);
+                    ui.DisplayStatusUpdate(i, "MISS", targets[i].transform.position);
                 } 
             }
 
-            ui.DisplayStatusUpdate(targets, uiMessage, targetPos);
+            //ui.DisplayStatusUpdate(targets, uiMessage, targetPos);
 
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))
