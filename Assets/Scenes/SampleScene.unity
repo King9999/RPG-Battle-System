@@ -433,6 +433,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1088984918}
     m_Modifications:
+    - target: {fileID: 653639861, guid: 51250dcec17e83541a410c36d3495966, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293731605069431836, guid: 51250dcec17e83541a410c36d3495966, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

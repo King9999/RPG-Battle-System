@@ -20,30 +20,12 @@ public class Intimidate : Skill
             return;
         }
 
-        /*if (user.TryGetComponent(out Hero hero))
-        {
-            hero.SetupActionGaugeForSkill(cs.actGauge, actGaugeData);
-        }*/
-        
         ReduceMp(user);
         //user.manaPoints -= manaCost * user.mpMod;
         skillActivated = true;
         ui = UI.instance;
         skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
-        
-        //target.atpMod = 0.7f;
-        //Debug.Log("ATP debuff, ATP is now " + target.atp * target.atpMod);
-        //ui.DisplayStatusUpdate("ATP DOWN", target.transform.position);
-        //durationLeft = turnDuration;
-
-        /*if (!user.skillEffects.Contains(this))
-        {
-            user.skillEffects.Add(this);
-        }*/
-
-        //float skillTokenSpeed = cs.actGauge.actionToken.TokenSpeed() * 2;
-        //cs.actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
 
         if (cim.buttonPressed)
         {

@@ -61,6 +61,8 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 UI ui = UI.instance;
                 ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
                 ui.selectTargetUI.gameObject.SetActive(true);
+                menu.backButton.gameObject.SetActive(true);
+                menu.backButton.transform.position = menu.originalBackButtonPos;
             }
             else //using item outside of combat
             {

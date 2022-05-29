@@ -71,6 +71,7 @@ public class CombatMenu : MonoBehaviour
             return;
 
         inv.ShowInventory(true);
+        inv.HideAllSlots();
         //itemIcon = null;
         inv.ShowItemSlots(true);
         backButton.gameObject.SetActive(true);
@@ -85,6 +86,7 @@ public class CombatMenu : MonoBehaviour
             return;
 
         inv.ShowInventory(true);
+        inv.HideAllSlots();
         //itemIcon = null;
         inv.ShowSkillSlots(true);
         backButton.gameObject.SetActive(true);
@@ -144,6 +146,8 @@ public class CombatMenu : MonoBehaviour
             
             case MenuState.SelectingHeroToTakeItem:
                 inv.ShowInventory(true);
+                inv.copiedSlot = null;
+                backButton.transform.position = backButtonInventoryPos.transform.position;
                 ui.selectTargetUI.text = "";
                 ui.selectTargetUI.gameObject.SetActive(false);
                 menuState = MenuState.InventoryOpened;
@@ -153,9 +157,10 @@ public class CombatMenu : MonoBehaviour
                 cs.selectingTargetToAttackWithSkill = false;
                 ui.selectTargetUI.text = "";
                 inv.ShowInventory(true);
+                inv.copiedSkillSlot = null;
                 ui.selectTargetUI.gameObject.SetActive(false);
                 //backButton.gameObject.SetActive(false);
-                backButton.transform.position = originalBackButtonPos;
+                backButton.transform.position = backButtonInventoryPos.transform.position;
                 menuState = MenuState.InventoryOpened;
                 break;
         }

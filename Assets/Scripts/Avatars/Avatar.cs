@@ -53,7 +53,9 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     
     public enum Status
     {
-        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken      //last ailment occurs when shield token is destroyed
+        //GuardBroken = shield token is destroyed, enemy loses turn.
+        //Berserk = Barb-unique effect. Can't be controlled.
+        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken, Berserk      
     }
     public Status status;
 

@@ -203,6 +203,39 @@ public class Hero : Avatar
             
             //cs.heroesInCombat[cs.currentHero].Invoke("PassTurn", invokeTime);
         }
+
+        if (cs.selectingHeroToUseSkillOn)
+        {
+            //activate item or skill
+            Inventory inv = Inventory.instance;
+            cs.currentTarget = cs.heroesInCombat.IndexOf(this);
+
+            switch(inv.copiedSkillSlot.SkillInSlot().targetType)
+            {
+                case Skill.Target.Self:
+                    inv.copiedSkillSlot.SkillInSlot().Activate(cs.heroesInCombat[cs.currentHero], skillNameBorderColor);
+                    break;
+                
+                case Skill.Target.OneHero:
+                    inv.copiedSkillSlot.SkillInSlot().Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
+                    break;
+            }
+            
+           
+            //cs.currentHero = cs.heroesInCombat.IndexOf(this);
+            cs.selectingHeroToUseSkillOn = false;
+            UI ui = UI.instance;
+            ui.selectTargetUI.gameObject.SetActive(false);
+            ui.combatMenu.ShowCombatMenu(false);
+
+            //hero is ready to attack
+            Hero hero = cs.heroesInCombat[cs.currentHero];
+            hero.SetupActionGaugeForSkill(cs.actGauge, inv.copiedSkillSlot.SkillInSlot().actGaugeData);
+            hero.isAttacking = true;
+
+            //End turn.
+            //cs.heroesInCombat[cs.currentHero].EndTurn();
+        }
     }
 
     public override void TakeAction()
@@ -253,6 +286,14 @@ public class Hero : Avatar
                 EndTurn();
                 //Invoke("PassTurn", invokeTime);
                 break;
+
+            case Status.Berserk:
+                //Barbarian attacks a random enemy while under the effects of berserk skill.
+                Debug.Log(className + " is berserk!");
+                int randEnemy = Random.Range(0, cs.enemiesInCombat.Count);
+                Attack(cs.enemiesInCombat[randEnemy]);
+                EndTurn();
+                break;
         }    
     }
 
@@ -261,7 +302,7 @@ public class Hero : Avatar
     {
         UI ui = UI.instance;
         ui.damageDisplay.color = ui.damageColor;    //reset colour to default
-        if (status != Status.Charmed)
+        if (status != Status.Charmed && status != Status.Berserk)
         {
            
             //wait for button press to attack. Do this until no more tokens available
@@ -420,14 +461,14 @@ public class Hero : Avatar
             }
                     
         }
-        else    //player is charmed, do a regular attack with a chance of crit
+        else    //player is charmed/berserk, do a regular attack with a chance of crit
         {
             //5% chance to inflict a critical. Criticals ignore defense
             float totalDamage;
             float critChance = 0.05f;
-            float roll = Random.Range(0, 1f);
+            //float roll = Random.Range(0, 1f);
 
-            if (roll <= critChance)
+            if (Random.value <= critChance)
             {
                 totalDamage = Mathf.Round(atp * atpMod * 1.5f + Random.Range(0, atp * 1.5f * 0.1f));
                 ui.damageDisplay.color = ui.criticalDamageColor;
@@ -443,8 +484,8 @@ public class Hero : Avatar
             {
                 float blindHitChance = 0.2f;
                 Debug.Log(className + " is blind!");
-                roll = Random.Range(0, 1f);
-                if (roll > blindHitChance)
+                //roll = Random.Range(0, 1f);
+                if (Random.value > blindHitChance)
                 {
                     totalDamage = 0;
                 }

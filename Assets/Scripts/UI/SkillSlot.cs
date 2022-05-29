@@ -80,6 +80,19 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.backButton.transform.position = menu.originalBackButtonPos;
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
+
+            if (skill.targetType == Skill.Target.Self)
+            {
+                cs.selectingHeroToUseSkillOn = true;
+                ui.selectTargetUI.text = "Click Barbarian to confirm";
+                inv.copiedSkillSlot = this;
+                inv.ShowInventory(false);
+                cs.heroUsingSkill = true;
+                ui.selectTargetUI.gameObject.SetActive(true);
+                menu.backButton.gameObject.SetActive(true);
+                menu.backButton.transform.position = menu.originalBackButtonPos;
+                menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
+            }
         }
     }
 

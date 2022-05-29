@@ -20,7 +20,7 @@ public class Fireball : Skill
         ReduceMp(user);
         //user.manaPoints -= manaCost;
         totalDamage = (user.mag * user.magMod) + power;
-        totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f)) - target.res;
+        totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f)) - (target.res * target.resMod);
 
         //TODO: factor in target's affnity to fire
         user.ReduceHitPoints(target, totalDamage);
