@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Barbarian skill. Chance to stun all enemies. success rate is increased if player lands on the critical panel on the action gauge.
 //success rate is affected by enemy RES
-[CreateAssetMenu(menuName = "Skill/Offensive/Shout", fileName = "skill_shout")]
+[CreateAssetMenu(menuName = "Skill/Barbarian/Shout", fileName = "skill_shout")]
 public class Shout : Skill
 {
    

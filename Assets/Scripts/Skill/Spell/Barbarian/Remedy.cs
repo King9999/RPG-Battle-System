@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Cures Barbarian of poison & blind. Landing on critical panel restores a little HP.
-[CreateAssetMenu(menuName = "Skill/Recovery/Remedy", fileName = "skill_remedy")]
+[CreateAssetMenu(menuName = "Skill/Barbarian/Remedy", fileName = "skill_remedy")]
 public class Remedy : Skill
 {
     public override void Activate(Avatar user, Color borderColor)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //reduces target's ATP temporarily, up to 30%.
-[CreateAssetMenu(menuName = "Skill/Offensive/Intimidate", fileName = "skill_intimidate")]
+[CreateAssetMenu(menuName = "Skill/Barbarian/Intimidate", fileName = "skill_intimidate")]
 public class Intimidate : Skill
 {
     public override void Activate(Avatar user, Avatar target, Color borderColor)

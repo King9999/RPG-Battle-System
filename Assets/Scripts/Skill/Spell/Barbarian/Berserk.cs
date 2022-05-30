@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Raises ATP by up to 220% (additive on top of any other buffs). However, DFP is reduced, and the Barb is uncontrollable until Berserk
 //effect ends.
-[CreateAssetMenu(menuName = "Skill/Offensive/Berserk", fileName = "skill_berserk")]
+[CreateAssetMenu(menuName = "Skill/Barbarian/Berserk", fileName = "skill_berserk")]
 public class Berserk : Skill
 { 
    public override void Activate(Avatar user, Color borderColor)
