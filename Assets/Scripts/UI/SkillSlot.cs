@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 //skill slots are similar to item slots, except skills are never removed, and there will never be more than 1 of the same skill.
 public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -113,5 +114,6 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void RemoveSkill()
     {
         skill = null;
+        GetComponentInChildren<TextMeshProUGUI>().text = "";
     }
 }

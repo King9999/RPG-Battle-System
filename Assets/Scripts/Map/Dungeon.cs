@@ -723,6 +723,7 @@ public class Dungeon : MonoBehaviour
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
                 Captive captive = captiveHeroes[randCaptive];
+                //Captive captive = captiveHeroes[0];
                 captive.ShowObject(true);
                 int randRow;
                 int randCol;

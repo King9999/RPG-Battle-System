@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91dbaa1bcb777de439c38600fec68e29, type: 3}
-  m_Name: skill_decapitate
+  m_Script: {fileID: 11500000, guid: 740238111d934cd4d8f7b81090d99c72, type: 3}
+  m_Name: skill_steal
   m_EditorClassIdentifier: 
-  skillName: Decapitate
+  skillName: Steal
   skillIcon: {fileID: 0}
-  description: Instantly kill target. Success based on ATP of target
-  manaCost: 16
+  description: Attempt to take item from target.
+  manaCost: 4
   power: 0
-  actGaugeData: {fileID: 11400000, guid: 527fc169e35247d44b9a4ade6d8839ca, type: 2}
+  actGaugeData: {fileID: 11400000, guid: a26fb4d75063fb74db4312e3d716e34d, type: 2}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
   targetType: 2
   element: 0
-  statusEffect: 5
+  statusEffect: 0

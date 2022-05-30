@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a622f29de50acc43a383d57604675ab, type: 3}
   m_Name: skill_remedy
   m_EditorClassIdentifier: 
-  skillName: Herbal Remedy
+  skillName: Remedy
   skillIcon: {fileID: 0}
   description: Cures Poison & Blind. Critical panel = restore HP
   manaCost: 8

@@ -407,6 +407,7 @@ public class CombatSystem : MonoBehaviour
         bonusSystem.ResetBonuses();
         heroesInCombat.Clear();
         enemiesInCombat.Clear();
+        turnOrder.Clear();
 
         gm = GameManager.instance;
         gm.SetCameraFollow(true);
