@@ -84,7 +84,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (skill.targetType == Skill.Target.Self)
             {
                 cs.selectingHeroToUseSkillOn = true;
-                ui.selectTargetUI.text = "Click Barbarian to confirm";
+                ui.selectTargetUI.text = "Click skill user to confirm";
                 inv.copiedSkillSlot = this;
                 inv.ShowInventory(false);
                 cs.heroUsingSkill = true;

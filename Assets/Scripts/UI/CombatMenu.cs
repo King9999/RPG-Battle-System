@@ -145,6 +145,7 @@ public class CombatMenu : MonoBehaviour
                 break;
             
             case MenuState.SelectingHeroToTakeItem:
+                cs.selectingHero = false;
                 inv.ShowInventory(true);
                 inv.copiedSlot = null;
                 backButton.transform.position = backButtonInventoryPos.transform.position;
@@ -155,6 +156,7 @@ public class CombatMenu : MonoBehaviour
 
             case MenuState.SelectingSkillTarget:
                 cs.selectingTargetToAttackWithSkill = false;
+                cs.selectingHeroToUseSkillOn = false;
                 ui.selectTargetUI.text = "";
                 inv.ShowInventory(true);
                 inv.copiedSkillSlot = null;

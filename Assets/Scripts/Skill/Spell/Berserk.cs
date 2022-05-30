@@ -16,6 +16,7 @@ public class Berserk : Skill
         skillNameBorderColor = borderColor;
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
         CombatInputManager cim = CombatInputManager.instance;
+        CombatSystem cs = CombatSystem.instance;
         
         float atpValue = 0;
         float dfpValue = 0;     //this reduces DFP
@@ -28,37 +29,34 @@ public class Berserk : Skill
                 case ActionGauge.ActionValue.Reduced:
                     atpValue = 0.3f;
                     dfpValue = 0.1f;
-                    durationLeft = turnDuration;
+                    //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("MIN BERSERK", user.transform.position);
                     if (!user.skillEffects.Contains(this))
                     {
                         user.skillEffects.Add(this);
                     }
-                    //Debug.Log("Berserk minimal effect, ATP: " + user.atp * user.atpMod);
                     break;
 
                 case ActionGauge.ActionValue.Normal:
                     atpValue = 0.5f;
                     dfpValue = 0.3f;
-                    durationLeft = turnDuration;
+                    //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("BERSERK", user.transform.position);
                     if (!user.skillEffects.Contains(this))
                     {
                         user.skillEffects.Add(this);
                     }
-                    //Debug.Log("Berserk regular effect, ATP: " + user.atp * user.atpMod);
                     break;
 
                 case ActionGauge.ActionValue.Critical:
                     atpValue = 0.8f;
                     dfpValue = 0.7f;
-                    durationLeft = turnDuration;
+                    //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("MAX BERSERK", user.transform.position);
                     if (!user.skillEffects.Contains(this))
                     {
                         user.skillEffects.Add(this);
                     }
-                    //Debug.Log("Berserk critical effect, ATP: " + user.atp * user.atpMod);
                     break;
                 
             }

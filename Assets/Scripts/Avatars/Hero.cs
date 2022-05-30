@@ -119,7 +119,7 @@ public class Hero : Avatar
             return;
         }*/
 
-        if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind)
+        if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind || status == Status.Berserk)
         {
             if ((isAttacking && currentActions >= totalAttackTokens) || gm.gameState == GameManager.GameState.ShowCombatRewards)
             {
@@ -143,9 +143,8 @@ public class Hero : Avatar
 
                 isTheirTurn = false;
                 EndTurn();
-                //UpdateSkillEffects();
-                //Invoke("PassTurn", invokeTime);
-            }         
+            }
+
         }
 
     }
@@ -210,19 +209,6 @@ public class Hero : Avatar
             Inventory inv = Inventory.instance;
             cs.currentTarget = cs.heroesInCombat.IndexOf(this);
 
-            switch(inv.copiedSkillSlot.SkillInSlot().targetType)
-            {
-                case Skill.Target.Self:
-                    inv.copiedSkillSlot.SkillInSlot().Activate(cs.heroesInCombat[cs.currentHero], skillNameBorderColor);
-                    break;
-                
-                case Skill.Target.OneHero:
-                    inv.copiedSkillSlot.SkillInSlot().Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
-                    break;
-            }
-            
-           
-            //cs.currentHero = cs.heroesInCombat.IndexOf(this);
             cs.selectingHeroToUseSkillOn = false;
             UI ui = UI.instance;
             ui.selectTargetUI.gameObject.SetActive(false);
@@ -231,10 +217,8 @@ public class Hero : Avatar
             //hero is ready to attack
             Hero hero = cs.heroesInCombat[cs.currentHero];
             hero.SetupActionGaugeForSkill(cs.actGauge, inv.copiedSkillSlot.SkillInSlot().actGaugeData);
-            hero.isAttacking = true;
+            hero.isAttacking = true;    //always have this line even if not attacking enemy. This will let the appropriate code in Update execute.
 
-            //End turn.
-            //cs.heroesInCombat[cs.currentHero].EndTurn();
         }
     }
 
@@ -568,12 +552,12 @@ public class Hero : Avatar
         }
     }
 
-    public void SetupActionGaugeForSkill(ActionGauge actGauge, ActionGaugeData weaponData)
+    public void SetupActionGaugeForSkill(ActionGauge actGauge, ActionGaugeData skillData)
     {
         if (!actGauge.gameObject.activeSelf)
         {
             actGauge.ShowGauge(true);
-            actGauge.UpdateGaugeData(weaponData);
+            actGauge.UpdateGaugeData(skillData);
             actGauge.ResetActionToken();
         }
 
@@ -693,6 +677,11 @@ public class Hero : Avatar
 
         //remove all effects
         skillEffects.Clear();
+
+        //clear certain status effects
+        if (status == Status.Paralyzed || status == Status.Charmed || status == Status.Berserk)
+            status = Status.Normal;
+            
         /*foreach(Skill effect in skillEffects)
         {
             effect.RemoveEffects(this);
