@@ -43,6 +43,10 @@ public class TrinketSlot : ItemSlot
             dungeonMenu = DungeonMenu.instance;
             inv.copiedSlot = this;
             dungeonMenu.SetState(DungeonMenu.MenuState.SelectingTrinketToEquip);
+
+            //remove highlight
+            Image img = GetComponent<Image>();
+            img.enabled = false;
         }
     }
 

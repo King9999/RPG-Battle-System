@@ -219,11 +219,11 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         if(status == Status.Poisoned || status == Status.Dead || status == Status.Normal)
             return;
         
-        float roll = Random.Range(0, 1f);
+        //float roll = Random.Range(0, 1f);
 
         //every 10 points of res adds 1% to cure chance
         float totalCureChance = ailmentCureChance + (res / 1000);
-        if (roll <= totalCureChance)
+        if (Random.value <= totalCureChance)
         {
             Debug.Log(status + " ailment removed from " + className);
 
@@ -247,8 +247,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     public bool SkillActivated(float probability)
     {
-        float roll = Random.Range(0, 1f);
-        return roll <= probability;
+        //float roll = Random.Range(0, 1f);
+        return Random.value <= probability;
     }
 
     #region Coroutines

@@ -93,6 +93,10 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.backButton.transform.position = menu.originalBackButtonPos;
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
+
+            //highlight
+            Image img = GetComponent<Image>();
+            img.enabled = false;
         }
     }
 

@@ -72,6 +72,10 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 inv.copiedSlot = this;
                 dungeonMenu.SetState(DungeonMenu.MenuState.SelectingHeroToTakeItem);
             }
+
+            //remove highlight
+            Image img = GetComponent<Image>();
+            img.enabled = false;
         }
     }
 

@@ -633,26 +633,6 @@ public class Hero : Avatar
         //reduce bonus turn
         if (cs.bonusTurns > 0)
             cs.bonusTurns--;
-
-        //skill activation check
-        //UpdateSkillEffects();    
-        /*for (int i = 0; i < skillEffects.Count; i++)
-        {
-            if (skillEffects[i].hasDuration)
-            {
-                skillEffects[i].ReduceDuration();
-                if (skillEffects[i].EffectExpired())
-                {
-                    skillEffects[i].RemoveEffects(this);
-                    skillEffects.Remove(skillEffects[i]);
-                    i--;
-                }
-            }
-            else //permanent effect/passive
-            {
-                skillEffects[i].Activate(this, skillNameBorderColor);
-            }  
-        }*/
     }
 
     #region Coroutines
@@ -681,7 +661,7 @@ public class Hero : Avatar
         //clear certain status effects
         if (status == Status.Paralyzed || status == Status.Charmed || status == Status.Berserk)
             status = Status.Normal;
-            
+
         /*foreach(Skill effect in skillEffects)
         {
             effect.RemoveEffects(this);

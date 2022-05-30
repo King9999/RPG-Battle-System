@@ -41,6 +41,10 @@ public class ArmorSlot : ItemSlot
             dungeonMenu = DungeonMenu.instance;
             inv.copiedSlot = this;
             dungeonMenu.SetState(DungeonMenu.MenuState.SelectingArmorToEquip);
+
+            //remove highlight
+            Image img = GetComponent<Image>();
+            img.enabled = false;
         }
     }
 

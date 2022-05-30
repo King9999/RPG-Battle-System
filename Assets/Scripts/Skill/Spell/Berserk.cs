@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Raises ATP by up to 80% (additive on top of any other buffs). However, DFP is reduced, and the Barb is uncontrollable until Berserk
+//Raises ATP by up to 220% (additive on top of any other buffs). However, DFP is reduced, and the Barb is uncontrollable until Berserk
 //effect ends.
 [CreateAssetMenu(menuName = "Skill/Offensive/Berserk", fileName = "skill_berserk")]
 public class Berserk : Skill
@@ -27,7 +27,7 @@ public class Berserk : Skill
             {
                
                 case ActionGauge.ActionValue.Reduced:
-                    atpValue = 0.3f;
+                    atpValue = 0.5f;
                     dfpValue = 0.1f;
                     //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("MIN BERSERK", user.transform.position);
@@ -38,7 +38,7 @@ public class Berserk : Skill
                     break;
 
                 case ActionGauge.ActionValue.Normal:
-                    atpValue = 0.5f;
+                    atpValue = 1f;
                     dfpValue = 0.3f;
                     //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("BERSERK", user.transform.position);
@@ -49,7 +49,7 @@ public class Berserk : Skill
                     break;
 
                 case ActionGauge.ActionValue.Critical:
-                    atpValue = 0.8f;
+                    atpValue = 2.2f;
                     dfpValue = 0.7f;
                     //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("MAX BERSERK", user.transform.position);

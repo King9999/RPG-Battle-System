@@ -45,6 +45,10 @@ public class WeaponSlot : ItemSlot
             dungeonMenu = DungeonMenu.instance;
             inv.copiedSlot = this;
             dungeonMenu.SetState(DungeonMenu.MenuState.SelectingWeaponToEquip);
+
+            //remove highlight
+            Image img = GetComponent<Image>();
+            img.enabled = false;
         }
     }
 
