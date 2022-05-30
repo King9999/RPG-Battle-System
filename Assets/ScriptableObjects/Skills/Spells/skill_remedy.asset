@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fac4d94fed6de843945c130cf29021e, type: 3}
-  m_Name: skill_berserk
+  m_Script: {fileID: 11500000, guid: 0a622f29de50acc43a383d57604675ab, type: 3}
+  m_Name: skill_remedy
   m_EditorClassIdentifier: 
-  skillName: Berserk
+  skillName: Herbal Remedy
   skillIcon: {fileID: 0}
-  description: Boosts ATP, DFP is reduced and become uncontrollable
-  manaCost: 25
+  description: Cures Poison & Blind. Critical panel = restore HP
+  manaCost: 8
   power: 0
-  actGaugeData: {fileID: 11400000, guid: 05b9861a6f4330e4183bc750b5505f7b, type: 2}
+  actGaugeData: {fileID: 11400000, guid: f57dc94dd51401047a5b3d5c2ed18638, type: 2}
   isPassive: 0
-  hasDuration: 1
-  turnDuration: 4
+  hasDuration: 0
+  turnDuration: 0
   targetType: 1
   element: 0
   statusEffect: 0

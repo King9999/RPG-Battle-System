@@ -90,10 +90,10 @@ public class UI : MonoBehaviour
         StartCoroutine(animateDamage);
     }
 
-    public void DisplayHealing(string value, Vector3 location, Color textColor)
+    public void DisplayHealing(string value, Vector3 location, Color textColor, float delayDuration = 0)
     {
         damageDisplay.color = textColor;  //default color
-        animateDamage = AnimateHealing(value, location, textColor);
+        animateDamage = AnimateHealing(value, location, textColor, delayDuration);
         StopCoroutine(animateDamage);
         StartCoroutine(animateDamage);
     }
@@ -187,8 +187,10 @@ public class UI : MonoBehaviour
         animateDamageCoroutineOn = false;
     }
 
-    private IEnumerator AnimateHealing(string value, Vector3 location, Color textColor)
+    //delay duration is used to display values later to prevent overlapping with other UI
+    private IEnumerator AnimateHealing(string value, Vector3 location, Color textColor, float delayDuration = 0)
     {
+        yield return new WaitForSeconds(delayDuration);
         float displayDuration = 0.5f;
         Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
         damageDisplay.gameObject.SetActive(true);

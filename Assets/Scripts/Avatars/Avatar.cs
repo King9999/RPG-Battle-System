@@ -75,7 +75,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     }
 
     //this code performs differently depending on whether we're in combat or not.
-    public void RestoreHitPoints(Avatar target, float amount)
+    //delayDuration is used to delay appearance of values to prevent overlapping with other values.
+    public void RestoreHitPoints(Avatar target, float amount, float delayDuration = 0)
     {
         target.hitPoints += amount;
         if (target.hitPoints > target.maxHitPoints)
@@ -95,7 +96,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         {
             //show healed amount
             UI ui = UI.instance;
-            ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healColor);
+            ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healColor, delayDuration);
 
             target.UpdateStatsUI();
         }
