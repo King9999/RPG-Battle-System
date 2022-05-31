@@ -39,7 +39,8 @@ public class Hero : Avatar
     protected override void Start()
     {
         base.Start();
-    
+
+        skills = new List<Skill>();     //used to ensure the skill list is cleared upon starting game
         skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
         hm = HeroManager.instance;
         cim = CombatInputManager.instance;
@@ -618,6 +619,65 @@ public class Hero : Avatar
         {
             trinket.Unequip(this);
             trinket.Equip(this);
+        }
+
+        //check if new skill is learned
+        if (stats.tableStats[currentLevel].newSkill != null)
+        {
+            hm = HeroManager.instance;
+            cs = CombatSystem.instance;
+            //check which hero we're looking at to search the correct array
+            if (heroClass == HeroClass.Barbarian)
+            {
+                foreach(Skill barbSkill in hm.barbSkills)
+                {
+                    if (barbSkill.name == stats.tableStats[currentLevel].newSkill)
+                    {
+                        skills.Add(barbSkill);
+                        cs.newSkillLearned = true;
+                        break;
+                    }
+                }
+            }
+
+            else if (heroClass == HeroClass.Rogue)
+            {
+                foreach(Skill skill in hm.rogueSkills)
+                {
+                    if (skill.name == stats.tableStats[currentLevel].newSkill)
+                    {
+                        skills.Add(skill);
+                        cs.newSkillLearned = true;
+                        break;
+                    }
+                }
+            }
+
+            else if (heroClass == HeroClass.Mage)
+            {
+                foreach(Skill skill in hm.mageSkills)
+                {
+                    if (skill.name == stats.tableStats[currentLevel].newSkill)
+                    {
+                        skills.Add(skill);
+                        cs.newSkillLearned = true;
+                        break;
+                    }
+                }
+            }
+
+            else if (heroClass == HeroClass.Cleric)
+            {
+                foreach(Skill skill in hm.clericSkills)
+                {
+                    if (skill.name == stats.tableStats[currentLevel].newSkill)
+                    {
+                        skills.Add(skill);
+                        cs.newSkillLearned = true;
+                        break;
+                    }
+                }
+            }
         }
 
     }

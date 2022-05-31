@@ -33,6 +33,7 @@ public class CombatSystem : MonoBehaviour
     public bool turnInProgress {get; set;}
     public bool speedChanged {get; set;}        //if true, the turn order is reshuffled.
     public bool playerRanAway {get; set;}                 //if true, no rewards given.
+    public bool newSkillLearned {get; set;}     //used to display new skills added after leveling up
     public Transform actGaugeLocation;
 
     //combat states. Used to determine which steps can be taken during combat
@@ -331,8 +332,17 @@ public class CombatSystem : MonoBehaviour
                     levelUpCount++;
                     heroesInCombat[i].xpToNextLevel -= xpShare;   
                 }
-                partyXp[i] = heroesInCombat[i].className + " Level +" + levelUpCount + "\nEXP Gained: " + xpShare + "\nTo Next Level " 
-                    + heroesInCombat[i].xpToNextLevel;
+                
+                if (newSkillLearned)
+                {
+                    newSkillLearned = false;
+                    int newestSkillLearned = heroesInCombat[i].skills.Count - 1;
+                    partyXp[i] = heroesInCombat[i].className + " Level +" + levelUpCount + "\nLearned \"" + heroesInCombat[i].skills[newestSkillLearned].skillName
+                        + "\"\nEXP Gained: " + xpShare + "\nTo Next Level " + heroesInCombat[i].xpToNextLevel;
+                }
+                else
+                    partyXp[i] = heroesInCombat[i].className + " Level +" + levelUpCount + "\nEXP Gained: " + xpShare + "\nTo Next Level " 
+                        + heroesInCombat[i].xpToNextLevel;
             }
             else
             {

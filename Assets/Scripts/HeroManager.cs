@@ -7,6 +7,10 @@ public class HeroManager : MonoBehaviour
     public List<Hero> heroes;
     public Hero heroPrefab;
     public HeroData[] heroData;           //this should be a data manager
+    public Skill[] barbSkills;
+    public Skill[] rogueSkills;
+    public Skill[] mageSkills;
+    public Skill[] clericSkills;
     public int barbData {get;} = 0;
     public int rogueData {get;} = 1;  
     public int mageData {get;} = 2;  
