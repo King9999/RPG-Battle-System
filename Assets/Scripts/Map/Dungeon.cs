@@ -718,7 +718,7 @@ public class Dungeon : MonoBehaviour
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
             //GameManager gm = GameManager.instance;
-            heroAppearanceChance = 1;
+            //heroAppearanceChance = 1;
             if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
@@ -840,7 +840,10 @@ public class Dungeon : MonoBehaviour
                 enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
             }
             else
+            {
+                //enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
                 enemy.AddEncounter(tableLevel);
+            }
 
             //set turns. if the enemy is standing over a chest, stairs, or captive, they will not move.
             //exit check

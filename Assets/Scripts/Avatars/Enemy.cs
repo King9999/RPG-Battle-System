@@ -224,6 +224,7 @@ public abstract class Enemy : Avatar
         //disable any shields
         foreach(ShieldToken shield in shields)
         {
+            shield.isEnabled = false;
             shield.gameObject.SetActive(false);
         }
 
@@ -355,9 +356,8 @@ public abstract class Enemy : Avatar
         ShieldToken shield = null;
         foreach(ShieldToken s in shields)
         {
-            if (!s.gameObject.activeSelf)
+            if (!s.gameObject.activeSelf && !s.isEnabled)
             {
-                //s.ShowToken(true);
                 instantiated = true;
                 shield = s;
             }

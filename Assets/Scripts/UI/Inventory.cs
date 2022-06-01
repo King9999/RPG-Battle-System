@@ -307,8 +307,8 @@ public class Inventory : MonoBehaviour
 
         //display text in a different colour if insufficient mana
         TextMeshProUGUI skillInfo = skillSlots[i].GetComponentInChildren<TextMeshProUGUI>();
-        if (hero.manaPoints >= skillSlots[i].SkillInSlot().manaCost)
-            skillInfo.text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost + "MP";
+        if (hero.manaPoints >= skillSlots[i].SkillInSlot().manaCost * hero.mpMod)
+            skillInfo.text = skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost * hero.mpMod + "MP";
         else
             skillInfo.text = "<color=#d7510b>" + skillSlots[i].SkillInSlot().skillName + " -- " + skillSlots[i].SkillInSlot().manaCost + "MP</color>";     
     }
