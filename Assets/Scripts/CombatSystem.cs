@@ -91,7 +91,7 @@ public class CombatSystem : MonoBehaviour
             hero.gameObject.SetActive(true);
             //hero.ResetCoroutines();
             //hero.ResetData();
-            hero.transform.SetParent(transform);
+            //hero.transform.SetParent(transform);
             heroesInCombat.Add(hero);
         }
 

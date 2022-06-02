@@ -40,7 +40,7 @@ public class Hero : Avatar
     {
         base.Start();
 
-        skills = new List<Skill>();     //used to ensure the skill list is cleared upon starting game
+        //skills = new List<Skill>();     //used to ensure the skill list is cleared upon starting game
         skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
         hm = HeroManager.instance;
         cim = CombatInputManager.instance;
@@ -50,6 +50,7 @@ public class Hero : Avatar
 
     public void GetData(HeroData data)
     {
+        skills = new List<Skill>();     //used to ensure the skill list is cleared upon starting game
         //pull information from a scriptable object
         this.data = data;
         statFile = data.statFile;

@@ -48,6 +48,7 @@ public class HeroManager : MonoBehaviour
         Hero hero = Instantiate(heroPrefab);
         hero.data = data;
         hero.GetData(hero.data);
+        hero.transform.SetParent(CombatSystem.instance.transform);
         hero.gameObject.SetActive(false);       //disabled by default since they're only active in combat.
         heroes.Add(hero);
     }

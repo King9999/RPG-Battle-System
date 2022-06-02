@@ -12,7 +12,7 @@ public class Shadowbind : Skill
 
         CombatInputManager cim = CombatInputManager.instance;
         CombatSystem cs = CombatSystem.instance;
-        float stunChance = user.spd;
+        float stunChance = user.spd * 2;
         bool landedOnCritPanel = false;
        
         ReduceMp(user);
@@ -35,7 +35,7 @@ public class Shadowbind : Skill
                     break;
 
                 case ActionGauge.ActionValue.Critical:
-                    stunChance *= 1.2f;
+                    stunChance *= 1.5f;
                     landedOnCritPanel = true;
                     break;
                 
