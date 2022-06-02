@@ -14,10 +14,10 @@ public class Remedy : Skill
         CombatSystem cs = CombatSystem.instance;
        
         ReduceMp(user);
-        skillActivated = true;
-        ui = UI.instance;
-        skillNameBorderColor = borderColor;
-        ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
+        //skillActivated = true;
+        //ui = UI.instance;
+        //skillNameBorderColor = borderColor;
+        //ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
 
         if (cim.buttonPressed)
         {

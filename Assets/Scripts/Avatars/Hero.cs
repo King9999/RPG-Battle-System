@@ -51,6 +51,7 @@ public class Hero : Avatar
     public void GetData(HeroData data)
     {
         //pull information from a scriptable object
+        this.data = data;
         statFile = data.statFile;
         className = data.className;
         details = data.details;
@@ -606,19 +607,35 @@ public class Hero : Avatar
         xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
 
         //check equipment and add their stats to base
-
         if (armor != null)
         {
-            armor.Unequip(this);
-            armor.Equip(this);
+            //armor.Unequip(this);
+            //armor.Equip(this);
+            dfp += armor.dfp;
+            res += armor.res;
             //dfp = stats.tableStats[currentLevel].dfp + armor.dfp;           
            // res = stats.tableStats[currentLevel].res + armor.res;
         }
 
         if (trinket != null)
         {
-            trinket.Unequip(this);
-            trinket.Equip(this);
+            //trinket.Unequip(this);
+            //trinket.Equip(this);
+            maxHitPoints += trinket.maxHitPoints;
+            manaPoints += trinket.maxManaPoints;
+            atp += trinket.atp;
+            dfp += trinket.dfp;
+            mag += trinket.mag;
+            res += trinket.res;
+            spd += trinket.spd;
+            attackTokenMod += trinket.attackTokenMod;
+            hpMod += trinket.hpMod;
+            mpMod += trinket.mpMod;
+            atpMod += trinket.atpMod;
+            dfpMod += trinket.dfpMod;
+            magMod += trinket.magMod;
+            resMod += trinket.resMod;
+            spdMod += trinket.spdMod;
         }
 
         //check if new skill is learned

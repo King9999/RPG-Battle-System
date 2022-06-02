@@ -14,6 +14,11 @@ public abstract class AvatarData : ScriptableObject
     public float spd;           //speed
     public float mag;           //magic power
     public float res;           //resistance
+    public bool resistPoison;
+    public bool resistParalysis;
+    public bool resistBlind;
+    public bool resistCharm;
+    public bool resistDeath;
 
    public List<Skill> skills;
 }

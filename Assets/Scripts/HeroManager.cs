@@ -27,7 +27,7 @@ public class HeroManager : MonoBehaviour
         }
 
         instance = this;
-        AddHero(heroData[0]);
+        //AddHero(heroData[rogueData]);
     }
 
     // Start is called before the first frame update

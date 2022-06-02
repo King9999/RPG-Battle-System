@@ -50,6 +50,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public bool resistParalysis;
     public bool resistBlind;
     public bool resistCharm;
+    public bool resistDeath;    //protects against 1-hit KO skills only
     
     public enum Status
     {
