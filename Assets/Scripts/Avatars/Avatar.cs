@@ -56,7 +56,9 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     {
         //GuardBroken = shield token is destroyed, enemy loses turn.
         //Berserk = Barb-unique effect. Can't be controlled.
-        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken, Berserk      
+        //Hidden = Rogue-unique effect. Can't be targeted.
+        //HideBuffInEffect = Rogue-unique effect. Bonus critical panels on weapon act gauge.
+        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken, Berserk, Hidden, HideBuffInEffect      
     }
     public Status status;
 

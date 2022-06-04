@@ -24,6 +24,7 @@ public class Hero : Avatar
     public bool actionCompleted;
     public bool isAttacking;
     public int currentActions;
+    [HideInInspector]public bool landedOnCritPanel;        //used by rogue. Applied after using Hide skill.
     public enum HeroClass {Barbarian, Rogue, Mage, Cleric}
     public HeroClass heroClass;
 
@@ -544,6 +545,21 @@ public class Hero : Avatar
             {
                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Miss);
                 actGauge.ChangeActionValue(ActionGauge.ActionValue.Critical, ActionGauge.ActionValue.Miss);
+            }
+
+            //Rogue-specific effect
+            if (status == Avatar.Status.HideBuffInEffect)
+            {
+                status = Avatar.Status.Normal;
+                if(landedOnCritPanel)
+                {
+                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
+                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Reduced, ActionGauge.ActionValue.Critical);
+                    landedOnCritPanel = false;
+                }
+                else
+                    actGauge.ChangeActionValue(ActionGauge.ActionValue.Normal, ActionGauge.ActionValue.Critical);
+                
             }
 
             totalAttackTokens = (weapon.tokenCount + attackTokenMod < 1) ? 1 : weapon.tokenCount + attackTokenMod;
