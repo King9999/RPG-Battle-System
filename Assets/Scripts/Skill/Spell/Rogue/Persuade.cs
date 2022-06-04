@@ -1,16 +1,15 @@
 using UnityEngine;
 
-//Stuns a target for a duration. Crit panel stuns target for a longer period.
-[CreateAssetMenu(menuName = "Skill/Rogue/Shadowbind", fileName = "skill_shadowbind")]
-public class Shadowbind : Skill
+//Charm a target for a duration. 
+[CreateAssetMenu(menuName = "Skill/Rogue/Persuade", fileName = "skill_persuade")]
+public class Persuade : Skill
 {
-   public override void Activate(Avatar user, Avatar target, Color borderColor)
+    public override void Activate(Avatar user, Avatar target, Color borderColor)
     {
-        //base.Activate(user, borderColor);
 
         CombatInputManager cim = CombatInputManager.instance;
         CombatSystem cs = CombatSystem.instance;
-        float stunChance = user.spd * 2;
+        float charmChance = user.spd * 2;
         bool landedOnCritPanel = false;
        
         ReduceMp(user);
@@ -23,9 +22,8 @@ public class Shadowbind : Skill
         {
             switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
             {
-
                 case ActionGauge.ActionValue.Miss:
-                    stunChance = 0;
+                    charmChance = 0;
                     break;
 
                 case ActionGauge.ActionValue.Normal:
@@ -33,21 +31,21 @@ public class Shadowbind : Skill
                     break;
 
                 case ActionGauge.ActionValue.Critical:
-                    stunChance *= 1.5f;
+                    charmChance *= 1.5f;
                     landedOnCritPanel = true;
                     break;
                 
             }
 
-            float finalChance = (stunChance - target.spd) / 100;
-            Debug.Log("Shadowbind chance vs " + target.className + ": " + finalChance);
-            if (target.resistParalysis)
+            float finalChance = (charmChance - target.spd) / 100;
+            Debug.Log("Charm chance vs " + target.className + ": " + finalChance);
+            if (target.resistCharm)
             {
-                ui.DisplayStatusUpdate("STUN RESIST", target.transform.position);
+                ui.DisplayStatusUpdate("CHARM RESIST", target.transform.position);
             }
             else if (Random.value <= finalChance)
             {
-                target.status = Avatar.Status.Paralyzed;
+                target.status = Avatar.Status.Charmed;
                 if (!target.skillEffects.Contains(this))
                 {
                     target.skillEffects.Add(this);
@@ -61,7 +59,7 @@ public class Shadowbind : Skill
                 {
                     durationLeft = turnDuration;
                 }
-                ui.DisplayStatusUpdate("STUNNED", target.transform.position);
+                ui.DisplayStatusUpdate("CHARMED", target.transform.position);
             }
             else
             {
@@ -78,6 +76,6 @@ public class Shadowbind : Skill
     public override void RemoveEffects(Avatar user)
     {
         user.status = Avatar.Status.Normal;
-        ui.DisplayStatusUpdate("STUN REMOVED", user.transform.position);
+        ui.DisplayStatusUpdate("CHARM REMOVED", user.transform.position);
     }
 }

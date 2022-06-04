@@ -95,9 +95,11 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
 
-            //highlight
+            //disable highlight and description
             Image img = GetComponent<Image>();
             img.enabled = false;
+            inv.itemDetailsContainer.gameObject.SetActive(false);
+            inv.itemDetailsUI.text = "";
         }
     }
 

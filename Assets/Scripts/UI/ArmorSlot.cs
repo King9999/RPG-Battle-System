@@ -42,9 +42,11 @@ public class ArmorSlot : ItemSlot
             inv.copiedSlot = this;
             dungeonMenu.SetState(DungeonMenu.MenuState.SelectingArmorToEquip);
 
-            //remove highlight
+            //disable highlight and description
             Image img = GetComponent<Image>();
             img.enabled = false;
+            inv.itemDetailsContainer.gameObject.SetActive(false);
+            inv.itemDetailsUI.text = "";
         }
     }
 
