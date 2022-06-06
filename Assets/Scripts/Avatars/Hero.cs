@@ -123,7 +123,8 @@ public class Hero : Avatar
             return;
         }*/
 
-        if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind || status == Status.Berserk)
+        //if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind || status == Status.Berserk || status )
+        if (status != Status.Dead && status != Status.Paralyzed && status != Status.Charmed)
         {
             if ((isAttacking && currentActions >= totalAttackTokens) || gm.gameState == GameManager.GameState.ShowCombatRewards)
             {
@@ -157,7 +158,9 @@ public class Hero : Avatar
 
     public override void UpdateSkillEffects()
     {
-        //skill activation check    
+        //update skill duration and remove effects when necessary
+        if (skillEffects.Count <= 0) return; 
+
         for (int i = 0; i < skillEffects.Count; i++)
         {
             if (skillEffects[i].hasDuration)
@@ -170,10 +173,23 @@ public class Hero : Avatar
                     i--;
                 }
             }
-            else //permanent effect/passive
+            /*else //permanent effect/passive
             {
                 skillEffects[i].Activate(this, skillNameBorderColor);
-            }  
+            }*/  
+        }
+    }
+
+    public override void ActivatePassiveEffects()
+    {
+        if (skillEffects.Count <= 0) return;
+
+        for (int i = 0; i < skillEffects.Count; i++)
+        {
+            if (!skillEffects[i].hasDuration)
+            {
+                skillEffects[i].Activate(this, skillNameBorderColor);
+            } 
         }
     }
 
@@ -233,6 +249,9 @@ public class Hero : Avatar
         //which hero is acting?
         cs.currentHero = cs.heroesInCombat.IndexOf(this);
 
+        //Update skill effects
+        UpdateSkillEffects();
+
         //populate skill inventory if possible
         inv = Inventory.instance;
         for (int i = 0; i < inv.skillSlots.Length; i++)
@@ -250,6 +269,7 @@ public class Hero : Avatar
         {
             
             case Status.Normal:
+            case Status.HideBuffInEffect:
                 //open a menu, player chooses next action       
                 ui.combatMenu.ShowCombatMenu(true);
                 break;
@@ -820,7 +840,7 @@ public class Hero : Avatar
     {
         yield return new WaitForSeconds(1);
 
-        UpdateSkillEffects();
+        ActivatePassiveEffects();
 
         yield return new WaitForSeconds(invokeTime);
 

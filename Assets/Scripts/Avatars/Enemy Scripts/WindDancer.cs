@@ -21,18 +21,40 @@ public class WindDancer : Enemy
         float roll = Random.Range(0, 1f);
         Debug.Log("Roll " + roll);
         if (roll <= 0.1f)
-        {  
-            int randTarget = Random.Range(0, cs.heroesInCombat.Count);
-            Attack(cs.heroesInCombat[randTarget]);
+        {
+            int randTarget;
+            if (cs.heroesInCombat.Count > 1)
+            {
+                do
+                    randTarget = Random.Range(0, cs.heroesInCombat.Count);
+                while (cs.heroesInCombat[randTarget].status == Avatar.Status.Hidden);
+
+                Attack(cs.heroesInCombat[randTarget]);
+            }
+            else
+            {
+                Attack(cs.heroesInCombat[0]);
+            }
+            
         }
         else if (roll <= 0.4f)
         {
             //use heavy wind skill
-            int randTarget = Random.Range(0, cs.heroesInCombat.Count);
-            skills[heavyWindSkill].Activate(cs.heroesInCombat[randTarget], skillNameBorderColor);
+            int randTarget;
+            if (cs.heroesInCombat.Count > 1)
+            {
+                do
+                    randTarget = Random.Range(0, cs.heroesInCombat.Count);
+                while (cs.heroesInCombat[randTarget].status == Avatar.Status.Hidden);
+                skills[heavyWindSkill].Activate(cs.heroesInCombat[randTarget], skillNameBorderColor);
+            }
+            else
+            {
+                skills[heavyWindSkill].Activate(cs.heroesInCombat[0], skillNameBorderColor);
+            }
         }
-        else
-        {
+        else    //casting cool wind
+        {    
             int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
             skills[coolWindSkill].Activate(cs.enemiesInCombat[randTarget], skillNameBorderColor);
         }

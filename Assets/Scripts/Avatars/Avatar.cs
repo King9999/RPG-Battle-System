@@ -210,6 +210,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     //used to activate any passive effects or remove effects that expired.
     public virtual void UpdateSkillEffects() {}
+    public virtual void ActivatePassiveEffects() {}
    
 
     public void UpdateStatsUI()

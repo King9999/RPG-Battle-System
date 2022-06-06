@@ -44,15 +44,36 @@ public class Imp : Enemy
             }
             else
             {
-                int randHero = Random.Range(0, cs.heroesInCombat.Count);
-                Attack(cs.heroesInCombat[randHero]);
+                int randHero;
+                if (cs.heroesInCombat.Count > 1)
+                {
+                    do
+                        randHero = Random.Range(0, cs.heroesInCombat.Count);
+                    while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                    Attack(cs.heroesInCombat[randHero]);
+                }
+                else
+                {
+                    Attack(cs.heroesInCombat[0]);
+                }
             }
         }
         else
         {
-            //attack
-            int randHero = Random.Range(0, cs.heroesInCombat.Count);
-            Attack(cs.heroesInCombat[randHero]);
+            int randHero;
+            if (cs.heroesInCombat.Count > 1)
+            {
+                do
+                    randHero = Random.Range(0, cs.heroesInCombat.Count);
+                while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                Attack(cs.heroesInCombat[randHero]);
+            }
+            else
+            {
+                Attack(cs.heroesInCombat[0]);
+            }
         }
 
         base.ExecuteLogic();

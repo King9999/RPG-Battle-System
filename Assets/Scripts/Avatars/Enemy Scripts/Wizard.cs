@@ -44,21 +44,54 @@ public class Wizard : Enemy
                 else
                 {
                     //cast fireball to a target
-                    int randHero = Random.Range(0, cs.heroesInCombat.Count);
-                    skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+                    int randHero;
+                    if (cs.heroesInCombat.Count > 1)
+                    {
+                        do
+                            randHero = Random.Range(0, cs.heroesInCombat.Count);
+                        while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                        skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+                    }
+                    else
+                    {
+                        skills[fireballSkill].Activate(this, cs.heroesInCombat[0], skillNameBorderColor);
+                    }
                 }
             }
             else
             {
                 //cast fireball to a target
-                int randHero = Random.Range(0, cs.heroesInCombat.Count);
-                skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+                int randHero;
+                if (cs.heroesInCombat.Count > 1)
+                {
+                    do
+                        randHero = Random.Range(0, cs.heroesInCombat.Count);
+                    while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                    skills[fireballSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+                }
+                else
+                {
+                    skills[fireballSkill].Activate(this, cs.heroesInCombat[0], skillNameBorderColor);
+                }
             }
         }
         else    //do regular attack
         {
-            int randTarget = Random.Range(0, cs.heroesInCombat.Count);
-            Attack(cs.heroesInCombat[randTarget]);
+            int randHero;
+            if (cs.heroesInCombat.Count > 1)
+            {
+                do
+                    randHero = Random.Range(0, cs.heroesInCombat.Count);
+                while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                Attack(cs.heroesInCombat[randHero]);
+            }
+            else
+            {
+                Attack(cs.heroesInCombat[0]);
+            }
         }
 
         //end turn

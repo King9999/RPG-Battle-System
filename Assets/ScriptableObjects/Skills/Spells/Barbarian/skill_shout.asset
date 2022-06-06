@@ -20,7 +20,7 @@ MonoBehaviour:
   actGaugeData: {fileID: 11400000, guid: f4e59004a17d8d24d99a9e68e595c4da, type: 2}
   isPassive: 0
   hasDuration: 1
-  turnDuration: 1
+  turnDuration: 2
   targetType: 4
   element: 0
   statusEffect: 2

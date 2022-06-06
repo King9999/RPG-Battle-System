@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456f98cc45970d641b8b559e44f5945e, type: 3}
   m_Name: skill_hide
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Hide
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
+  description: Become untargetable for 1 turn. After effect ends, more critical panels
+    are granted
+  manaCost: 20
   power: 0
-  actGaugeData: {fileID: 0}
+  actGaugeData: {fileID: 11400000, guid: 9a2937a2725344543824f7e533335e8b, type: 2}
   isPassive: 0
-  hasDuration: 0
-  turnDuration: 0
-  targetType: 0
+  hasDuration: 1
+  turnDuration: 1
+  targetType: 1
   element: 0
   statusEffect: 0

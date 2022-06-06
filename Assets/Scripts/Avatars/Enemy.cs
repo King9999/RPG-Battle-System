@@ -145,9 +145,9 @@ public abstract class Enemy : Avatar
         //enemy has a 5% chance to inflict a critical. Criticals ignore defense
         float totalDamage;
         float critChance = 0.05f;
-        float roll = Random.Range(0, 1f);
+        //float roll = Random.Range(0, 1f);
 
-        if (roll <= critChance)
+        if (Random.value <= critChance)
         {
             totalDamage = Mathf.Round(atp * atpMod + Random.Range(0, atp * 0.1f));
             ui.damageDisplay.color = ui.criticalDamageColor;
@@ -162,13 +162,17 @@ public abstract class Enemy : Avatar
         if (status == Status.Blind)
         {
             Debug.Log(className + " is blind!");
-            roll = Random.Range(0, 1f);
-            if (roll > blindHitChance)
+            //roll = Random.Range(0, 1f);
+            if (Random.value > blindHitChance)
             {
                 totalDamage = 0;
                 //ui.damageDisplay.color = ui.damageColor;
             }
         }
+
+        //if target is hidden, no damage is dealt
+        if (target.status == Status.Hidden)
+            totalDamage = 0;
         
         if (totalDamage < 0)
             totalDamage = 0;
@@ -248,6 +252,7 @@ public abstract class Enemy : Avatar
     public override void TakeAction()
     {
         base.TakeAction();
+        UpdateSkillEffects();
         StartCoroutine(HighlightAvatar()); //once this completes, action is taken
     }
 
@@ -399,10 +404,23 @@ public abstract class Enemy : Avatar
                     i--;
                 }
             }
-            else //permanent effect/passive
+            /*else //permanent effect/passive
             {
                 skillEffects[i].Activate(this, skillNameBorderColor);
-            }  
+            }*/  
+        }
+    }
+
+    public override void ActivatePassiveEffects()
+    {
+        if (skillEffects.Count <= 0) return;
+
+        for (int i = 0; i < skillEffects.Count; i++)
+        {
+            if (!skillEffects[i].hasDuration)
+            {
+                skillEffects[i].Activate(this, skillNameBorderColor);
+            } 
         }
     }
 
@@ -512,7 +530,7 @@ public abstract class Enemy : Avatar
     {
         yield return new WaitForSeconds(1);
 
-        UpdateSkillEffects();
+        ActivatePassiveEffects();
 
         yield return new WaitForSeconds(invokeTime);
 

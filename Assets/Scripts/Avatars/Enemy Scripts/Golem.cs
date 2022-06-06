@@ -19,7 +19,7 @@ public class Golem : Enemy
     public override void ExecuteLogic()
     {
         //Once Golem's HP goes below 60%, each turn golem will attempt a haymaker
-        int randHero = Random.Range(0, cs.heroesInCombat.Count);
+        //int randHero = Random.Range(0, cs.heroesInCombat.Count);
 
         //if HP goes below 40%, gain an additional shield
         if (!armorBoostActivated && hitPoints < maxHitPoints * 0.4f)
@@ -29,11 +29,36 @@ public class Golem : Enemy
         }
         else if (hitPoints < maxHitPoints * 0.6f && SkillActivated(skillProb))
         {
-            skills[haymakerSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+            int randHero;
+            if (cs.heroesInCombat.Count > 1)
+            {
+                do
+                    randHero = Random.Range(0, cs.heroesInCombat.Count);
+                while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                skills[haymakerSkill].Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+            }
+            else
+            {
+                skills[haymakerSkill].Activate(this, cs.heroesInCombat[0], skillNameBorderColor);
+            }
+            
         }
-        else
+        else //attack
         {
-            Attack(cs.heroesInCombat[randHero]);
+            int randHero;
+            if (cs.heroesInCombat.Count > 1)
+            {
+                do
+                    randHero = Random.Range(0, cs.heroesInCombat.Count);
+                while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+                Attack(cs.heroesInCombat[randHero]);
+            }
+            else
+            {
+                Attack(cs.heroesInCombat[0]);
+            }
         }
 
         //end turn
