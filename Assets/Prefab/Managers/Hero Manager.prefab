@@ -50,3 +50,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b758ee4c6df3bf5488f1f29bf7ef9520, type: 2}
   - {fileID: 11400000, guid: 58e5dd022b70c074ba5f67d2cac8ab64, type: 2}
   - {fileID: 11400000, guid: 622b5c3fde7aa8f4784423b88a4932a7, type: 2}
+  barbSkills:
+  - {fileID: 11400000, guid: 836030fa8ed727a4bba31f9c923d4e97, type: 2}
+  - {fileID: 11400000, guid: 60b53d66d5c650a499035487259be5e5, type: 2}
+  - {fileID: 11400000, guid: ab2dd054d59891e4082576f3d947127d, type: 2}
+  - {fileID: 11400000, guid: 7d8bf0a40ec73f3408a3aa320241e566, type: 2}
+  - {fileID: 11400000, guid: c22301432bc3dd7429bf21a07caa5558, type: 2}
+  rogueSkills:
+  - {fileID: 11400000, guid: 114541b73e0bf6a47a2d4b3958afc01b, type: 2}
+  - {fileID: 11400000, guid: 0b750ee06b5c1a0418344f148961e694, type: 2}
+  - {fileID: 11400000, guid: 7dc75c6f9526c384680954c2fc2404d5, type: 2}
+  - {fileID: 11400000, guid: 1f006024e5f5aa54f8079482c4857e39, type: 2}
+  mageSkills: []
+  clericSkills: []

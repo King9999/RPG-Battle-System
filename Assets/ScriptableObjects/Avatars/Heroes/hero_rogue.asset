@@ -29,10 +29,6 @@ MonoBehaviour:
   resistDeath: 0
   skills:
   - {fileID: 11400000, guid: 3ca67d429b48d4e4e8df68b1959e266e, type: 2}
-  - {fileID: 11400000, guid: 114541b73e0bf6a47a2d4b3958afc01b, type: 2}
-  - {fileID: 11400000, guid: 0b750ee06b5c1a0418344f148961e694, type: 2}
-  - {fileID: 11400000, guid: 7dc75c6f9526c384680954c2fc2404d5, type: 2}
-  - {fileID: 11400000, guid: 1f006024e5f5aa54f8079482c4857e39, type: 2}
   statFile: {fileID: 4900000, guid: f5ef3a3596a9900498056ac7b3b1baae, type: 3}
   sprite: {fileID: 21300000, guid: 6727f157f9600844893e2ad9ad8378f4, type: 3}
   heroClass: 1

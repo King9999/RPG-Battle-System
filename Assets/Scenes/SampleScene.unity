@@ -1105,30 +1105,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3550024790719593380, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: barbSkills.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3550024790719593380, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: barbSkills.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 836030fa8ed727a4bba31f9c923d4e97, type: 2}
-    - target: {fileID: 3550024790719593380, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: barbSkills.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 60b53d66d5c650a499035487259be5e5, type: 2}
-    - target: {fileID: 3550024790719593380, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: barbSkills.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: ab2dd054d59891e4082576f3d947127d, type: 2}
-    - target: {fileID: 3550024790719593380, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: barbSkills.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 7d8bf0a40ec73f3408a3aa320241e566, type: 2}
-    - target: {fileID: 3550024790719593380, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
-      propertyPath: barbSkills.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: c22301432bc3dd7429bf21a07caa5558, type: 2}
     - target: {fileID: 3550024790719593381, guid: 8113682739a945a479bc276cdd1b6608, type: 3}
       propertyPath: m_Name
       value: Hero Manager
