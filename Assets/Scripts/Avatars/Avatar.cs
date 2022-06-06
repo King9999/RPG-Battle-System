@@ -165,6 +165,23 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         target.UpdateStatsUI();
     }
 
+    public void ReduceHitPoints(List<Enemy> targets, int index, float amount)
+    {
+        if (amount < 0) amount = 0;
+
+        targets[index].hitPoints -= amount;
+        if (targets[index].hitPoints < 0)
+        {
+            targets[index].hitPoints = 0;
+        }
+
+        //show damage
+        UI ui = UI.instance;
+        ui.DisplayDamage(index, amount.ToString(), targets[index].transform.position, ui.damageDisplay.color);
+
+        targets[index].UpdateStatsUI();
+    }
+
     public bool TheirTurn() { return isTheirTurn; }
     public bool TurnTaken() {return turnTaken;}
 
@@ -233,6 +250,12 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
             Debug.Log(status + " ailment removed from " + className);
 
             //show an effect that ailment is removed
+            UI ui = UI.instance;
+            if (status == Status.Paralyzed)
+                ui.DisplayStatusUpdate("STUN REMOVED", transform.position);
+            if (status == Status.Blind)
+                ui.DisplayStatusUpdate("BLIND REMOVED", transform.position);
+
             status = Status.Normal;
         }
     }

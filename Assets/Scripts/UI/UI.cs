@@ -77,15 +77,13 @@ public class UI : MonoBehaviour
     {
         damageDisplay.color = textColor;
         animateDamage = AnimateDamage(value, location);
-        //damageDisplay.gameObject.SetActive(false);
         StopCoroutine(animateDamage);
         StartCoroutine(animateDamage);
     }
-    public void DisplayDamage(string value, Vector3 location)
+    public void DisplayDamage(int allDamageDisplayIndex, string value, Vector3 location, Color textColor)
     {
-        damageDisplay.color = Color.white;  //default color
-        animateDamage = AnimateDamage(value, location);
-        //damageDisplay.gameObject.SetActive(false);
+        allDamageDisplay[allDamageDisplayIndex].color = textColor;
+        animateDamage = AnimateDamage(allDamageDisplayIndex, value, location);
         StopCoroutine(animateDamage);
         StartCoroutine(animateDamage);
     }
@@ -185,6 +183,31 @@ public class UI : MonoBehaviour
         yield return new WaitForSeconds(displayDuration);
         damageDisplay.gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
+    }
+
+    private IEnumerator AnimateDamage(int index, string value, Vector3 location)
+    {
+        float displayDuration = 0.5f;
+        Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
+        allDamageDisplay[index].gameObject.SetActive(true);
+        allDamageDisplay[index].transform.position = avatarPos;
+        allDamageDisplay[index].text = value;
+
+        Vector3 initPos = allDamageDisplay[index].transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        float gravity = -0.4f;
+        while(allDamageDisplay[index].transform.position.y < destination.y)
+        {
+            Vector3 newPos = allDamageDisplay[index].transform.position;
+            vy = gravity + 400 * Time.deltaTime;
+            allDamageDisplay[index].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
+
+        allDamageDisplay[index].transform.position = initPos;
+        yield return new WaitForSeconds(displayDuration);
+        allDamageDisplay[index].gameObject.SetActive(false);
     }
 
     //delay duration is used to display values later to prevent overlapping with other UI
