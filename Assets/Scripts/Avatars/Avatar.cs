@@ -242,6 +242,26 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + maxHitPoints + "\n" + "<color=#4be4fc>MP</color> " + manaPoints + "/" + maxManaPoints;
     }
 
+    //used to update stats in case stats mods have changed.
+    public void UpdateStats()
+    {
+        atpMod = minAtpMod;
+        dfpMod = minDfpMod;
+        magMod = minMagMod;
+        resMod = minResMod;
+        hpMod = minHpMod;
+        mpMod = minMpMod;
+        spdMod = minSpdMod;
+        
+        maxHitPoints = Mathf.Round(maxHitPoints * hpMod);
+        maxManaPoints = Mathf.Round(maxManaPoints * mpMod);
+        atp = Mathf.Round(atp * atpMod);
+        dfp = Mathf.Round(dfp * dfpMod);
+        mag = Mathf.Round(mag * magMod);
+        res = Mathf.Round(res * resMod);
+        spd = Mathf.Round(spd * spdMod);
+    }
+
     //chance to remove an ailment naturally. Only works against paralysis, blind, and charm
     public void TryRemoveAilment()
     {

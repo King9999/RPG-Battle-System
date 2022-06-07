@@ -24,8 +24,8 @@ public class HeroStatsDisplay : MonoBehaviour
     public void UpdateStats(Hero hero)
     {
         //display stats
-        statValuesUI.text = hero.atp * hero.atpMod + "\n" + hero.dfp * hero.dfpMod + "\n" + hero.spd * hero.spdMod + "\n"
-        + hero.mag * hero.magMod + "\n" + hero.res * hero.resMod;
+        hero.UpdateStats();
+        statValuesUI.text = hero.atp + "\n" + hero.dfp + "\n" + hero.spd + "\n" + hero.mag + "\n" + hero.res;
 
         //display equipment
         if (hero.weapon.weaponType == Weapon.WeaponType.Staff)

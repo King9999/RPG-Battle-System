@@ -33,7 +33,7 @@ public class MysteryNode : MapObject
                 //get random effect. Put code here
                 int randEffect = Random.Range(0, (int)NodeEffects.End);
                 //GetRandomEffect((NodeEffects)randEffect);
-                GetRandomEffect(NodeEffects.ReduceXpToOne);
+                GetRandomEffect(NodeEffects.GlobalStatBuff);
 
                 ShowObject(false);
             }  
@@ -133,6 +133,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minAtpMod += 0.02f;
                         hm.heroes[i].atpMod = hm.heroes[i].minAtpMod;
+                        hm.heroes[i].UpdateStats();
                         ui.DisplayStatus(i, "ATP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
@@ -144,6 +145,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minDfpMod += 0.02f;
                         hm.heroes[i].dfpMod = hm.heroes[i].minDfpMod;
+                        hm.heroes[i].UpdateStats();
                         ui.DisplayStatus(i, "DFP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
@@ -155,6 +157,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minMagMod += 0.02f;
                         hm.heroes[i].magMod = hm.heroes[i].minMagMod;
+                        hm.heroes[i].UpdateStats();
                         ui.DisplayStatus(i, "MAG BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
@@ -166,6 +169,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minResMod += 0.02f;
                         hm.heroes[i].resMod = hm.heroes[i].minResMod;
+                        hm.heroes[i].UpdateStats();
                         ui.DisplayStatus(i, "RES BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
@@ -177,6 +181,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minSpdMod += 0.02f;
                         hm.heroes[i].spdMod = hm.heroes[i].minSpdMod;
+                        hm.heroes[i].UpdateStats();
                         ui.DisplayStatus(i, "SPD BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
@@ -188,6 +193,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minHpMod += 0.02f;
                         hm.heroes[i].hpMod = hm.heroes[i].minHpMod;
+                        hm.heroes[i].UpdateStats();
                         ui.partyDisplay[i].UpdateUI();
                         ui.DisplayStatus(i, "HP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
@@ -200,6 +206,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minMpMod += 0.02f;
                         hm.heroes[i].mpMod = hm.heroes[i].minMpMod;
+                        hm.heroes[i].UpdateStats();
                         ui.partyDisplay[i].UpdateUI();
                         ui.DisplayStatus(i, "MP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }

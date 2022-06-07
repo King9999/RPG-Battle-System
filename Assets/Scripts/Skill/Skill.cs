@@ -107,7 +107,8 @@ public abstract class Skill : ScriptableObject
 
     public void ReduceMp(Avatar user)
     {
-        user.manaPoints -= manaCost * user.mpMod;
+        BonusSystem bs = BonusSystem.instance;
+        user.manaPoints -= manaCost * bs.manaCostMod;
         user.UpdateStatsUI();
     }
 

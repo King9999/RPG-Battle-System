@@ -36,11 +36,10 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void UpdateUI()
     {
-        
         heroStatsUI.text = hero.className + " Lv " + hero.level + 
             "\n<color=#0fbe1f>Status</color> " +  hero.status +
-            "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints * hero.hpMod + 
-            "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints * hero.mpMod + 
+            "\n<color=#f65974>HP</color> " + hero.hitPoints + "/" + hero.maxHitPoints + 
+            "\n<color=#4be4fc>MP</color> " + hero.manaPoints + "/" + hero.maxManaPoints + 
             "\n<color=#ebca20>Next Lv</color> " + hero.xpToNextLevel;
     
     }
@@ -83,7 +82,6 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             
             if (inv.copiedSlot.TryGetComponent(out WeaponSlot wSlot))
             {
-                //Debug.Log(wSlot.WeaponInSlot().itemName + " equipped!");
                 Weapon oldWeapon = hero.weapon;
 
                 if (wSlot.WeaponInSlot().CanBeEquipped(hero))
@@ -97,19 +95,11 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                         inv.AddItem(oldWeapon, 1);
                     ui.ConfirmEquip("Equipped!", DungeonMenu.MenuState.WeaponMenuOpened);
                 }
-                /*else
-                {
-                    Debug.Log(wSlot.WeaponInSlot().itemName + " can't be equipped by " + hero.className);
-                    //ui.DisplayEquipStatus(true, "<color=red>Can't equip!</color>");
-                }*/
-
-                //TODO: send player back to inventory after briefly showing an "Equipped" message
-                //menu.SetState(DungeonMenu.MenuState.WeaponMenuOpened);
+                
             }
 
             if (inv.copiedSlot.TryGetComponent(out ArmorSlot aSlot))
             {
-                //Debug.Log(aSlot.ArmorInSlot().itemName + " equipped!");
                 Armor oldArmor = hero.armor == null ? null : hero.armor;
                 aSlot.ArmorInSlot().Equip(hero);
                 inv.RemoveItem(aSlot.ArmorInSlot(), 1);
@@ -120,12 +110,10 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 inv.statsDisplay.UpdateStats(hero, hero.armor);    //showing updated stats
                 statsDisplay.UpdateStats(hero);
                 ui.ConfirmEquip("Equipped!", DungeonMenu.MenuState.ArmorMenuOpened);
-                //menu.SetState(DungeonMenu.MenuState.ArmorMenuOpened);
             }
 
             if (inv.copiedSlot.TryGetComponent(out TrinketSlot tSlot))
             {
-                //Debug.Log(tSlot.TrinketInSlot().itemName + " equipped!");
                 Trinket oldTrinket = hero.trinket;
                 tSlot.TrinketInSlot().Equip(hero);
                 inv.RemoveItem(tSlot.TrinketInSlot(), 1);
@@ -137,8 +125,6 @@ public class PartyStats : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 statsDisplay.UpdateStats(hero);
                 ui.ConfirmEquip("Equipped!", DungeonMenu.MenuState.TrinketMenuOpened);
                 
-                //TODO: send player back to inventory after briefly showing an "Equipped" message
-                //menu.SetState(DungeonMenu.MenuState.TrinketMenuOpened);
             }
         }
     }

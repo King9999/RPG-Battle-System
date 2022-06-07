@@ -94,11 +94,11 @@ public class BonusSystem : MonoBehaviour
                 enemyBuffsDisabled = true;
                 foreach(Enemy enemy in cs.enemiesInCombat)
                 {
-                    enemy.atpMod = 1;
-                    enemy.dfpMod = 1;
-                    enemy.spdMod = 1;
-                    enemy.magMod = 1;
-                    enemy.resMod = 1;
+                    enemy.atpMod = enemy.minAtpMod;
+                    enemy.dfpMod = enemy.minDfpMod;
+                    enemy.spdMod = enemy.minSpdMod;
+                    enemy.magMod = enemy.minMagMod;
+                    enemy.resMod = enemy.minResMod;
                 }
                 break;
 

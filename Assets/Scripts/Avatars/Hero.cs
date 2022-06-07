@@ -760,11 +760,13 @@ public class Hero : Avatar
     //reset certain values after combat.
     public void ResetData()
     {
-        atpMod = 1;
-        dfpMod = 1;
-        spdMod = 1;
-        magMod = 1;
-        resMod = 1;
+        /*atpMod = minAtpMod;
+        dfpMod = minDfpMod;
+        spdMod = minSpdMod;
+        magMod = minMagMod;
+        resMod = minResMod;*/
+
+        UpdateStats();
 
         animateAttackCoroutineOn = false;
         highlightAvatarCoroutineOn = false;
@@ -773,14 +775,11 @@ public class Hero : Avatar
         skillEffects.Clear();
 
         //clear certain status effects
-        if (status == Status.Paralyzed || status == Status.Charmed || status == Status.Berserk)
+        if (status == Status.Paralyzed || status == Status.Charmed || status == Status.Berserk || status == Status.Hidden)
             status = Status.Normal;
 
-        /*foreach(Skill effect in skillEffects)
-        {
-            effect.RemoveEffects(this);
-        }*/
     }
+    
     //static hero sprite dashes forward and back
     protected override IEnumerator AnimateAttack()
     {
