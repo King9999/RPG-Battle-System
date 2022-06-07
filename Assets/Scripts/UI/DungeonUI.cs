@@ -14,7 +14,8 @@ public class DungeonUI : MonoBehaviour
     public TextMeshProUGUI dungeonLevelUI;
     public TextMeshProUGUI selectTargetUI;      //appears above the party UI
     public TextMeshProUGUI equipConfirmUI;      //displayed after player equips a new item or can't
-    public TextMeshProUGUI statusUI;         //for displaying values/messages over party UI when using items/skills
+    public TextMeshProUGUI statusUI;            //for displaying values/messages over party UI when using items/skills
+    public TextMeshProUGUI[] allStatusUI;         //used for when multiple values need to be displayed
     [HideInInspector]public Color healColor, normalColor;
     bool animateStatusCoroutineOn;
     bool equipCoroutineOn;
@@ -37,7 +38,11 @@ public class DungeonUI : MonoBehaviour
     void Start()
     {
         selectTargetUI.gameObject.SetActive(false);
+
         statusUI.gameObject.SetActive(false);
+        foreach(TextMeshProUGUI status in allStatusUI)
+            status.gameObject.SetActive(false);
+
         equipConfirmUI.gameObject.SetActive(false);
         healColor = new Color(0, 0.9f, 0.3f);
         normalColor = Color.white;
@@ -47,6 +52,11 @@ public class DungeonUI : MonoBehaviour
     {
         if (!animateStatusCoroutineOn)
             StartCoroutine(AnimateStatus(value, location, textColor));
+    }
+
+    public void DisplayStatus(int allStatusUiIndex, string value, Vector3 location, Color textColor)
+    {
+        StartCoroutine(AnimateStatus(allStatusUiIndex, value, location, textColor));
     }
 
     public void DisplayEquipStatus(bool toggle, string message = "")
@@ -93,6 +103,35 @@ public class DungeonUI : MonoBehaviour
         statusUI.color = normalColor;        //reset back to default
         statusUI.gameObject.SetActive(false);
         animateStatusCoroutineOn = false;
+    }
+
+    private IEnumerator AnimateStatus(int index, string value, Vector3 location, Color textColor)
+    {
+        //animateStatusCoroutineOn = true;
+        float displayDuration = 0.5f;
+        allStatusUI[index].gameObject.SetActive(true);
+        allStatusUI[index].transform.position = location;
+        allStatusUI[index].text = value;
+        allStatusUI[index].color = textColor;
+
+        //each digit is animated individually
+        Vector3 initPos = allStatusUI[index].transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        while(allStatusUI[index].transform.position.y < destination.y)
+        {
+            Vector3 newPos = allStatusUI[index].transform.position;
+            vy = 50 * Time.deltaTime;
+            allStatusUI[index].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
+
+        allStatusUI[index].transform.position = destination;
+        
+        yield return new WaitForSeconds(displayDuration);
+        allStatusUI[index].color = normalColor;        //reset back to default
+        allStatusUI[index].gameObject.SetActive(false);
+        //animateStatusCoroutineOn = false;
     }
 
     IEnumerator DisplayEquip(string message, float duration, DungeonMenu.MenuState returnState)

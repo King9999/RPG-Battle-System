@@ -87,6 +87,7 @@ public class MysteryNode : MapObject
                 {
                     hm.heroes[i].xpToNextLevel = 1;
                     ui.partyDisplay[i].UpdateUI();
+                    ui.DisplayStatus(i, "XP BONUS", ui.partyDisplay[i].transform.position, Color.white);
                 }
                 ui.notification.DisplayMessage("Time to level up");
                 break;
@@ -105,8 +106,9 @@ public class MysteryNode : MapObject
             case NodeEffects.RestoreAllHp:
                 for(int i = 0; i < hm.heroes.Count; i++)
                 {
-                    hm.heroes[i].hitPoints = hm.heroes[i].maxHitPoints * hm.heroes[i].hpMod;
+                    hm.heroes[i].hitPoints = Mathf.Round(hm.heroes[i].maxHitPoints * hm.heroes[i].hpMod);
                     ui.partyDisplay[i].UpdateUI();
+                    ui.DisplayStatus(i, hm.heroes[i].hitPoints.ToString(), ui.partyDisplay[i].transform.position, ui.healColor);
                 }
                 ui.notification.DisplayMessage("A rejuvenating breeze");
                 break;
@@ -116,6 +118,7 @@ public class MysteryNode : MapObject
                 {
                     hm.heroes[i].manaPoints = Mathf.Round(hm.heroes[i].manaPoints * 0.5f);
                     ui.partyDisplay[i].UpdateUI();
+                    ui.DisplayStatus(i, hm.heroes[i].manaPoints.ToString(), ui.partyDisplay[i].transform.position, Color.grey);
                 }
                 ui.notification.DisplayMessage("You feel a bit dizzy");
                 break;
@@ -130,6 +133,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minAtpMod += 0.02f;
                         hm.heroes[i].atpMod = hm.heroes[i].minAtpMod;
+                        ui.DisplayStatus(i, "ATP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
 
@@ -140,6 +144,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minDfpMod += 0.02f;
                         hm.heroes[i].dfpMod = hm.heroes[i].minDfpMod;
+                        ui.DisplayStatus(i, "DFP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
 
@@ -150,6 +155,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minMagMod += 0.02f;
                         hm.heroes[i].magMod = hm.heroes[i].minMagMod;
+                        ui.DisplayStatus(i, "MAG BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
 
@@ -160,6 +166,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minResMod += 0.02f;
                         hm.heroes[i].resMod = hm.heroes[i].minResMod;
+                        ui.DisplayStatus(i, "RES BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
 
@@ -170,6 +177,7 @@ public class MysteryNode : MapObject
                     {
                         hm.heroes[i].minSpdMod += 0.02f;
                         hm.heroes[i].spdMod = hm.heroes[i].minSpdMod;
+                        ui.DisplayStatus(i, "SPD BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
 
@@ -181,6 +189,7 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minHpMod += 0.02f;
                         hm.heroes[i].hpMod = hm.heroes[i].minHpMod;
                         ui.partyDisplay[i].UpdateUI();
+                        ui.DisplayStatus(i, "HP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
 
@@ -192,6 +201,7 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minMpMod += 0.02f;
                         hm.heroes[i].mpMod = hm.heroes[i].minMpMod;
                         ui.partyDisplay[i].UpdateUI();
+                        ui.DisplayStatus(i, "MP BOOST", ui.partyDisplay[i].transform.position, Color.white);
                     }
                 }
                                             
