@@ -1485,17 +1485,9 @@ PrefabInstance:
       propertyPath: cameraFollow
       value: 
       objectReference: {fileID: 519420030}
-    - target: {fileID: 4773456199675260883, guid: 185a7543984849e49bc31038c95b1142, type: 3}
-      propertyPath: mysteryPrefab
-      value: 
-      objectReference: {fileID: 2624978055570270, guid: fa76b6f0293baec4196aa15308cb3fb9, type: 3}
     - target: {fileID: 8909469364804098306, guid: 185a7543984849e49bc31038c95b1142, type: 3}
       propertyPath: m_Name
       value: Dungeon
-      objectReference: {fileID: 0}
-    - target: {fileID: 8909469364804098306, guid: 185a7543984849e49bc31038c95b1142, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185a7543984849e49bc31038c95b1142, type: 3}

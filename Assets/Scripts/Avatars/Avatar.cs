@@ -89,9 +89,9 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public void RestoreHitPoints(Avatar target, float amount, float delayDuration = 0)
     {
         target.hitPoints += amount;
-        if (target.hitPoints > target.maxHitPoints)
+        if (target.hitPoints > target.maxHitPoints * target.hpMod)
         {
-            target.hitPoints = target.maxHitPoints;
+            target.hitPoints = target.maxHitPoints * target.hpMod;
         }
 
         GameManager gm = GameManager.instance;
@@ -123,8 +123,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     {
         UI ui = UI.instance;
 
-        string avatarStats = className + "\nATP " + atp + "\nDFP " + dfp + "\nMAG " + mag + "\nRES " + res + "\nSPD "
-            + spd + "\n\nSTATUS\n" + status;
+        string avatarStats = className + "\nATP " + atp * atpMod + "\nDFP " + dfp * dfpMod + "\nMAG " + mag * magMod + "\nRES "
+        + res * resMod + "\nSPD " + spd * spdMod + "\n\nSTATUS\n" + status;
         
         string skillSet = "SKILLS\n";
 
