@@ -67,8 +67,8 @@ public class Hide : Skill
         if (user.TryGetComponent(out Hero hero))
             hero.landedOnCritPanel = landedOnCritPanel;
        
-        user.resMod = 1;
-        user.dfpMod = 1;
+        user.resMod = user.minResMod;
+        user.dfpMod = user.minDfpMod;
         ui.DisplayStatusUpdate("HIDE REMOVED", user.transform.position);
     }
 }

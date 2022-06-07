@@ -10,9 +10,9 @@ public class HeavyWind : Skill
     {
         base.Activate(target, borderColor);
         
-        if (target.spdMod > 0.5f)
+        if (target.spdMod > target.minSpdMod - 0.5f)
         {
-            target.spdMod = 0.5f;
+            target.spdMod = target.minSpdMod - 0.5f;
 
             if (!target.skillEffects.Contains(this))
             {
@@ -29,7 +29,7 @@ public class HeavyWind : Skill
 
     public override void RemoveEffects(Avatar target)
     {
-        target.spdMod = 1;
+        target.spdMod = target.minSpdMod;
         ui.DisplayStatusUpdate("SPD DEBUFF END", target.transform.position);
     }
 }

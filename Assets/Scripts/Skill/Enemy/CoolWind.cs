@@ -10,9 +10,9 @@ public class CoolWind : Skill
     {
         base.Activate(target, borderColor);
         
-        if (target.spdMod < 1.5f)
+        if (target.spdMod < target.minSpdMod + 0.5f)
         {
-            target.spdMod = 1.5f;
+            target.spdMod = target.minSpdMod + 0.5f;
 
             if (!target.skillEffects.Contains(this))
             {
@@ -29,7 +29,7 @@ public class CoolWind : Skill
 
     public override void RemoveEffects(Avatar target)
     {
-        target.spdMod = 1;
+        target.spdMod = target.minSpdMod;
         ui.DisplayStatusUpdate("SPD BUFF END", target.transform.position);
     }
 }

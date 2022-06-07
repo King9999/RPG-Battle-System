@@ -61,8 +61,8 @@ public class Berserk : Skill
                 
             }
 
-            user.atpMod += atpValue;
-            user.dfpMod -= dfpValue;
+            user.atpMod = user.minAtpMod + atpValue;
+            user.dfpMod = user.minDfpMod - dfpValue;
             user.status = Avatar.Status.Berserk;
             durationLeft = turnDuration;
             
@@ -75,8 +75,8 @@ public class Berserk : Skill
 
     public override void RemoveEffects(Avatar user)
     {
-        user.atpMod = 1;
-        user.dfpMod = 1;
+        user.atpMod = user.minAtpMod;
+        user.dfpMod = user.minDfpMod;
         user.status = Avatar.Status.Normal;
         ui.DisplayStatusUpdate("BERSERK END", user.transform.position);
     }

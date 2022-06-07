@@ -4,26 +4,31 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Enemy Skill/Venom Bite", fileName = "skill_venombite")]
 public class VenomBite : Skill
 {
-    float hitChance = 0.3f;
+    
    public override void Activate(Avatar user, Avatar target, Color borderColor)
    {
        base.Activate(user, target, borderColor);
         //target receives damage
+        user.Attack(target);
 
         //poison check
-        if (target.resistPoison == false)
+        float hitChance = user.spd * 2;
+        if (!target.resistPoison)
         {
-            float rollValue = Random.Range(0, 1f);
-            hitChance -= (target.spd / 500);
-            if (rollValue <= hitChance)
+            float finalResult = (hitChance - target.spd) / 100;
+            if (Random.value <= finalResult)
             {
-                Debug.Log("Poisoned");
+                ui.DisplayStatusUpdate("POISONED", target.transform.position);
                 target.status = Avatar.Status.Poisoned;
             }
             else
             {
-                Debug.Log("Miss");
+                ui.DisplayStatusUpdate("MISS", target.transform.position);
             }
+        }
+        else
+        {
+            ui.DisplayStatusUpdate("POISON RESIST", target.transform.position);
         }
    }
 }

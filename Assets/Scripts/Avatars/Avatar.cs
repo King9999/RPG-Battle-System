@@ -36,6 +36,13 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public float spdMod = 1;
     public float magMod = 1;
     public float resMod = 1;
+    public float minDfpMod {get; set;} = 1;      //minimum mods are affected by mystery nodes.
+    public float minAtpMod {get; set;} = 1;
+    public float minSpdMod {get; set;} = 1;
+    public float minMagMod {get; set;} = 1;
+    public float minResMod {get; set;} = 1;
+    public float minHpMod {get; set;} = 1;
+    public float minMpMod {get; set;} = 1;
 
     //coroutine check
     protected bool animateAttackCoroutineOn;
