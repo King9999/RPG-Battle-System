@@ -24,11 +24,13 @@ public class Dungeon : MonoBehaviour
     public MapEnemy enemyPrefab;
     public Stairs stairsPrefab;
     public TreasureChest chestPrefab;
+    public MysteryNode mysteryPrefab;
     public Stairs exit;
     public Player player;
     public List<MapEnemy> enemies;
     public List<MapEnemy> graveyard;    //defeated map enemies go in here
     public List<TreasureChest> chests;
+    public List<MysteryNode> mysteryNodes;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
     [SerializeField]float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 heroes by the time they reach level 5.
 
@@ -633,8 +635,8 @@ public class Dungeon : MonoBehaviour
         exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
 
         /****Create chests. It's possible for a dungeon to have no chests.****/
-        //int chestCount = Random.Range(0, nodes.Count / 4);
-        int chestCount = 1;
+        int chestCount = Random.Range(0, nodes.Count / 4);
+        //int chestCount = 1;
 
         if (chestCount <= 0)
         {
@@ -650,6 +652,8 @@ public class Dungeon : MonoBehaviour
         {
             TreasureChest chest;
             bool chestInstantiated = false;
+
+            //more chests are instantiated if there aren't enough
             if (i >= chests.Count)
             {
                 chest = Instantiate(chestPrefab);
@@ -697,6 +701,66 @@ public class Dungeon : MonoBehaviour
             {
                 chest.transform.SetParent(transform);
                 chests.Add(chest);
+            }
+
+        }
+
+        /****Mystery Nodes. Uses almost same code as treasure chests****/
+        //int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount);
+        int mysteryNodeCount = 1;
+
+        if (mysteryNodeCount <= 0)
+        {
+            //deactivate mystery nodes since none will appear in this dungeon
+            foreach(MysteryNode node in mysteryNodes)
+            {
+                node.ShowObject(false);
+                node.nodeID = -1;
+            }
+        }
+
+        for (int i = 0; i < mysteryNodeCount; i++)
+        {
+            MysteryNode mysteryNode;
+            bool nodeInstantiated = false;
+
+            if (i >= mysteryNodes.Count)
+            {
+                mysteryNode = Instantiate(mysteryPrefab);
+                nodeInstantiated = true;
+            }
+            else
+            {
+                mysteryNode = mysteryNodes[i];
+                mysteryNode.ShowObject(true);
+            }
+
+            //find a random node to occupy
+            int randRow;
+            int randCol;
+            Node node = null;
+            do
+            {
+                randRow = Random.Range(0, mapHeight);
+                randCol = Random.Range(0, mapWidth);
+                
+                foreach(Node n in nodes)
+                {
+                    if (n.row == randRow && n.col == randCol)
+                    {
+                        node = n;
+                        break;
+                    }
+                }
+            }
+            while (mapArray[randCol, randRow] == false || node.isOccupied);
+                 
+            mysteryNode.PlaceObject(randCol, randRow);
+            
+            if (nodeInstantiated)
+            {
+                mysteryNode.transform.SetParent(transform);
+                mysteryNodes.Add(mysteryNode);
             }
 
         }
