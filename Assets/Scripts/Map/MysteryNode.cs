@@ -33,7 +33,7 @@ public class MysteryNode : MapObject
                 //get random effect. Put code here
                 int randEffect = Random.Range(0, (int)NodeEffects.End);
                 //GetRandomEffect((NodeEffects)randEffect);
-                GetRandomEffect(NodeEffects.AddMoreEnemies);
+                GetRandomEffect(NodeEffects.RestockChests);
 
                 ShowObject(false);
             }  
@@ -113,6 +113,18 @@ public class MysteryNode : MapObject
             case NodeEffects.RestockChests:
                 //any open chests are restocked. The items are from a loot table 1 level higher than current.
                 //chests have to be enabled for this effect to work.
+                dungeon = Dungeon.instance;
+                int chestCount = dungeon.chests.Count;
+
+                int tableLevel;
+                if (dungeon.dungeonLevel <= 5)
+                    tableLevel = 0;
+                else if (dungeon.dungeonLevel <= 10)
+                    tableLevel = 1;
+                else
+                    tableLevel = 2;
+
+                dungeon.GenerateChests(chestCount, tableLevel, mysteryNodeInEffect: true);
                 ui.notification.DisplayMessage("Restocked");
                 break;
 

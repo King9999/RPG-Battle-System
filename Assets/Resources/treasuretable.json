@@ -11,7 +11,22 @@
 				{"itemType":0, "itemName":"Staff", "chance": 0.3},
 				{"itemType":1, "itemName":"Undershirt", "chance": 0.4},
 				{"itemType":2, "itemName":"Herb", "chance": 1}
-			]	
+			]
+				
+		},
+
+		{
+			"tableLevel": 1,
+			"tableItems":
+			[
+				{"itemType":3, "itemName":"Leather Band", "chance": 0.05},
+				{"itemType":0, "itemName":"Bow", "chance": 0.125},
+				{"itemType":1, "itemName":"Vest", "chance": 0.2},
+				{"itemType":1, "itemName":"Robe", "chance": 0.3},
+				{"itemType":0, "itemName":"Staff", "chance": 0.4},
+				{"itemType":1, "itemName":"Undershirt", "chance": 1}
+			]
+				
 		}
 		
 	]
