@@ -44,7 +44,7 @@ public class Dungeon : MonoBehaviour
     public int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
     int nodeID;
-    int dungeonLevel;
+    public int dungeonLevel {get; set;}
 
     public static Dungeon instance;
 
@@ -821,8 +821,10 @@ public class Dungeon : MonoBehaviour
         }
 
         /****create enemy. The number of enemies is (total nodes / 4)****/
+
         int enemyCount = nodes.Count / 4;
-        int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
+        GenerateEnemies(enemyCount);
+        /*int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
         bool forcedMajorEnemy = false;
         
         for (int i = 0; i < enemyCount; i++)
@@ -958,9 +960,151 @@ public class Dungeon : MonoBehaviour
                 enemy.transform.SetParent(transform);
                 enemies.Add(enemy);
             }
-        } 
-        
+        }*/ 
+    
+    }
 
+    public void GenerateEnemies(int enemyCount, bool generateMajorEnemy = false)
+    {
+        //int enemyCount = nodes.Count / 4;
+        int majorEnemyCount = enemyCount < 4 ? 0 : enemyCount / 4;
+        bool forcedMajorEnemy = false;
+        
+        for (int i = 0; i < enemyCount; i++)
+        {
+            //check graveyard for any enemies to re-use
+            MapEnemy enemy;
+            bool enemyInstantiated = false;
+            if (graveyard.Count > 0)
+            {
+                enemy = graveyard[graveyard.Count - 1]; //I add from the end so I don't have to mess with i, and all map enemies are the same
+                enemy.ResetEnemy();
+                enemies.Add(enemy);
+                graveyard.Remove(enemy);
+
+                //reset alpha in case it was changed previously.
+                enemy.SetAlpha(1);
+            }
+            else
+            {
+                enemy = Instantiate(enemyPrefab);
+                enemyInstantiated = true;
+            }
+
+            //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
+            if (generateMajorEnemy || majorEnemyCount > 0 || (dungeonLevel == 5 && !forcedMajorEnemy))
+            {
+                if (Random.value <= 0.3f || generateMajorEnemy || (dungeonLevel == 5 && !forcedMajorEnemy))
+                {
+                    //SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
+                    //sr.sprite = enemy.majorEnemySprite;
+                    enemy.SetSprite(enemy.majorEnemySprite);
+                    //TODO: have a separate array in Enemy Manager for major enemies and pick one.
+
+                    if (majorEnemyCount > 0) majorEnemyCount--;
+                }
+            }
+
+            //find a random node to occupy
+            if ((dungeonLevel == 5 && !forcedMajorEnemy) || generateMajorEnemy)
+            {
+                //place a forced major enemy to introduce players to shield tokens.
+                //forcedMajorEnemy = true;
+                enemy.PlaceObject(exit.col, exit.row);
+            }
+            else
+            {
+                int randRow;
+                int randCol;
+                Node node = null;
+
+                do
+                {
+                    randRow = Random.Range(0, mapHeight);
+                    randCol = Random.Range(0, mapWidth);
+                    
+                    foreach(Node n in nodes)
+                    {
+                        if (n.row == randRow && n.col == randCol)
+                        {
+                            node = n;
+                            break;
+                        }
+                    }
+                }
+                while (mapArray[randCol, randRow] == false || node.isOccupied);
+                enemy.PlaceObject(randCol, randRow);
+            }
+
+            //generate encounters
+            int tableLevel;
+            if (dungeonLevel <= 5)
+                tableLevel = 0;
+            else if (dungeonLevel <= 10)
+                tableLevel = 1;
+            else
+                tableLevel = 2;
+            
+            if ((dungeonLevel == 5 && !forcedMajorEnemy) || generateMajorEnemy)
+            {
+                forcedMajorEnemy = true;
+                generateMajorEnemy = false;
+                enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
+            }
+            else
+            {
+                //enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
+                enemy.AddEncounter(tableLevel);
+            }
+
+            //set turns. if the enemy is standing over a chest, stairs, or captive, they will not move.
+            //exit check
+            if (!exit.occupiedByEnemy && enemy.nodeID == exit.nodeID)
+            {
+                enemy.isStationary = true;
+                //enemy becomes semi-transparent so player can see what's being guarded
+                enemy.SetAlpha(0.6f);
+                exit.occupiedByEnemy = true;
+            }
+
+            //chest check
+            foreach(TreasureChest chest in chests)
+            {
+                if (!chest.occupiedByEnemy && enemy.nodeID == chest.nodeID)
+                {
+                    enemy.isStationary = true;
+                    chest.occupiedByEnemy = true;
+                    //enemy becomes semi-transparent so player can see what's being guarded
+                    enemy.SetAlpha(0.6f);
+                    break;
+                }
+            }
+
+            //captive check
+            foreach(Captive captive in captiveHeroes)
+            {
+                if (captive.gameObject.activeSelf && enemy.nodeID == captive.nodeID)
+                {
+                    enemy.isStationary = true;
+                    captive.occupiedByEnemy = true;
+                    //enemy becomes semi-transparent so player can see what's being guarded
+                    enemy.SetAlpha(0.6f);
+                    break;
+                }
+            }
+
+            if (!enemy.isStationary)
+            {
+                int randTurn = Random.Range(enemy.defaultTurnCount, enemy.defaultTurnCount + 2);
+                enemy.SetTurnCounter(randTurn);
+            }
+
+            if (enemyInstantiated)
+            {
+                enemy.transform.SetParent(transform);
+                enemies.Add(enemy);
+            }
+        }
     }
 
 }

@@ -33,7 +33,7 @@ public class MysteryNode : MapObject
                 //get random effect. Put code here
                 int randEffect = Random.Range(0, (int)NodeEffects.End);
                 //GetRandomEffect((NodeEffects)randEffect);
-                GetRandomEffect(NodeEffects.GlobalStatBuff);
+                GetRandomEffect(NodeEffects.AddMoreEnemies);
 
                 ShowObject(false);
             }  
@@ -93,8 +93,21 @@ public class MysteryNode : MapObject
                 break;
 
             case NodeEffects.AddMoreEnemies:
-                //add a random number of enemies, with a chance of adding a major enemy
-                ui.notification.DisplayMessage("Here come reinforcements");
+                //add a random number of enemies, with a chance of adding a major enemy. This effect only occurs after the 5th level.
+                Dungeon dungeon = Dungeon.instance;
+                if (dungeon.dungeonLevel > 5)
+                {
+                    int enemyCount = Random.Range(1, (dungeon.nodes.Count / 4) + 1);
+
+                    if (Random.value <= 0.5f)
+                        dungeon.GenerateEnemies(enemyCount, generateMajorEnemy: true);
+                    else
+                        dungeon.GenerateEnemies(enemyCount);
+                
+                    ui.notification.DisplayMessage("Here come reinforcements");
+                }
+                else
+                    ui.notification.DisplayMessage("No reinforcements...");  
                 break;
 
             case NodeEffects.RestockChests:
@@ -108,7 +121,7 @@ public class MysteryNode : MapObject
                 {
                     hm.heroes[i].hitPoints = Mathf.Round(hm.heroes[i].maxHitPoints * hm.heroes[i].hpMod);
                     ui.partyDisplay[i].UpdateUI();
-                    ui.DisplayStatus(i, hm.heroes[i].hitPoints.ToString(), ui.partyDisplay[i].transform.position, ui.healColor);
+                    ui.DisplayStatus(i, hm.heroes[i].hitPoints.ToString(), ui.partyDisplay[i].heroSprite.transform.position, ui.healColor);
                 }
                 ui.notification.DisplayMessage("A rejuvenating breeze");
                 break;
@@ -118,7 +131,7 @@ public class MysteryNode : MapObject
                 {
                     hm.heroes[i].manaPoints = Mathf.Round(hm.heroes[i].manaPoints * 0.5f);
                     ui.partyDisplay[i].UpdateUI();
-                    ui.DisplayStatus(i, hm.heroes[i].manaPoints.ToString(), ui.partyDisplay[i].transform.position, Color.grey);
+                    ui.DisplayStatus(i, hm.heroes[i].manaPoints.ToString(), ui.partyDisplay[i].heroSprite.transform.position, Color.grey);
                 }
                 ui.notification.DisplayMessage("You feel a bit dizzy");
                 break;
