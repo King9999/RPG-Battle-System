@@ -998,7 +998,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce4781a6bbf1d04f95eee86e9daa905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroInfo: 
+  heroInfo: '<color=green>Cleric</color>
+
+    Provides support and healing to the
+    party. Difficult to kill due to high defense.
+
+    <color=green>+</color> High
+    DFP, best support magic
+
+    <color=red>-</color> Low SPD'
 --- !u!1 &1760005191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,7 +1372,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce4781a6bbf1d04f95eee86e9daa905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroInfo: 
+  heroInfo: '<color=green>Mage</color>
+
+    Has a variety of offensive magic and
+    some utility spells
+
+    <color=green>+</color> High MP, MAG and RES
+
+    <color=red>-</color>
+    All other stats low'
 --- !u!1 &2036125917
 GameObject:
   m_ObjectHideFlags: 0
