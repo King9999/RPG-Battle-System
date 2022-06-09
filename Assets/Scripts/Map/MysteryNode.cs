@@ -32,8 +32,8 @@ public class MysteryNode : MapObject
 
                 //get random effect. Put code here
                 int randEffect = Random.Range(0, (int)NodeEffects.End);
-                //GetRandomEffect((NodeEffects)randEffect);
-                GetRandomEffect(NodeEffects.RestockChests);
+                GetRandomEffect((NodeEffects)randEffect);
+                //GetRandomEffect(NodeEffects.RestockChests);
 
                 ShowObject(false);
             }  

@@ -649,8 +649,8 @@ public class Dungeon : MonoBehaviour
         
 
         /****Mystery Nodes. Uses almost same code as treasure chests****/
-        //int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount);
-        int mysteryNodeCount = 1;
+        int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount);
+        //int mysteryNodeCount = 1;
 
         if (mysteryNodeCount <= 0)
         {
