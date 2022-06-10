@@ -40,6 +40,11 @@ public class HeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnHeroClicked()
     {
         //record which hero was selected and move to game screen.
+        Dungeon dungeon = Dungeon.instance;
+        HeroManager hm = HeroManager.instance;
+
+        
+
         SceneManager.LoadScene("Game");
     }
 }
