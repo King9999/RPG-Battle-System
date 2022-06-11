@@ -78,6 +78,8 @@ public class Weapon : Item
     //FOR STAVES ONLY. Staves come with a random skill that is acquired every time a staff weapon is generated.
     public void GenerateSkill()
     {
+        if (weaponType != WeaponType.Staff) return;
+        
         int randSkill = Random.Range(0, staffSkills.Length);
         weaponSkill = staffSkills[randSkill];
     }

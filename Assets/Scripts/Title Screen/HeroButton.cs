@@ -2,25 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 //This script will let the player click on a hero to choose them for the game. Hovering over the hero will give details.
 public class HeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [TextArea]public string heroInfo;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //public enum HeroClass {Barbarian, Rogue, Mage, Cleric}
+    //public HeroClass heroClass;
+    public Hero heroPrefab;
+    public HeroData heroData;
 
     public void OnPointerEnter(PointerEventData pointer)
     {
@@ -40,9 +32,12 @@ public class HeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnHeroClicked()
     {
         //record which hero was selected and move to game screen.
-        Dungeon dungeon = Dungeon.instance;
-        HeroManager hm = HeroManager.instance;
-
+        TitleManager tm = TitleManager.instance;
+        tm.selectedHeroSprite = GetComponent<Image>().sprite;
+        
+        //Hero hero = Instantiate(heroPrefab);
+        //hero.GetData(heroData);
+        tm.selectedHeroData = heroData;
         
 
         SceneManager.LoadScene("Game");

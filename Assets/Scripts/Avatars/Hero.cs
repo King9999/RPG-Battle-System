@@ -65,9 +65,9 @@ public class Hero : Avatar
         bowOK = data.bowOK;
         staffOK = data.staffOK;
         currentXp = 0;
-        weapon = data.weapon;
-        armor = data.armor;
-        trinket = data.trinket;
+        //weapon = data.weapon;
+        //armor = data.armor;
+        //trinket = data.trinket;
         attackTokenMod = data.attackTokenMod;
     
 
@@ -91,12 +91,21 @@ public class Hero : Avatar
             level = data.MaxLevel;
 
          //equip check
-        if (weapon != null)      
-            weapon.Equip(hero: this);
-        if (armor != null)
-            armor.Equip(hero: this);
-        if (trinket != null)
-            trinket.Equip(hero: this);
+        if (data.weapon != null)
+        {
+            //if we have a staff, we must first generate a skill for it
+            if (data.weapon.weaponType == Weapon.WeaponType.Staff)
+            {
+                data.weapon.GenerateSkill();
+            }
+
+            data.weapon.Equip(hero: this);
+        }      
+            
+        if (data.armor != null)
+            data.armor.Equip(hero: this);
+        if (data.trinket != null)
+            data.trinket.Equip(hero: this);
 
         actionCompleted = true;     //not sure what this is for
 

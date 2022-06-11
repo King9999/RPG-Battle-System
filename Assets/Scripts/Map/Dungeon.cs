@@ -608,16 +608,15 @@ public class Dungeon : MonoBehaviour
         HeroManager hm = HeroManager.instance;
         if (player == null)
         {
-            hm.AddHero(hm.heroData[hm.rogueData]);
+            TitleManager tm = TitleManager.instance;
+            hm.AddHero(tm.selectedHeroData);
             player = Instantiate(playerPrefab);
-            player.SetSprite(player.rogueSprite);        //TODO: this must change to whatever player picked at the beginning
+            player.SetSprite(tm.selectedHeroSprite);        //This should be whichever Hero the player picked at the beginning
             player.transform.SetParent(transform);
             cameraFollow.objectTransform = player.transform;
             
-            //hm.heroes[0].GetData(hm.heroData[hm.rogueData]);
             ui.partyDisplay[0].hero = hm.heroes[0];
             ui.partyDisplay[0].SetSprite(player.mapSprite);
-            //ui.partyDisplay[0].heroID = hm.heroes.Count;
         }
         ui.partyDisplay[0].UpdateUI();
         player.PlaceObject(0, 0);
