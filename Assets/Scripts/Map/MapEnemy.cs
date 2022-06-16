@@ -8,7 +8,7 @@ public class MapEnemy : MapObject
 {
     public Sprite minorEnemySprite;
     public Sprite majorEnemySprite;
-    public Sprite bossSprite;
+    public bool isMajorEnemy;                       //if true, combat setup is slightly altered.
     public int turnsBeforeMoving;                   //how many times the player moves before this enemy moves. If this value is 0, the enemy always moves when player does.
     public int turnCounter;                         //the maximum number of turns before enemy moves.
     public bool isStationary {get; set;}            //if true, enemy does not move.
@@ -20,11 +20,11 @@ public class MapEnemy : MapObject
     public List<Enemy> encounters;              //the enemies the player will face in combat
 
     //combat against random enemies. The encountered enemies are determined from a table
-    public void InitiateCombat(bool majorEnemy = false)
+    public void InitiateCombat()
     {
         CombatSystem cs = CombatSystem.instance;
 
-        if (!majorEnemy)
+        if (!isMajorEnemy)
             cs.SetupCombat(encounters);
         else
             cs.SetupCombat(encounters, 0);
@@ -43,10 +43,10 @@ public class MapEnemy : MapObject
                     gm.SetCameraFollow(false);
                     //CombatSystem cs = CombatSystem.instance;
                     //cs.SetupCombat(encounters);
-                    if (mapSprite != majorEnemySprite)
+                    //if (mapSprite != majorEnemySprite)
                         InitiateCombat();
-                    else
-                        InitiateCombat(majorEnemy: true);
+                    //else
+                        //InitiateCombat(majorEnemy: true);
                 }
             }
 
@@ -186,6 +186,7 @@ public class MapEnemy : MapObject
     {
         encounters.Clear();
         isStationary = false;
+        isMajorEnemy = false;
         SetSprite(minorEnemySprite);
         gameObject.SetActive(true); 
     }

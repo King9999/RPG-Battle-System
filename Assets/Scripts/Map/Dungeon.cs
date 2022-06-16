@@ -800,6 +800,7 @@ public class Dungeon : MonoBehaviour
                 if (Random.value <= 0.3f || generateMajorEnemy || (dungeonLevel == 5 && !forcedMajorEnemy))
                 {
                     enemy.SetSprite(enemy.majorEnemySprite);
+                    enemy.isMajorEnemy = true;
                     //TODO: have a separate array in Enemy Manager for major enemies and pick one.
 
                     if (majorEnemyCount > 0) majorEnemyCount--;
