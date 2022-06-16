@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3414045531243256642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 7113077480256182377}
   m_Father: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 85d8a2a2a42ee65409ff7ea3e32f3804, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61e93d99fdc117247a60f2a7955fffdd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -97,17 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526fc57a30e9152408aeb3a56622580a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  hitPoints: 0
-  maxHitPoints: 0
+  className: Wind Dancer
+  details: Supports their allies by increasing SPD or decreasing hero SPD
+  hitPoints: 200
+  maxHitPoints: 200
   manaPoints: 0
   maxManaPoints: 0
-  atp: 0
-  dfp: 0
-  spd: 0
-  mag: 0
-  res: 0
+  atp: 24
+  dfp: 8
+  spd: 15
+  mag: 12
+  res: 9
   statsUI: {fileID: 6924206970850360802}
   auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
   hpMod: 1
@@ -117,19 +117,24 @@ MonoBehaviour:
   spdMod: 1
   magMod: 1
   resMod: 1
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: 9f6412b8d53be0544a5fa2696af84c93, type: 2}
+  - {fileID: 11400000, guid: c5c5788222915804d8435b8cab71cde0, type: 2}
+  skillEffects: []
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
+  resistDeath: 0
   status: 0
   data: {fileID: 11400000, guid: 403024b3c5efa744ea54c7cd2b9fdc66, type: 2}
   shieldTokens: 0
   maxShieldTokens: 0
   shields: []
   shieldPrefab: {fileID: 0}
-  xp: 0
-  money: 0
+  enemyID: 3
+  xp: 65
+  money: 30
   commonItemDrop: {fileID: 0}
   rareItemDrop: {fileID: 0}
   commonItemDropChance: 0

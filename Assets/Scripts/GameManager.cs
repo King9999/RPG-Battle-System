@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         }
 
         instance = this;
-        Screen.SetResolution(1280, 720, FullScreenMode.Windowed);
+
     }
 
     // Start is called before the first frame update

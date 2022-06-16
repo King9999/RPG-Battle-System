@@ -250,7 +250,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: da844c43513102349832d9458111863f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0bd90bf1685b0864fb594d103ecd6850, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -295,16 +295,19 @@ MonoBehaviour:
   resMod: 1
   skills:
   - {fileID: 11400000, guid: fcf0d80b12249b84fbf7acbb16075b38, type: 2}
+  skillEffects: []
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
+  resistDeath: 0
   status: 0
   data: {fileID: 11400000, guid: d563aaa613d7ad74b8c9d965a860a836, type: 2}
   shieldTokens: 0
   maxShieldTokens: 0
   shields: []
   shieldPrefab: {fileID: 0}
+  enemyID: 0
   xp: 0
   money: 0
   commonItemDrop: {fileID: 0}

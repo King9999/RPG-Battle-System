@@ -204,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 7456213498400394794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.07, y: -1.43, z: -1.1688167}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 265823565291587982}
   m_Father: {fileID: 0}
@@ -250,7 +250,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7717594cf5b1c8d45a23e7be55cd0810, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c51c065a00680345a17273dbd92b2f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -287,15 +287,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2e8142402ee8c40844349be85b9c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  hitPoints: 0
-  maxHitPoints: 0
+  className: Golem
+  details: Slow but powerful magically animated creature
+  hitPoints: 800
+  maxHitPoints: 800
   manaPoints: 0
   maxManaPoints: 0
-  atp: 0
-  dfp: 0
-  spd: 0
+  atp: 55
+  dfp: 30
+  spd: 4
   mag: 0
   res: 0
   statsUI: {fileID: 2383443864807850215}
@@ -309,23 +309,26 @@ MonoBehaviour:
   resMod: 1
   skills:
   - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
+  - {fileID: 11400000, guid: 0793a0b18698fb942b81980dc2161d95, type: 2}
+  skillEffects: []
   resistPoison: 1
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
+  resistDeath: 0
   status: 0
   data: {fileID: 11400000, guid: 1c7d9f4c98f35564591876eab718ea3e, type: 2}
-  shieldTokens: 0
-  maxShieldTokens: 0
+  shieldTokens: 1
+  maxShieldTokens: 1
   shields: []
   shieldPrefab: {fileID: 343450292, guid: 8ff6a420ca10f654eb00509b4089f670, type: 3}
-  shieldCanvas: {fileID: 2773634817185007698, guid: e2a030d6e8d00fb46b949773cb141ae3, type: 3}
-  xp: 0
-  money: 0
+  enemyID: 2
+  xp: 800
+  money: 500
   commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
   commonItemDropChance: 0
-  rareItemDropChance: 0
+  rareItemDropChance: 1
   currentShieldTokenIndex: 
   currentShieldTokenSize: []
   shieldTokenDirection: 

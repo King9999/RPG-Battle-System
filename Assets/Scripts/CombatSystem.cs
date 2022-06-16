@@ -66,7 +66,7 @@ public class CombatSystem : MonoBehaviour
     }
 
 
-    public void SetupCombat(List<Enemy> enemies)
+    public void SetupCombat(List<Enemy> enemies, int enemyPosition = -1)
     {
         hm = HeroManager.instance;
         em = EnemyManager.instance;
@@ -158,16 +158,30 @@ public class CombatSystem : MonoBehaviour
             hero.UpdateStatsUI();
         }
 
-        foreach (Enemy enemy in enemiesInCombat)
+        if (enemyPosition < 0)
         {
-            int randIndex = Random.Range(0, enemyLocationOccupied.Length);
-
-            while(enemyLocationOccupied[randIndex] == true)
+            foreach (Enemy enemy in enemiesInCombat)
             {
-                randIndex = Random.Range(0, enemyLocationOccupied.Length);
+                int randIndex = Random.Range(0, enemyLocationOccupied.Length);
+
+                while(enemyLocationOccupied[randIndex] == true)
+                {
+                    randIndex = Random.Range(0, enemyLocationOccupied.Length);
+                }
+                enemy.transform.position = enemyLocations[randIndex].position;
+                enemyLocationOccupied[randIndex] = true;
+
+                turnOrder.Add(enemy);
+
+                //UI setup
+                enemy.GetComponent<ClampText>().UpdateUIPosition();
+                enemy.UpdateStatsUI();
             }
-            enemy.transform.position = enemyLocations[randIndex].position;
-            enemyLocationOccupied[randIndex] = true;
+        }
+        else //There's only 1 enemy, and they are placed in a specific location
+        {
+            Enemy enemy = enemiesInCombat[0];
+            enemy.transform.position = enemyLocations[enemyPosition].position;
 
             turnOrder.Add(enemy);
 

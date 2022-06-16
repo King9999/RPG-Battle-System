@@ -20,10 +20,14 @@ public class MapEnemy : MapObject
     public List<Enemy> encounters;              //the enemies the player will face in combat
 
     //combat against random enemies. The encountered enemies are determined from a table
-    public void InitiateCombat()
+    public void InitiateCombat(bool majorEnemy = false)
     {
         CombatSystem cs = CombatSystem.instance;
-        cs.SetupCombat(encounters);
+
+        if (!majorEnemy)
+            cs.SetupCombat(encounters);
+        else
+            cs.SetupCombat(encounters, 0);
     }
 
     void Update()
@@ -37,8 +41,12 @@ public class MapEnemy : MapObject
                 {
                     //we must temporarily disable camera follow so combatants are displayed properly.
                     gm.SetCameraFollow(false);
-                    CombatSystem cs = CombatSystem.instance;
-                    cs.SetupCombat(encounters);
+                    //CombatSystem cs = CombatSystem.instance;
+                    //cs.SetupCombat(encounters);
+                    if (mapSprite != majorEnemySprite)
+                        InitiateCombat();
+                    else
+                        InitiateCombat(majorEnemy: true);
                 }
             }
 

@@ -23,5 +23,9 @@ public class TitleManager : MonoBehaviour
         }
 
         instance = this;
+        #if UNITY_EDITOR_WIN
+            Debug.Log("Screen test");
+            Screen.SetResolution(1280, 720, FullScreenMode.Windowed);
+        #endif
     }
 }
