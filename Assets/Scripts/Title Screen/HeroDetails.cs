@@ -21,6 +21,11 @@ public class HeroDetails : MonoBehaviour
         instance = this;
     }
 
+    void Start()
+    {
+        ShowWindow(false);
+    }
+
     // Update is called once per frame
     void Update()
     {

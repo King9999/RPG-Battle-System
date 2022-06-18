@@ -999,10 +999,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6044994061025685280, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 32
-      objectReference: {fileID: 0}
     - target: {fileID: 6044994061025685281, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
       propertyPath: border
       value: 
@@ -1099,18 +1095,6 @@ PrefabInstance:
       propertyPath: inv
       value: 
       objectReference: {fileID: 697741766}
-    - target: {fileID: 6044994062240538293, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6044994062240538293, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6044994062240538293, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -152
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
 --- !u!1001 &6144532497454986556
