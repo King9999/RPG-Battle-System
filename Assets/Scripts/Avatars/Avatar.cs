@@ -239,7 +239,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     public void UpdateStatsUI()
     {
-        statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + maxHitPoints + "\n" + "<color=#4be4fc>MP</color> " + manaPoints + "/" + maxManaPoints;
+        statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + Mathf.Round(maxHitPoints * hpMod) + "\n" 
+        + "<color=#4be4fc>MP</color> " + manaPoints + "/" + Mathf.Round(maxManaPoints * mpMod);
     }
 
     //used to update stats in case stats mods have changed.
@@ -255,6 +256,10 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         
         maxHitPoints = Mathf.Round(maxHitPoints * hpMod);
         maxManaPoints = Mathf.Round(maxManaPoints * mpMod);
+
+        hitPoints = hitPoints > maxHitPoints ? maxHitPoints : hitPoints;
+        manaPoints = manaPoints > maxManaPoints ? maxManaPoints : manaPoints;
+
         atp = Mathf.Round(atp * atpMod);
         dfp = Mathf.Round(dfp * dfpMod);
         mag = Mathf.Round(mag * magMod);

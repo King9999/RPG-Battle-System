@@ -90,6 +90,7 @@ public class Hero : Avatar
         if (level > data.MaxLevel)
             level = data.MaxLevel;
 
+
          //equip check
         if (data.weapon != null)
         {
@@ -769,12 +770,6 @@ public class Hero : Avatar
     //reset certain values after combat.
     public void ResetData()
     {
-        /*atpMod = minAtpMod;
-        dfpMod = minDfpMod;
-        spdMod = minSpdMod;
-        magMod = minMagMod;
-        resMod = minResMod;*/
-
         UpdateStats();
 
         animateAttackCoroutineOn = false;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -24,12 +22,6 @@ public class HeroDetails : MonoBehaviour
     void Start()
     {
         ShowWindow(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ShowWindow(bool toggle)

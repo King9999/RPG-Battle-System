@@ -87,6 +87,7 @@ public class BonusSystem : MonoBehaviour
             case BonusValue.RareDropBonus:
                 ui.bonusListUI.text += "100% Rare Item Drop\n";
                 rareDropMod = 1;        //this is subtracted from the roll when checking for loot
+                bonusValues.Remove(bonus);
                 break;
 
             case BonusValue.EnemyBuffsRemoved:
@@ -232,11 +233,11 @@ public class BonusSystem : MonoBehaviour
     
         foreach(Hero hero in cs.heroesInCombat)
         {
-            hero.atpMod = 1;
-            hero.dfpMod = 1;
-            hero.spdMod = 1;
-            hero.magMod = 1;
-            hero.resMod = 1;
+            hero.atpMod = hero.minAtpMod;
+            hero.dfpMod = hero.minDfpMod;
+            hero.spdMod = hero.minSpdMod;
+            hero.magMod = hero.minMagMod;
+            hero.resMod = hero.minResMod;
         }  
     }
 }

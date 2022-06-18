@@ -69,7 +69,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
 
-            if (skill.targetType == Skill.Target.AllEnemies)
+            else if (skill.targetType == Skill.Target.AllEnemies)
             {
                 cs.selectingTargetToAttackWithSkill = true;
                 ui.selectTargetUI.text = "Click any target to confirm";
@@ -82,7 +82,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
 
-            if (skill.targetType == Skill.Target.Self)
+            else if (skill.targetType == Skill.Target.Self)
             {
                 cs.selectingHeroToUseSkillOn = true;
                 ui.selectTargetUI.text = "Click skill user to confirm";
@@ -95,7 +95,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 menu.menuState = CombatMenu.MenuState.SelectingSkillTarget;
             }
 
-            if (skill.targetType == Skill.Target.OneHero)
+            else if (skill.targetType == Skill.Target.OneHero)
             {
                 cs.selectingHeroToUseSkillOn = true;
                 ui.selectTargetUI.text = "Choose a hero";

@@ -25,7 +25,14 @@ public class HealingLight : Skill
                     break;
 
                 case ActionGauge.ActionValue.Critical:
-                    healAmount = (user.mag + power) * 1.5f;
+                    if (target.hpMod < target.minHpMod + 0.2f)
+                    {
+                        target.hpMod += 0.3f;
+                        //target.originalMaxHp = target.maxHitPoints;
+                        //target.maxHitPoints = Mathf.Round(target.maxHitPoints * target.hpMod);
+                    }
+                    //healAmount = (user.mag + power) * 1.5f;
+                    healAmount = user.mag + power;
                     healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));  
                     break;
                 

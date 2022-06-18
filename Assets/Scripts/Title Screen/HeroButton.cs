@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class HeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [TextArea]public string heroInfo;
-    //public enum HeroClass {Barbarian, Rogue, Mage, Cleric}
-    //public HeroClass heroClass;
     public Hero heroPrefab;
     public HeroData heroData;
 
@@ -35,8 +31,6 @@ public class HeroButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         TitleManager tm = TitleManager.instance;
         tm.selectedHeroSprite = GetComponent<Image>().sprite;
         
-        //Hero hero = Instantiate(heroPrefab);
-        //hero.GetData(heroData);
         tm.selectedHeroData = heroData;
         
 
