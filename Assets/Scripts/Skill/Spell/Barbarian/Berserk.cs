@@ -29,10 +29,14 @@ public class Berserk : Skill
                     dfpValue = 0.1f;
                     //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("MIN BERSERK", user.transform.position);
-                    if (!user.skillEffects.Contains(this))
+                    /*if (!user.skillEffects.ContainsKey(this))
                     {
-                        user.skillEffects.Add(this);
+                        user.skillEffects.Add(this, durationLeft);
                     }
+                    else
+                    {
+                        user.skillEffects[this] = durationLeft;
+                    }*/
                     break;
 
                 case ActionGauge.ActionValue.Normal:
@@ -40,10 +44,14 @@ public class Berserk : Skill
                     dfpValue = 0.3f;
                     //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("BERSERK", user.transform.position);
-                    if (!user.skillEffects.Contains(this))
+                    /*if (!user.skillEffects.ContainsKey(this))
                     {
-                        user.skillEffects.Add(this);
+                        user.skillEffects.Add(this, durationLeft);
                     }
+                    else
+                    {
+                        user.skillEffects[this] = durationLeft;
+                    }*/
                     break;
 
                 case ActionGauge.ActionValue.Critical:
@@ -51,10 +59,14 @@ public class Berserk : Skill
                     dfpValue = 0.7f;
                     //durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("MAX BERSERK", user.transform.position);
-                    if (!user.skillEffects.Contains(this))
+                    /*if (!user.skillEffects.ContainsKey(this))
                     {
-                        user.skillEffects.Add(this);
+                        user.skillEffects.Add(this, durationLeft);
                     }
+                    else
+                    {
+                        user.skillEffects[this] = durationLeft;
+                    }*/
                     break;
                 
             }
@@ -63,6 +75,14 @@ public class Berserk : Skill
             user.dfpMod = user.minDfpMod - dfpValue;
             user.status = Avatar.Status.Berserk;
             durationLeft = turnDuration;
+            if (!user.skillEffects.ContainsKey(this))
+            {
+                user.skillEffects.Add(this, durationLeft);
+            }
+            else
+            {
+                user.skillEffects[this] = durationLeft;
+            }
             
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))

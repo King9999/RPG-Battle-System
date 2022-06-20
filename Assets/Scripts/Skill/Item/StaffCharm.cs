@@ -16,9 +16,13 @@ public class StaffCharm : Skill
         {
             target.status = Avatar.Status.Charmed;
 
-            if (!target.skillEffects.Contains(this))
+            if (!target.skillEffects.ContainsKey(this))
             {
-                target.skillEffects.Add(this);
+                target.skillEffects.Add(this, durationLeft);
+            }
+            else
+            {
+                target.skillEffects[this] = durationLeft;
             }
         
             ui.DisplayStatusUpdate("CHARMED", target.transform.position);

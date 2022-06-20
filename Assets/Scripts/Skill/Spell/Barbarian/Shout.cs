@@ -40,7 +40,7 @@ public class Shout : Skill
                     break;
             }
 
-            string[] uiMessage = new string[targets.Count];
+            //string[] uiMessage = new string[targets.Count];
             Vector3[] targetPos = new Vector3[targets.Count];
             for (int i = 0; i < targets.Count; i++)
             {
@@ -49,14 +49,15 @@ public class Shout : Skill
                 if (Random.value <= newHitChance)
                 {
                     targets[i].status = Avatar.Status.Paralyzed;
-                    targets[i].skillEffects.Add(this);
-                    uiMessage[i] = "STUNNED";
+                    durationLeft = turnDuration;
+                    targets[i].skillEffects.Add(this, durationLeft);
+                    //uiMessage[i] = "STUNNED";
                     targetPos[i] = targets[i].transform.position;
                     ui.DisplayStatusUpdate(i, "STUNNED", targets[i].transform.position);
                 }
                 else
                 {
-                    uiMessage[i] = "MISS";
+                    //uiMessage[i] = "MISS";
                     targetPos[i] = targets[i].transform.position;
                     ui.DisplayStatusUpdate(i, "MISS", targets[i].transform.position);
                 } 

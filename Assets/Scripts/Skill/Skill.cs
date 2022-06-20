@@ -104,15 +104,20 @@ public abstract class Skill : ScriptableObject
         skillActivated = state;
     }
 
-    public void ReduceDuration()
+    public void ReduceDuration(Dictionary<Skill, int> skillEffects, Skill skill)
     {
         if (!hasDuration) return;
 
-        durationLeft--;
+        /*durationLeft--;
         if (durationLeft <= 0)
         {
             skillActivated = false;
-        }
+        }*/
+
+        skillEffects[skill]--;
+        Debug.Log(skill.skillName + " duration: " + skillEffects[skill]);
+        if (skillEffects[skill] <= 0)
+            skillActivated = false;
     }
 
     public void ReduceMp(Avatar user)
@@ -124,7 +129,11 @@ public abstract class Skill : ScriptableObject
 
     //only applies to skills with a duration
     public virtual void RemoveEffects(Avatar target) {}
-    public bool EffectExpired() {return durationLeft <= 0;}
+    public bool EffectExpired(Dictionary<Skill, int> skillEffects, Skill skill)
+    {
+        //return durationLeft <= 0;
+        return skillEffects[skill] <= 0;     //returns skill duration.
+    }
 
 
     

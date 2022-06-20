@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.EventSystems;
 
 //enemies are NPCs. Heroes must defeat them. Their actions are randomized based on their skill set and battle conditions.
@@ -213,7 +214,9 @@ public abstract class Enemy : Avatar
         spdMod = 1;
         magMod = 1;
         resMod = 1;
-        skillEffects.Clear();
+        //skillEffects.Clear();
+        skillEffects = new Dictionary<Skill, int>();
+
     }
 
     //when enemy dies, they are sent to graveyard
@@ -391,23 +394,33 @@ public abstract class Enemy : Avatar
 
     public override void UpdateSkillEffects()
     {
-        //skill activation check    
+        //skill activation check
+        if (skillEffects.Count <= 0) return; 
+
+        /*foreach(KeyValuePair<Skill, int> skillEffect in skillEffects)
+        {
+            if (skillEffect.Key.hasDuration)
+            {
+                skillEffect.Key.ReduceDuration(skillEffects, skillEffect.Key);
+                if (skillEffect.Key.EffectExpired(skillEffects, skillEffect.Key))
+                {
+                    skillEffect.Key.RemoveEffects(this);
+                    skillEffects.Remove(skillEffect.Key);
+                }
+            }
+        }*/   
         for (int i = 0; i < skillEffects.Count; i++)
         {
-            if (skillEffects[i].hasDuration)
+            if (skillEffects.Keys.ElementAt(i).hasDuration)
             {
-                skillEffects[i].ReduceDuration();
-                if (skillEffects[i].EffectExpired())
+                skillEffects.Keys.ElementAt(i).ReduceDuration(skillEffects, skillEffects.Keys.ElementAt(i));
+                if (skillEffects.Keys.ElementAt(i).EffectExpired(skillEffects, skillEffects.Keys.ElementAt(i)))
                 {
-                    skillEffects[i].RemoveEffects(this);
-                    skillEffects.Remove(skillEffects[i]);
+                    skillEffects.Keys.ElementAt(i).RemoveEffects(this);
+                    skillEffects.Remove(skillEffects.Keys.ElementAt(i));
                     i--;
                 }
             }
-            /*else //permanent effect/passive
-            {
-                skillEffects[i].Activate(this, skillNameBorderColor);
-            }*/  
         }
     }
 
@@ -415,13 +428,20 @@ public abstract class Enemy : Avatar
     {
         if (skillEffects.Count <= 0) return;
 
-        for (int i = 0; i < skillEffects.Count; i++)
+        foreach(KeyValuePair<Skill, int> skillEffect in skillEffects)
+        {
+            if (!skillEffect.Key.hasDuration)
+            {
+                skillEffect.Key.Activate(this, skillNameBorderColor);
+            }
+        }
+        /*for (int i = 0; i < skillEffects.Count; i++)
         {
             if (!skillEffects[i].hasDuration)
             {
                 skillEffects[i].Activate(this, skillNameBorderColor);
             } 
-        }
+        }*/
     }
 
     protected override IEnumerator AnimateAttack()

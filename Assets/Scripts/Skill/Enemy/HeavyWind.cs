@@ -14,9 +14,13 @@ public class HeavyWind : Skill
         {
             target.spdMod = target.minSpdMod - 0.5f;
 
-            if (!target.skillEffects.Contains(this))
+            if (!target.skillEffects.ContainsKey(this))
             {
-                target.skillEffects.Add(this);
+                target.skillEffects.Add(this, durationLeft);
+            }
+            else
+            {
+                target.skillEffects[this] = durationLeft;
             }
         
             cs = CombatSystem.instance;

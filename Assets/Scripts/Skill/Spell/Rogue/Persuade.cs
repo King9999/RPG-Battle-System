@@ -46,19 +46,24 @@ public class Persuade : Skill
             else if (Random.value <= finalChance)
             {
                 target.status = Avatar.Status.Charmed;
-                if (!target.skillEffects.Contains(this))
+                durationLeft = landedOnCritPanel ? turnDuration + 2 : turnDuration;
+                if (!target.skillEffects.ContainsKey(this))
                 {
-                    target.skillEffects.Add(this);
+                    target.skillEffects.Add(this, durationLeft);
+                }
+                else
+                {
+                    target.skillEffects[this] = durationLeft;
                 }
 
-                if (landedOnCritPanel)
+                /*if (landedOnCritPanel)
                 {
                     durationLeft = turnDuration + 2;
                 }
                 else
                 {
                     durationLeft = turnDuration;
-                }
+                }*/
                 ui.DisplayStatusUpdate("CHARMED", target.transform.position);
             }
             else

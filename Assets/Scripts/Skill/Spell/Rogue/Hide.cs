@@ -33,9 +33,13 @@ public class Hide : Skill
                     user.dfpMod = 1000;             //prevents all damage.
                     durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("HIDDEN", user.transform.position);
-                    if (!user.skillEffects.Contains(this))
+                    if (!user.skillEffects.ContainsKey(this))
                     {
-                        user.skillEffects.Add(this);
+                        user.skillEffects.Add(this, durationLeft);
+                    }
+                    else
+                    {
+                        user.skillEffects[this] = durationLeft;
                     }
                     break;
 
@@ -46,9 +50,13 @@ public class Hide : Skill
                     landedOnCritPanel = true;
                     durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("HIDDEN", user.transform.position);
-                    if (!user.skillEffects.Contains(this))
+                    if (!user.skillEffects.ContainsKey(this))
                     {
-                        user.skillEffects.Add(this);
+                        user.skillEffects.Add(this, durationLeft);
+                    }
+                    else
+                    {
+                        user.skillEffects[this] = durationLeft;
                     }
                     break;
                 

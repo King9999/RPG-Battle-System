@@ -38,9 +38,9 @@ public class Armor : Item
             //passive skill check
             if (armorSkill != null)
             {
-                if (armorSkill.isPassive && !hero.skillEffects.Contains(armorSkill))
+                if (armorSkill.isPassive && !hero.skillEffects.ContainsKey(armorSkill))
                 {
-                    hero.skillEffects.Add(armorSkill);
+                    hero.skillEffects.Add(armorSkill, 0);
                 }
                 else if (!armorSkill.isPassive)
                 {
@@ -72,7 +72,17 @@ public class Armor : Item
             {
                 int i = 0;
                 bool skillFound = false;
-                while(!skillFound && i < hero.skillEffects.Count)
+                foreach(KeyValuePair<Skill, int> skillEffect in hero.skillEffects)
+                {
+                    if (armorSkill == skillEffect.Key)
+                    {
+                        skillEffect.Key.RemoveEffects(hero);
+                        hero.skillEffects.Remove(skillEffect.Key);
+                        //skillFound = true;
+                        break;
+                    }
+                }
+                /*while(!skillFound && i < hero.skillEffects.Count)
                 {
                     if (armorSkill == hero.skillEffects[i])
                     {
@@ -84,7 +94,7 @@ public class Armor : Item
                     {
                         i++;
                     }
-                }
+                }*/
             }
             else    //remove from skill list.
             {

@@ -34,16 +34,19 @@ public class Intimidate : Skill
                 case ActionGauge.ActionValue.Miss:
                     //nothing happens
                     ui.DisplayStatusUpdate("NO EFFECT", target.transform.position);
-                    Debug.Log("No effect ");
                     break;
 
                 case ActionGauge.ActionValue.Reduced:
                     target.atpMod = 0.9f;
                     durationLeft = turnDuration;
                     ui.DisplayStatusUpdate("ATP DOWN", target.transform.position);
-                    if (!target.skillEffects.Contains(this))
+                    if (!target.skillEffects.ContainsKey(this))
                     {
-                        target.skillEffects.Add(this);
+                        target.skillEffects.Add(this, durationLeft);
+                    }
+                    else
+                    {
+                        target.skillEffects[this] = durationLeft;
                     }
                     Debug.Log("ATP debuff, ATP is now " + target.atp * target.atpMod);
                     break;
@@ -51,9 +54,13 @@ public class Intimidate : Skill
                 case ActionGauge.ActionValue.Critical:
                     target.atpMod = 0.7f;
                     durationLeft = turnDuration;
-                    if (!target.skillEffects.Contains(this))
+                    if (!target.skillEffects.ContainsKey(this))
                     {
-                        target.skillEffects.Add(this);
+                        target.skillEffects.Add(this, durationLeft);
+                    }
+                    else
+                    {
+                        target.skillEffects[this] = durationLeft;
                     }
                     ui.DisplayStatusUpdate("ATP CRITICAL DOWN", target.transform.position);
                     Debug.Log("ATP debuff, ATP is now " + target.atp * target.atpMod);

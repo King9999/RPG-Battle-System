@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.EventSystems;
 
 //A hero is a player-controlled entity. A hero has restrictions on which weapons they can use.
@@ -171,22 +172,33 @@ public class Hero : Avatar
         //update skill duration and remove effects when necessary
         if (skillEffects.Count <= 0) return; 
 
+       
+        /*foreach(KeyValuePair<Skill, int> skillEffect in skillEffects)
+        {
+            if (skillEffect.Key.hasDuration)
+            {
+                skillEffect.Key.ReduceDuration(skillEffects, skillEffect.Key);
+                if (skillEffect.Key.EffectExpired(skillEffects, skillEffect.Key))
+                {
+                    skillEffect.Key.RemoveEffects(this);
+                    skillEffects.Remove(skillEffect.Key);
+                }
+            }
+        }*/
+
+        //Need to use System.Linq in order to iterate through a dictionary without using foreach.  
         for (int i = 0; i < skillEffects.Count; i++)
         {
-            if (skillEffects[i].hasDuration)
+            if (skillEffects.Keys.ElementAt(i).hasDuration)
             {
-                skillEffects[i].ReduceDuration();
-                if (skillEffects[i].EffectExpired())
+                skillEffects.Keys.ElementAt(i).ReduceDuration(skillEffects, skillEffects.Keys.ElementAt(i));
+                if (skillEffects.Keys.ElementAt(i).EffectExpired(skillEffects, skillEffects.Keys.ElementAt(i)))
                 {
-                    skillEffects[i].RemoveEffects(this);
-                    skillEffects.Remove(skillEffects[i]);
+                    skillEffects.Keys.ElementAt(i).RemoveEffects(this);
+                    skillEffects.Remove(skillEffects.Keys.ElementAt(i));
                     i--;
                 }
             }
-            /*else //permanent effect/passive
-            {
-                skillEffects[i].Activate(this, skillNameBorderColor);
-            }*/  
         }
     }
 
@@ -194,13 +206,20 @@ public class Hero : Avatar
     {
         if (skillEffects.Count <= 0) return;
 
-        for (int i = 0; i < skillEffects.Count; i++)
+        foreach(KeyValuePair<Skill, int> skillEffect in skillEffects)
+        {
+            if (!skillEffect.Key.hasDuration)
+            {
+                skillEffect.Key.Activate(this, skillNameBorderColor);
+            }
+        }
+        /*for (int i = 0; i < skillEffects.Count; i++)
         {
             if (!skillEffects[i].hasDuration)
             {
                 skillEffects[i].Activate(this, skillNameBorderColor);
             } 
-        }
+        }*/
     }
 
     public override void OnPointerClick(PointerEventData pointer)

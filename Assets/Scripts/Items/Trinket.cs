@@ -47,9 +47,9 @@ public class Trinket : Item
         //passive skill check
         if (trinketSkill != null)
         {
-            if (trinketSkill.isPassive && !hero.skillEffects.Contains(trinketSkill))
+            if (trinketSkill.isPassive && !hero.skillEffects.ContainsKey(trinketSkill))
             {
-                hero.skillEffects.Add(trinketSkill);
+                hero.skillEffects.Add(trinketSkill, 0);
             }
             else if (!trinketSkill.isPassive)
             {
@@ -94,7 +94,17 @@ public class Trinket : Item
             {
                 int i = 0;
                 bool skillFound = false;
-                while(!skillFound && i < hero.skillEffects.Count)
+                foreach(KeyValuePair<Skill, int> skillEffect in hero.skillEffects)
+                {
+                    if (trinketSkill == skillEffect.Key)
+                    {
+                        skillEffect.Key.RemoveEffects(hero);
+                        hero.skillEffects.Remove(skillEffect.Key);
+                        //skillFound = true;
+                        break;
+                    }
+                }
+                /*while(!skillFound && i < hero.skillEffects.Count)
                 {
                     if (trinketSkill == hero.skillEffects[i])
                     {
@@ -106,7 +116,7 @@ public class Trinket : Item
                     {
                         i++;
                     }
-                }
+                }*/
             }
             else    //remove from skill list.
             {

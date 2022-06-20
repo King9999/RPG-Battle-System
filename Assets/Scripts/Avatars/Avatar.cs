@@ -50,8 +50,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     
 
     public List<Skill> skills;          //list of skills the avatar can choose from.
-    public List<Skill> skillEffects;    //list of skills this avatar is being affected by. Includes both permanent effects and those with durations.
-    //public Dictionary<Skill, int> skillEffects;
+    //public List<Skill> skillEffects;    //list of skills this avatar is being affected by. Includes both permanent effects and those with durations.
+    public Dictionary<Skill, int> skillEffects;
 
     [Header("Ailment Status")]
     public bool resistPoison;
@@ -83,6 +83,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         //skills = new List<Skill>();
         gm = GameManager.instance;
         cs = CombatSystem.instance;
+        skillEffects = new Dictionary<Skill, int>();
     }
 
     //this code performs differently depending on whether we're in combat or not.

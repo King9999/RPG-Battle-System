@@ -37,21 +37,24 @@ public class HolyAura : Skill
 
             Vector3[] targetPos = new Vector3[allies.Count];
             string statusEffectMsg = dfpValue == 0.1f ? "DFP UP 10%" : "DFP UP 15%";
+            durationLeft = turnDuration;
 
             for (int i = 0; i < allies.Count; i++)
             {
                 if (allies[i].dfpMod < 1.3f)
                     allies[i].dfpMod += dfpValue;
 
-                if (!allies[i].skillEffects.Contains(this))
+                if (!allies[i].skillEffects.ContainsKey(this))
                 {
-                    allies[i].skillEffects.Add(this);
+                    allies[i].skillEffects.Add(this, durationLeft);
+                }
+                else
+                {
+                    allies[i].skillEffects[this] = durationLeft;
                 }              
                 ui.DisplayStatusUpdate(i, statusEffectMsg, allies[i].transform.position);
                
             }
-
-            durationLeft = turnDuration;
             
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))

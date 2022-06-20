@@ -21,9 +21,13 @@ public class GoldenAxe : Skill
             ui.DisplayStatusUpdate("ATP UP +10%", user.transform.position);
             durationLeft = turnDuration;
 
-            if (!user.skillEffects.Contains(this))
+            if (!user.skillEffects.ContainsKey(this))
             {
-                user.skillEffects.Add(this);
+                user.skillEffects.Add(this, durationLeft);
+            }
+            else
+            {
+                user.skillEffects[this] = durationLeft;
             }
            
         }
