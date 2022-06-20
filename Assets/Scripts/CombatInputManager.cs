@@ -84,6 +84,10 @@ public class CombatInputManager : MonoBehaviour
                         case Skill.Target.OneHero:
                             inv.copiedSkillSlot.SkillInSlot().Activate(hero, cs.heroesInCombat[cs.currentTarget], hero.SkillBorderColor());
                             break;
+
+                        case Skill.Target.AllHeroes:
+                            inv.copiedSkillSlot.SkillInSlot().Activate(hero, cs.heroesInCombat, hero.SkillBorderColor());
+                            break;
                     }
                     
                     cs.heroUsingSkill = false;

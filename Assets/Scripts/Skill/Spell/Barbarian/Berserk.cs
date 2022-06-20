@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Raises ATP by up to 220% (additive on top of any other buffs). However, DFP is reduced, and the Barb is uncontrollable until Berserk

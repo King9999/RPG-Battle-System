@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,23 +8,13 @@ public class Shout : Skill
 {
    
     public override void Activate(Avatar user, List<Enemy> targets, Color borderColor)
-    {
-        //base.Activate(user, targets, borderColor);
-
-        
+    {    
         
         float hitChance = user.atp / 100;
         float rateMod = 0;  //becomes 1/3 if player lands on reduced panel, 0 if miss
         CombatInputManager cim = CombatInputManager.instance;
         CombatSystem cs = CombatSystem.instance;
-        float totalCost = manaCost * user.mpMod;
-
-        if (user.manaPoints < totalCost)
-        {
-            ui.DisplayStatusUpdate("NOT ENOUGH MANA", user.transform.position);
-            return;
-        }
-        
+       
         ReduceMp(user);
 
         skillActivated = true;
@@ -36,7 +25,6 @@ public class Shout : Skill
 
         if (cim.buttonPressed)
         {
-            //cs.actGauge.actionToken.StopToken();
             switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
             {
                 case ActionGauge.ActionValue.Miss:
@@ -74,7 +62,6 @@ public class Shout : Skill
                 } 
             }
 
-            //ui.DisplayStatusUpdate(targets, uiMessage, targetPos);
 
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))

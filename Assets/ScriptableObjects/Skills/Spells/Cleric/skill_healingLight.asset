@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a64e187470050e47a443bdc29d62a8a, type: 3}
   m_Name: skill_healingLight
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Healing Light
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
-  actGaugeData: {fileID: 0}
+  description: Restores HP to 1 target. Critical panel = max HP up
+  manaCost: 6
+  power: 30
+  actGaugeData: {fileID: 11400000, guid: 18ac5f4ac46ed904a986b42bdbe48574, type: 2}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 3
   element: 0
   statusEffect: 0

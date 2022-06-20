@@ -51,8 +51,18 @@ public abstract class Skill : ScriptableObject
         ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
     }
 
-    //NOTE: Must use ienumerable<Avatar> instead of List<Avatar> due to covariance 
+    //NOTE: Cannot use List<Avatar>. Must use ienumerable<Avatar> instead of List<Avatar> due to covariance 
     public virtual void Activate(Avatar skillUser, List<Enemy> target, Color borderColor) 
+    {
+        skillActivated = true;
+        durationLeft = hasDuration == true ? turnDuration : 0;
+
+        ui = UI.instance;
+        skillNameBorderColor = borderColor;
+        ui.skillDisplay.ExecuteSkillDisplay(skillName, skillNameBorderColor);
+    }
+
+    public virtual void Activate(Avatar skillUser, List<Hero> target, Color borderColor) 
     {
         skillActivated = true;
         durationLeft = hasDuration == true ? turnDuration : 0;
