@@ -555,6 +555,7 @@ public class Hero : Avatar
             actGauge.ShowGauge(true);
             actGauge.UpdateGaugeData(weaponData);
             actGauge.ResetActionToken();
+            actGauge.actionToken.head.sprite = actGauge.actionToken.attackHead;
 
             //set up shield token if applicable
             if (cs.bonusTurns <= 0 && cs.enemiesInCombat[cs.currentTarget].maxShieldTokens > 0)
@@ -642,6 +643,7 @@ public class Hero : Avatar
         currentActions = 0;
 
         float skillTokenSpeed = actGauge.actionToken.TokenSpeed() * 1.8f;
+        actGauge.actionToken.head.sprite = actGauge.actionToken.skillHead;
         actGauge.actionToken.SetTokenSpeed(skillTokenSpeed);
         actGauge.actionToken.StartToken();
     }
