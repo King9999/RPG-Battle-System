@@ -222,6 +222,15 @@ public class Hero : Avatar
         }*/
     }
 
+    public override void OnPointerEnter(PointerEventData pointer)
+    {
+        base.OnPointerEnter(pointer);
+        if (cs.selectingHeroToUseSkillOn)
+        {
+            cs.currentTarget = cs.heroesInCombat.IndexOf(this);
+        }
+    }
+
     public override void OnPointerClick(PointerEventData pointer)
     {
         if (cs.selectingHero)
