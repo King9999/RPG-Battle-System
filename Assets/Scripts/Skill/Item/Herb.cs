@@ -7,14 +7,14 @@ public class Herb : Skill
     public override void Activate(Avatar user, Avatar target, Color borderColor)
     {
         base.Activate(target, borderColor);
-        float healAmount = Mathf.Round(target.maxHitPoints * 0.3f);
+        float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
         user.RestoreHitPoints(target, healAmount);
     }
 
     //used outside of combat
     public override void Activate(Avatar target)
     {
-        float healAmount = Mathf.Round(target.maxHitPoints * 0.3f);
+        float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
         target.RestoreHitPoints(target, healAmount);
     }
 }

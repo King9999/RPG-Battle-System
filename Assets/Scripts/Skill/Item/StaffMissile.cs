@@ -10,7 +10,7 @@ public class StaffMissile : Skill
     {
         base.Activate(user, target, borderColor);
                 
-        totalDamage = user.mag * user.magMod;
+        totalDamage = user.mag;
         totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f)) - (target.res * target.resMod);
 
         user.ReduceHitPoints(target, totalDamage);

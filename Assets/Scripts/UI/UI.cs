@@ -101,9 +101,9 @@ public class UI : MonoBehaviour
         StartCoroutine(AnimateBlock(token));
     }
 
-    public void DisplayStatusUpdate(string status, Vector3 location)
+    public void DisplayStatusUpdate(string status, Vector3 location, float delayDuration = 0)
     {
-        StartCoroutine(AnimateStatus(status, location));
+        StartCoroutine(AnimateStatus(status, location, delayDuration));
     }
 
     ///<param name="allStatusUiIndex">The text mesh to use to display information.</param>
@@ -241,8 +241,9 @@ public class UI : MonoBehaviour
         animateDamageCoroutineOn = false;
     }
 
-    IEnumerator AnimateStatus(string status, Vector3 location)
+    IEnumerator AnimateStatus(string status, Vector3 location, float delayDuration = 0)
     {
+        yield return new WaitForSeconds(delayDuration);
         float displayDuration = 0.5f;
         Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
         statusUI.gameObject.SetActive(true);

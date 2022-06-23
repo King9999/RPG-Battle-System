@@ -308,6 +308,7 @@ public class Hero : Avatar
             
             case Status.Normal:
             case Status.HideBuffInEffect:
+            case Status.Cleansed:
                 //open a menu, player chooses next action       
                 ui.combatMenu.ShowCombatMenu(true);
                 break;

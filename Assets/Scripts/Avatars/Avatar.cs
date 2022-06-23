@@ -66,7 +66,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         //Berserk = Barb-unique effect. Can't be controlled.
         //Hidden = Rogue-unique effect. Can't be targeted.
         //HideBuffInEffect = Rogue-unique effect. Bonus critical panels on weapon act gauge.
-        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken, Berserk, Hidden, HideBuffInEffect      
+        //Cleansed = ailments automatically fail
+        Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken, Berserk, Hidden, HideBuffInEffect, Cleansed      
     }
     public Status status;
 

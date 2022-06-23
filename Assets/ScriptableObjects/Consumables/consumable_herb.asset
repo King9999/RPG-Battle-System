@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: consumable_herb
   m_EditorClassIdentifier: 
   itemName: Herb
-  details: Restores 30% HP
+  details: Restores 1/3 HP
   cost: 10
   sprite: {fileID: 0}
   itemType: 2

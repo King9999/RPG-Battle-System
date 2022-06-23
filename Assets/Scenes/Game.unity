@@ -999,6 +999,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1198797683, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 53.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797683, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 125.8845
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797683, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -77.9605
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797683, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.4018
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797684, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
+      propertyPath: m_text
+      value: 'ATP
+
+        DFP
+
+        SPD
+
+        MAG
+
+        RES
+
+        ATK#'
+      objectReference: {fileID: 0}
     - target: {fileID: 6044994061025685281, guid: fe4a6ab10dac1564db97bb2b3b479c4f, type: 3}
       propertyPath: border
       value: 
