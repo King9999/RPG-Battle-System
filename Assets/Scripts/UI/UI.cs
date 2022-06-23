@@ -96,6 +96,14 @@ public class UI : MonoBehaviour
         StartCoroutine(animateDamage);
     }
 
+    public void DisplayHealing(int allHealDisplayIndex, string value, Vector3 location, Color textColor)
+    {
+        damageDisplay.color = textColor;  //default color
+        animateDamage = AnimateHealing(allHealDisplayIndex, value, location, textColor);
+        StopCoroutine(animateDamage);
+        StartCoroutine(animateDamage);
+    }
+
     public void DisplayBlockResult(ShieldToken token)
     {
         StartCoroutine(AnimateBlock(token));
@@ -238,6 +246,36 @@ public class UI : MonoBehaviour
         yield return new WaitForSeconds(displayDuration);
         damageDisplay.color = damageColor;        //reset back to default
         damageDisplay.gameObject.SetActive(false);
+        animateDamageCoroutineOn = false;
+    }
+
+    //used when HP is being restored to multiple targets
+    private IEnumerator AnimateHealing(int index, string value, Vector3 location, Color textColor)
+    {
+        float displayDuration = 0.5f;
+        Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
+        allDamageDisplay[index].gameObject.SetActive(true);
+        allDamageDisplay[index].transform.position = avatarPos;
+        allDamageDisplay[index].text = value;
+        allDamageDisplay[index].color = textColor;
+
+        //each digit is animated individually
+        Vector3 initPos = allDamageDisplay[index].transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        while(allDamageDisplay[index].transform.position.y < destination.y)
+        {
+            Vector3 newPos = allDamageDisplay[index].transform.position;
+            vy = 50 * Time.deltaTime;
+            allDamageDisplay[index].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
+
+        allDamageDisplay[index].transform.position = destination;
+        
+        yield return new WaitForSeconds(displayDuration);
+        allDamageDisplay[index].color = damageColor;        //reset back to default
+        allDamageDisplay[index].gameObject.SetActive(false);
         animateDamageCoroutineOn = false;
     }
 

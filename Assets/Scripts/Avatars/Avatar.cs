@@ -115,6 +115,32 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         }
     }
 
+    public void RestoreHitPoints(List<Hero> targets, int index, float amount)
+    {
+        targets[index].hitPoints += amount;
+        if (targets[index].hitPoints > targets[index].maxHitPoints * targets[index].hpMod)
+        {
+            targets[index].hitPoints = targets[index].maxHitPoints * targets[index].hpMod;
+        }
+
+        GameManager gm = GameManager.instance;
+        
+        if (gm.gameState == GameManager.GameState.Normal)
+        {
+            DungeonUI ui = DungeonUI.instance;
+            ui.DisplayStatus(amount.ToString(), ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.healColor);
+            ui.partyDisplay[ui.currentHero].UpdateUI();
+        }
+        else    //we're in combat
+        {
+            //show healed amount
+            UI ui = UI.instance;
+            ui.DisplayHealing(index, amount.ToString(), targets[index].transform.position, ui.healColor);
+
+            targets[index].UpdateStatsUI();
+        }
+    }
+
     /*protected virtual void Update()
     {
         if (hitPoints < 0)

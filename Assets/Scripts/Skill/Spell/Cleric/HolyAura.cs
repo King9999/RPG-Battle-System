@@ -35,7 +35,7 @@ public class HolyAura : Skill
                 
             }
 
-            Vector3[] targetPos = new Vector3[allies.Count];
+            //Vector3[] targetPos = new Vector3[allies.Count];
             string statusEffectMsg = dfpValue == 0.1f ? "DFP UP 10%" : "DFP UP 15%";
             durationLeft = turnDuration;
 

@@ -376,6 +376,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 713714460398593699, guid: b8c58ade8640e9b4e9c4c47135162373, type: 3}
+      propertyPath: heroInfo
+      value: "<color=green>Barbarian</color>\nHas the highest attack power, and has
+        abilities that can weaken or intimidate enemies. \n<color=green>+</color>
+        High ATP and HP. Can use many weapons\n<color=red>-</color> Low MP and SPD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 713714460968028310, guid: b8c58ade8640e9b4e9c4c47135162373, type: 3}
+      propertyPath: heroInfo
+      value: '<color=green>Rogue</color>
+
+        Has the highest number of attacks,
+        and early access to Critical Panels.
+
+        <color=green>+</color> High
+        SPD. Attacks many times per turn
+
+        <color=red>-</color> Low HP and
+        DFP'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8c58ade8640e9b4e9c4c47135162373, type: 3}
 --- !u!1001 &8433257988917922553
