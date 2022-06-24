@@ -92,9 +92,9 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public void RestoreHitPoints(Avatar target, float amount, float delayDuration = 0)
     {
         target.hitPoints += amount;
-        if (target.hitPoints > target.maxHitPoints * target.hpMod)
+        if (target.hitPoints > Mathf.Round(target.maxHitPoints * target.hpMod))
         {
-            target.hitPoints = target.maxHitPoints * target.hpMod;
+            target.hitPoints = Mathf.Round(target.maxHitPoints * target.hpMod);
         }
 
         GameManager gm = GameManager.instance;
@@ -120,7 +120,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         targets[index].hitPoints += amount;
         if (targets[index].hitPoints > targets[index].maxHitPoints * targets[index].hpMod)
         {
-            targets[index].hitPoints = targets[index].maxHitPoints * targets[index].hpMod;
+            targets[index].hitPoints = Mathf.Round(targets[index].maxHitPoints * targets[index].hpMod);
         }
 
         GameManager gm = GameManager.instance;

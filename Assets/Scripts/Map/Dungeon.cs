@@ -164,10 +164,11 @@ public class Dungeon : MonoBehaviour
         }   
     }
 
-    public void GenerateDungeon(int nodeCount)
+    //if updateDungeonLevel is false, that means player could not complete dungeon (e.g. inaccessible stairs) and must reset it.
+    public void GenerateDungeon(int nodeCount, bool updateDungeonLevel = true)
     {
         GameManager gm = GameManager.instance;
-        dungeonLevel++;
+        dungeonLevel = updateDungeonLevel == true ? dungeonLevel + 1 : dungeonLevel;
         //dungeonLevel = 5;
         DungeonUI ui = DungeonUI.instance;
         ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
@@ -176,9 +177,9 @@ public class Dungeon : MonoBehaviour
         -map width increases by 1 every 5 levels
         -map height increases by 1 every 10 levels 
         -node count increases by 1 every 2 levels. */
-        mapWidth = dungeonLevel % 5 == 0 ? mapWidth += 1 : mapWidth;
-        mapHeight = dungeonLevel % 10 == 0 ? mapHeight += 1 : mapHeight;
-        gm.nodeCount = dungeonLevel % 2 == 0 ? gm.nodeCount += 1 : gm.nodeCount;
+        mapWidth = dungeonLevel % 5 == 0 ? mapWidth + 1 : mapWidth;
+        mapHeight = dungeonLevel % 10 == 0 ? mapHeight + 1 : mapHeight;
+        gm.nodeCount = dungeonLevel % 2 == 0 ? gm.nodeCount + 1 : gm.nodeCount;
 
         Debug.Log("Map Width: " + mapWidth + " Map Height: " + mapHeight + " Node Count: " + gm.nodeCount);
         mapArray = new bool[mapWidth, mapHeight];
@@ -648,7 +649,7 @@ public class Dungeon : MonoBehaviour
         
 
         /****Mystery Nodes. Uses almost same code as treasure chests****/
-        int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount);
+        int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount + 1);
         //int mysteryNodeCount = 1;
 
         if (mysteryNodeCount <= 0)

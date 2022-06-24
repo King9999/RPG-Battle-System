@@ -24,6 +24,7 @@ public class Hero : Avatar
     //protected Color skillNameBorderColor = new Color(0.2f, 0.4f, 0.95f);
     public bool actionCompleted;
     public bool isAttacking;
+    public bool heroAttackedEnemy;          //prevents checking enemy shield code in Update loop if enemy wasn't attacked this turn.
     public int currentActions;
     [HideInInspector]public bool landedOnCritPanel;        //used by rogue. Applied after using Hide skill.
     public enum HeroClass {Barbarian, Rogue, Mage, Cleric}
@@ -143,19 +144,38 @@ public class Hero : Avatar
                 cs.actGauge.actionToken.SetSpeedToDefault();
 
                 //reset shield token if applicable
-                foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentTarget].shields)
+                /*foreach(Enemy enemy in cs.enemiesInCombat)
                 {
-                    if (shield.isEnabled)
+                    if(enemy.maxShieldTokens > 0)
                     {
-                        shield.SetSpeedToDefault();
+                        foreach(ShieldToken shield in enemy.shields)
+                        {
+                            if (shield.isEnabled)
+                            {
+                                shield.SetSpeedToDefault();
+                            }
+                        }
+                    }
+                }*/
+
+                if (heroAttackedEnemy)
+                {
+                    heroAttackedEnemy = false;
+                    foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentEnemyTarget].shields)
+                    {
+                        if (shield.isEnabled)
+                        {
+                            shield.SetSpeedToDefault();
+                        }
+                        shield.ShowToken(false);
                     }
                 }
 
                 //hide gauge and tokens
                 cs.actGauge.ShowGauge(false);
 
-                foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentTarget].shields)
-                    shield.ShowToken(false);
+                //foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentEnemyTarget].shields)
+                    //shield.ShowToken(false);
 
                 isTheirTurn = false;
                 EndTurn();
@@ -227,7 +247,7 @@ public class Hero : Avatar
         base.OnPointerEnter(pointer);
         if (cs.selectingHeroToUseSkillOn)
         {
-            cs.currentTarget = cs.heroesInCombat.IndexOf(this);
+            cs.currentEnemyTarget = cs.heroesInCombat.IndexOf(this);
         }
     }
 
@@ -236,9 +256,10 @@ public class Hero : Avatar
         if (cs.selectingHero)
         {
             //activate item or skill
+            heroAttackedEnemy = false;
             Inventory inv = Inventory.instance;
-            cs.currentTarget = cs.heroesInCombat.IndexOf(this);
-            inv.copiedSlot.ItemInSlot().itemEffect.Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentTarget], skillNameBorderColor);
+            cs.currentHeroTarget = cs.heroesInCombat.IndexOf(this);
+            inv.copiedSlot.ItemInSlot().itemEffect.Activate(cs.heroesInCombat[cs.currentHero], cs.heroesInCombat[cs.currentHeroTarget], skillNameBorderColor);
             inv.copiedSlot.quantity--;
 
             //delete item
@@ -264,8 +285,9 @@ public class Hero : Avatar
         if (cs.selectingHeroToUseSkillOn)
         {
             //activate item or skill
+            heroAttackedEnemy = false;
             Inventory inv = Inventory.instance;
-            cs.currentTarget = cs.heroesInCombat.IndexOf(this);
+            cs.currentHeroTarget = cs.heroesInCombat.IndexOf(this);
 
             cs.selectingHeroToUseSkillOn = false;
             UI ui = UI.instance;
@@ -351,14 +373,14 @@ public class Hero : Avatar
         ui.damageDisplay.color = ui.damageColor;    //reset colour to default
         if (status != Status.Charmed && status != Status.Berserk)
         {
-           
+            heroAttackedEnemy = true;
             //wait for button press to attack. Do this until no more tokens available
             if (cim.buttonPressed)
             {
                 //stop tokens
                 cs.actGauge.actionToken.StopToken();
 
-                List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
+                List<ShieldToken> shields = cs.enemiesInCombat[cs.currentEnemyTarget].shields;
                 for (int i = 0; i < shields.Count; i++)
                 {
                     if (shields[i].isEnabled)
@@ -370,7 +392,7 @@ public class Hero : Avatar
                 int j = 0;
                 while (!landedOnShield && j < shields.Count)
                 {
-                    if (shields[j].isEnabled && cs.actGauge.currentIndex == cs.enemiesInCombat[cs.currentTarget].currentShieldTokenIndex[j])
+                    if (shields[j].isEnabled && cs.actGauge.currentIndex == cs.enemiesInCombat[cs.currentEnemyTarget].currentShieldTokenIndex[j])
                     {
                         landedOnShield = true;
                     }
@@ -395,7 +417,7 @@ public class Hero : Avatar
                             if (shields[j].hitPoints <= 0)
                             { 
                                 cs.bonusTurns += cs.heroesInCombat.Count + 1;  //+1 ensures all heroes get a bonus, and enemy misses a turn.
-                                cs.enemiesInCombat[cs.currentTarget].status = Status.GuardBroken;
+                                cs.enemiesInCombat[cs.currentEnemyTarget].status = Status.GuardBroken;
                                 shields[j].isEnabled = false;
                                 shields[j].ShowToken(false);
 
@@ -559,9 +581,9 @@ public class Hero : Avatar
             actGauge.actionToken.head.sprite = actGauge.actionToken.attackHead;
 
             //set up shield token if applicable
-            if (cs.bonusTurns <= 0 && cs.enemiesInCombat[cs.currentTarget].maxShieldTokens > 0)
+            if (cs.bonusTurns <= 0 && cs.enemiesInCombat[cs.currentEnemyTarget].maxShieldTokens > 0)
             {
-                List<ShieldToken> shields = cs.enemiesInCombat[cs.currentTarget].shields;
+                List<ShieldToken> shields = cs.enemiesInCombat[cs.currentEnemyTarget].shields;
                 foreach(ShieldToken shield in shields)
                 {
                     if (!shield.isEnabled)
@@ -571,7 +593,7 @@ public class Hero : Avatar
                         shield.StartToken();
                     }
                     shield.ShowToken(true);
-                    cs.enemiesInCombat[cs.currentTarget].ResetShieldToken(shields.IndexOf(shield));
+                    cs.enemiesInCombat[cs.currentEnemyTarget].ResetShieldToken(shields.IndexOf(shield));
                 }
                 
             }
@@ -658,7 +680,7 @@ public class Hero : Avatar
         cim.buttonPressed = false;
 
         //shield token also speeds up, but position is not reset
-        foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentTarget].shields)
+        foreach(ShieldToken shield in cs.enemiesInCombat[cs.currentEnemyTarget].shields)
         {
             if (shield.isEnabled)
             {

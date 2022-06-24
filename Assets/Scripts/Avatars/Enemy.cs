@@ -237,9 +237,9 @@ public abstract class Enemy : Avatar
 
         //choose another target
         if (cs.enemiesInCombat.Count > 0)
-            cs.currentTarget = 0;
+            cs.currentEnemyTarget = 0;
         else
-            cs.currentTarget = -1;
+            cs.currentEnemyTarget = -1;
 
         //rewards
         if (!ranAway)
@@ -295,7 +295,7 @@ public abstract class Enemy : Avatar
     {
         if (cs.selectingTargetToAttack)
         {
-            cs.currentTarget = cs.enemiesInCombat.IndexOf(this);
+            cs.currentEnemyTarget = cs.enemiesInCombat.IndexOf(this);
             cs.selectingTargetToAttack = false;
             UI ui = UI.instance;
             ui.selectTargetUI.gameObject.SetActive(false);
@@ -305,13 +305,13 @@ public abstract class Enemy : Avatar
             Hero hero = cs.heroesInCombat[cs.currentHero];
             hero.SetupActionGauge(cs.actGauge, hero.weapon.actGauge);
             hero.isAttacking = true;
-            //Debug.Log(className + " at index " + cs.currentTarget);
+            //Debug.Log(className + " at index " + cs.currentEnemyTarget);
         }
 
         if (cs.selectingTargetToAttackWithSkill)
         {
             cs.selectingTargetToAttackWithSkill = false;
-            cs.currentTarget = cs.enemiesInCombat.IndexOf(this);
+            cs.currentEnemyTarget = cs.enemiesInCombat.IndexOf(this);
             Inventory inv = Inventory.instance;
             Hero hero = cs.heroesInCombat[cs.currentHero];
             UI ui = UI.instance;

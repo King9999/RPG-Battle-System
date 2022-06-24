@@ -10,7 +10,8 @@ public class CombatSystem : MonoBehaviour
     public List<Enemy> enemiesInCombat;
     public Dictionary<int, string> modifiedEnemyNames;  //modified names of duplicate enemies.
     int totalEnemies {get;} = 6;
-    public int currentTarget {get; set;}    //index of an avatar being targeted.
+    public int currentEnemyTarget {get; set;}    //index of an avatar being targeted.
+    public int currentHeroTarget {get; set;}
     public int currentHero {get; set;}      //index of hero who is taking action
     string group = "ABCDE";                 //used to rename enemies if there are duplicates
     //public List<Item> loot;
@@ -205,8 +206,9 @@ public class CombatSystem : MonoBehaviour
 
         //reset variables 
         currentTurn = 0;
-        currentTarget = -1;
+        currentEnemyTarget = -1;
         currentHero = -1;
+        currentHeroTarget = -1;
         combatEnded = false;
         turnInProgress = false;
         playerRanAway = false;

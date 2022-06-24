@@ -58,18 +58,24 @@ public class CombatInputManager : MonoBehaviour
         {
            if (actGauge.gameObject.activeSelf)
            {
-               Hero hero = cs.heroesInCombat[cs.currentHero];
-               Enemy enemy = cs.enemiesInCombat[cs.currentTarget];
+               //Hero hero = cs.heroesInCombat[cs.currentHero];
+               //Enemy enemy = cs.enemiesInCombat[cs.currentEnemyTarget];
 
                if (!cs.heroUsingSkill)
+               {
+                    Hero hero = cs.heroesInCombat[cs.currentHero];
+                    Enemy enemy = cs.enemiesInCombat[cs.currentEnemyTarget];
                     hero.Attack(enemy);
+               }
                 else    //activate skill
                 {
+                    Hero hero = cs.heroesInCombat[cs.currentHero];
                     Inventory inv = Inventory.instance;
 
                     switch(inv.copiedSkillSlot.SkillInSlot().targetType)
                     {
                         case Skill.Target.OneEnemy:
+                            Enemy enemy = cs.enemiesInCombat[cs.currentEnemyTarget];
                             inv.copiedSkillSlot.SkillInSlot().Activate(hero, enemy, hero.SkillBorderColor());
                             break;
                         
@@ -82,7 +88,8 @@ public class CombatInputManager : MonoBehaviour
                             break;
                         
                         case Skill.Target.OneHero:
-                            inv.copiedSkillSlot.SkillInSlot().Activate(hero, cs.heroesInCombat[cs.currentTarget], hero.SkillBorderColor());
+                            Hero ally = cs.heroesInCombat[cs.currentHeroTarget];
+                            inv.copiedSkillSlot.SkillInSlot().Activate(hero, ally, hero.SkillBorderColor());
                             break;
 
                         case Skill.Target.AllHeroes:
