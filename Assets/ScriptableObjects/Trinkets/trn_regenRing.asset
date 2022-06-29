@@ -36,4 +36,7 @@ MonoBehaviour:
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
   trinketSkill: {fileID: 11400000, guid: d8982e848a347e64ea5b1c379ad8d848, type: 2}

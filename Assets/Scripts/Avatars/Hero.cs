@@ -67,10 +67,15 @@ public class Hero : Avatar
         bowOK = data.bowOK;
         staffOK = data.staffOK;
         currentXp = 0;
-        //weapon = data.weapon;
-        //armor = data.armor;
-        //trinket = data.trinket;
         attackTokenMod = data.attackTokenMod;
+        resistBlind = data.resistBlind;
+        resistCharm = data.resistCharm;
+        resistDeath = data.resistDeath;
+        resistParalysis = data.resistParalysis;
+        resistPoison = data.resistPoison;
+        fireResist = data.fireResist;
+        coldResist = data.coldResist;
+        lightningResist = data.lightningResist;
     
 
         //Get stats from JSON
@@ -110,7 +115,7 @@ public class Hero : Avatar
         if (data.trinket != null)
             data.trinket.Equip(hero: this);
 
-        actionCompleted = true;     //not sure what this is for
+        //actionCompleted = true;     //not sure what this is for
 
         //get sprite
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

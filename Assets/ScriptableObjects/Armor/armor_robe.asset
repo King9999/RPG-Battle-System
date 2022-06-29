@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: armor_robe
   m_EditorClassIdentifier: 
   itemName: Robe
-  details: For magic users. Offers decent RES
+  details: For magic users. Offers decent RES and slight elemental resistance
   cost: 80
   sprite: {fileID: 0}
   itemType: 1
@@ -23,4 +23,7 @@ MonoBehaviour:
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
+  fireResist: 0.1
+  coldResist: 0.1
+  lightningResist: 0.1
   armorSkill: {fileID: 0}

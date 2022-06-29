@@ -214,6 +214,14 @@ public abstract class Enemy : Avatar
         spdMod = 1;
         magMod = 1;
         resMod = 1;
+        resistBlind = data.resistBlind;
+        resistCharm = data.resistCharm;
+        resistDeath = data.resistDeath;
+        resistParalysis = data.resistParalysis;
+        resistPoison = data.resistPoison;
+        fireResist = data.fireResist;
+        coldResist = data.coldResist;
+        lightningResist = data.lightningResist;
         //skillEffects.Clear();
         skillEffects = new Dictionary<Skill, int>();
 

@@ -5,6 +5,7 @@ using TMPro;
 public class HeroStatsDisplay : MonoBehaviour
 {
     public TextMeshProUGUI statValuesUI;    //displays the following in order: ATP, DFP, SPD, MAG, RES
+    public TextMeshProUGUI resistValuesUI;
     public TextMeshProUGUI equipmentUI;     //displays in order: weapon, armor, trinket
     public TextMeshProUGUI skillsUI;
     // Start is called before the first frame update
@@ -26,12 +27,14 @@ public class HeroStatsDisplay : MonoBehaviour
         //display stats
         hero.UpdateStats();
         statValuesUI.text = hero.atp + "\n" + hero.dfp + "\n" + hero.spd + "\n" + hero.mag + "\n" + hero.res + "\n" + hero.totalAttackTokens;
+        resistValuesUI.text = (hero.fireResist * 100) + "%\n" + (hero.coldResist * 100) + "%\n" + (hero.lightningResist * 100) + "%"; 
 
         //display equipment
         if (hero.weapon.weaponType == Weapon.WeaponType.Staff)
             equipmentUI.text = hero.weapon.itemName + "(" + hero.weapon.weaponSkill.skillName + ")";
         else
             equipmentUI.text = hero.weapon.itemName;
+            
         equipmentUI.text += (hero.armor == null) ? "\n<NO ARMOR>" : "\n" + hero.armor.itemName;
         equipmentUI.text += (hero.trinket == null) ? "\n<NO TRINKET>" : "\n" + hero.trinket.itemName;
 

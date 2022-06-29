@@ -19,6 +19,9 @@ public abstract class AvatarData : ScriptableObject
     public bool resistBlind;
     public bool resistCharm;
     public bool resistDeath;
+    public float fireResist = 0;
+    public float coldResist = 0;
+    public float lightningResist = 0;
 
    public List<Skill> skills;
 }

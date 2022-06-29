@@ -12,9 +12,9 @@ public class Trinket : Item
     public bool resistParalysis;
     public bool resistBlind;
     public bool resistCharm;
-    public float fireResist = 1;
-    public float coldResist = 1;
-    public float lightningResist = 1;
+    public float fireResist;
+    public float coldResist;
+    public float lightningResist;
     public Skill trinketSkill;
 
     public override void Equip(Hero hero)
@@ -46,6 +46,11 @@ public class Trinket : Item
         hero.resistCharm = resistCharm == true ? true : hero.resistCharm;
         hero.resistBlind = resistBlind == true ? true : hero.resistBlind;
         hero.resistParalysis = resistParalysis == true ? true : hero.resistParalysis;
+
+        //element resists
+        hero.fireResist += fireResist;
+        hero.coldResist += coldResist;
+        hero.lightningResist += lightningResist;
 
         //passive skill check
         if (trinketSkill != null)
@@ -89,6 +94,11 @@ public class Trinket : Item
         hero.resistCharm = resistCharm == true ? false : hero.resistCharm;
         hero.resistBlind = resistBlind == true ? false : hero.resistBlind;
         hero.resistParalysis = resistParalysis == true ? false : hero.resistParalysis;
+
+        //element resists
+        hero.fireResist -= fireResist;
+        hero.coldResist -= coldResist;
+        hero.lightningResist -= lightningResist;
 
         //find trinket skill to remove in list.       
         if (trinketSkill != null)
