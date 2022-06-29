@@ -12,6 +12,9 @@ public class Trinket : Item
     public bool resistParalysis;
     public bool resistBlind;
     public bool resistCharm;
+    public float fireResist = 1;
+    public float coldResist = 1;
+    public float lightningResist = 1;
     public Skill trinketSkill;
 
     public override void Equip(Hero hero)

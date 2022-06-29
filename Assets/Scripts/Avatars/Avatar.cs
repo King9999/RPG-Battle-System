@@ -44,6 +44,11 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     public float minHpMod {get; set;} = 1;
     public float minMpMod {get; set;} = 1;
 
+    //element mods. These values are multipliers. Lower values = less damage taken.
+    public float fireResist = 1;
+    public float coldResist = 1;
+    public float lightningResist = 1;
+
     //coroutine check
     protected bool animateAttackCoroutineOn;
    
