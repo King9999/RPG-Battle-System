@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* Wind Dancer is a speedy enemy that can also boost the speed of its allies, or reduce the heroes' speed */
