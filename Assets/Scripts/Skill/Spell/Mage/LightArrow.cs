@@ -28,6 +28,7 @@ public class LightArrow : Skill
 
                 case ActionGauge.ActionValue.Critical:
                     dmgMod = 2;
+                    ui.damageDisplay.color = ui.criticalDamageColor;
                     break;
                 
             }

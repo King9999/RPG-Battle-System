@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbdf402dfdae7df4d9602667734560f5, type: 3}
+  m_Name: skill_blizzard
+  m_EditorClassIdentifier: 
+  skillName: Blizzard
+  skillIcon: {fileID: 0}
+  description: Cold damage to all enemies. Critical panel = chance to stun
+  manaCost: 16
+  power: 65
+  actGaugeData: {fileID: 11400000, guid: a25c04ae1fe749d4d86fe0de8aa7bffd, type: 2}
+  isPassive: 0
+  hasDuration: 1
+  turnDuration: 2
+  targetType: 4

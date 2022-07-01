@@ -12,15 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875fa40c20fe3044fad8001b80da8d35, type: 3}
   m_Name: skill_fireBolt
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Fire Bolt
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
-  actGaugeData: {fileID: 0}
+  description: Fire damage to 1 enemy. Critical panel = damage to all other enemies
+  manaCost: 8
+  power: 60
+  actGaugeData: {fileID: 11400000, guid: 31d5d04b348b6c84fb674736cd60e723, type: 2}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
-  element: 0
-  statusEffect: 0
+  targetType: 2

@@ -27,7 +27,7 @@ public abstract class Skill : ScriptableObject
         None, Self, OneEnemy, OneHero, AllEnemies, AllHeroes
     }
 
-    public enum StatusEffect
+    /*public enum StatusEffect
     {
         None, Poison, Paralyze, Blind, Charm, Death
     }
@@ -35,11 +35,11 @@ public abstract class Skill : ScriptableObject
     public enum Element
     {
         None, Fire, Water, Earth, Air
-    }
+    }*/
 
     public Target targetType;
-    public Element element;
-    public StatusEffect statusEffect;
+    //public Element element;
+    //public StatusEffect statusEffect;
 
     public virtual void Activate(Avatar skillUser, Avatar target, Color borderColor) 
     {
