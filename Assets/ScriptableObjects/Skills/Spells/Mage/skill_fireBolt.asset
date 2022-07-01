@@ -9,19 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eef039da1934c8f40a4d164bd9566d4c, type: 3}
-  m_Name: skill_lightArrow
+  m_Script: {fileID: 11500000, guid: 875fa40c20fe3044fad8001b80da8d35, type: 3}
+  m_Name: skill_fireBolt
   m_EditorClassIdentifier: 
-  skillName: Light Arrow
+  skillName: 
   skillIcon: {fileID: 0}
-  description: Deals damage to an enemy. Reduced panel = dmg reduced by 1/3, Crit
-    panel = damage doubled
-  manaCost: 4
-  power: 20
-  actGaugeData: {fileID: 11400000, guid: ecebbb6dc390fb04c9d210f86d316b8b, type: 2}
+  description: 
+  manaCost: 0
+  power: 0
+  actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 2
+  targetType: 0
   element: 0
   statusEffect: 0
