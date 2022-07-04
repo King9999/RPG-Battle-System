@@ -20,75 +20,77 @@ public class Haste : Skill
         
         if (cim.buttonPressed)
         {
-            switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
-            {
-                case ActionGauge.ActionValue.Normal:
-                    spdValue = 0.3f;
-                    ui.DisplayStatusUpdate("SPD UP + 30%", target.transform.position);
-                    break;
-
-                case ActionGauge.ActionValue.Critical:
-                   spdValue = 0.5f;
-                    ui.DisplayStatusUpdate("SPD UP +50%", target.transform.position);
-                    break;
-                
-            }
-
-            target.spdMod = target.minSpdMod + spdValue;
-            durationLeft = turnDuration;
             if (!target.skillEffects.ContainsKey(this))
             {
+                switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
+                {
+                    case ActionGauge.ActionValue.Normal:
+                        spdValue = 0.3f;
+                        ui.DisplayStatusUpdate("SPD UP + 30%", target.transform.position);
+                        break;
+
+                    case ActionGauge.ActionValue.Critical:
+                        spdValue = 0.5f;
+                        ui.DisplayStatusUpdate("SPD UP +50%", target.transform.position);
+                        break;
+                    
+                }
+
+                //this skill is not refreshed if target is already being affected.
+            
                 target.skillEffects.Add(this, durationLeft);
+
+                target.spdMod = target.minSpdMod + spdValue;
+                durationLeft = turnDuration;
+                
+                //find target in the turn order list and then change their position
+                Avatar avatar;
+                for(int i = 0; i < cs.turnOrder.Count; i++)
+                {
+                    avatar = cs.turnOrder[i];
+                    if (avatar == target)
+                    {
+                        Debug.Log("Targeted " + avatar.className);
+                        //check all other avatars ahead of target and compare speeds
+                        if (i == 0)
+                        {
+                            //target is currently taking their turn. Move them forward after they take their turn.
+                            //target.spd *= target.spdMod;
+                            cs.speedChanged = true; 
+                            break;   
+                        }
+                        else
+                        {
+                            int x = i;
+                            bool greaterSpdFound = false; 
+                            while (x > 1 && !greaterSpdFound)   //x is > 1 because we can't take over the avatar who's currently taking their turn.
+                            {
+                                //compare speeds
+                                float currentAvatarSpd = cs.turnOrder[x - 1].spd * cs.turnOrder[x - 1].spdMod;
+                                if (avatar.spd * target.spdMod > currentAvatarSpd)
+                                {
+                                    //move the target ahead
+                                    Avatar temp = cs.turnOrder[x - 1];
+                                    cs.turnOrder[x - 1] = avatar;
+                                    cs.turnOrder[x] = temp;
+                                    x--;
+                                }
+                                else
+                                {
+                                    greaterSpdFound = true;
+                                }
+                            }
+
+                            //cs.UpdateTurnOrderUI();
+                            break;
+                        }
+
+                    }
+                }
             }
             else
             {
-                target.skillEffects[this] = durationLeft;
-            }
-
-            //find target in the turn order list and then change their position
-            Avatar avatar;
-            for(int i = 0; i < cs.turnOrder.Count; i++)
-            {
-                avatar = cs.turnOrder[i];
-                if (avatar == target)
-                {
-                    Debug.Log("Targeted " + avatar.className);
-                    //check all other avatars ahead of target and compare speeds
-                    if (i == 0)
-                    {
-                        //target is currently taking their turn. Move them forward after they take their turn.
-                        //target.spd *= target.spdMod;
-                        cs.speedChanged = true; 
-                        break;   
-                    }
-                    else
-                    {
-                        int x = i;
-                        //avatar.spd *= target.spdMod;
-                        bool greaterSpdFound = false; 
-                        while (x > 1 && !greaterSpdFound)   //x is > 1 because we can't take over the avatar who's currently taking their turn.
-                        {
-                            //compare speeds
-                            float currentAvatarSpd = cs.turnOrder[x - 1].spd * cs.turnOrder[x - 1].spdMod;
-                            if (avatar.spd * target.spdMod > currentAvatarSpd)
-                            {
-                                //move the target ahead
-                                Avatar temp = cs.turnOrder[x - 1];
-                                cs.turnOrder[x - 1] = avatar;
-                                cs.turnOrder[x] = temp;
-                                x--;
-                            }
-                            else
-                            {
-                                greaterSpdFound = true;
-                            }
-                        }
-
-                        //cs.UpdateTurnOrderUI();
-                        break;
-                    }
-
-                }
+                ui.DisplayStatusUpdate("SKILL IN EFFECT", target.transform.position);
             }
             
             //need to do this step to end turn.

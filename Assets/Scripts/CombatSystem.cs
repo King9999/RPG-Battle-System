@@ -275,10 +275,30 @@ public class CombatSystem : MonoBehaviour
                 turnOrder[turnOrder.Count - 1].SetTurnTaken(false); //need to do this step or we eventually end up in a loop
 
                 //reshuffle turn order if SPD was updated for any avatar
+                //if the avatar who just took their turn has raised their speed, they're placed in a higher position.
                 if (speedChanged)
                 {
-                    ShuffleTurnOrder();
                     speedChanged = false;
+
+                    int i = turnOrder.Count - 1;
+                    bool greaterSpdFound = false; 
+                    while (i > 0 && !greaterSpdFound)
+                    {
+                        //compare speeds
+                        float currentAvatarSpd = turnOrder[i - 1].spd * turnOrder[i - 1].spdMod;
+                        if (copy.spd * copy.spdMod > currentAvatarSpd)
+                        {
+                            //move the target ahead
+                            Avatar temp = turnOrder[i - 1];
+                            turnOrder[i - 1] = copy;
+                            turnOrder[i] = temp;
+                            i--;
+                        }
+                        else
+                        {
+                            greaterSpdFound = true;
+                        }
+                    }
                 }
 
                 //display new turn order
