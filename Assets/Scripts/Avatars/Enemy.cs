@@ -224,6 +224,7 @@ public abstract class Enemy : Avatar
         lightningResist = data.lightningResist;
         //skillEffects.Clear();
         skillEffects = new Dictionary<Skill, int>();
+        status = Status.Normal;
 
     }
 

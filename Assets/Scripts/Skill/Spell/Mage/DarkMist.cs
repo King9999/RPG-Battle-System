@@ -1,15 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-//deals fire damage to one target. Crit panel causes all other enemies to be hit, but for less damage.
-[CreateAssetMenu(menuName = "Skill/Mage/Blizzard", fileName = "skill_blizzard")]
-public class Blizzard : Skill
+//inflicts Blind status on all enemies. Crit panel increases success rate
+[CreateAssetMenu(menuName = "Skill/Mage/Dark Mist", fileName = "skill_darkMist")]
+public class DarkMist : Skill
 {
     public override void Activate(Avatar user, List<Enemy> targets, Color borderColor)
     {
         base.Activate(user, targets, borderColor);
 
-        float stunChance = 0;
+        float baseChance = user.mag / 200;
         CombatInputManager cim = CombatInputManager.instance;
         CombatSystem cs = CombatSystem.instance;
 
@@ -20,30 +20,30 @@ public class Blizzard : Skill
             switch(cs.actGauge.actionValues[cs.actGauge.currentIndex])
             {
                 case ActionGauge.ActionValue.Normal:
-                    stunChance = -1;
+                    //no change
+                    break;
+                
+                 case ActionGauge.ActionValue.Miss:
+                    baseChance = 0;
                     break;
 
                 case ActionGauge.ActionValue.Critical:
-                    stunChance = 0.65f;
+                    baseChance *= 1.5f;
                     break;
             }
 
             for (int i = 0; i < targets.Count; i++)
             {
-                totalDamage = user.mag + power;
-                totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f) - (targets[i].res * targets[i].resMod) - 
-                    (totalDamage * targets[i].coldResist));
-
-                user.ReduceHitPoints(targets, i, totalDamage);
-
+                float finalChance = baseChance - (targets[i].res / 100);
+                Debug.Log("Dark Mist hit chance vs " + targets[i].className + ": " + finalChance);
                 //stun check
-                if (targets[i].resistParalysis)
+                if (targets[i].resistBlind)
                 {
-                    ui.DisplayStatusUpdate(i, "STUN RESIST", targets[i].transform.position, delayDuration: 1);
+                    ui.DisplayStatusUpdate(i, "BLIND RESIST", targets[i].transform.position);
                 }
-                else if (Random.value <= stunChance)
+                else if (Random.value <= finalChance)
                 {
-                    targets[i].status = Avatar.Status.Paralyzed;
+                    targets[i].status = Avatar.Status.Blind;
                     durationLeft = turnDuration;
 
                     if (!targets[i].skillEffects.ContainsKey(this))
@@ -51,7 +51,11 @@ public class Blizzard : Skill
                     else
                         targets[i].skillEffects[this] = durationLeft;
                     
-                    ui.DisplayStatusUpdate(i, "STUNNED", targets[i].transform.position, delayDuration: 1);
+                    ui.DisplayStatusUpdate(i, "BLINDED", targets[i].transform.position);
+                }
+                else
+                {
+                    ui.DisplayStatusUpdate(i, "MISS", targets[i].transform.position);
                 }
             }
 
@@ -64,6 +68,6 @@ public class Blizzard : Skill
     public override void RemoveEffects(Avatar user)
     {
         user.status = Avatar.Status.Normal;
-        ui.DisplayStatusUpdate("STUN END", user.transform.position);
+        ui.DisplayStatusUpdate("BLIND END", user.transform.position);
     }
 }

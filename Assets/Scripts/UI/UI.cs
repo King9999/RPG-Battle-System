@@ -115,9 +115,9 @@ public class UI : MonoBehaviour
     }
 
     ///<param name="allStatusUiIndex">The text mesh to use to display information.</param>
-    public void DisplayStatusUpdate(int allStatusUiIndex, string status, Vector3 location)
+    public void DisplayStatusUpdate(int allStatusUiIndex, string status, Vector3 location, float delayDuration = 0)
     {
-        StartCoroutine(AnimateStatus(allStatusUiIndex, status, location));   
+        StartCoroutine(AnimateStatus(allStatusUiIndex, status, location, delayDuration));   
     }
 
     private IEnumerator AnimateDamage(string value, Vector3 location)
@@ -306,33 +306,32 @@ public class UI : MonoBehaviour
         statusUI.gameObject.SetActive(false);
     }
 
-    IEnumerator AnimateStatus(int index, string status, Vector3 location)
+    IEnumerator AnimateStatus(int index, string status, Vector3 location, float delayDuration = 0)
     {
-        //for (int i = 0; i < targets.Count; i++)
-        //{
-            float displayDuration = 0.5f;
-            Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
-            allStatusUI[index].gameObject.SetActive(true);
-            allStatusUI[index].transform.position = avatarPos;
-            allStatusUI[index].text = status;
+        yield return new WaitForSeconds(delayDuration);
+        float displayDuration = 0.5f;
+        Vector3 avatarPos = Camera.main.WorldToScreenPoint(location);
+        allStatusUI[index].gameObject.SetActive(true);
+        allStatusUI[index].transform.position = avatarPos;
+        allStatusUI[index].text = status;
 
-            //each digit is animated individually
-            Vector3 initPos = allStatusUI[index].transform.position;
-            Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
-            float vy;
-            while(allStatusUI[index].transform.position.y < destination.y)
-            {
-                Vector3 newPos = allStatusUI[index].transform.position;
-                vy = 50 * Time.deltaTime;
-                allStatusUI[index].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
-                yield return null;
-            }
+        //each digit is animated individually
+        Vector3 initPos = allStatusUI[index].transform.position;
+        Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
+        float vy;
+        while(allStatusUI[index].transform.position.y < destination.y)
+        {
+            Vector3 newPos = allStatusUI[index].transform.position;
+            vy = 50 * Time.deltaTime;
+            allStatusUI[index].transform.position = new Vector3(newPos.x, newPos.y + vy, newPos.z);
+            yield return null;
+        }
 
-            allStatusUI[index].transform.position = destination;
-            
-            yield return new WaitForSeconds(displayDuration);
-            allStatusUI[index].gameObject.SetActive(false);
-        //}
+        allStatusUI[index].transform.position = destination;
+        
+        yield return new WaitForSeconds(displayDuration);
+        allStatusUI[index].gameObject.SetActive(false);
+       
     }
 
     //shows block animation. also reduces shield HP. If shield has 0 HP, a different animation is played.
