@@ -30,7 +30,7 @@ public class Blizzard : Skill
 
             for (int i = 0; i < targets.Count; i++)
             {
-                totalDamage = user.mag + power;
+                totalDamage = Mathf.Round(user.mag * user.magMod) + power;
                 totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f) - (targets[i].res * targets[i].resMod) - 
                     (totalDamage * targets[i].coldResist));
 

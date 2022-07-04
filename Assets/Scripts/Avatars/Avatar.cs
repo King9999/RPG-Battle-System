@@ -288,17 +288,17 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         mpMod = minMpMod;
         spdMod = minSpdMod;
         
-        maxHitPoints = Mathf.Round(maxHitPoints * hpMod);
-        maxManaPoints = Mathf.Round(maxManaPoints * mpMod);
+        //maxHitPoints = Mathf.Round(maxHitPoints * hpMod);
+        //maxManaPoints = Mathf.Round(maxManaPoints * mpMod);
 
         hitPoints = hitPoints > maxHitPoints ? maxHitPoints : hitPoints;
         manaPoints = manaPoints > maxManaPoints ? maxManaPoints : manaPoints;
 
-        atp = Mathf.Round(atp * atpMod);
+        /*atp = Mathf.Round(atp * atpMod);
         dfp = Mathf.Round(dfp * dfpMod);
         mag = Mathf.Round(mag * magMod);
         res = Mathf.Round(res * resMod);
-        spd = Mathf.Round(spd * spdMod);
+        spd = Mathf.Round(spd * spdMod);*/
     }
 
     //chance to remove an ailment naturally. Only works against paralysis, blind, and charm

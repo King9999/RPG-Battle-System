@@ -133,7 +133,7 @@ public class MysteryNode : MapObject
                 {
                     hm.heroes[i].hitPoints = Mathf.Round(hm.heroes[i].maxHitPoints * hm.heroes[i].hpMod);
                     ui.partyDisplay[i].UpdateUI();
-                    ui.DisplayStatus(i, hm.heroes[i].hitPoints.ToString(), ui.partyDisplay[i].heroSprite.transform.position, ui.healColor);
+                    ui.DisplayStatus(i, hm.heroes[i].hitPoints.ToString(), ui.partyDisplay[i].heroSprite.transform.position, ui.healColor, 1.2f);
                 }
                 ui.notification.DisplayMessage("A rejuvenating breeze");
                 break;
@@ -143,7 +143,7 @@ public class MysteryNode : MapObject
                 {
                     hm.heroes[i].manaPoints = Mathf.Round(hm.heroes[i].manaPoints * 0.5f);
                     ui.partyDisplay[i].UpdateUI();
-                    ui.DisplayStatus(i, hm.heroes[i].manaPoints.ToString(), ui.partyDisplay[i].heroSprite.transform.position, Color.grey);
+                    ui.DisplayStatus(i, hm.heroes[i].manaPoints.ToString(), ui.partyDisplay[i].heroSprite.transform.position, Color.grey, 1.2f);
                 }
                 ui.notification.DisplayMessage("You feel a bit dizzy");
                 break;
@@ -159,7 +159,8 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minAtpMod += 0.02f;
                         //hm.heroes[i].atpMod = hm.heroes[i].minAtpMod;
                         hm.heroes[i].UpdateStats();
-                        ui.DisplayStatus(i, "ATP BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        hm.heroes[i].atp = Mathf.Round(hm.heroes[i].weapon.atp * hm.heroes[i].atpMod);
+                        ui.DisplayStatus(i, "ATP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
 
@@ -171,7 +172,8 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minDfpMod += 0.02f;
                         //hm.heroes[i].dfpMod = hm.heroes[i].minDfpMod;
                         hm.heroes[i].UpdateStats();
-                        ui.DisplayStatus(i, "DFP BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        hm.heroes[i].dfp = Mathf.Round(hm.heroes[i].armor.dfp * hm.heroes[i].dfpMod);
+                        ui.DisplayStatus(i, "DFP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
 
@@ -183,7 +185,8 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minMagMod += 0.02f;
                         //hm.heroes[i].magMod = hm.heroes[i].minMagMod;
                         hm.heroes[i].UpdateStats();
-                        ui.DisplayStatus(i, "MAG BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        hm.heroes[i].mag = Mathf.Round(hm.heroes[i].weapon.mag * hm.heroes[i].magMod);
+                        ui.DisplayStatus(i, "MAG BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
 
@@ -195,7 +198,8 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minResMod += 0.02f;
                         //hm.heroes[i].resMod = hm.heroes[i].minResMod;
                         hm.heroes[i].UpdateStats();
-                        ui.DisplayStatus(i, "RES BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        hm.heroes[i].res = Mathf.Round(hm.heroes[i].armor.res * hm.heroes[i].resMod);
+                        ui.DisplayStatus(i, "RES BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
 
@@ -207,7 +211,8 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minSpdMod += 0.02f;
                         //hm.heroes[i].spdMod = hm.heroes[i].minSpdMod;
                         hm.heroes[i].UpdateStats();
-                        ui.DisplayStatus(i, "SPD BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        hm.heroes[i].spd = Mathf.Round(hm.heroes[i].spd * hm.heroes[i].spdMod);
+                        ui.DisplayStatus(i, "SPD BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
 
@@ -219,8 +224,9 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minHpMod += 0.02f;
                         //hm.heroes[i].hpMod = hm.heroes[i].minHpMod;
                         hm.heroes[i].UpdateStats();
+                        hm.heroes[i].maxHitPoints = Mathf.Round(hm.heroes[i].maxHitPoints * hm.heroes[i].hpMod);
                         ui.partyDisplay[i].UpdateUI();
-                        ui.DisplayStatus(i, "HP BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        ui.DisplayStatus(i, "HP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
 
@@ -232,8 +238,9 @@ public class MysteryNode : MapObject
                         hm.heroes[i].minMpMod += 0.02f;
                         //hm.heroes[i].mpMod = hm.heroes[i].minMpMod;
                         hm.heroes[i].UpdateStats();
+                        hm.heroes[i].maxManaPoints = Mathf.Round(hm.heroes[i].maxManaPoints * hm.heroes[i].mpMod);
                         ui.partyDisplay[i].UpdateUI();
-                        ui.DisplayStatus(i, "MP BOOST", ui.partyDisplay[i].transform.position, Color.white);
+                        ui.DisplayStatus(i, "MP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
                                             

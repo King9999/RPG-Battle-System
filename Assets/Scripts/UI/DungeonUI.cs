@@ -48,15 +48,15 @@ public class DungeonUI : MonoBehaviour
         normalColor = Color.white;
     }
 
-    public void DisplayStatus(string value, Vector3 location, Color textColor)
+    public void DisplayStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
     {
         if (!animateStatusCoroutineOn)
-            StartCoroutine(AnimateStatus(value, location, textColor));
+            StartCoroutine(AnimateStatus(value, location, textColor, displayDuration));
     }
 
-    public void DisplayStatus(int allStatusUiIndex, string value, Vector3 location, Color textColor)
+    public void DisplayStatus(int allStatusUiIndex, string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
     {
-        StartCoroutine(AnimateStatus(allStatusUiIndex, value, location, textColor));
+        StartCoroutine(AnimateStatus(allStatusUiIndex, value, location, textColor, displayDuration));
     }
 
     public void DisplayEquipStatus(bool toggle, string message = "")
@@ -76,10 +76,10 @@ public class DungeonUI : MonoBehaviour
             StartCoroutine(DisplayEquip(message, 1, returnState));
     }
 
-    private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor)
+    private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
     {
         animateStatusCoroutineOn = true;
-        float displayDuration = 0.5f;
+        //float displayDuration = 0.5f;
         statusUI.gameObject.SetActive(true);
         statusUI.transform.position = location;
         statusUI.text = value;
@@ -105,10 +105,10 @@ public class DungeonUI : MonoBehaviour
         animateStatusCoroutineOn = false;
     }
 
-    private IEnumerator AnimateStatus(int index, string value, Vector3 location, Color textColor)
+    private IEnumerator AnimateStatus(int index, string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
     {
         //animateStatusCoroutineOn = true;
-        float displayDuration = 0.5f;
+        //float displayDuration = 0.5f;
         allStatusUI[index].gameObject.SetActive(true);
         allStatusUI[index].transform.position = location;
         allStatusUI[index].text = value;

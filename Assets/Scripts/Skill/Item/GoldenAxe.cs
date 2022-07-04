@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //increases user's ATP by 10%. Effect is stackable up to 30% and lasts for 2 turns

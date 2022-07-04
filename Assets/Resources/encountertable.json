@@ -5,8 +5,8 @@
 			"tableLevel": 0,
 			"encounters":
 			[
-				{"enemyID":3, "objName":"enemy_winddancer", "encounterChance": 0.1},
-				{"enemyID":0, "objName":"enemy_imp", "encounterChance": 1}
+				{"enemyID":3, "objName":"enemy_winddancer", "encounterChance": 1},
+				{"enemyID":0, "objName":"enemy_imp", "encounterChance": 0}
 				
 			]	
 		}

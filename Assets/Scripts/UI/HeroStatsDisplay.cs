@@ -25,7 +25,7 @@ public class HeroStatsDisplay : MonoBehaviour
     public void UpdateStats(Hero hero)
     {
         //display stats
-        hero.UpdateStats();
+        //hero.UpdateStats();
         hero.totalAttackTokens = hero.totalAttackTokens < 1 ? 1 : hero.totalAttackTokens;
         statValuesUI.text = hero.atp + "\n" + hero.dfp + "\n" + hero.spd + "\n" + hero.mag + "\n" + hero.res + "\n" + hero.totalAttackTokens;
         resistValuesUI.text = (hero.fireResist * 100) + "%\n" + (hero.coldResist * 100) + "%\n" + (hero.lightningResist * 100) + "%"; 

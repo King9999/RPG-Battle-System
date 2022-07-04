@@ -33,7 +33,7 @@ public class LightArrow : Skill
                 
             }
 
-            totalDamage = (user.mag + power) * dmgMod;
+            totalDamage = Mathf.Round((user.mag + power) * dmgMod);
             totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f) - (target.res * target.resMod));
             
             user.ReduceHitPoints(target, totalDamage);

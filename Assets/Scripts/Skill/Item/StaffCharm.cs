@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //attempt to charm an enemy. Success rate is affected by target's RES

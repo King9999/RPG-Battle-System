@@ -20,7 +20,7 @@ public class Heal : Skill
         ReduceMp(user);
         //user.manaPoints -= manaCost;
         Debug.Log(user.className + " is casting " + skillName);
-        float amountRestored = (user.mag * user.magMod) + power;
+        float amountRestored = Mathf.Round(user.mag * user.magMod) + power;
         amountRestored += Mathf.Round(Random.Range(0, amountRestored * 0.1f));
 
         //target.hitPoints += amountRestored;

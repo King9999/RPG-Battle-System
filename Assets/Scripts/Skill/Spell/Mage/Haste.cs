@@ -37,7 +37,6 @@ public class Haste : Skill
                 }
 
                 //this skill is not refreshed if target is already being affected.
-            
                 target.skillEffects.Add(this, durationLeft);
 
                 target.spdMod = target.minSpdMod + spdValue;
@@ -55,7 +54,6 @@ public class Haste : Skill
                         if (i == 0)
                         {
                             //target is currently taking their turn. Move them forward after they take their turn.
-                            //target.spd *= target.spdMod;
                             cs.speedChanged = true; 
                             break;   
                         }
@@ -81,7 +79,6 @@ public class Haste : Skill
                                 }
                             }
 
-                            //cs.UpdateTurnOrderUI();
                             break;
                         }
 

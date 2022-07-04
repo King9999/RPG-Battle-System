@@ -32,7 +32,7 @@ public class HealingLight : Skill
                         //target.maxHitPoints = Mathf.Round(target.maxHitPoints * target.hpMod);
                     }
                     //healAmount = (user.mag + power) * 1.5f;
-                    healAmount = user.mag + power;
+                    healAmount = Mathf.Round(user.mag * user.magMod) + power;
                     healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));  
                     break;
                 
