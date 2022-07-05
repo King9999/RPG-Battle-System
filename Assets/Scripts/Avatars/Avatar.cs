@@ -157,8 +157,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     {
         UI ui = UI.instance;
 
-        string avatarStats = className + "\nATP " + atp * atpMod + "\nDFP " + dfp * dfpMod + "\nMAG " + mag * magMod + "\nRES "
-        + res * resMod + "\nSPD " + spd * spdMod + "\n\nSTATUS\n" + status;
+        string avatarStats = className + "\nATP " + Mathf.Round(atp * atpMod) + "\nDFP " + Mathf.Round(dfp * dfpMod) + 
+        "\nMAG " + Mathf.Round(mag * magMod) + "\nRES " + Mathf.Round(res * resMod) + "\nSPD " + Mathf.Round(spd * spdMod) + "\n\nSTATUS\n" + status;
         
         string skillSet = "SKILLS\n";
 

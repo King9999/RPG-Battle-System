@@ -37,22 +37,22 @@ public class Blizzard : Skill
                 user.ReduceHitPoints(targets, i, totalDamage);
 
                 //stun check
-                if (targets[i].resistParalysis)
+                if (!targets[i].resistParalysis)
                 {
-                    ui.DisplayStatusUpdate(i, "STUN RESIST", targets[i].transform.position, delayDuration: 1);
-                }
-                else if (Random.value <= stunChance)
-                {
-                    targets[i].status = Avatar.Status.Paralyzed;
-                    durationLeft = turnDuration;
-
                     if (!targets[i].skillEffects.ContainsKey(this))
-                        targets[i].skillEffects.Add(this, durationLeft);
-                    else
-                        targets[i].skillEffects[this] = durationLeft;
-                    
-                    ui.DisplayStatusUpdate(i, "STUNNED", targets[i].transform.position, delayDuration: 1);
+                    {
+                        if (Random.value <= stunChance)
+                        {
+                            targets[i].status = Avatar.Status.Paralyzed;
+                            durationLeft = turnDuration;
+                            targets[i].skillEffects.Add(this, durationLeft);
+                            ui.DisplayStatusUpdate(i, "STUNNED", targets[i].transform.position, delayDuration: 1);
+                        }
+                    }
                 }
+                else
+                    ui.DisplayStatusUpdate(i, "STUN RESIST", targets[i].transform.position, delayDuration: 1);
+                
             }
 
             //need to do this step to end turn.
