@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a93fce1dece62a4c8f8842ac0778f86, type: 3}
   m_Name: skill_thunderStrike
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Thunder Strike
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
-  actGaugeData: {fileID: 0}
+  description: Lightning damage to 1 enemy. Critical panel = chance to stun
+  manaCost: 12
+  power: 72
+  actGaugeData: {fileID: 11400000, guid: b14afc89db15f534792c0c6c24b13998, type: 2}
   isPassive: 0
-  hasDuration: 0
-  turnDuration: 0
-  targetType: 0
+  hasDuration: 1
+  turnDuration: 5
+  targetType: 2
