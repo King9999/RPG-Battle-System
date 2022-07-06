@@ -57,8 +57,7 @@ public class Sharpen : Skill
 
     public override void RemoveEffects(Avatar user)
     {
-        user.dfpMod = user.minDfpMod;
-        user.resMod = user.minResMod;  
-        ui.DisplayStatusUpdate("DFP/RES DEBUFF END", user.transform.position);
+        user.atpMod = user.minAtpMod;
+        ui.DisplayStatusUpdate("ATP BUFF END", user.transform.position);
     }
 }
