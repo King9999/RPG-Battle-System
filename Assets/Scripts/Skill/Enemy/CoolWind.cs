@@ -17,7 +17,7 @@ public class CoolWind : Skill
             durationLeft = turnDuration;
             target.skillEffects.Add(this, durationLeft);
             target.spdMod = target.minSpdMod + 0.5f;
-            ui.DisplayStatusUpdate("SPD UP +50%", target.transform.position);
+            ui.DisplayStatusUpdate("SPD +50%", target.transform.position);
             
             //find target in the turn order list and then change their position
             Avatar avatar;
