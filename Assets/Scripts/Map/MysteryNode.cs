@@ -33,7 +33,7 @@ public class MysteryNode : MapObject
                 //get random effect. Put code here
                 int randEffect = Random.Range(0, (int)NodeEffects.End);
                 GetRandomEffect((NodeEffects)randEffect);
-                //GetRandomEffect(NodeEffects.RestockChests);
+                //GetRandomEffect(NodeEffects.GlobalStatBuff);
 
                 ShowObject(false);
             }  
@@ -149,17 +149,19 @@ public class MysteryNode : MapObject
                 break;
 
             case NodeEffects.GlobalStatBuff:
-                //a random stat gets a buff
+                //a random stat gets a buff. Recalculations must factor in any equipment.
                 int randStat = Random.Range(1, 8);
+                //int randStat = 1;
                 if (randStat == 1)
                 {
                     ui.notification.DisplayMessage("You feel a little stronger");
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
                         hm.heroes[i].minAtpMod += 0.02f;
-                        //hm.heroes[i].atpMod = hm.heroes[i].minAtpMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].atp = Mathf.Round(hm.heroes[i].weapon.atp * hm.heroes[i].atpMod);
+                        hm.heroes[i].atpMod = hm.heroes[i].minAtpMod;
+                        //hm.heroes[i].UpdateStats();
+                        float baseAtp = hm.heroes[i].atp - hm.heroes[i].weapon.atp;
+                        hm.heroes[i].atp = Mathf.Round(baseAtp * hm.heroes[i].atpMod) + hm.heroes[i].weapon.atp;
                         ui.DisplayStatus(i, "ATP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
@@ -170,9 +172,11 @@ public class MysteryNode : MapObject
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
                         hm.heroes[i].minDfpMod += 0.02f;
-                        //hm.heroes[i].dfpMod = hm.heroes[i].minDfpMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].dfp = Mathf.Round(hm.heroes[i].armor.dfp * hm.heroes[i].dfpMod);
+                        hm.heroes[i].dfpMod = hm.heroes[i].minDfpMod;
+                        //hm.heroes[i].UpdateStats();
+                        float armorDfp = hm.heroes[i].armor != null ? hm.heroes[i].armor.dfp : 0;
+                        float baseDfp = hm.heroes[i].dfp - armorDfp;
+                        hm.heroes[i].dfp = Mathf.Round(baseDfp * hm.heroes[i].dfpMod) + armorDfp;
                         ui.DisplayStatus(i, "DFP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
@@ -183,9 +187,10 @@ public class MysteryNode : MapObject
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
                         hm.heroes[i].minMagMod += 0.02f;
-                        //hm.heroes[i].magMod = hm.heroes[i].minMagMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].mag = Mathf.Round(hm.heroes[i].weapon.mag * hm.heroes[i].magMod);
+                        hm.heroes[i].magMod = hm.heroes[i].minMagMod;
+                        //hm.heroes[i].UpdateStats();
+                        float baseMag = hm.heroes[i].mag - hm.heroes[i].weapon.mag;
+                        hm.heroes[i].mag = Mathf.Round(baseMag * hm.heroes[i].magMod) + hm.heroes[i].weapon.mag;
                         ui.DisplayStatus(i, "MAG BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
@@ -196,9 +201,11 @@ public class MysteryNode : MapObject
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
                         hm.heroes[i].minResMod += 0.02f;
-                        //hm.heroes[i].resMod = hm.heroes[i].minResMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].res = Mathf.Round(hm.heroes[i].armor.res * hm.heroes[i].resMod);
+                        hm.heroes[i].resMod = hm.heroes[i].minResMod;
+                        //hm.heroes[i].UpdateStats();
+                        float armorRes = hm.heroes[i].armor != null ? hm.heroes[i].armor.res : 0;
+                        float baseRes = hm.heroes[i].res - armorRes;
+                        hm.heroes[i].res = Mathf.Round(baseRes * hm.heroes[i].resMod) + armorRes;
                         ui.DisplayStatus(i, "RES BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
@@ -209,9 +216,11 @@ public class MysteryNode : MapObject
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
                         hm.heroes[i].minSpdMod += 0.02f;
-                        //hm.heroes[i].spdMod = hm.heroes[i].minSpdMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].spd = Mathf.Round(hm.heroes[i].spd * hm.heroes[i].spdMod);
+                        hm.heroes[i].spdMod = hm.heroes[i].minSpdMod;
+                        //hm.heroes[i].UpdateStats();
+                        float trinketSpd = hm.heroes[i].trinket != null ? hm.heroes[i].trinket.spd : 0;
+                        float baseSpd = hm.heroes[i].spd - trinketSpd;
+                        hm.heroes[i].spd = Mathf.Round(baseSpd * hm.heroes[i].spdMod) + trinketSpd;
                         ui.DisplayStatus(i, "SPD BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
                 }
@@ -221,10 +230,14 @@ public class MysteryNode : MapObject
                     ui.notification.DisplayMessage("You feel a little tougher");
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
+                        //factors in any equipped trinkets
                         hm.heroes[i].minHpMod += 0.02f;
-                        //hm.heroes[i].hpMod = hm.heroes[i].minHpMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].maxHitPoints = Mathf.Round(hm.heroes[i].maxHitPoints * hm.heroes[i].hpMod);
+                        float trinketHpMod = hm.heroes[i].trinket != null ? hm.heroes[i].trinket.hpMod : 0;
+                        hm.heroes[i].hpMod = hm.heroes[i].minHpMod + trinketHpMod;
+                        //hm.heroes[i].UpdateStats();
+                        float trinketHp = hm.heroes[i].trinket != null ? hm.heroes[i].trinket.maxHitPoints : 0;
+                        float baseHp = hm.heroes[i].maxHitPoints - trinketHp;
+                        hm.heroes[i].maxHitPoints = Mathf.Round(baseHp * hm.heroes[i].hpMod) + trinketHp;
                         ui.partyDisplay[i].UpdateUI();
                         ui.DisplayStatus(i, "HP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
@@ -236,9 +249,12 @@ public class MysteryNode : MapObject
                     for (int i = 0; i < hm.heroes.Count; i++)
                     {
                         hm.heroes[i].minMpMod += 0.02f;
-                        //hm.heroes[i].mpMod = hm.heroes[i].minMpMod;
-                        hm.heroes[i].UpdateStats();
-                        hm.heroes[i].maxManaPoints = Mathf.Round(hm.heroes[i].maxManaPoints * hm.heroes[i].mpMod);
+                        float trinketMpMod = hm.heroes[i].trinket != null ? hm.heroes[i].trinket.mpMod : 0;
+                        hm.heroes[i].mpMod = hm.heroes[i].minMpMod + trinketMpMod;
+                        //hm.heroes[i].UpdateStats();
+                        float trinketMp = hm.heroes[i].trinket != null ? hm.heroes[i].trinket.maxManaPoints : 0;
+                        float baseMp = hm.heroes[i].maxManaPoints - trinketMp;
+                        hm.heroes[i].maxManaPoints = Mathf.Round(baseMp * hm.heroes[i].mpMod) + trinketMp;
                         ui.partyDisplay[i].UpdateUI();
                         ui.DisplayStatus(i, "MP BOOST", ui.partyDisplay[i].transform.position, Color.white, 1.2f);
                     }
