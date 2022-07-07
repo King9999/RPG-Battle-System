@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0d032308df314419e2ad48102c216b, type: 3}
   m_Name: skill_meteorShower
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Meteor Shower
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
-  actGaugeData: {fileID: 0}
+  description: Deal damage to random enemies 3 times. Critical panel = deal damage
+    5 times
+  manaCost: 25
+  power: 84
+  actGaugeData: {fileID: 11400000, guid: 81d9590b66dc3fb489866adb979e769e, type: 2}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 4
