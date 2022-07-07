@@ -23,9 +23,9 @@ public class Revive : Skill
                     if (target.status == Avatar.Status.Dead)
                     {
                         target.status = Avatar.Status.Normal;
-                        healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
-                        healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));
-                        user.RestoreHitPoints(target, healAmount);
+                        healAmount = target.maxHitPoints * 0.33f;
+                        healAmount += Random.Range(0, healAmount * 0.1f);
+                        user.RestoreHitPoints(target, Mathf.Round(healAmount));
                     }
                     else
                     {
@@ -37,9 +37,9 @@ public class Revive : Skill
                     if (target.status == Avatar.Status.Dead)
                     {
                         target.status = Avatar.Status.Normal;
-                        healAmount = Mathf.Round(target.maxHitPoints * 0.65f);
-                        healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));
-                        user.RestoreHitPoints(target, healAmount);
+                        healAmount = target.maxHitPoints * 0.65f;
+                        healAmount += Random.Range(0, healAmount * 0.1f);
+                        user.RestoreHitPoints(target, Mathf.Round(healAmount));
                     }
                     else
                     {

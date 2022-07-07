@@ -19,13 +19,13 @@ public class Heal : Skill
 
         ReduceMp(user);
         //user.manaPoints -= manaCost;
-        Debug.Log(user.className + " is casting " + skillName);
-        float amountRestored = Mathf.Round(user.mag * user.magMod) + power;
-        amountRestored += Mathf.Round(Random.Range(0, amountRestored * 0.1f));
+        //Debug.Log(user.className + " is casting " + skillName);
+        float amountRestored = (user.mag * user.magMod) + power;
+        amountRestored += Random.Range(0, amountRestored * 0.1f);
 
         //target.hitPoints += amountRestored;
-        user.RestoreHitPoints(target, amountRestored);
+        user.RestoreHitPoints(target, Mathf.Round(amountRestored));
         
-        Debug.Log(amountRestored + " HP restored to " + target.className);
+        //Debug.Log(amountRestored + " HP restored to " + target.className);
     }
 }

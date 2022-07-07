@@ -33,10 +33,10 @@ public class LightArrow : Skill
                 
             }
 
-            totalDamage = Mathf.Round((user.mag + power) * dmgMod);
-            totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f) - (target.res * target.resMod));
+            totalDamage = (user.mag + power) * dmgMod;
+            totalDamage += Random.Range(0, totalDamage * 0.1f) - (target.res * target.resMod);
             
-            user.ReduceHitPoints(target, totalDamage);
+            user.ReduceHitPoints(target, Mathf.Round(totalDamage));
 
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))

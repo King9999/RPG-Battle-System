@@ -36,6 +36,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a145bf50b0fe4cd478809a9cd50156a1, type: 2}
   - {fileID: 11400000, guid: d10bc424f44ff1c4f97769f5cdead5f0, type: 2}
   - {fileID: 11400000, guid: 1f51c7697d3655e4c856008ff642e375, type: 2}
+  - {fileID: 11400000, guid: ecb62b999ddaf2e4f8ca2e644c07f337, type: 2}
+  - {fileID: 11400000, guid: b646b4d08a98dbc459d0ad7a4f03b359, type: 2}
   statFile: {fileID: 4900000, guid: 252c36f3b7dce4b4d91065c94dfd2c48, type: 3}
   sprite: {fileID: 21300000, guid: 2a9f2f1a396e7344880bee22bb180fd8, type: 3}
   heroClass: 2

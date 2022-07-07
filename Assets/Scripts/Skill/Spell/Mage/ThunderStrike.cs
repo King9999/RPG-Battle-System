@@ -29,10 +29,10 @@ public class ThunderStrike : Skill
                 
             }
 
-            totalDamage = Mathf.Round(user.mag * user.magMod) + power;
-            totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f) - (target.res * target.resMod) - (totalDamage * target.lightningResist));
+            totalDamage = (user.mag * user.magMod) + power;
+            totalDamage += Random.Range(0, totalDamage * 0.1f) - (target.res * target.resMod) - (totalDamage * target.lightningResist);
             
-            user.ReduceHitPoints(target, totalDamage);
+            user.ReduceHitPoints(target, Mathf.Round(totalDamage));
 
             //stun check
             if (landedOnCritPanel)

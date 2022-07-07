@@ -21,7 +21,7 @@ public class HealingLight : Skill
             {
                 case ActionGauge.ActionValue.Normal:
                     healAmount = user.mag + power;
-                    healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));           
+                    healAmount += Random.Range(0, healAmount * 0.1f);           
                     break;
 
                 case ActionGauge.ActionValue.Critical:
@@ -32,13 +32,13 @@ public class HealingLight : Skill
                         //target.maxHitPoints = Mathf.Round(target.maxHitPoints * target.hpMod);
                     }
                     //healAmount = (user.mag + power) * 1.5f;
-                    healAmount = Mathf.Round(user.mag * user.magMod) + power;
-                    healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));  
+                    healAmount =(user.mag * user.magMod) + power;
+                    healAmount += Random.Range(0, healAmount * 0.1f);  
                     break;
                 
             }
 
-            user.RestoreHitPoints(target, healAmount);
+            user.RestoreHitPoints(target, Mathf.Round(healAmount));
 
             //need to do this step to end turn.
             if (user.TryGetComponent(out Hero hero))

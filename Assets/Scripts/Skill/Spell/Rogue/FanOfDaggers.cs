@@ -38,11 +38,11 @@ public class FanOfDaggers : Skill
             Vector3[] targetPos = new Vector3[targets.Count];
             for (int i = 0; i < targets.Count; i++)
             {
-                totalDamage = dmgMod > 1 ? Mathf.Round(user.atp * 2 * dmgMod) : Mathf.Round(user.atp * 2 * dmgMod - (targets[i].dfp * targets[i].dfpMod));
-                totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f));
+                totalDamage = dmgMod > 1 ? user.atp * 2 * dmgMod : (user.atp * 2 * dmgMod) - (targets[i].dfp * targets[i].dfpMod);
+                totalDamage += Random.Range(0, totalDamage * 0.1f);
 
-                targetPos[i] = targets[i].transform.position;
-                user.ReduceHitPoints(targets, i, totalDamage);
+                //targetPos[i] = targets[i].transform.position;
+                user.ReduceHitPoints(targets, i, Mathf.Round(totalDamage));
             }
 
             //need to do this step to end turn.

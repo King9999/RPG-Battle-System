@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00df5b59d1edf1d41a094d2e3b1aa08b, type: 3}
   m_Name: skill_corrode
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Corrode
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
+  description: Reduces DFP by up to 30%. Critical panel = also reduces RES by 30%
+  manaCost: 10
   power: 0
-  actGaugeData: {fileID: 0}
+  actGaugeData: {fileID: 11400000, guid: 4313f47cd6ca5434aada1424dd8cc239, type: 2}
   isPassive: 0
-  hasDuration: 0
-  turnDuration: 0
-  targetType: 0
+  hasDuration: 1
+  turnDuration: 3
+  targetType: 2

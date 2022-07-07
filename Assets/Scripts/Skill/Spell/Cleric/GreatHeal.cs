@@ -36,9 +36,9 @@ public class GreatHeal : Skill
 
             for (int i = 0; i < allies.Count; i++)
             {
-                healAmount = landedOnCritPanel ? Mathf.Round(user.mag * user.magMod * 1.5f) + power : Mathf.Round(user.mag * user.magMod) + power;
-                healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));
-                user.RestoreHitPoints(allies, i, healAmount); 
+                healAmount = landedOnCritPanel ? (user.mag * user.magMod * 1.5f) + power : (user.mag * user.magMod) + power;
+                healAmount += Random.Range(0, healAmount * 0.1f);
+                user.RestoreHitPoints(allies, i, Mathf.Round(healAmount)); 
             }
            
 

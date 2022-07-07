@@ -15,9 +15,9 @@ public class Haymaker : Skill
 
         if (rollValue <= hitChance)
         {
-            totalDamage = Mathf.Round(user.atp * user.atpMod) + power;
-            totalDamage += Mathf.Round(Random.Range(0, totalDamage * 0.1f));
-            user.ReduceHitPoints(target, totalDamage);
+            totalDamage = (user.atp * user.atpMod) + power;
+            totalDamage += Random.Range(0, totalDamage * 0.1f);
+            user.ReduceHitPoints(target, Mathf.Round(totalDamage));
             //Debug.Log("Hit! " + totalDamage + " damage to " + target.className);   
         }
         else

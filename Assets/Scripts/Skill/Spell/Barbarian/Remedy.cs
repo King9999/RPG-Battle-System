@@ -34,10 +34,10 @@ public class Remedy : Skill
                         ui.DisplayStatusUpdate("NO EFFECT", user.transform.position);
 
                     //restore 15% HP
-                    float healAmount = Mathf.Round(user.maxHitPoints * 0.15f);
-                    healAmount += Mathf.Round(Random.Range(0, healAmount * 0.1f));
+                    float healAmount = user.maxHitPoints * 0.15f;
+                    healAmount += Random.Range(0, healAmount * 0.1f);
 
-                    user.RestoreHitPoints(user, healAmount, delayDuration: 1);
+                    user.RestoreHitPoints(user, Mathf.Round(healAmount), delayDuration: 1);
                     break;
                 
             }
