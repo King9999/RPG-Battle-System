@@ -22,7 +22,6 @@ MonoBehaviour:
   mag: 10
   actGauge: {fileID: 11400000, guid: 9ca53e820617763479a860ca1bf4d076, type: 2}
   tokenCount: 1
-  weaponSkill: {fileID: 0}
   staffSkills:
   - {fileID: 11400000, guid: 501d5f4c94e2471479d17819626d22b6, type: 2}
   - {fileID: 11400000, guid: 03b06a6a0198dbf46b7fe41015e06310, type: 2}

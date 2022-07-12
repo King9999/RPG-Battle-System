@@ -169,7 +169,8 @@ public class Inventory : MonoBehaviour
                     {
                         slot.quantity += amount;
                         //itemFound = true;
-                        slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
+                        slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + "(" +
+                        slot.WeaponInSlot().weaponSkill.skillName + ") -- " + slot.quantity;
                     }
                     else
                     {
@@ -183,7 +184,8 @@ public class Inventory : MonoBehaviour
                         weaponCount++;
                         weaponSlots[i].AddWeapon(item);
                         weaponSlots[i].quantity += amount;
-                        weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
+                        weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
+                        + slot.WeaponInSlot().weaponSkill.skillName + ") -- " + weaponSlots[i].quantity;
                     }
                     itemFound = true;
                 }
@@ -210,7 +212,13 @@ public class Inventory : MonoBehaviour
             weaponCount++;
             weaponSlots[i].AddWeapon(item);
             weaponSlots[i].quantity += amount;
-            weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
+            if (weaponSlots[i].WeaponInSlot().weaponType == Weapon.WeaponType.Staff)
+            {
+                weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
+                    + weaponSlots[i].WeaponInSlot().weaponSkill.skillName + ") -- " + weaponSlots[i].quantity;
+            }
+            else
+                weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
         }
     }
 

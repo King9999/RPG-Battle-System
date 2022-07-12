@@ -47,9 +47,10 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void UseSkill()
     {   
         cs = CombatSystem.instance;
+        BonusSystem bs = BonusSystem.instance;
 
         Hero hero = cs.heroesInCombat[cs.currentHero];
-        if (skill != null && hero.manaPoints >= skill.manaCost * hero.mpMod)
+        if (skill != null && hero.manaPoints >= skill.manaCost * bs.manaCostMod)
         {
             //use skill
             Debug.Log("Clicked on " + skill.skillName);

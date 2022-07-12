@@ -635,8 +635,8 @@ public class Dungeon : MonoBehaviour
         exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
 
         /****Create chests. It's possible for a dungeon to have no chests.****/
-        int chestCount = Random.Range(0, nodes.Count / 4);
-        //int chestCount = 1;
+        //int chestCount = Random.Range(0, nodes.Count / 4);
+        int chestCount = 1;
         int tableLevel;
         if (dungeonLevel <= 5)
             tableLevel = 0;
@@ -726,7 +726,7 @@ public class Dungeon : MonoBehaviour
         if (captiveHeroes.Count > 0)
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
-            heroAppearanceChance = 1;
+            //heroAppearanceChance = 1;
             if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);

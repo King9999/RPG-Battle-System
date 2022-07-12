@@ -223,6 +223,11 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         targets[index].UpdateStatsUI();
     }
 
+    public void BeginMultiHit(List<Enemy> targets, int index, float amount)
+    {
+        StartCoroutine(MultiHit(targets, index, amount));
+    }
+
     public bool TheirTurn() { return isTheirTurn; }
     public bool TurnTaken() {return turnTaken;}
 
@@ -318,9 +323,11 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
             //show an effect that ailment is removed
             UI ui = UI.instance;
             if (status == Status.Paralyzed)
-                ui.DisplayStatusUpdate("STUN REMOVED", transform.position);
-            if (status == Status.Blind)
-                ui.DisplayStatusUpdate("BLIND REMOVED", transform.position);
+                ui.DisplayStatusUpdate("STUN CURED", transform.position);
+            else if (status == Status.Blind)
+                ui.DisplayStatusUpdate("BLIND CURED", transform.position);
+            else if (status == Status.Charmed)
+                ui.DisplayStatusUpdate("CHARM CURED", transform.position);
 
             status = Status.Normal;
         }
@@ -356,6 +363,25 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     protected virtual IEnumerator DelayPassiveSkillActivation()
     {
         yield return null;
+    }
+
+    IEnumerator MultiHit(List<Enemy> targets, int index, float amount, float delayDuration = 1)
+    {
+        if (amount < 0) amount = 0;
+
+        targets[index].hitPoints -= amount;
+        if (targets[index].hitPoints < 0)
+        {
+            targets[index].hitPoints = 0;
+        }
+
+        //show damage
+        UI ui = UI.instance;
+        ui.DisplayDamage(index, amount.ToString(), targets[index].transform.position, ui.damageDisplay.color);
+
+        targets[index].UpdateStatsUI();
+        Debug.Log(amount + " damage to " + targets[index].className);
+        yield return new WaitForSeconds(delayDuration);   
     }
      
     #endregion

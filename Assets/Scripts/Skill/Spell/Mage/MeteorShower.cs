@@ -31,18 +31,22 @@ public class MeteorShower : Skill
 
             for (int i = 0; i < meteorCount; i++)
             {
-                int randTarget = Random.Range(0, cs.enemiesInCombat.Count);
+                int randTarget = Random.Range(0, targets.Count);
 
                 totalDamage = (user.mag * user.magMod) + power;
                 totalDamage += Random.Range(0, totalDamage * 0.1f) - (targets[randTarget].res * targets[randTarget].resMod);
 
-                user.ReduceHitPoints(targets, randTarget, Mathf.Round(totalDamage));
+                //user.ReduceHitPoints(targets, randTarget, Mathf.Round(totalDamage));
+                user.BeginMultiHit(targets, randTarget, Mathf.Round(totalDamage));
                 
+                if (i == meteorCount - 1)
+                    if (user.TryGetComponent(out Hero hero))
+                        hero.currentActions++;
             }
 
             //need to do this step to end turn.
-            if (user.TryGetComponent(out Hero hero))
-                hero.currentActions++;
+            //if (user.TryGetComponent(out Hero hero))
+               // hero.currentActions++;
         }
     }
 }
