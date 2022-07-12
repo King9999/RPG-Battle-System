@@ -20,6 +20,7 @@ public class DungeonUI : MonoBehaviour
     bool animateStatusCoroutineOn;
     bool equipCoroutineOn;
     public int currentHero {get; set;}      //used to track which hero is selected in the party UI
+    public Button resetButton;              //used for when a dungeon can't be completed. Player will remain on the current floor.
 
 
     public static DungeonUI instance;
@@ -74,6 +75,29 @@ public class DungeonUI : MonoBehaviour
     {
         if (!equipCoroutineOn)
             StartCoroutine(DisplayEquip(message, 1, returnState));
+    }
+
+    public void OnResetButtonClicked()
+    {
+        Dungeon dungeon = Dungeon.instance;
+        GameManager gm = GameManager.instance;
+
+        //put remaining enemies in graveyard
+        for(int i = 0; i < dungeon.enemies.Count; i++)
+        {
+            dungeon.enemies[i].SendToGraveyard();
+            i--;
+        }
+
+        //deactiavte any unrescued heroes
+        foreach(Captive captiveHero in dungeon.captiveHeroes)
+        {
+            captiveHero.ShowObject(false);
+            captiveHero.nodeID = -1;
+        }
+
+        //TODO: Need to do anything with chests or mystery nodes?
+        dungeon.GenerateDungeon(gm.nodeCount, updateDungeonLevel: false);
     }
 
     private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f)

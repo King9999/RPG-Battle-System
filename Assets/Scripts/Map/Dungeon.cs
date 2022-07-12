@@ -298,7 +298,10 @@ public class Dungeon : MonoBehaviour
         }
 
         //generate map objects, including player, enemies, chests, etc.
-        GenerateMapObjects();
+        if (!updateDungeonLevel)
+            GenerateMapObjects(dungeonLevelReset: true);    //hero appearance chance is reset to 0
+        else
+            GenerateMapObjects();
 
         //validate the dungeon, adding paths where necessary to reach the exit.
         ValidateDungeon();
@@ -596,7 +599,7 @@ public class Dungeon : MonoBehaviour
         
     }
 
-    public void GenerateMapObjects()
+    public void GenerateMapObjects(bool dungeonLevelReset = false)
     {
         /* When generating objects, I must take care to reuse existing objects instead of instantiating new ones whenever new dungeons are generated. */      
         enemies = new List<MapEnemy>();
@@ -635,8 +638,8 @@ public class Dungeon : MonoBehaviour
         exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
 
         /****Create chests. It's possible for a dungeon to have no chests.****/
-        //int chestCount = Random.Range(0, nodes.Count / 4);
-        int chestCount = 1;
+        int chestCount = Random.Range(0, nodes.Count / 4);
+        //int chestCount = 1;
         int tableLevel;
         if (dungeonLevel <= 5)
             tableLevel = 0;
@@ -727,7 +730,7 @@ public class Dungeon : MonoBehaviour
         {
             //check if a captive is placed in the dungeon. One is guaranteed if dungeon level is 5.
             //heroAppearanceChance = 1;
-            if (Random.value <= heroAppearanceChance || dungeonLevel == 5)
+            if ((!dungeonLevelReset && Random.value <= heroAppearanceChance) || dungeonLevel == 5)
             {
                 int randCaptive = Random.Range(0, captiveHeroes.Count);
                 Captive captive = captiveHeroes[randCaptive];
@@ -757,8 +760,11 @@ public class Dungeon : MonoBehaviour
             }
             else
             {
-                //raise appearance chance for next time.
-                heroAppearanceChance += 0.1f;
+                //raise appearance chance for next time. If dungeon was reset, reset appearance to 0.
+                if (dungeonLevelReset)
+                    heroAppearanceChance = 0;
+                else
+                    heroAppearanceChance += 0.1f;
             }
         }
 

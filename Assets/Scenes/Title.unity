@@ -382,6 +382,18 @@ PrefabInstance:
         abilities that can weaken or intimidate enemies. \n<color=green>+</color>
         High ATP and HP. Can use many weapons\n<color=red>-</color> Low MP and SPD"
       objectReference: {fileID: 0}
+    - target: {fileID: 713714460754939491, guid: b8c58ade8640e9b4e9c4c47135162373, type: 3}
+      propertyPath: heroInfo
+      value: '<color=green>Mage</color>
+
+        Has a variety of offensive magic,
+        and can inflict debuffs and ailments.
+
+        <color=green>+</color> High
+        MP, MAG and RES
+
+        <color=red>-</color> All other stats low'
+      objectReference: {fileID: 0}
     - target: {fileID: 713714460968028310, guid: b8c58ade8640e9b4e9c4c47135162373, type: 3}
       propertyPath: heroInfo
       value: '<color=green>Rogue</color>
