@@ -21,9 +21,18 @@ MonoBehaviour:
   spd: 11
   mag: 35
   res: 10
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 0
+  resistDeath: 0
+  fireResist: 0.25
+  coldResist: 0.25
+  lightningResist: 0.25
   skills:
   - {fileID: 11400000, guid: 4aae777d4448c6145bd0e908fbcb862d, type: 2}
   - {fileID: 11400000, guid: a52f9439bb7ddab4583fed0ed559694b, type: 2}
+  maxShieldTokens: 0
   xp: 38
   money: 25
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}

@@ -173,7 +173,23 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
             }
         }
 
-        ui.combatDataDisplay.DisplayStats(avatarStats, skillSet);
+        //display resists
+        string resists = "\n" + (fireResist * 100) + "%\n" + (coldResist * 100) + "%\n" + (lightningResist * 100) + "%";
+
+        //display effects
+        string effects = "EFFECTS\n";
+
+        if (skillEffects.Count <= 0)
+            effects += "<NONE>";
+        else
+        {
+            foreach (KeyValuePair<Skill, int> effect in skillEffects)
+            {
+                effects += effect.Key.skillName + " - " + effect.Value + "\n";
+            }
+        }
+
+        ui.combatDataDisplay.DisplayStats(avatarStats, skillSet, resists, effects);
 
         mouseOverAvatar = true;
     }

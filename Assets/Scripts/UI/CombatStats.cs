@@ -9,30 +9,32 @@ public class CombatStats : MonoBehaviour
     public TextMeshProUGUI detailedStats;
     public TextMeshProUGUI skillData;
     public TextMeshProUGUI itemData;
+    public TextMeshProUGUI resistsValues;         //elemental resists
+    public TextMeshProUGUI effectsData;         //current buffs/debuffs and their durations
+
     // Start is called before the first frame update
     void Start()
     {
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void DisplayStats(string statData, string skillData)
+    public void DisplayStats(string statData, string skillData, string resistsData, string effectsData)
     {
         gameObject.SetActive(true);
         detailedStats.text = statData;
         this.skillData.text = skillData;
+        resistsValues.text = resistsData;
+        this.effectsData.text = effectsData;
     }
 
-    public void DisplayStats(string statData, string skillData, string itemData)
+    public void DisplayStats(string statData, string skillData, string resistsData, string effectsData, string itemData)
     {
         gameObject.SetActive(true);
         detailedStats.text = statData;
         this.skillData.text = skillData;
+        resistsValues.text = resistsData;
+        this.effectsData.text = effectsData;
         this.itemData.text = itemData;
     }
 
@@ -41,6 +43,8 @@ public class CombatStats : MonoBehaviour
         detailedStats.text = "";
         skillData.text = "";
         itemData.text = "";
+        effectsData.text = "";
+        resistsValues.text = "";
         gameObject.SetActive(false);
     }
 }

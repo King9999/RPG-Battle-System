@@ -22,10 +22,13 @@ MonoBehaviour:
   mag: 0
   res: 0
   resistPoison: 0
-  resistParalysis: 0
+  resistParalysis: 1
   resistBlind: 0
   resistCharm: 0
   resistDeath: 1
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
   skills:
   - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
   - {fileID: 11400000, guid: 0793a0b18698fb942b81980dc2161d95, type: 2}

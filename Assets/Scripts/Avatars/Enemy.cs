@@ -288,6 +288,22 @@ public abstract class Enemy : Avatar
             }
         }
 
+        //display resists
+        string resists = "\n" + (fireResist * 100) + "%\n" + (coldResist * 100) + "%\n" + (lightningResist * 100) + "%";
+
+        //display effects
+        string effects = "EFFECTS\n";
+
+        if (skillEffects.Count <= 0)
+            effects += "<NONE>";
+        else
+        {
+            foreach (KeyValuePair<Skill, int> effect in skillEffects)
+            {
+                effects += effect.Key.skillName + " - " + effect.Value + "\n";
+            }
+        }
+
         //display dropped items
         string items = "DROPPED ITEMS\n";
 
@@ -296,7 +312,7 @@ public abstract class Enemy : Avatar
         if (rareItemDrop != null)
             items += "(R) " + rareItemDrop.itemName + "\n";
 
-        ui.combatDataDisplay.DisplayStats(avatarStats, skillSet, items);
+        ui.combatDataDisplay.DisplayStats(avatarStats, skillSet, resists, effects, items);
     }
 
     //When an enemy is clicked, it is targeted for attack by the player.

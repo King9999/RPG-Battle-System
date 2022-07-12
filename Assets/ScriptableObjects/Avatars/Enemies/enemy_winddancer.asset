@@ -21,6 +21,14 @@ MonoBehaviour:
   spd: 15
   mag: 12
   res: 9
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 0
+  resistDeath: 0
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
   skills:
   - {fileID: 11400000, guid: 9f6412b8d53be0544a5fa2696af84c93, type: 2}
   - {fileID: 11400000, guid: c5c5788222915804d8435b8cab71cde0, type: 2}
