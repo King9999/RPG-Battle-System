@@ -1949,7 +1949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 180329576049820965, guid: ea45a563e92e6524483df57fc8586d24, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -125
+      value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 180329576049820965, guid: ea45a563e92e6524483df57fc8586d24, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1996,6 +1996,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6144532497329781319}
     m_Modifications:
+    - target: {fileID: 1065765354, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065765354, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 498176490992232112, guid: 34c82509cb84c3a499a06724e3be7b02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2234,6 +2242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage Display
       objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text
       value: Dmg Display
@@ -2382,6 +2394,10 @@ PrefabInstance:
     - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_Name
       value: Damage Display (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text
@@ -2544,6 +2560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage Display (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text
       value: Dmg Display
@@ -2704,6 +2724,10 @@ PrefabInstance:
     - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_Name
       value: Damage Display (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text
@@ -2866,6 +2890,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage Display (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text
       value: Dmg Display
@@ -3027,6 +3055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage Display (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text
       value: Dmg Display
@@ -3187,6 +3219,10 @@ PrefabInstance:
     - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_Name
       value: Damage Display (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3479950252695836213, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3621366012628355690, guid: 64d785b39d28a1846bb63e0b6686b857, type: 3}
       propertyPath: m_text

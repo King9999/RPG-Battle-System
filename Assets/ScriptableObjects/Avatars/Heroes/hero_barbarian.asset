@@ -21,7 +21,16 @@ MonoBehaviour:
   spd: 5
   mag: 1
   res: 1
-  skills: []
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 0
+  resistDeath: 0
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
+  skills:
+  - {fileID: 0}
   statFile: {fileID: 4900000, guid: 0a37c776605df6e45858017f5d510f54, type: 3}
   sprite: {fileID: 21300000, guid: 4c4e6e2907c8f9a4dae8dda384e6145c, type: 3}
   heroClass: 0

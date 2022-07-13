@@ -153,9 +153,9 @@ public class CombatSystem : MonoBehaviour
             hero.transform.position = heroLocations[randIndex].position;
 
             //The code below is used to shift the heroes' position a bit because I'm using a smaller screen.
-            #if UNITY_WEBGL
+            /*#if UNITY_WEBGL
                 hero.transform.position = new Vector3(hero.transform.position.x + 2, hero.transform.position.y, 1);
-            #endif
+            #endif*/
 
             heroLocationOccupied[randIndex] = true;
             turnOrder.Add(hero);
