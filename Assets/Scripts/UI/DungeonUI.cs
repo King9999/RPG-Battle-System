@@ -96,8 +96,7 @@ public class DungeonUI : MonoBehaviour
             captiveHero.nodeID = -1;
         }
 
-        //TODO: Need to do anything with chests or mystery nodes?
-        dungeon.GenerateDungeon(gm.nodeCount, updateDungeonLevel: false);
+        dungeon.GenerateDungeon(dungeon.nodeCount, updateDungeonLevel: false); //nodeCount in game manager is not used because we're not updating the dungeon level.
     }
 
     private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f)

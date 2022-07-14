@@ -294,8 +294,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     public void UpdateStatsUI()
     {
-        statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + Mathf.Round(maxHitPoints * hpMod) + "\n" 
-        + "<color=#4be4fc>MP</color> " + manaPoints + "/" + Mathf.Round(maxManaPoints * mpMod);
+        statsUI.text = "<color=#f65974>HP</color> " + hitPoints + "/" + Mathf.Round(maxHitPoints /** hpMod*/) + "\n" 
+        + "<color=#4be4fc>MP</color> " + manaPoints + "/" + Mathf.Round(maxManaPoints /** mpMod*/);
     }
 
     //used to update stats in case stats mods have changed.

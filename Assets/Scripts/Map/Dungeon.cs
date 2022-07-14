@@ -40,7 +40,7 @@ public class Dungeon : MonoBehaviour
     int minMapSize {get;} = 4;          //applies to both width and height
     float xOffset, yOffset = 3;
     const float offset = 2;
-    int nodeCount;
+    public int nodeCount {get; set;}
     public int minNodeCount {get;} = 10;
     int totalNodes;                 //number of nodes in dungeon.
     int nodeID;
@@ -177,9 +177,12 @@ public class Dungeon : MonoBehaviour
         -map width increases by 1 every 5 levels
         -map height increases by 1 every 10 levels 
         -node count increases by 1 every 2 levels. */
-        mapWidth = dungeonLevel % 5 == 0 ? mapWidth + 1 : mapWidth;
-        mapHeight = dungeonLevel % 10 == 0 ? mapHeight + 1 : mapHeight;
-        gm.nodeCount = dungeonLevel % 2 == 0 ? gm.nodeCount + 1 : gm.nodeCount;
+        if (updateDungeonLevel)
+        {
+            mapWidth = dungeonLevel % 5 == 0 ? mapWidth + 1 : mapWidth;
+            mapHeight = dungeonLevel % 10 == 0 ? mapHeight + 1 : mapHeight;
+            gm.nodeCount = dungeonLevel % 2 == 0 ? gm.nodeCount + 1 : gm.nodeCount; //updating node count for next time a dungeon is generated.
+        }
 
         Debug.Log("Map Width: " + mapWidth + " Map Height: " + mapHeight + " Node Count: " + gm.nodeCount);
         mapArray = new bool[mapWidth, mapHeight];
@@ -652,8 +655,8 @@ public class Dungeon : MonoBehaviour
         
 
         /****Mystery Nodes. Uses almost same code as treasure chests****/
-        int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount + 1);
-        //int mysteryNodeCount = 1;
+        //int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount + 1);
+        int mysteryNodeCount = 1;
 
         if (mysteryNodeCount <= 0)
         {
