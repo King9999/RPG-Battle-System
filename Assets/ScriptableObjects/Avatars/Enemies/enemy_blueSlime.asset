@@ -10,32 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
-  m_Name: enemy_wizard
+  m_Name: enemy_blueSlime
   m_EditorClassIdentifier: 
-  className: Wizard
-  details: Can cast fire magic and heal allies
-  maxHitPoints: 305
-  maxManaPoints: 60
-  atp: 20
-  dfp: 7
-  spd: 11
-  mag: 30
-  res: 15
+  className: Blue Slime
+  details: Ooze that resists cold, but is weak to fire
+  maxHitPoints: 320
+  maxManaPoints: 0
+  atp: 30
+  dfp: 14
+  spd: 10
+  mag: 0
+  res: 0
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
   resistDeath: 0
-  fireResist: 0.25
-  coldResist: 0.25
-  lightningResist: 0.25
+  fireResist: -1
+  coldResist: 0.8
+  lightningResist: 0
   skills:
-  - {fileID: 11400000, guid: 4aae777d4448c6145bd0e908fbcb862d, type: 2}
-  - {fileID: 11400000, guid: a52f9439bb7ddab4583fed0ed559694b, type: 2}
+  - {fileID: 11400000, guid: 15ddc76fd1ffed849beaa32841f55bab, type: 2}
   maxShieldTokens: 0
-  xp: 38
-  money: 25
+  xp: 54
+  money: 38
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
-  rareItemDrop: {fileID: 11400000, guid: 6d03516e9f25b1b45b80e918ef8523ad, type: 2}
-  commonItemDropChance: 0.35
-  rareItemDropChance: 0.06
+  rareItemDrop: {fileID: 0}
+  commonItemDropChance: 0.25
+  rareItemDropChance: 0

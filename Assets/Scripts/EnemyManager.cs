@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public List<Enemy> graveyard;   //when enemies die, they go in here to be re-used instead of instantiating new enemies.
     int maxEnemies {get;} = 6;
 
-    [HideInInspector]public enum EnemyName {Imp, Wizard, Golem, WindDancer}
+    [HideInInspector]public enum EnemyName {Imp, Wizard, Golem, WindDancer, Sentry, BlueSlime}
 
 
     public static EnemyManager instance;

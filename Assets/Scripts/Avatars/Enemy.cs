@@ -469,6 +469,42 @@ public abstract class Enemy : Avatar
         }*/
     }
 
+    //attacks a random hero. Will not target heroes with Hidden status
+    public void AttackRandomHero()
+    {
+        int randHero;
+        if (cs.heroesInCombat.Count > 1)
+        {
+            do
+                randHero = Random.Range(0, cs.heroesInCombat.Count);
+            while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+            Attack(cs.heroesInCombat[randHero]);
+        }
+        else
+        {
+            Attack(cs.heroesInCombat[0]);
+        }
+    }
+
+
+    public void AttackRandomHero(Skill skill)
+    {
+        int randHero;
+        if (cs.heroesInCombat.Count > 1)
+        {
+            do
+                randHero = Random.Range(0, cs.heroesInCombat.Count);
+            while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+
+            skill.Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
+        }
+        else
+        {
+            skill.Activate(this, cs.heroesInCombat[0], skillNameBorderColor);
+        }
+    }
+
     protected override IEnumerator AnimateAttack()
     {
         animateAttackCoroutineOn = true;
