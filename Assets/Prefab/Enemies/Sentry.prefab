@@ -317,7 +317,7 @@ MonoBehaviour:
   resistCharm: 0
   resistDeath: 0
   status: 0
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 40a20c73e7dc38f449f3eafbc80a87cb, type: 2}
   shieldTokens: 0
   maxShieldTokens: 0
   shields: []

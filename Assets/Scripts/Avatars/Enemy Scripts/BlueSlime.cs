@@ -25,6 +25,9 @@ public class BlueSlime : Enemy
         {
             AttackRandomHero();
         }
+
+        //end turn
+        base.ExecuteLogic();
     }
 
 }

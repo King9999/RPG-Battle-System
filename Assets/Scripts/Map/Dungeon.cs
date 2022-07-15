@@ -170,7 +170,7 @@ public class Dungeon : MonoBehaviour
     {
         GameManager gm = GameManager.instance;
         dungeonLevel = updateDungeonLevel == true ? dungeonLevel + 1 : dungeonLevel;
-        //dungeonLevel = 5;
+        //dungeonLevel = 6;
         DungeonUI ui = DungeonUI.instance;
         ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
 
@@ -656,8 +656,8 @@ public class Dungeon : MonoBehaviour
         
 
         /****Mystery Nodes. Uses almost same code as treasure chests****/
-        //int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount + 1);
-        int mysteryNodeCount = 1;
+        int mysteryNodeCount = Random.Range(0, nodes.Count / minNodeCount + 1);
+        //int mysteryNodeCount = 1;
 
         if (mysteryNodeCount <= 0)
         {

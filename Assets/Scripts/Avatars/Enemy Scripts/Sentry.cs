@@ -15,5 +15,8 @@ public class Sentry : Enemy
     public override void ExecuteLogic()
     {
         AttackRandomHero();
+
+        //end turn
+        base.ExecuteLogic();
     }
 }
