@@ -30,6 +30,7 @@ public class Dungeon : MonoBehaviour
     public List<MapEnemy> enemies;
     public List<MapEnemy> graveyard;    //defeated map enemies go in here
     public List<TreasureChest> chests;
+    public int chestCount {get; set;} //used by mystery node map object to check if chests can be restocked.
     public List<MysteryNode> mysteryNodes;
     public CameraFollow cameraFollow;   //used to keep camera focused on player
     [SerializeField]float heroAppearanceChance;        //the odds that a captive hero appears in a dungeon. Player should have at least 2 heroes by the time they reach level 5.
@@ -641,7 +642,7 @@ public class Dungeon : MonoBehaviour
         exit.PlaceObject(nodes[randNode].col, nodes[randNode].row);
 
         /****Create chests. It's possible for a dungeon to have no chests.****/
-        int chestCount = Random.Range(0, nodes.Count / 4);
+        chestCount = Random.Range(0, nodes.Count / 4);
         //int chestCount = 1;
         int tableLevel;
         if (dungeonLevel <= 5)

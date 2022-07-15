@@ -114,18 +114,23 @@ public class MysteryNode : MapObject
                 //any open chests are restocked. The items are from a loot table 1 level higher than current.
                 //chests have to be enabled for this effect to work.
                 dungeon = Dungeon.instance;
-                int chestCount = dungeon.chests.Count;
+                //int chestCount = dungeon.chests.Count;
 
-                int tableLevel;
-                if (dungeon.dungeonLevel <= 5)
-                    tableLevel = 0;
-                else if (dungeon.dungeonLevel <= 10)
-                    tableLevel = 1;
+                if (dungeon.chestCount <= 0)
+                    ui.notification.DisplayMessage("No chests to restock");
                 else
-                    tableLevel = 2;
+                {
+                    int tableLevel;
+                    if (dungeon.dungeonLevel <= 5)
+                        tableLevel = 0;
+                    else if (dungeon.dungeonLevel <= 10)
+                        tableLevel = 1;
+                    else
+                        tableLevel = 2;
 
-                dungeon.GenerateChests(chestCount, tableLevel, mysteryNodeInEffect: true);
-                ui.notification.DisplayMessage("Restocked");
+                    dungeon.GenerateChests(dungeon.chestCount, tableLevel, mysteryNodeInEffect: true);
+                    ui.notification.DisplayMessage("Restocked");
+                }
                 break;
 
             case NodeEffects.RestoreAllHp:

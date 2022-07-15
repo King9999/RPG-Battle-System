@@ -17,7 +17,7 @@
 			[
 				{"enemyID":1, "objName":"enemy_wizard", "encounterChance": 0.1},
 				{"enemyID":0, "objName":"enemy_sentry", "encounterChance": 0.3},
-				{"enemyID":0, "objName":"enemy_blueSlime", "encounterChance": 0.4},
+				{"enemyID":0, "objName":"enemy_blueSlime", "encounterChance": 0.6},
 				{"enemyID":0, "objName":"enemy_imp", "encounterChance": 1}	
 			]	
 		}
