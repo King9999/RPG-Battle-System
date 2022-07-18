@@ -17,7 +17,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI bonusListUI;             //displays active bonuses from breaking shields
     //public TMP_Text damageDisplayComponent;
     //[SerializeField]TextMeshProUGUI[] damageDigits;
-    [HideInInspector]public Color healColor, damageColor, reducedDamageColor, criticalDamageColor;
+    [HideInInspector]public Color healColor, healManaColor, damageColor, reducedDamageColor, criticalDamageColor;
     int maxPartySize {get;} = 3;
     int maxEnemyPartySize {get;} = 6;
 
@@ -49,6 +49,7 @@ public class UI : MonoBehaviour
     void Start()
     {
         healColor = new Color(0, 0.9f, 0.3f);
+        healManaColor = new Color(0, 0.8f, 1);
         damageColor = Color.white;
         reducedDamageColor = new Color(0.6f, 0.6f, 0.6f);
         criticalDamageColor = new Color(1, 0.8f, 0.2f);

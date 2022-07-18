@@ -146,6 +146,32 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         }
     }
 
+    public void RestoreManaPoints(Avatar target, float amount, float delayDuration = 0)
+    {
+        target.manaPoints += amount;
+        if (target.manaPoints > Mathf.Round(target.maxManaPoints * target.mpMod))
+        {
+            target.manaPoints = Mathf.Round(target.maxManaPoints * target.mpMod);
+        }
+
+        //code functions slightly differently if we're in combat.
+        GameManager gm = GameManager.instance;
+        if (gm.gameState == GameManager.GameState.Normal)
+        {
+            DungeonUI ui = DungeonUI.instance;
+            ui.DisplayStatus(amount.ToString(), ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.healManaColor);
+            ui.partyDisplay[ui.currentHero].UpdateUI();
+        }
+        else    //we're in combat
+        {
+            //show healed amount
+            UI ui = UI.instance;
+            ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healManaColor, delayDuration);
+
+            target.UpdateStatsUI();
+        }
+    }
+
     /*protected virtual void Update()
     {
         if (hitPoints < 0)

@@ -12,7 +12,7 @@ public abstract class Enemy : Avatar
     public int maxShieldTokens;
     public List<ShieldToken> shields;
     public ShieldToken shieldPrefab;
-    public bool shieldBroken {get; set;}
+    public bool canActWhileShieldBroken {get; set;} //allows special actions when enemy is guard broken.
     public int enemyID;                         //used to identify enemy in Enemy Manager for easy access.
     public int xp;
     public int money;
@@ -585,7 +585,9 @@ public abstract class Enemy : Avatar
                 //nothing happens
                 UI ui = UI.instance;
                 ui.DisplayStatusUpdate("GUARD CRUSHED", transform.position);
-                Debug.Log(className + " is guard crushed!");
+                if (canActWhileShieldBroken)
+                    ExecuteLogic();         //code for when guard broken will run
+                //Debug.Log(className + " is guard crushed!");
                 EndTurn();
                 //Invoke("PassTurn", invokeTime);
                 break;

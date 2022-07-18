@@ -20,6 +20,17 @@
 				{"enemyID":5, "objName":"enemy_blueSlime", "encounterChance": 0.6},
 				{"enemyID":0, "objName":"enemy_imp", "encounterChance": 1}	
 			]	
+		},
+
+		{
+			"tableLevel": 2,
+			"encounters":
+			[
+				{"enemyID":1, "objName":"enemy_wizard", "encounterChance": 0.1},
+				{"enemyID":4, "objName":"enemy_sentry", "encounterChance": 0.3},
+				{"enemyID":5, "objName":"enemy_blueSlime", "encounterChance": 0.6},
+				{"enemyID":0, "objName":"enemy_sentry", "encounterChance": 1}	
+			]	
 		}
 		
 	]

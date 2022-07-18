@@ -16,7 +16,7 @@ public class DungeonUI : MonoBehaviour
     public TextMeshProUGUI equipConfirmUI;      //displayed after player equips a new item or can't
     public TextMeshProUGUI statusUI;            //for displaying values/messages over party UI when using items/skills
     public TextMeshProUGUI[] allStatusUI;         //used for when multiple values need to be displayed
-    [HideInInspector]public Color healColor, normalColor;
+    [HideInInspector]public Color healColor, healManaColor, normalColor;
     bool animateStatusCoroutineOn;
     bool equipCoroutineOn;
     public int currentHero {get; set;}      //used to track which hero is selected in the party UI
@@ -46,6 +46,7 @@ public class DungeonUI : MonoBehaviour
 
         equipConfirmUI.gameObject.SetActive(false);
         healColor = new Color(0, 0.9f, 0.3f);
+        healManaColor = new Color(0, 0.8f, 1);
         normalColor = Color.white;
     }
 

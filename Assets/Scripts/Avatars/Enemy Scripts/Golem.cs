@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* Golem is a slow but tanky and powerful opponent. They provide an introduction to the shield mechanic. */
@@ -29,7 +27,7 @@ public class Golem : Enemy
         }
         else if (hitPoints < maxHitPoints * 0.6f && SkillActivated(skillProb))
         {
-            int randHero;
+            /*int randHero;
             if (cs.heroesInCombat.Count > 1)
             {
                 do
@@ -41,12 +39,13 @@ public class Golem : Enemy
             else
             {
                 skills[haymakerSkill].Activate(this, cs.heroesInCombat[0], skillNameBorderColor);
-            }
+            }*/
+            AttackRandomHero(skills[haymakerSkill]);
             
         }
         else //attack
         {
-            int randHero;
+            /*int randHero;
             if (cs.heroesInCombat.Count > 1)
             {
                 do
@@ -58,7 +57,8 @@ public class Golem : Enemy
             else
             {
                 Attack(cs.heroesInCombat[0]);
-            }
+            }*/
+            AttackRandomHero();
         }
 
         //end turn
