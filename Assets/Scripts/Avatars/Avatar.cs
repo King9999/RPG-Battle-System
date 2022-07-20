@@ -166,7 +166,7 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         {
             //show healed amount
             UI ui = UI.instance;
-            ui.DisplayHealing(amount.ToString(), target.transform.position, ui.healManaColor, delayDuration);
+            ui.DisplayHealing(amount + "MP", target.transform.position, ui.healManaColor, delayDuration);
 
             target.UpdateStatsUI();
         }
@@ -263,6 +263,23 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         ui.DisplayDamage(index, amount.ToString(), targets[index].transform.position, ui.damageDisplay.color);
 
         targets[index].UpdateStatsUI();
+    }
+
+    public void ReduceManaPoints(Avatar target, float amount)
+    {
+        if (amount < 0) amount = 0;
+
+        target.manaPoints -= amount;
+        if (target.manaPoints < 0)
+        {
+            target.manaPoints = 0;
+        }
+
+        //show damage
+        UI ui = UI.instance;
+        ui.DisplayDamage(amount + "MP", target.transform.position, ui.damageDisplay.color);
+
+        target.UpdateStatsUI();
     }
 
     public void BeginMultiHit(List<Enemy> targets, int index, float amount)

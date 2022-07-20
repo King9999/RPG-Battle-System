@@ -10,32 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
-  m_Name: enemy_golem
+  m_Name: enemy_lich
   m_EditorClassIdentifier: 
-  className: Golem
-  details: (MAJOR) Slow but powerful magically animated creature
-  maxHitPoints: 800
-  maxManaPoints: 0
-  atp: 55
-  dfp: 30
-  spd: 4
-  mag: 0
-  res: 0
-  resistPoison: 0
+  className: Lich
+  details: (MAJOR) Powerful undead magic user
+  maxHitPoints: 1750
+  maxManaPoints: 100
+  atp: 30
+  dfp: 25
+  spd: 20
+  mag: 50
+  res: 60
+  resistPoison: 1
   resistParalysis: 1
-  resistBlind: 0
-  resistCharm: 0
+  resistBlind: 1
+  resistCharm: 1
   resistDeath: 1
-  fireResist: 0
-  coldResist: 0
+  fireResist: -0.3
+  coldResist: 1
   lightningResist: 0
-  skills:
-  - {fileID: 11400000, guid: f68fcbaef9b67b943acc42546931aa76, type: 2}
-  - {fileID: 11400000, guid: 0793a0b18698fb942b81980dc2161d95, type: 2}
+  skills: []
   maxShieldTokens: 1
-  xp: 800
-  money: 500
+  xp: 2400
+  money: 1200
   commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
+  rareItemDrop: {fileID: 11400000, guid: 57272bbc5ea633c43819b6c50d86c8f6, type: 2}
   commonItemDropChance: 0
   rareItemDropChance: 1

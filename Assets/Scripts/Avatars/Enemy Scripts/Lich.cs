@@ -8,7 +8,8 @@ public class Lich : Enemy
     int fireStormSkill = 0;         //hits all heroes, used least often
     int iceBallSkill = 1;           //cold damage, hits 1 target
     int chainLightningSkill = 2;    //hits 1 target, then another target for less damage
-    int siphonSkill = 3;            //steals MP from target
+    int poisonSkill = 3;            //chance to poison all heroes.
+    int siphonSkill = 4;            //steals MP from target
     protected override void Start()
     {
         base.Start();
