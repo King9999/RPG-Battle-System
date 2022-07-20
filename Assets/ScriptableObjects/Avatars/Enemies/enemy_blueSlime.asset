@@ -32,7 +32,7 @@ MonoBehaviour:
   skills:
   - {fileID: 11400000, guid: 15ddc76fd1ffed849beaa32841f55bab, type: 2}
   maxShieldTokens: 0
-  xp: 54
+  xp: 77
   money: 38
   commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
   rareItemDrop: {fileID: 0}

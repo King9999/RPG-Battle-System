@@ -31,7 +31,7 @@ MonoBehaviour:
   lightningResist: 0
   skills: []
   maxShieldTokens: 1
-  xp: 50
+  xp: 76
   money: 32
   commonItemDrop: {fileID: 0}
   rareItemDrop: {fileID: 11400000, guid: c4fed7c7445e88c4ca4046207c2652ee, type: 2}

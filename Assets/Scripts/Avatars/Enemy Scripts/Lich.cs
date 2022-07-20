@@ -4,7 +4,11 @@ using UnityEngine;
    an easier time defeating them when they have no MP. But the lich can steal MP once they're out. */
 public class Lich : Enemy
 {
-    // Start is called before the first frame update
+
+    int fireStormSkill = 0;         //hits all heroes, used least often
+    int iceBallSkill = 1;           //cold damage, hits 1 target
+    int chainLightningSkill = 2;    //hits 1 target, then another target for less damage
+    int siphonSkill = 3;            //steals MP from target
     protected override void Start()
     {
         base.Start();

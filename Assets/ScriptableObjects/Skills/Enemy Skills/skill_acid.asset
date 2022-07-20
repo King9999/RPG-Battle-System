@@ -16,7 +16,7 @@ MonoBehaviour:
   skillIcon: {fileID: 0}
   description: Lowers target's DFP by 15% and deals small damage
   manaCost: 0
-  power: 0
+  power: 10
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 1
