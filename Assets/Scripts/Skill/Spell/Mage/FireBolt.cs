@@ -36,15 +36,14 @@ public class FireBolt : Skill
             //deal damage to other targets
             if (landedOnCritPanel)
             {
-                float splashDamage;
                 for (int i = 0; i < cs.enemiesInCombat.Count; i++)
                 {
                     if (cs.enemiesInCombat[i] != target)
                     {
                         Enemy enemy = cs.enemiesInCombat[i];
-                        splashDamage = Mathf.Round((totalDamage + (Random.Range(0, totalDamage * 0.1f) - (enemy.res * enemy.resMod) - 
-                            (totalDamage * enemy.fireResist))) / 3);
-                        user.ReduceHitPoints(cs.enemiesInCombat, i, splashDamage);
+                        totalDamage = (user.mag * user.magMod) + power;
+                        totalDamage += (Random.Range(0, totalDamage * 0.1f) - (enemy.res * enemy.resMod) - (totalDamage * enemy.fireResist)) / 3;
+                        user.ReduceHitPoints(cs.enemiesInCombat, i, Mathf.Round(totalDamage));
                     }
                 }
             }

@@ -265,6 +265,23 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         targets[index].UpdateStatsUI();
     }
 
+    public void ReduceHitPoints(List<Hero> targets, int index, float amount)
+    {
+        if (amount < 0) amount = 0;
+
+        targets[index].hitPoints -= amount;
+        if (targets[index].hitPoints < 0)
+        {
+            targets[index].hitPoints = 0;
+        }
+
+        //show damage
+        UI ui = UI.instance;
+        ui.DisplayDamage(index, amount.ToString(), targets[index].transform.position, ui.damageDisplay.color);
+
+        targets[index].UpdateStatsUI();
+    }
+
     public void ReduceManaPoints(Avatar target, float amount)
     {
         if (amount < 0) amount = 0;

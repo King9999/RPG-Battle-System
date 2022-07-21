@@ -30,13 +30,20 @@ public class Lich : Enemy
         else if (!CanCastMagic())
         {
             //steal MP from a hero
+            AttackRandomHero(skills[siphonSkill]);
         }
         else
         {
-            if (SkillActivated(0.1f))
-            {
+            float rollValue = Random.value;
+            if (rollValue <= 0.1f) 
+                skills[fireStormSkill].Activate(this, cs.heroesInCombat, skillNameBorderColor);
+            else if (rollValue <= 0.2f) 
+                skills[poisonSkill].Activate(this, cs.heroesInCombat, skillNameBorderColor);
+            else if (rollValue <= 0.3f)
+                AttackRandomHero(skills[chainLightningSkill]);
+            else    //40% chance
+                AttackRandomHero(skills[iceBallSkill]); 
 
-            }
         }
 
         //end turn

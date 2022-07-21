@@ -857,11 +857,20 @@ public class Dungeon : MonoBehaviour
             else
                 tableLevel = 2;
             
-            if ((dungeonLevel == 5 && !forcedMajorEnemy) || generateMajorEnemy)
+            if (enemy.isMajorEnemy)
             {
-                forcedMajorEnemy = true;
-                generateMajorEnemy = false;
-                enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
+                if ((dungeonLevel == 5 && !forcedMajorEnemy) /*|| generateMajorEnemy*/)
+                {
+                    forcedMajorEnemy = true;
+                    generateMajorEnemy = false;
+                    enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Golem);
+                }
+                else
+                {
+                    //pick encounter based on table level.
+                    if (tableLevel == 1)
+                        enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Lich);
+                }
             }
             else
             {
