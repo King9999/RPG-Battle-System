@@ -67,11 +67,18 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
     
     public enum Status
     {
-        //GuardBroken = shield token is destroyed, enemy loses turn.
-        //Berserk = Barb-unique effect. Can't be controlled.
-        //Hidden = Rogue-unique effect. Can't be targeted.
-        //HideBuffInEffect = Rogue-unique effect. Bonus critical panels on weapon act gauge.
-        //Cleansed = ailments automatically fail
+        /* DETAILS
+        -------------
+        Poisoned = Target loses 5% of HP each turn. Lasts until cured.
+        Paralyzed (Stun) = Target cannot act
+        Blind = Chance that an attack will miss. For heroes, transforms certain panels into Miss panels.
+        Charmed = target will attack random allies.
+        Dead = Zero HP.
+        GuardBroken = shield token is destroyed, enemy loses turn.
+        Berserk = Barb-unique effect. Can't be controlled.
+        Hidden = Rogue-unique effect. Can't be targeted.
+        HideBuffInEffect = Rogue-unique effect. Bonus critical panels on weapon act gauge.
+        Cleansed = ailments automatically fail*/
         Normal, Poisoned, Paralyzed, Blind, Charmed, Dead, GuardBroken, Berserk, Hidden, HideBuffInEffect, Cleansed      
     }
     public Status status;
