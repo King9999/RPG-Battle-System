@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5bc34f37d82c704aad57697b49ba160, type: 3}
   m_Name: skill_iceBall
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Ice Ball
   skillIcon: {fileID: 0}
-  description: 
-  manaCost: 0
-  power: 0
+  description: Hits a single target, dealing cold damage
+  manaCost: 4
+  power: 10
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 2

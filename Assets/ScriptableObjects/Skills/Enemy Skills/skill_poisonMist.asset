@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: Poison Mist
   skillIcon: {fileID: 0}
   description: Chance to inflict poison on all heroes
-  manaCost: 0
+  manaCost: 15
   power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0

@@ -18,6 +18,7 @@ public class ChainLightning : Skill
         
         
         //attack a random target for 50% less damage. Chain only works when there is more than 1 target.
+        CombatSystem cs = CombatSystem.instance;
         int randTarget;
         if (cs.heroesInCombat.Count > 1)
         {

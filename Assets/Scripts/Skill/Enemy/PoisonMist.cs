@@ -17,6 +17,7 @@ public class PoisonMist : Skill
         for (int i = 0; i < targets.Count; i++)
         {
             float finalResult = (hitChance - (targets[i].res * 2)) / 100;
+            Debug.Log("Chance to poison " + targets[i].className + ": " + finalResult);
             if (targets[i].resistPoison)
             {
                 ui.DisplayStatusUpdate(i, "POISON RESIST", targets[i].transform.position);

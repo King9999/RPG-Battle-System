@@ -53,9 +53,6 @@ public class Lich : Enemy
     bool CanCastMagic()
     {
         //if mana is lower than the lowest cost spell, then out of magic.
-        if (manaPoints >= skills[iceBallSkill].manaCost)
-            return true;
-        else
-            return false;
+        return manaPoints >= skills[iceBallSkill].manaCost;   
     }
 }
