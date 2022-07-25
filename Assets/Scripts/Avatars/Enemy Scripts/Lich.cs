@@ -35,11 +35,11 @@ public class Lich : Enemy
         else
         {
             float rollValue = Random.value;
-            if (rollValue <= 0.1f) 
+            if (rollValue <= 0.1f && manaPoints >= skills[fireStormSkill].manaCost) 
                 skills[fireStormSkill].Activate(this, cs.heroesInCombat, skillNameBorderColor);
-            else if (rollValue <= 0.2f) 
+            else if (rollValue <= 0.2f && manaPoints >= skills[poisonSkill].manaCost) 
                 skills[poisonSkill].Activate(this, cs.heroesInCombat, skillNameBorderColor);
-            else if (rollValue <= 0.3f)
+            else if (rollValue <= 0.3f && manaPoints >= skills[chainLightningSkill].manaCost)
                 AttackRandomHero(skills[chainLightningSkill]);
             else    //40% chance
                 AttackRandomHero(skills[iceBallSkill]); 
@@ -53,6 +53,9 @@ public class Lich : Enemy
     bool CanCastMagic()
     {
         //if mana is lower than the lowest cost spell, then out of magic.
-        return false;
+        if (manaPoints >= skills[iceBallSkill].manaCost)
+            return true;
+        else
+            return false;
     }
 }

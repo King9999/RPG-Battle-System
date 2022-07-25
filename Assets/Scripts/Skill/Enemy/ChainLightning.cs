@@ -13,11 +13,9 @@ public class ChainLightning : Skill
         ReduceMp(user);
         totalDamage = (user.mag * user.magMod) + power;
         totalDamage += Random.Range(0, totalDamage * 0.1f) - (target.res * target.resMod) - (totalDamage * target.lightningResist);
-
-        if (totalDamage >= 0)    
-            user.ReduceHitPoints(target, Mathf.Round(totalDamage));
-        else //healing
-            user.RestoreHitPoints(target, Mathf.Round(totalDamage));
+  
+        user.ReduceHitPoints(target, Mathf.Round(totalDamage));
+        
         
         //attack a random target for 50% less damage. Chain only works when there is more than 1 target.
         int randTarget;
@@ -33,10 +31,8 @@ public class ChainLightning : Skill
             totalDamage = (user.mag * user.magMod) + power;
             totalDamage += (Random.Range(0, totalDamage * 0.1f) - (hero.res * hero.resMod) - (totalDamage * hero.lightningResist)) / 2;
 
-            if (totalDamage >= 0)    
-                user.ReduceHitPoints(cs.heroesInCombat, randTarget, Mathf.Round(totalDamage));
-            else //healing
-                user.RestoreHitPoints(cs.heroesInCombat, randTarget, Mathf.Round(totalDamage));
+            user.ReduceHitPoints(cs.heroesInCombat, randTarget, Mathf.Round(totalDamage));
+          
         }
   
     }

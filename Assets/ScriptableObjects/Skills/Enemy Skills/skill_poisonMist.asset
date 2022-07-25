@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31950d24d75839b4b856ab53e327c46f, type: 3}
-  m_Name: skill_chainLightning
+  m_Script: {fileID: 11500000, guid: 4d9fca9af96db8444955186cbca44a5d, type: 3}
+  m_Name: skill_poisonMist
   m_EditorClassIdentifier: 
-  skillName: Chain Lightning
+  skillName: Poison Mist
   skillIcon: {fileID: 0}
-  description: Lightning dmg to 1 target. Hits another target for 50% damage
-  manaCost: 10
-  power: 20
+  description: Chance to inflict poison on all heroes
+  manaCost: 0
+  power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 2
+  targetType: 4

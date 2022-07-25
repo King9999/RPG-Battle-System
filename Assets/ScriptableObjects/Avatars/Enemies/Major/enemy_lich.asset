@@ -30,6 +30,10 @@ MonoBehaviour:
   coldResist: 1
   lightningResist: 0
   skills:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e8987a15547f8a0448cafe99e2b65be3, type: 2}
+  - {fileID: 11400000, guid: 6d54154600dea4a449f72ed949248ab3, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: a5b50f493c89a0041a0a0844fab6f4c8, type: 2}
   maxShieldTokens: 1
   xp: 2400
