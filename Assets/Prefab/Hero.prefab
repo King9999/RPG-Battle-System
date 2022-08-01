@@ -204,6 +204,7 @@ MonoBehaviour:
   status: 0
   data: {fileID: 11400000, guid: 13fa19649b045d346bb76b431c5d9314, type: 2}
   statFile: {fileID: 0}
+  deathSprite: {fileID: 21300000, guid: f68217f03f9df36438ac365b46625270, type: 3}
   level: 0
   weapon: {fileID: 0}
   armor: {fileID: 0}

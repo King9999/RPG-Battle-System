@@ -10,6 +10,7 @@ public class Hero : Avatar
     public HeroData data;
     public TextAsset statFile;
     Stats stats;                        //contains data from stat table
+    public Sprite deathSprite;          //when hero is dead, this sprite is displayed.
     public int level;
     public Weapon weapon;
     public Armor armor;
@@ -131,14 +132,20 @@ public class Hero : Avatar
                 StartCoroutine(HighlightAvatar());
         }
 
-        /*if (status == Status.Dead)
+        CombatSystem cs = CombatSystem.instance;
+        if (hitPoints <= 0 && cs.turnOrder.Contains(this))
         {
-            //status = Status.Dead;
-            hitPoints = 0;
+            status = Status.Dead;
+            
             //remove hero from turn order
+            cs.turnOrder.Remove(this);
+
             //TODO: put in a sprite that indicates hero is dead.
-            return;
-        }*/
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.sprite = deathSprite;
+            
+            //return;
+        }
 
         //if (status == Status.Normal || status == Status.Poisoned || status == Status.Blind || status == Status.Berserk || status )
         if (status != Status.Dead && status != Status.Paralyzed && status != Status.Charmed)
