@@ -221,11 +221,11 @@ public class CombatSystem : MonoBehaviour
         if (combatEnded)
             return;
         
-        /*if (AllHeroesDefeated())
+        if (AllHeroesDefeated())
         {
             gm.GameOver();
-            return;
-        }*/
+            //return;
+        }
 
         if (!combatEnded && enemiesInCombat.Count <= 0)
         {

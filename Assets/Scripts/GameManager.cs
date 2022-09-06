@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.IO;
 
 
@@ -106,6 +107,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game is over");
 
         //TODO: Show a game over scene
+        SceneManager.LoadScene("GameOver");
         combatSystem.gameObject.SetActive(false);
     }
 }
