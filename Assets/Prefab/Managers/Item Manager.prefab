@@ -46,6 +46,7 @@ MonoBehaviour:
   tableFile: {fileID: 4900000, guid: 0f3ef782270db94459d0a2988cc4162a, type: 3}
   consumables:
   - {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
+  - {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
   weapons:
   - {fileID: 11400000, guid: b98c69b938d5cf4448b221aa2c70f157, type: 2}
   - {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}

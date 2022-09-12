@@ -117,10 +117,12 @@ MonoBehaviour:
   spdMod: 1
   magMod: 1
   resMod: 1
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
   skills:
   - {fileID: 11400000, guid: 9f6412b8d53be0544a5fa2696af84c93, type: 2}
   - {fileID: 11400000, guid: c5c5788222915804d8435b8cab71cde0, type: 2}
-  skillEffects: []
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
@@ -136,9 +138,9 @@ MonoBehaviour:
   xp: 65
   money: 30
   commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
   commonItemDropChance: 0
-  rareItemDropChance: 0
+  rareItemDropChance: 0.15
   currentShieldTokenIndex: 
   currentShieldTokenSize: []
   shieldTokenDirection: 

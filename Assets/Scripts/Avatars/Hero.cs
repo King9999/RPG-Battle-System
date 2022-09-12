@@ -11,6 +11,7 @@ public class Hero : Avatar
     public TextAsset statFile;
     Stats stats;                        //contains data from stat table
     public Sprite deathSprite;          //when hero is dead, this sprite is displayed.
+    //public Sprite heroSprite;           //hero's sprite. Used to revert back from death sprite.
     public int level;
     public Weapon weapon;
     public Armor armor;

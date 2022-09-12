@@ -13,7 +13,7 @@ public class ItemManager : MonoBehaviour
     public Trinket[] trinkets;
 
     //enums
-    public enum ConsumableItem {Herb}
+    public enum ConsumableItem {Herb, LifePotion}
     public enum WeaponItem {Dagger, Sword, Axe, Bow, Staff, GoldenAxe}
     public enum ArmorItem {Undershirt, Vest, Robe}
     public enum TrinketItem {LeatherBand, RegenRing, SpeedBoots}

@@ -325,9 +325,9 @@ MonoBehaviour:
   enemyID: 4
   xp: 0
   money: 0
-  commonItemDrop: {fileID: 0}
+  commonItemDrop: {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
   rareItemDrop: {fileID: 0}
-  commonItemDropChance: 0
+  commonItemDropChance: 0.25
   rareItemDropChance: 0
   currentShieldTokenIndex: 
   currentShieldTokenSize: []
