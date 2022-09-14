@@ -36,6 +36,6 @@ MonoBehaviour:
   xp: 65
   money: 30
   commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
   commonItemDropChance: 0
-  rareItemDropChance: 0
+  rareItemDropChance: 0.15

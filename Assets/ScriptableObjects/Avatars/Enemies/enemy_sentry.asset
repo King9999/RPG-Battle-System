@@ -33,7 +33,7 @@ MonoBehaviour:
   maxShieldTokens: 1
   xp: 76
   money: 32
-  commonItemDrop: {fileID: 0}
+  commonItemDrop: {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
   rareItemDrop: {fileID: 11400000, guid: c4fed7c7445e88c4ca4046207c2652ee, type: 2}
-  commonItemDropChance: 0
+  commonItemDropChance: 0.35
   rareItemDropChance: 0.1
