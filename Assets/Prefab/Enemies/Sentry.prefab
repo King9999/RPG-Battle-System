@@ -287,17 +287,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f0ef77a16af0ee4286cbc7216782751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  hitPoints: 0
-  maxHitPoints: 0
+  className: Sentry
+  details: Heavily armored
+  hitPoints: 350
+  maxHitPoints: 350
   manaPoints: 0
   maxManaPoints: 0
-  atp: 0
-  dfp: 0
-  spd: 0
+  atp: 33
+  dfp: 20
+  spd: 7
   mag: 0
-  res: 0
+  res: 1
   statsUI: {fileID: 2383443864807850215}
   auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
   hpMod: 1
@@ -318,17 +318,17 @@ MonoBehaviour:
   resistDeath: 0
   status: 0
   data: {fileID: 11400000, guid: 40a20c73e7dc38f449f3eafbc80a87cb, type: 2}
-  shieldTokens: 0
-  maxShieldTokens: 0
+  shieldTokens: 1
+  maxShieldTokens: 1
   shields: []
   shieldPrefab: {fileID: 343450292, guid: 8ff6a420ca10f654eb00509b4089f670, type: 3}
   enemyID: 4
-  xp: 0
-  money: 0
+  xp: 76
+  money: 32
   commonItemDrop: {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
-  rareItemDrop: {fileID: 0}
-  commonItemDropChance: 0.25
-  rareItemDropChance: 0
+  rareItemDrop: {fileID: 11400000, guid: c4fed7c7445e88c4ca4046207c2652ee, type: 2}
+  commonItemDropChance: 0.35
+  rareItemDropChance: 0.1
   currentShieldTokenIndex: 
   currentShieldTokenSize: []
   shieldTokenDirection: 

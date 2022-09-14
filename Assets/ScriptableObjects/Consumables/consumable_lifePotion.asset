@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925f5715d5279e64fb3ad0c8a72e9a53, type: 3}
   m_Name: consumable_lifePotion
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Life Potion
+  details: Revives hero
+  cost: 200
   sprite: {fileID: 0}
-  itemType: 0
-  itemEffect: {fileID: 0}
+  itemType: 2
+  itemEffect: {fileID: 11400000, guid: 8b613f124c4a631468212d13779ce86a, type: 2}

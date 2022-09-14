@@ -22,6 +22,10 @@ public class LifePotion : Skill
                 
             float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
             user.RestoreHitPoints(target, healAmount);
+
+            //add back to the queue
+            CombatSystem cs = CombatSystem.instance;
+            cs.turnOrder.Add(target);
         }
         else
         {

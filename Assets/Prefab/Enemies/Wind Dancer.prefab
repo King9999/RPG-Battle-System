@@ -137,7 +137,7 @@ MonoBehaviour:
   enemyID: 3
   xp: 65
   money: 30
-  commonItemDrop: {fileID: 0}
+  commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
   rareItemDrop: {fileID: 11400000, guid: 693ce45a44ce2124793571666bfab3e3, type: 2}
   commonItemDropChance: 0
   rareItemDropChance: 0.15
