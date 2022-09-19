@@ -31,7 +31,7 @@ public class Imp : Enemy
         if (!levelChecked)
             CheckHeroLevels();
 
-        if (averageLevel >= 5)
+        if (averageLevel >= 3)
         {
             //skill activation check
             //float roll = Random.Range(0, 1f);
@@ -42,7 +42,7 @@ public class Imp : Enemy
             }
             else
             {
-                int randHero;
+                /*int randHero;
                 if (cs.heroesInCombat.Count > 1)
                 {
                     do
@@ -54,12 +54,13 @@ public class Imp : Enemy
                 else
                 {
                     Attack(cs.heroesInCombat[0]);
-                }
+                }*/
+                AttackRandomHero();
             }
         }
         else
         {
-            int randHero;
+            /*int randHero;
             if (cs.heroesInCombat.Count > 1)
             {
                 do
@@ -71,7 +72,8 @@ public class Imp : Enemy
             else
             {
                 Attack(cs.heroesInCombat[0]);
-            }
+            }*/
+            AttackRandomHero();
         }
 
         base.ExecuteLogic();

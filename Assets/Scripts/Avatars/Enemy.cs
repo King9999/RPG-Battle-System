@@ -469,7 +469,7 @@ public abstract class Enemy : Avatar
         }*/
     }
 
-    //attacks a random hero. Will not target heroes with Hidden status
+    //attacks a random hero. Will not target heroes with Hidden or Dead status
     public void AttackRandomHero()
     {
         int randHero;
@@ -477,7 +477,7 @@ public abstract class Enemy : Avatar
         {
             do
                 randHero = Random.Range(0, cs.heroesInCombat.Count);
-            while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+            while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden || cs.heroesInCombat[randHero].status == Avatar.Status.Dead);
 
             Attack(cs.heroesInCombat[randHero]);
         }
@@ -495,7 +495,7 @@ public abstract class Enemy : Avatar
         {
             do
                 randHero = Random.Range(0, cs.heroesInCombat.Count);
-            while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden);
+            while (cs.heroesInCombat[randHero].status == Avatar.Status.Hidden || cs.heroesInCombat[randHero].status == Avatar.Status.Dead);
 
             skill.Activate(this, cs.heroesInCombat[randHero], skillNameBorderColor);
         }

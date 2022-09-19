@@ -158,7 +158,9 @@ public class CombatSystem : MonoBehaviour
             #endif*/
 
             heroLocationOccupied[randIndex] = true;
-            turnOrder.Add(hero);
+
+            if (hero.status != Avatar.Status.Dead)
+                turnOrder.Add(hero);
 
             //UI setup
             hero.GetComponent<ClampText>().UpdateUIPosition();
