@@ -362,10 +362,27 @@ public class CombatSystem : MonoBehaviour
         string[] partyXp = new string[heroesInCombat.Count];
 
         //XP gain.
+        //dead heroes do not receive XP
+        int liveHeroCount = 0;
+        int currentHero = 0;
+        while (currentHero < heroesInCombat.Count)
+        {
+            if (heroesInCombat[currentHero].status != Avatar.Status.Dead)
+                liveHeroCount++;
+
+            currentHero++;
+        }
+
+        //int xpShare = xpPool / liveHeroCount;
         for (int i = 0; i < heroesInCombat.Count; i++)
         {
+            int xpShare;
             heroesInCombat[i].gameObject.SetActive(false);
-            int xpShare = xpPool / heroesInCombat.Count;
+
+            if (heroesInCombat[i].status == Avatar.Status.Dead)
+                xpShare = 0;
+            else
+                xpShare = xpPool / liveHeroCount;
     
             heroesInCombat[i].xpToNextLevel -= xpShare;
             if (heroesInCombat[i].xpToNextLevel <= 0)

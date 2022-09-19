@@ -36,7 +36,20 @@ public class LifePotion : Skill
     //used outside of combat
     public override void Activate(Avatar target)
     {
-        float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
-        target.RestoreHitPoints(target, healAmount);
+        if (target.status == Avatar.Status.Dead)
+        {
+            target.status = Avatar.Status.Normal;
+
+            //change target's sprite to normal
+            if (target.TryGetComponent(out Hero hero))
+            {
+                SpriteRenderer sr = hero.GetComponent<SpriteRenderer>();
+                sr.sprite = hero.data.sprite;
+            }
+                
+            float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
+            target.RestoreHitPoints(target, healAmount);
+        }
+        
     }
 }
