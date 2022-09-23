@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
-  m_Name: wpn_goldenAxe
+  m_Name: wpn_venomDagger
   m_EditorClassIdentifier: 
-  itemName: Golden Axe
-  details: Powerful axe that can temporarily raise ATP
-  cost: 750
+  itemName: Venom Dagger
+  details: Laced with venom. 25% chance to poison
+  cost: 1200
   sprite: {fileID: 0}
   itemType: 0
-  weaponType: 4
-  atp: 30
+  weaponType: 1
+  atp: 20
   mag: 0
-  actGauge: {fileID: 11400000, guid: d19eb2df26d9aa945a07b7c0318f6880, type: 2}
-  tokenCount: 2
+  actGauge: {fileID: 11400000, guid: 235d512b98687794d9a91b3296d9e76e, type: 2}
+  tokenCount: 3
   staffSkills: []

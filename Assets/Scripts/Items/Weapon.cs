@@ -12,6 +12,8 @@ public class Weapon : Item
     public int tokenCount = 3;    //default amount is 3
     [System.NonSerialized]public Skill weaponSkill;
     [Header("Staff skills")]
+    public bool nonRandomStaffSkill;    //if true, staff has a fixed skill.
+
     public Skill[] staffSkills;
     
     public enum WeaponType
@@ -78,7 +80,7 @@ public class Weapon : Item
     //FOR STAVES ONLY. Staves come with a random skill that is acquired every time a staff weapon is generated.
     public void GenerateSkill()
     {
-        if (weaponType != WeaponType.Staff) return;
+        //if (weaponType != WeaponType.Staff) return;
         
         int randSkill = Random.Range(0, staffSkills.Length);
         weaponSkill = staffSkills[randSkill];

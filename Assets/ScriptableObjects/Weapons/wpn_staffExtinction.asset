@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
-  m_Name: wpn_goldenAxe
+  m_Name: wpn_staffExtinction
   m_EditorClassIdentifier: 
-  itemName: Golden Axe
-  details: Powerful axe that can temporarily raise ATP
-  cost: 750
+  itemName: Staff of Extinction
+  details: Powerful staff that can wipe out groups
+  cost: 5000
   sprite: {fileID: 0}
   itemType: 0
-  weaponType: 4
-  atp: 30
-  mag: 0
-  actGauge: {fileID: 11400000, guid: d19eb2df26d9aa945a07b7c0318f6880, type: 2}
-  tokenCount: 2
+  weaponType: 2
+  atp: 5
+  mag: 30
+  actGauge: {fileID: 11400000, guid: 15ae3f4ab88264140a408af59a5b2ea9, type: 2}
+  tokenCount: 1
+  nonRandomStaffSkill: 1
   staffSkills: []

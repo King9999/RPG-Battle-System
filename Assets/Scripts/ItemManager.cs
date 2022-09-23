@@ -58,7 +58,7 @@ public class ItemManager : MonoBehaviour
                             if (lootTable.tables[tableLevel].tableItems[i].itemName == weapon.itemName)
                             {
                                 //if it's a staff, give it a random skill
-                                if (weapon.weaponType == Weapon.WeaponType.Staff)
+                                if (weapon.weaponType == Weapon.WeaponType.Staff && weapon.nonRandomStaffSkill == false)
                                 {
                                     Weapon newStaff = Instantiate(weapon);  //this needs to be done so each staff can have their own skill
                                     newStaff.GenerateSkill();
