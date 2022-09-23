@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9d9b09ae5ed6384ca52c6c3d4182233, type: 3}
-  m_Name: wpn_staffExtinction
+  m_Name: wpn_killerBow
   m_EditorClassIdentifier: 
-  itemName: Staff of Extinction
-  details: Powerful staff that can wipe out groups
-  cost: 10000
+  itemName: Killer Bow
+  details: Requires high skill to use, but can kill enemies instantly
+  cost: 6500
   sprite: {fileID: 0}
   itemType: 0
-  weaponType: 2
-  atp: 5
-  mag: 30
-  actGauge: {fileID: 11400000, guid: 15ae3f4ab88264140a408af59a5b2ea9, type: 2}
-  tokenCount: 1
-  nonRandomStaffSkill: 1
+  weaponType: 3
+  atp: 20
+  mag: 0
+  actGauge: {fileID: 11400000, guid: 171b85e787b46b14bb1ce85548f16cd9, type: 2}
+  tokenCount: 3
+  nonRandomStaffSkill: 0
   staffSkills: []
