@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Life Potion
   skillIcon: {fileID: 0}
-  description: Revives a hero with 1/3 HP
+  description: Revives a hero with 50% HP
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}

@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 618ec49195c0d724c9f11fd8a1193f8d, type: 3}
-  m_Name: skill_herb
+  m_Script: {fileID: 11500000, guid: d47d409dde27c0943b8f778e02b69888, type: 3}
+  m_Name: skill_medicine
   m_EditorClassIdentifier: 
-  skillName: Herb
+  skillName: Medicine
   skillIcon: {fileID: 0}
-  description: Restores 33% HP
+  description: Removes status ailments
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 2
+  targetType: 0

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925f5715d5279e64fb3ad0c8a72e9a53, type: 3}
-  m_Name: consumable_herb
+  m_Name: consumable_manaPotion
   m_EditorClassIdentifier: 
-  itemName: Herb
-  details: Restores 33% HP
-  cost: 10
+  itemName: Mana Potion
+  details: Restores 33% MP
+  cost: 300
   sprite: {fileID: 0}
   itemType: 2
-  itemEffect: {fileID: 11400000, guid: be39c092bc6d71e44b04ae3fd9b8dc87, type: 2}
+  itemEffect: {fileID: 11400000, guid: b313ebd7b7564ea4e8d56cfc6ebefcbd, type: 2}

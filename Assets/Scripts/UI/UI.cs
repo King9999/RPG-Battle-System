@@ -271,7 +271,7 @@ public class UI : MonoBehaviour
         allStatusUI[index].transform.position = avatarPos;
         allStatusUI[index].text = status;
 
-        //each digit is animated individually
+        //animate damage values
         Vector3 initPos = allStatusUI[index].transform.position;
         Vector3 destination = new Vector3(initPos.x, initPos.y + 20, initPos.z);
         float vy;

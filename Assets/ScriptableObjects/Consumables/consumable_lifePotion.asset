@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: consumable_lifePotion
   m_EditorClassIdentifier: 
   itemName: Life Potion
-  details: Revives hero
+  details: Revives hero with 50% HP
   cost: 200
   sprite: {fileID: 0}
   itemType: 2
