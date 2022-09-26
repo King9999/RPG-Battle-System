@@ -20,7 +20,7 @@ public class LifePotion : Skill
                 sr.sprite = hero.data.sprite;
             }
                 
-            float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
+            float healAmount = Mathf.Round(target.maxHitPoints * 0.5f);
             user.RestoreHitPoints(target, healAmount);
 
             //add back to the queue
@@ -47,7 +47,7 @@ public class LifePotion : Skill
                 sr.sprite = hero.data.sprite;
             }
                 
-            float healAmount = Mathf.Round(target.maxHitPoints * 0.33f);
+            float healAmount = Mathf.Round(target.maxHitPoints * 0.5f);
             target.RestoreHitPoints(target, healAmount);
         }
         
