@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50b0d259448c3e4ca876c612039220f, type: 3}
   m_Name: armor_sorcererCloak
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Sorcerer's Cloak
+  details: High protection vs magic and some ailments
+  cost: 5000
   sprite: {fileID: 0}
-  itemType: 0
-  dfp: 0
-  res: 0
+  itemType: 1
+  dfp: 3
+  res: 20
   resistPoison: 0
-  resistParalysis: 0
+  resistParalysis: 1
   resistBlind: 0
-  resistCharm: 0
-  fireResist: 0
-  coldResist: 0
-  lightningResist: 0
+  resistCharm: 1
+  fireResist: 0.15
+  coldResist: 0.15
+  lightningResist: 0.15
   armorSkill: {fileID: 0}

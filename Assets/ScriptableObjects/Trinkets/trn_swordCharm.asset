@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88aa7bba1d8d3eb43aa97bd7f9b05a93, type: 3}
   m_Name: trn_swordCharm
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Sword Charm
+  details: Raises ATP by 10%
+  cost: 500
   sprite: {fileID: 0}
-  itemType: 0
+  itemType: 3
   maxHitPoints: 0
   maxManaPoints: 0
   atp: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   spd: 0
   hpMod: 0
   mpMod: 0
-  atpMod: 0
+  atpMod: 0.1
   dfpMod: 0
   magMod: 0
   resMod: 0

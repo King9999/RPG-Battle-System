@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50b0d259448c3e4ca876c612039220f, type: 3}
   m_Name: armor_plateMail
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Plate Mail
+  details: High physical resist but weak vs. Magic
+  cost: 2000
   sprite: {fileID: 0}
-  itemType: 0
-  dfp: 0
-  res: 0
+  itemType: 1
+  dfp: 15
+  res: -5
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
-  fireResist: 0
-  coldResist: 0
-  lightningResist: 0
+  fireResist: -0.1
+  coldResist: -0.1
+  lightningResist: -0.1
   armorSkill: {fileID: 0}

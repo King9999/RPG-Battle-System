@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50b0d259448c3e4ca876c612039220f, type: 3}
   m_Name: armor_leatherArmor
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Leather Armour
+  details: Durable, light, and reliable
+  cost: 500
   sprite: {fileID: 0}
-  itemType: 0
-  dfp: 0
-  res: 0
+  itemType: 1
+  dfp: 6
+  res: 2
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
