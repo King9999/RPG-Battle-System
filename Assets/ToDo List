@@ -4,4 +4,4 @@
 4. Add UI for equipping weapons. Should be able to use code from the existing inventory script for the most part. *DONE*
 5. Update Heavy Wind skill so it has the opposite effect of the updated Cool Wind skill *DONE*
 6. Check to make sure stats are updating correctly when min stats are boosted. *DONE*
-7. Fix Medicine item so that it can be used outside of combat.
+7. Fix Medicine item so that it can be used outside of combat. *DONE*
