@@ -82,7 +82,7 @@ public class Inventory : MonoBehaviour
         //add test items
         AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 5);
         AddItem(im.consumables[(int)ItemManager.ConsumableItem.Medicine], 5);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.ManaPotion], 5);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.MysterySeed], 5);
         //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Axe], 1);
@@ -124,7 +124,17 @@ public class Inventory : MonoBehaviour
             {
                 slot.quantity += amount;
                 itemFound = true;
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ItemInSlot().itemName + " -- " + slot.quantity;
+
+                //if we're in combat and this item cannot be used in combat, grey it out
+                GameManager gm = GameManager.instance;
+                TextMeshProUGUI currentItem = slot.GetComponentInChildren<TextMeshProUGUI>();
+
+                if (gm.gameState == GameManager.GameState.Combat && slot.ItemInSlot().cannotUseInCombat == true)
+                    currentItem.text = "<color=#444444>" + slot.ItemInSlot().itemName + " -- " + slot.quantity + "</color>";
+                else
+                    currentItem.text = slot.ItemInSlot().itemName + " -- " + slot.quantity;
+
+                //slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.ItemInSlot().itemName + " -- " + slot.quantity;
                 break;
             }
         }
@@ -142,7 +152,16 @@ public class Inventory : MonoBehaviour
             itemCount++;
             itemSlots[i].AddItem(item);
             itemSlots[i].quantity += amount;
-            itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].ItemInSlot().itemName + " -- " + itemSlots[i].quantity;
+
+            //check if item is usable in combat
+            GameManager gm = GameManager.instance;
+            TextMeshProUGUI currentItem = itemSlots[i].GetComponentInChildren<TextMeshProUGUI>();
+
+            if (gm.gameState == GameManager.GameState.Combat && itemSlots[i].ItemInSlot().cannotUseInCombat == true)
+                currentItem.text = "<color=#444444>" + itemSlots[i].ItemInSlot().itemName + " -- " + itemSlots[i].quantity + "</color>";
+            else
+                currentItem.text = itemSlots[i].ItemInSlot().itemName + " -- " + itemSlots[i].quantity;
+            //itemSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[i].ItemInSlot().itemName + " -- " + itemSlots[i].quantity;
         }
 
     }

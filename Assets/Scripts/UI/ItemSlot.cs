@@ -48,21 +48,28 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             GameManager gm = GameManager.instance;
             inv = Inventory.instance;
             if (gm.gameState == GameManager.GameState.Combat)
-            { 
-                //copy the item
-                menu = CombatMenu.instance;
-                inv.copiedSlot = this;
-                inv.ShowInventory(false);
-                menu.menuState = CombatMenu.MenuState.SelectingHeroToTakeItem;
+            {
+                if (item.cannotUseInCombat == false)
+                { 
+                    //copy the item
+                    menu = CombatMenu.instance;
+                    inv.copiedSlot = this;
+                    inv.ShowInventory(false);
+                    menu.menuState = CombatMenu.MenuState.SelectingHeroToTakeItem;
 
-                //select the hero who gets the item
-                CombatSystem cs = CombatSystem.instance;
-                cs.selectingHero = true;
-                UI ui = UI.instance;
-                ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
-                ui.selectTargetUI.gameObject.SetActive(true);
-                menu.backButton.gameObject.SetActive(true);
-                menu.backButton.transform.position = menu.originalBackButtonPos;
+                    //select the hero who gets the item
+                    CombatSystem cs = CombatSystem.instance;
+                    cs.selectingHero = true;
+                    UI ui = UI.instance;
+                    ui.selectTargetUI.text = "Click a hero to use " + item.itemName;
+                    ui.selectTargetUI.gameObject.SetActive(true);
+                    menu.backButton.gameObject.SetActive(true);
+                    menu.backButton.transform.position = menu.originalBackButtonPos;
+                }
+                else
+                {
+                    Debug.Log("Item can't be used in combat");
+                }
             }
             else //using item outside of combat
             {

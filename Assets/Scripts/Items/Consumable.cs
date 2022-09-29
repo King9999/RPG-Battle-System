@@ -7,4 +7,5 @@ public class Consumable : Item
 {
     [Header("Consumable properties")]
     public Skill itemEffect;
+    public bool cannotUseInCombat;
 }
