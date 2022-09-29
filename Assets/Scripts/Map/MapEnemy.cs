@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /* Map enemies occupy nodes in a dungeon. They will move around a map after a specified number of turns, or they may always be stationary
 (to protect something, for example). When an enemy is touched, combat is initiated. The enemies encountered can be random or they can be fixed. */
@@ -28,6 +29,7 @@ public class MapEnemy : MapObject
             cs.SetupCombat(encounters);
         else
             cs.SetupCombat(encounters, 0);
+        
     }
 
     void Update()

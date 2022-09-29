@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;            //used to grey out inventory items that can't be used in combat
 
 //Combat occurs in the same scene. It's just overlaid over the game map, and disappears when combat ends.
 public class CombatSystem : MonoBehaviour
@@ -214,6 +215,19 @@ public class CombatSystem : MonoBehaviour
         combatEnded = false;
         turnInProgress = false;
         playerRanAway = false;
+
+        //check player inventory for any items that can't be used in combat and grey them out.
+        Inventory inv = Inventory.instance;
+        foreach(ItemSlot slot in inv.itemSlots)
+        {
+            if (slot.ItemInSlot() == null) return;
+            if (slot.ItemInSlot().cannotUseInCombat)
+            {
+                TextMeshProUGUI currentSlot = slot.GetComponentInChildren<TextMeshProUGUI>();
+                currentSlot.text = "<color=#555555>" + slot.ItemInSlot().itemName + " -- " + slot.quantity + "</color>";
+            }
+        }
+
     }
 
     
@@ -489,6 +503,15 @@ public class CombatSystem : MonoBehaviour
             gm.SetState(GameManager.GameState.CombatEnded);
         else
             gm.SetState(GameManager.GameState.CombatEndedPlayerRanAway);
+
+        //reset item text colour in inventory.
+        Inventory inv = Inventory.instance;
+        foreach(ItemSlot slot in inv.itemSlots)
+        {
+            if (slot.ItemInSlot() == null) return;
+            TextMeshProUGUI currentSlot = slot.GetComponentInChildren<TextMeshProUGUI>();
+            currentSlot.text = "<color=#ffffff>" + slot.ItemInSlot().itemName + " -- " + slot.quantity + "</color>";
+        }
         //gameObject.SetActive(false);
     }
 
