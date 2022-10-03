@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f4b8a5b0f551647a9aa49884453ca1, type: 3}
-  m_Name: skill_mysterySeed
+  m_Script: {fileID: 11500000, guid: 1056bd3688b5e1e4587f804096b09345, type: 3}
+  m_Name: skill_elixir
   m_EditorClassIdentifier: 
-  skillName: Mystery Seed
+  skillName: 
   skillIcon: {fileID: 0}
-  description: Raises a random stat mod by 1%
+  description: 
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}

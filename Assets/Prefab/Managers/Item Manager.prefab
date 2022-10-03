@@ -50,6 +50,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5f2aea535f7eb94489c30c35d84cf4d5, type: 2}
   - {fileID: 11400000, guid: 7de3caba1580b8543b75e941d33e64b5, type: 2}
   - {fileID: 11400000, guid: cece7a86318c7664b9eea15b4a23d267, type: 2}
+  - {fileID: 11400000, guid: dbe2d3d602bae2d488fdec6028f5278b, type: 2}
+  - {fileID: 11400000, guid: 300e180ba7d7a4242bedcd0935c2e832, type: 2}
   weapons:
   - {fileID: 11400000, guid: b98c69b938d5cf4448b221aa2c70f157, type: 2}
   - {fileID: 11400000, guid: 84e407a649740354085a6c251d148c9c, type: 2}
@@ -57,11 +59,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71ac7d0b6e3c4904586cc1d36eb4d6eb, type: 2}
   - {fileID: 11400000, guid: aac24e715b3338446b3f149df3d879da, type: 2}
   - {fileID: 11400000, guid: 8bb91179346df0740afeddfe5d45a85e, type: 2}
+  - {fileID: 11400000, guid: 7ad36b0defe5dcc4b8fd7c2a870b376a, type: 2}
+  - {fileID: 11400000, guid: 9224c384839ea06429bb9c17c55b6383, type: 2}
+  - {fileID: 11400000, guid: 3bef95a3348049c41855df13af95d1dc, type: 2}
+  - {fileID: 11400000, guid: 5afc66abd81ac6848b34af9ddd5115a2, type: 2}
   armor:
   - {fileID: 11400000, guid: ed5af7bd6dea06245b4073db94130ef5, type: 2}
   - {fileID: 11400000, guid: f3b6e6920a943e746a99110ca4e207ba, type: 2}
   - {fileID: 11400000, guid: 6d03516e9f25b1b45b80e918ef8523ad, type: 2}
+  - {fileID: 11400000, guid: d1260ac40df614c4da21a1fb23749f0d, type: 2}
+  - {fileID: 11400000, guid: f315cfae0a4d4f14096053f8fc411157, type: 2}
+  - {fileID: 11400000, guid: b1031a554cadbb741819198c14cd1a75, type: 2}
   trinkets:
   - {fileID: 11400000, guid: c4fed7c7445e88c4ca4046207c2652ee, type: 2}
   - {fileID: 11400000, guid: 57272bbc5ea633c43819b6c50d86c8f6, type: 2}
   - {fileID: 11400000, guid: 1963c0680f2ed4a4da6755c7d058e8bb, type: 2}
+  - {fileID: 11400000, guid: a6525298a3e73b64e8c1a4777f4ffb55, type: 2}
+  - {fileID: 11400000, guid: da1ea3a83e4795a46923f6df74cb2b25, type: 2}
+  - {fileID: 11400000, guid: 44d720dd11dc3374098bbc190058ced4, type: 2}
+  - {fileID: 11400000, guid: 16b723e85f7edbf46a407fa9daa28393, type: 2}

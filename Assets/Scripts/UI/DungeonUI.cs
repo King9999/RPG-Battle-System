@@ -50,10 +50,10 @@ public class DungeonUI : MonoBehaviour
         normalColor = Color.white;
     }
 
-    public void DisplayStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
+    public void DisplayStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f, float delayDuration = 0)
     {
         if (!animateStatusCoroutineOn)
-            StartCoroutine(AnimateStatus(value, location, textColor, displayDuration));
+            StartCoroutine(AnimateStatus(value, location, textColor, displayDuration, delayDuration));
     }
 
     public void DisplayStatus(int allStatusUiIndex, string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
@@ -100,8 +100,9 @@ public class DungeonUI : MonoBehaviour
         dungeon.GenerateDungeon(dungeon.nodeCount, updateDungeonLevel: false); //nodeCount in game manager is not used because we're not updating the dungeon level.
     }
 
-    private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f)
+    private IEnumerator AnimateStatus(string value, Vector3 location, Color textColor, float displayDuration = 0.5f, float delayDuration = 0)
     {
+        yield return new WaitForSeconds(delayDuration);
         animateStatusCoroutineOn = true;
         //float displayDuration = 0.5f;
         statusUI.gameObject.SetActive(true);

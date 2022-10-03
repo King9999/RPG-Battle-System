@@ -81,8 +81,8 @@ public class Inventory : MonoBehaviour
 
         //add test items
         AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 5);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Medicine], 5);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.MysterySeed], 5);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.Elixir], 5);
+        AddItem(im.consumables[(int)ItemManager.ConsumableItem.LostJournal], 5);
         //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Axe], 1);

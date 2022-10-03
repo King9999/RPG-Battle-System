@@ -13,10 +13,10 @@ public class ItemManager : MonoBehaviour
     public Trinket[] trinkets;
 
     //enums
-    public enum ConsumableItem {Herb, LifePotion, ManaPotion, Medicine, MysterySeed}
-    public enum WeaponItem {Dagger, Sword, Axe, Bow, Staff, GoldenAxe}
-    public enum ArmorItem {Undershirt, Vest, Robe}
-    public enum TrinketItem {LeatherBand, RegenRing, SpeedBoots}
+    public enum ConsumableItem {Herb, LifePotion, ManaPotion, Medicine, MysterySeed, LostJournal, Elixir}
+    public enum WeaponItem {Dagger, Sword, Axe, Bow, Staff, GoldenAxe, VenomDagger, KillerBow, BloodSword, StaffExtinction}
+    public enum ArmorItem {Undershirt, Vest, Robe, LeatherArmour, PlateMail, SorcererCloak}
+    public enum TrinketItem {LeatherBand, RegenRing, SpeedBoots, SwordCharm, TurtleCharm, Visor, CurePendant}
     public static ItemManager instance;
 
     private void Awake()

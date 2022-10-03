@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925f5715d5279e64fb3ad0c8a72e9a53, type: 3}
-  m_Name: consumable_mysterySeed
+  m_Name: consumable_lostJournal
   m_EditorClassIdentifier: 
-  itemName: Mystery Seed
-  details: Raises ATP, DFP, SPD, RES or MAG by 1%
+  itemName: Lost Journal
+  details: Provides EXP to a hero
   cost: 0
   sprite: {fileID: 0}
   itemType: 2
-  itemEffect: {fileID: 11400000, guid: 80cc6b706e951bb458811fcc938f7a0e, type: 2}
+  itemEffect: {fileID: 11400000, guid: fa3c70addf1fbd64da87a469f4736a02, type: 2}
   cannotUseInCombat: 1

@@ -166,7 +166,8 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
         if (gm.gameState == GameManager.GameState.Normal)
         {
             DungeonUI ui = DungeonUI.instance;
-            ui.DisplayStatus(amount.ToString(), ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.healManaColor);
+
+            ui.DisplayStatus(amount.ToString(), ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.healManaColor, displayDuration: 0.5f, delayDuration);
             ui.partyDisplay[ui.currentHero].UpdateUI();
         }
         else    //we're in combat

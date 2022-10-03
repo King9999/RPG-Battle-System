@@ -18,3 +18,4 @@ MonoBehaviour:
   sprite: {fileID: 0}
   itemType: 2
   itemEffect: {fileID: 11400000, guid: be39c092bc6d71e44b04ae3fd9b8dc87, type: 2}
+  cannotUseInCombat: 0
