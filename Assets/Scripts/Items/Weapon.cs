@@ -10,7 +10,7 @@ public class Weapon : Item
     public ActionGaugeData actGauge;
     int defaultTokenCount {get;} = 3;
     public int tokenCount = 3;    //default amount is 3
-    [System.NonSerialized]public Skill weaponSkill;
+    public Skill weaponSkill;
     [Header("Staff skills")]
     public bool nonRandomStaffSkill;    //if true, staff has a fixed skill.
 

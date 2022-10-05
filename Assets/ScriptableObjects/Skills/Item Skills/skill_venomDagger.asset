@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1056bd3688b5e1e4587f804096b09345, type: 3}
-  m_Name: skill_elixir
+  m_Script: {fileID: 11500000, guid: 98aa1496c9b86924fa37b36349b1127c, type: 3}
+  m_Name: skill_venomDagger
   m_EditorClassIdentifier: 
-  skillName: Elixir
+  skillName: 
   skillIcon: {fileID: 0}
-  description: Restores HP and MP to full
+  description: 
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}

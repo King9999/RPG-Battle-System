@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925f5715d5279e64fb3ad0c8a72e9a53, type: 3}
   m_Name: consumable_elixir
   m_EditorClassIdentifier: 
-  itemName: 
-  details: 
-  cost: 0
+  itemName: Elixir
+  details: Restores HP and MP to 100%
+  cost: 10000
   sprite: {fileID: 0}
-  itemType: 0
-  itemEffect: {fileID: 0}
+  itemType: 2
+  itemEffect: {fileID: 11400000, guid: 694b8fd022b16ec4eaf8e2e7d59e4879, type: 2}
   cannotUseInCombat: 0
