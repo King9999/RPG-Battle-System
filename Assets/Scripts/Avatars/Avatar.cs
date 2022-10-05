@@ -424,6 +424,14 @@ public abstract class Avatar : MonoBehaviour, IPointerExitHandler, IPointerEnter
 
     public void EndTurn()
     {
+        //poison check
+        if (status == Status.Poisoned)
+        {
+            //take 5% damage
+            float poisonDamage = Mathf.Round(maxHitPoints * 0.05f);
+            ReduceHitPoints(this, poisonDamage);
+        }
+        
         if (skillEffects.Count > 0)
             StartCoroutine(DelayPassiveSkillActivation());
         else

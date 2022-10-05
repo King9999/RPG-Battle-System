@@ -43,7 +43,7 @@ public class VenomDagger : Skill
             totalDamage = 0;
 
         //poison check. Cannot poison if damage is 0
-        float poisonChance = ((user.atp / 2) - target.res) / 100;
+        float poisonChance = (user.atp - (target.res * 2)) / 100;
         Debug.Log("Chance to poison with venom dagger: " + poisonChance);
 
         if (totalDamage > 0 && critLanded || Random.value <= poisonChance)

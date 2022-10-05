@@ -411,6 +411,14 @@ public abstract class Enemy : Avatar
 
     public virtual void ExecuteLogic() 
     {
+        //poison check
+        if (status == Status.Poisoned)
+        {
+            //take 5% damage
+            float poisonDamage = Mathf.Round(maxHitPoints * 0.05f);
+            ReduceHitPoints(this, poisonDamage);
+        }
+        
         if (skillEffects.Count > 0) 
             StartCoroutine(DelayPassiveSkillActivation());
         else
@@ -557,6 +565,7 @@ public abstract class Enemy : Avatar
         switch(status)
         {
             case Status.Normal:
+            case Status.Poisoned:
                 //call method to execute enemy logic
                 ExecuteLogic();
                 break;
