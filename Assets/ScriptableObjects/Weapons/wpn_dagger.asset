@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: wpn_dagger
   m_EditorClassIdentifier: 
   itemName: Dagger
-  details: Small blade. Low ATP but high crit chance
+  details: Small blade. Low ATP but has a critical panel
   cost: 50
   sprite: {fileID: 0}
   itemType: 0
   weaponType: 1
-  atp: 10
+  atp: 5
   mag: 0
   actGauge: {fileID: 11400000, guid: f637adc614c6608479e42425afb7b3e4, type: 2}
   tokenCount: 3
   weaponSkill: {fileID: 0}
+  nonRandomStaffSkill: 0
+  staffSkills: []
