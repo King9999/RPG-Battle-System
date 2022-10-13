@@ -42,26 +42,22 @@ public class VenomDagger : Skill
         if (totalDamage < 0)
             totalDamage = 0;
 
-        //poison check. Cannot poison if damage is 0
+
+        //deal damage then do poison check. Cannot poison if damage is 0
+        user.ReduceHitPoints(target, totalDamage);
+
         float poisonChance = (user.atp - (target.res * 2)) / 100;
         Debug.Log("Chance to poison with venom dagger: " + poisonChance);
 
-        if (totalDamage > 0 && critLanded || Random.value <= poisonChance)
+        if (target.resistPoison)
+        {
+            ui.DisplayStatusUpdate("POISON RESIST", target.transform.position, delayDuration: 1);
+        }
+        else if (totalDamage > 0 && critLanded || Random.value <= poisonChance)
         {
             target.status = Avatar.Status.Poisoned;
-            user.ReduceHitPoints(target, totalDamage);
             ui.DisplayStatusUpdate("POISONED", target.transform.position, delayDuration: 1);
-        }
-        else
-        {
-            user.ReduceHitPoints(target, totalDamage);
-        }
-
-        
-        //if (!user.animateAttackCoroutineOn)
-            //user.StartCoroutine(user.AnimateAttack());
-
-        
+        }   
         
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: wpn_venomDagger
   m_EditorClassIdentifier: 
   itemName: Venom Dagger
-  details: Laced with venom. 25% chance to poison
+  details: Laced with venom. Can inflict poison
   cost: 1200
   sprite: {fileID: 0}
   itemType: 0
@@ -22,4 +22,6 @@ MonoBehaviour:
   mag: 0
   actGauge: {fileID: 11400000, guid: 235d512b98687794d9a91b3296d9e76e, type: 2}
   tokenCount: 3
+  weaponSkill: {fileID: 11400000, guid: 4577fd861b8d12d45b945b1b69229721, type: 2}
+  nonRandomStaffSkill: 0
   staffSkills: []

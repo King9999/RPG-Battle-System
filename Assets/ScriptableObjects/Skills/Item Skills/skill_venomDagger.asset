@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98aa1496c9b86924fa37b36349b1127c, type: 3}
   m_Name: skill_venomDagger
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Envenom
   skillIcon: {fileID: 0}
-  description: 
+  description: Venom Dagger skill. Normal attack with a chance to poison. Crit =
+    100% poison
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 2

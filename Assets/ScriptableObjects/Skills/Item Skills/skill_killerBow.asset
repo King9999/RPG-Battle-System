@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d827775f4b8a3c4088cb6e86136d1ac, type: 3}
-  m_Name: skill_goldenAxe
+  m_Script: {fileID: 11500000, guid: 23e4223b4b8063a4da0f3a545109da7f, type: 3}
+  m_Name: skill_killerBow
   m_EditorClassIdentifier: 
-  skillName: Power Surge
+  skillName: Pierce Heart
   skillIcon: {fileID: 0}
-  description: Golden Axe skill. Raises ATP by 10%, up to 30%
+  description: Killer Bow skill. Chance to instantly kill target
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
-  hasDuration: 1
-  turnDuration: 2
-  targetType: 1
+  hasDuration: 0
+  turnDuration: 0
+  targetType: 2

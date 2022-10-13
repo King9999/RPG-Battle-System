@@ -83,7 +83,7 @@ public abstract class Enemy : Avatar
     void Update()
     {
         //if at any point the enemy's HP reaches 0, it dies
-        if (hitPoints <= 0)
+        if (hitPoints <= 0 || status == Status.Dead)
         {
             Debug.Log(className + " is defeated");
             SendToGraveyard();
