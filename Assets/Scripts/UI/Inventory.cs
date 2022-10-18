@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour
         AddItem(im.consumables[(int)ItemManager.ConsumableItem.LostJournal], 5);
         //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
-        AddItem(im.weapons[(int)ItemManager.WeaponItem.BloodSword], 1);
+        AddItem(im.weapons[(int)ItemManager.WeaponItem.StaffExtinction], 1);
         //AddItem(im.trinkets[(int)ItemManager.TrinketItem.SpeedBoots], 1);
     }
 
@@ -190,8 +190,15 @@ public class Inventory : MonoBehaviour
                     {
                         slot.quantity += amount;
                         //itemFound = true;
-                        slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + "(" +
-                        slot.WeaponInSlot().weaponSkill.skillName + ") -- " + slot.quantity;
+                        if (slot.WeaponInSlot().nonRandomStaffSkill == false)
+                        {
+                            slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + "(" +
+                            slot.WeaponInSlot().weaponSkill.skillName + ") -- " + slot.quantity;
+                        }
+                        else  //we don't put the skill name beside the staff name because it's a unique staff
+                        {
+                            slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.WeaponInSlot().itemName + " -- " + slot.quantity;
+                        }
                     }
                     else
                     {
@@ -205,8 +212,17 @@ public class Inventory : MonoBehaviour
                         weaponCount++;
                         weaponSlots[i].AddWeapon(item);
                         weaponSlots[i].quantity += amount;
-                        weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
-                        + slot.WeaponInSlot().weaponSkill.skillName + ") -- " + weaponSlots[i].quantity;
+
+                        if (weaponSlots[i].WeaponInSlot().nonRandomStaffSkill == false)
+                        {
+                            weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
+                            + slot.WeaponInSlot().weaponSkill.skillName + ") -- " + weaponSlots[i].quantity;
+                        }
+                        else
+                        {
+                            weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + 
+                                " -- " + weaponSlots[i].quantity;
+                        }
                     }
                     itemFound = true;
                 }

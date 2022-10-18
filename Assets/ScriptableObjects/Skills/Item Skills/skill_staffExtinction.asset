@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6745f6045dd09eb499c2e7c8faf251d1, type: 3}
-  m_Name: skill_bloodSword
+  m_Script: {fileID: 11500000, guid: 6f91c394ac5a2d84bac04ab0c7ff92bb, type: 3}
+  m_Name: skill_staffExtinction
   m_EditorClassIdentifier: 
-  skillName: Blood Drain
+  skillName: 
   skillIcon: {fileID: 0}
-  description: Blood Sword skill. 25% of dmg dealt is restored as HP
+  description: 
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 2
+  targetType: 0

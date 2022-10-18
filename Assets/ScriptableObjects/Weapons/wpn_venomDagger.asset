@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   itemType: 0
   weaponType: 1
-  atp: 20
+  atp: 16
   mag: 0
   actGauge: {fileID: 11400000, guid: 235d512b98687794d9a91b3296d9e76e, type: 2}
   tokenCount: 3

@@ -533,7 +533,7 @@ public class Hero : Avatar
                                     break;
 
                                 case Skill.Target.AllEnemies:
-                                    //weapon.weaponSkill.Activate(this, skillNameBorderColor);
+                                    weapon.weaponSkill.Activate(this, cs.enemiesInCombat, skillNameBorderColor);
                                     break;
                             }
                             SpeedUpToken();
