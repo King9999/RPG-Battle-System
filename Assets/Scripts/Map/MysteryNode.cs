@@ -125,8 +125,12 @@ public class MysteryNode : MapObject
                         tableLevel = 0;
                     else if (dungeon.dungeonLevel <= 10)
                         tableLevel = 1;
-                    else
+                    else if (dungeon.dungeonLevel <= 15)
                         tableLevel = 2;
+                    else if (dungeon.dungeonLevel <= 20)
+                        tableLevel = 3;
+                    else
+                        tableLevel = 4;
 
                     dungeon.GenerateChests(dungeon.chestCount, tableLevel, mysteryNodeInEffect: true);
                     ui.notification.DisplayMessage("Restocked");

@@ -854,8 +854,12 @@ public class Dungeon : MonoBehaviour
                 tableLevel = 0;
             else if (dungeonLevel <= 10)
                 tableLevel = 1;
-            else
+            else if (dungeonLevel <= 15)
                 tableLevel = 2;
+            else if (dungeonLevel <= 20)
+                tableLevel = 3;
+            else
+                tableLevel = 4;
             
             if (enemy.isMajorEnemy)
             {
@@ -985,7 +989,10 @@ public class Dungeon : MonoBehaviour
             if (mysteryNodeInEffect)
             {
                 if (chest.heldItem == null)
-                    chest.GenerateLoot(tableLevel + 1);
+                    if (tableLevel >= 4)    //can't go any higher
+                        chest.GenerateLoot(tableLevel);
+                    else
+                        chest.GenerateLoot(tableLevel + 1);
             }
             else
                 chest.GenerateLoot(tableLevel);
