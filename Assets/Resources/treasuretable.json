@@ -5,11 +5,11 @@
 			"tableLevel": 0,
 			"tableItems":
 			[
-				{"itemType":0, "itemName":"Axe", "chance": 0.15},
-				{"itemType":0, "itemName":"Dagger", "chance": 0.2},
-				{"itemType":0, "itemName":"Sword", "chance": 0.25},
-				{"itemType":0, "itemName":"Staff", "chance": 0.3},
-				{"itemType":1, "itemName":"Undershirt", "chance": 0.5},
+				{"itemType":0, "itemName":"Axe", "chance": 0.35},
+				{"itemType":0, "itemName":"Dagger", "chance": 0.45},
+				{"itemType":0, "itemName":"Sword", "chance": 0.55},
+				{"itemType":0, "itemName":"Staff", "chance": 0.6},
+				{"itemType":1, "itemName":"Undershirt", "chance": 0.7},
 				{"itemType":2, "itemName":"Herb", "chance": 1}
 			]
 				
@@ -19,14 +19,16 @@
 			"tableLevel": 1,
 			"tableItems":
 			[
-				{"itemType":3, "itemName":"Leather Band", "chance": 0.1},
-				{"itemType":0, "itemName":"Bow", "chance": 0.15},
-				{"itemType":1, "itemName":"Vest", "chance": 0.2},
-				{"itemType":1, "itemName":"Robe", "chance": 0.3},
-				{"itemType":2, "itemName":"Life Potion", "chance": 0.4},
-				{"itemType":2, "itemName":"Mana Potion", "chance": 0.5},
-				{"itemType":2, "itemName":"Herb", "chance": 0.7},
-				{"itemType":1, "itemName":"Undershirt", "chance": 1}
+				{"itemType":0, "itemName":"Golden Axe", "chance": 0.08},
+				{"itemType":3, "itemName":"Leather Band", "chance": 0.2},
+				{"itemType":0, "itemName":"Bow", "chance": 0.25},
+				{"itemType":1, "itemName":"Vest", "chance": 0.3},
+				{"itemType":1, "itemName":"Robe", "chance": 0.35},
+				{"itemType":0, "itemName":"Staff", "chance": 0.45},
+				{"itemType":2, "itemName":"Life Potion", "chance": 0.5},
+				{"itemType":2, "itemName":"Mana Potion", "chance": 0.65},
+				{"itemType":2, "itemName":"Undershirt", "chance": 0.7},
+				{"itemType":1, "itemName":"Herb", "chance": 1}
 			]
 				
 		},
@@ -36,12 +38,15 @@
 			"tableItems":
 			[
 				{"itemType":0, "itemName":"Venom Dagger", "chance": 0.08},
+				{"itemType":3, "itemName":"Regen Ring", "chance": 0.1},
 				{"itemType":1, "itemName":"Leather Armour", "chance": 0.125},
-				{"itemType":2, "itemName":"Mystery Seed", "chance": 0.25},
+				{"itemType":2, "itemName":"Mystery Seed", "chance": 0.2},
 				{"itemType":3, "itemName":"Speed Boots", "chance": 0.3},
-				{"itemType":3, "itemName":"Leather Band", "chance": 0.45},
-				{"itemType":2, "itemName":"Medicine", "chance": 0.65},
-				{"itemType":2, "itemName":"Life Potion", "chance": 1}
+				{"itemType":3, "itemName":"Leather Band", "chance": 0.4},
+				{"itemType":2, "itemName":"Life Potion", "chance": 0.5},
+				{"itemType":2, "itemName":"Mana Potion", "chance": 0.6},
+				{"itemType":2, "itemName":"Medicine", "chance": 0.7},
+				{"itemType":2, "itemName":"Herb", "chance": 1}
 			]
 				
 		},
@@ -50,12 +55,19 @@
 			"tableLevel": 3,
 			"tableItems":
 			[
-				{"itemType":3, "itemName":"Leather Band", "chance": 0.05},
-				{"itemType":0, "itemName":"Bow", "chance": 0.125},
-				{"itemType":1, "itemName":"Vest", "chance": 0.2},
-				{"itemType":1, "itemName":"Robe", "chance": 0.3},
-				{"itemType":0, "itemName":"Staff", "chance": 0.4},
-				{"itemType":1, "itemName":"Undershirt", "chance": 1}
+				{"itemType":0, "itemName":"Blood Sword", "chance": 0.09},
+				{"itemType":3, "itemName":"Cure Pendant", "chance": 0.18},
+				{"itemType":3, "itemName":"Visor", "chance": 0.22},
+				{"itemType":3, "itemName":"Turtle Charm", "chance": 0.25},
+				{"itemType":3, "itemName":"Sword Charm", "chance": 0.3},
+				{"itemType":1, "itemName":"Plate Mail", "chance": 0.35},
+				{"itemType":2, "itemName":"Lost Journal", "chance": 0.4},
+				{"itemType":2, "itemName":"Leather Armour", "chance": 0.45},
+				{"itemType":2, "itemName":"Mystery Seed", "chance": 0.5},
+				{"itemType":2, "itemName":"Life Potion", "chance": 0.6},
+				{"itemType":2, "itemName":"Mana Potion", "chance": 0.65},
+				{"itemType":2, "itemName":"Medicine", "chance": 0.7},
+				{"itemType":2, "itemName":"Herb", "chance": 1}
 			]
 				
 		},
@@ -64,12 +76,24 @@
 			"tableLevel": 4,
 			"tableItems":
 			[
-				{"itemType":3, "itemName":"Leather Band", "chance": 0.05},
-				{"itemType":0, "itemName":"Bow", "chance": 0.125},
-				{"itemType":1, "itemName":"Vest", "chance": 0.2},
-				{"itemType":1, "itemName":"Robe", "chance": 0.3},
-				{"itemType":0, "itemName":"Staff", "chance": 0.4},
-				{"itemType":1, "itemName":"Undershirt", "chance": 1}
+				{"itemType":0, "itemName":"Staff of Extinction", "chance": 0.08},
+				{"itemType":0, "itemName":"Killer Bow", "chance": 0.1},
+				{"itemType":1, "itemName":"Sorcerer's Cloak", "chance": 0.125},
+				{"itemType":2, "itemName":"Elixir", "chance": 0.15},
+				{"itemType":0, "itemName":"Blood Sword", "chance": 0.2},
+				{"itemType":0, "itemName":"Venom Dagger", "chance": 0.25},
+				{"itemType":0, "itemName":"Golden Axe", "chance": 0.3},
+				{"itemType":3, "itemName":"Cure Pendant", "chance": 0.31},
+				{"itemType":3, "itemName":"Visor", "chance": 0.32},
+				{"itemType":3, "itemName":"Turtle Charm", "chance": 0.33},
+				{"itemType":3, "itemName":"Sword Charm", "chance": 0.34},
+				{"itemType":3, "itemName":"Regen Ring", "chance": 0.35},
+				{"itemType":2, "itemName":"Lost Journal", "chance": 0.4},
+				{"itemType":2, "itemName":"Mystery Seed", "chance": 0.5},
+				{"itemType":2, "itemName":"Life Potion", "chance": 0.6},
+				{"itemType":2, "itemName":"Mana Potion", "chance": 0.65},
+				{"itemType":2, "itemName":"Medicine", "chance": 0.7},
+				{"itemType":2, "itemName":"Herb", "chance": 1}
 			]
 				
 		}
