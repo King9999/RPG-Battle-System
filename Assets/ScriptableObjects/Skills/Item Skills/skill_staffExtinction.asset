@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f91c394ac5a2d84bac04ab0c7ff92bb, type: 3}
   m_Name: skill_staffExtinction
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Extinction
   skillIcon: {fileID: 0}
-  description: 
+  description: Non-elemental damage to all enemies
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 4

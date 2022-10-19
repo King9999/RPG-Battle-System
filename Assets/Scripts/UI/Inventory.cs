@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
         //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
         AddItem(im.weapons[(int)ItemManager.WeaponItem.StaffExtinction], 1);
-        //AddItem(im.trinkets[(int)ItemManager.TrinketItem.SpeedBoots], 1);
+        AddItem(im.trinkets[(int)ItemManager.TrinketItem.Visor], 1);
     }
 
     public void HideAllSlots()
@@ -251,8 +251,18 @@ public class Inventory : MonoBehaviour
             weaponSlots[i].quantity += amount;
             if (weaponSlots[i].WeaponInSlot().weaponType == Weapon.WeaponType.Staff)
             {
-                weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
+                if (weaponSlots[i].WeaponInSlot().nonRandomStaffSkill == false)
+                {
+                    weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
                     + weaponSlots[i].WeaponInSlot().weaponSkill.skillName + ") -- " + weaponSlots[i].quantity;
+                }
+                else
+                {
+                    weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + 
+                        " -- " + weaponSlots[i].quantity;
+                }
+                //weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + "(" 
+                    //+ weaponSlots[i].WeaponInSlot().weaponSkill.skillName + ") -- " + weaponSlots[i].quantity;
             }
             else
                 weaponSlots[i].GetComponentInChildren<TextMeshProUGUI>().text = weaponSlots[i].WeaponInSlot().itemName + " -- " + weaponSlots[i].quantity;
