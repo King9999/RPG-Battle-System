@@ -18,17 +18,17 @@ public class VenomBite : Skill
             float finalResult = (hitChance - target.spd) / 100;
             if (Random.value <= finalResult)
             {
-                ui.DisplayStatusUpdate("POISONED", target.transform.position);
+                ui.DisplayStatusUpdate("POISONED", target.transform.position, 1);
                 target.status = Avatar.Status.Poisoned;
             }
-            else
+            /*else
             {
-                ui.DisplayStatusUpdate("MISS", target.transform.position);
-            }
+                ui.DisplayStatusUpdate("MISS", target.transform.position, 1);
+            }*/
         }
         else
         {
-            ui.DisplayStatusUpdate("POISON RESIST", target.transform.position);
+            ui.DisplayStatusUpdate("POISON RESIST", target.transform.position, 1);
         }
    }
 }
