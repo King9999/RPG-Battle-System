@@ -52,4 +52,6 @@ MonoBehaviour:
   - {fileID: 2203056702278191890, guid: e8483d186d8d38849901f64cc0a9d2a9, type: 3}
   - {fileID: -692146360976943270, guid: 4d15d20d2ab60c04ea6a4c343970bd99, type: 3}
   - {fileID: 1504901200340791020, guid: 7e5898fd14005164591caa9633e1922a, type: 3}
+  - {fileID: 1708742098258707709, guid: 209b410a0aafc1440b13e8a3e623e7ca, type: 3}
+  - {fileID: 2989088723364701052, guid: f43c4e364d5055b4b9a4ee124153fb7a, type: 3}
   graveyard: []

@@ -26,10 +26,14 @@
 			"tableLevel": 2,
 			"encounters":
 			[
-				{"enemyID":1, "objName":"enemy_wizard", "encounterChance": 0.1},
-				{"enemyID":4, "objName":"enemy_sentry", "encounterChance": 0.3},
-				{"enemyID":5, "objName":"enemy_blueSlime", "encounterChance": 0.6},
-				{"enemyID":0, "objName":"enemy_sentry", "encounterChance": 1}	
+				{"enemyID":8, "objName":"enemy_fortune", "encounterChance": 0.05},
+				{"enemyID":1, "objName":"enemy_wizard", "encounterChance": 0.2},
+				{"enemyID":7, "objName":"enemy_scorpion", "encounterChance": 0.3},
+				{"enemyID":4, "objName":"enemy_sentry", "encounterChance": 0.4},
+				{"enemyID":3, "objName":"enemy_winddancer", "encounterChance": 0.6},
+				{"enemyID":5, "objName":"enemy_blueSlime", "encounterChance": 0.7},
+				{"enemyID":8, "objName":"enemy_fortune", "encounterChance": 0.95},
+				{"enemyID":0, "objName":"enemy_imp", "encounterChance": 1}	
 			]	
 		},
 
@@ -53,18 +57,8 @@
 				{"enemyID":5, "objName":"enemy_blueSlime", "encounterChance": 0.6},
 				{"enemyID":0, "objName":"enemy_sentry", "encounterChance": 1}	
 			]	
-		},
-
-		{
-			"tableLevel": 5,
-			"encounters":
-			[
-				{"enemyID":1, "objName":"enemy_wizard", "encounterChance": 0.1},
-				{"enemyID":4, "objName":"enemy_sentry", "encounterChance": 0.3},
-				{"enemyID":5, "objName":"enemy_blueSlime", "encounterChance": 0.6},
-				{"enemyID":0, "objName":"enemy_sentry", "encounterChance": 1}	
-			]	
 		}
+
 		
 	]
 }

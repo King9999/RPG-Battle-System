@@ -12,7 +12,7 @@ public class Imp : Enemy
     protected override void Start()
     {
         base.Start();
-        skillProb = 0.4f;
+        skillProb = 0.5f;
 
         //Get the average level of the heroes. Run away skill is enabled once average level crosses a threshold
         averageLevel = 0;
