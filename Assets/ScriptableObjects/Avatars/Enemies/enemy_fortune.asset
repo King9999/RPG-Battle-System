@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   className: Fortune
   details: Creature that grants lots of XP and money if you can defeat it!
-  maxHitPoints: 100
+  maxHitPoints: 250
   maxManaPoints: 0
   atp: 16
   dfp: 65

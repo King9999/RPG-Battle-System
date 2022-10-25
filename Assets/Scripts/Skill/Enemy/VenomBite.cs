@@ -12,7 +12,7 @@ public class VenomBite : Skill
         user.Attack(target);
 
         //poison check
-        float hitChance = user.spd * 2;
+        float hitChance = user.spd * 3;
         if (!target.resistPoison)
         {
             float finalResult = (hitChance - target.spd) / 100;
