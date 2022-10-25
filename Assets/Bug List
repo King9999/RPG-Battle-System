@@ -6,3 +6,5 @@
 6. Hero aura doesn't animate correctly for the hero who ended the previous battle. The issue occurs because aura is not disabled when battle ends.
 7. Fix issue with treasure chests not generating correctly after the first dungeon. *FIXED*
 8. Major enemy node ID is -1 for some reason. Need to figure out the problem. Additional issue: if I set dungeon level to 5 as a test, I immediately go into combat with major enemy. *FIXED*
+9. Regen Ring skill giving errors when equipping it. *FIXED*
+10. Fortune enemy runs away but turn is not passed on. This only occurs when there's more than 1 enemy. Same issue might occur with Imps.

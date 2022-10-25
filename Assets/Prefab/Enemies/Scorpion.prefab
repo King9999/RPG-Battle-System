@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4330226734836577719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.07, y: -1.43, z: -1.1688167}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 6400074623762280979}
   m_Father: {fileID: 0}
@@ -111,17 +111,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eb028d4b5cc264da990c8a59894767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  hitPoints: 0
-  maxHitPoints: 0
+  className: Scorpion
+  details: Armoured creature that inflicts deadly poison
+  hitPoints: 400
+  maxHitPoints: 400
   manaPoints: 0
   maxManaPoints: 0
-  atp: 0
-  dfp: 0
-  spd: 0
-  mag: 0
-  res: 0
+  atp: 38
+  dfp: 20
+  spd: 14
+  mag: 1
+  res: 8
   statsUI: {fileID: 8823243782465092474}
   auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
   hpMod: 1
@@ -132,10 +132,11 @@ MonoBehaviour:
   magMod: 1
   resMod: 1
   fireResist: 0
-  coldResist: 0
+  coldResist: -0.5
   lightningResist: 0
-  skills: []
-  resistPoison: 0
+  skills:
+  - {fileID: 11400000, guid: c63ef9f484aed7749b2b98f2150ca649, type: 2}
+  resistPoison: 1
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
@@ -147,11 +148,11 @@ MonoBehaviour:
   shields: []
   shieldPrefab: {fileID: 0}
   enemyID: 7
-  xp: 0
-  money: 0
-  commonItemDrop: {fileID: 0}
+  xp: 92
+  money: 44
+  commonItemDrop: {fileID: 11400000, guid: 7de3caba1580b8543b75e941d33e64b5, type: 2}
   rareItemDrop: {fileID: 0}
-  commonItemDropChance: 0
+  commonItemDropChance: 0.25
   rareItemDropChance: 0
   currentShieldTokenIndex: 
   currentShieldTokenSize: []

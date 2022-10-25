@@ -55,7 +55,9 @@ public class Hero : Avatar
 
     public void GetData(HeroData data)
     {
-        skills = new List<Skill>();     //used to ensure the skill list is cleared upon starting game
+        skills = new List<Skill>();     //used to ensure the skill list is initialized upon starting game
+        skillEffects = new Dictionary<Skill, int>();      
+
         //pull information from a scriptable object
         this.data = data;
         statFile = data.statFile;
@@ -104,13 +106,14 @@ public class Hero : Avatar
         if (data.weapon != null)
         {
             //if we have a staff, we must first generate a skill for it
-            if (data.weapon.weaponType == Weapon.WeaponType.Staff)
+            if (data.weapon.weaponType == Weapon.WeaponType.Staff && data.weapon.nonRandomStaffSkill == false)
             {
                 data.weapon.GenerateSkill();
             }
 
             data.weapon.Equip(hero: this);
-        }      
+        }
+
             
         if (data.armor != null)
             data.armor.Equip(hero: this);
