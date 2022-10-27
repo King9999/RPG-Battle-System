@@ -849,7 +849,8 @@ public class Hero : Avatar
         skillEffects.Clear();
 
         //clear certain status effects
-        if (status == Status.Paralyzed || status == Status.Charmed || status == Status.Berserk || status == Status.Hidden)
+        if (status == Status.Paralyzed || status == Status.Charmed || status == Status.Berserk || status == Status.Hidden
+            || status == Status.HideBuffInEffect)
             status = Status.Normal;
 
     }

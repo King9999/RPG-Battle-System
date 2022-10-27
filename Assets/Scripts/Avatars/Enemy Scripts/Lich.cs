@@ -36,9 +36,9 @@ public class Lich : Enemy
         {
             float rollValue = Random.value;
             if (rollValue <= 0.1f && manaPoints >= skills[fireStormSkill].manaCost) 
-                skills[fireStormSkill].Activate(this, cs.heroesInCombat, skillNameBorderColor);
+                AttackAllHeroes(skills[fireStormSkill])/*.Activate(this, cs.heroesInCombat, skillNameBorderColor)*/;
             else if (rollValue <= 0.2f && manaPoints >= skills[poisonSkill].manaCost) 
-                skills[poisonSkill].Activate(this, cs.heroesInCombat, skillNameBorderColor);
+                AttackAllHeroes(skills[poisonSkill])/*.Activate(this, cs.heroesInCombat, skillNameBorderColor)*/;
             else if (rollValue <= 0.3f && manaPoints >= skills[chainLightningSkill].manaCost)
                 AttackRandomHero(skills[chainLightningSkill]);
             else    //40% chance

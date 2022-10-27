@@ -513,6 +513,17 @@ public abstract class Enemy : Avatar
         }
     }
 
+    //hit all heroes with a skill that targets multiple heroes.
+    public void AttackAllHeroes(Skill skill)
+    {
+        //for (int i = 0; i < cs.heroesInCombat.Count; i++)
+        //{
+            //if (cs.heroesInCombat[i].status == Avatar.Status.Dead || cs.heroesInCombat[i].status == Avatar.Status.Hidden) continue;
+
+            skill.Activate(this, cs.heroesInCombat, skillNameBorderColor);
+        //}
+    }
+
     protected override IEnumerator AnimateAttack()
     {
         animateAttackCoroutineOn = true;

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dfd13f918987c4bb82b6d4470d76e5, type: 3}
+  m_Name: enemy_ninja
+  m_EditorClassIdentifier: 
+  className: Ninja
+  details: High speed, and able to blind or paralyze enemies
+  maxHitPoints: 460
+  maxManaPoints: 72
+  atp: 46
+  dfp: 16
+  spd: 35
+  mag: 12
+  res: 16
+  resistPoison: 0
+  resistParalysis: 0
+  resistBlind: 0
+  resistCharm: 1
+  resistDeath: 0
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
+  skills:
+  - {fileID: 11400000, guid: 708593fd654f6eb42896b7f6622aafc3, type: 2}
+  - {fileID: 11400000, guid: 7ca17d2c1733e1c4bb0c2682f6d47822, type: 2}
+  maxShieldTokens: 1
+  xp: 220
+  money: 80
+  commonItemDrop: {fileID: 11400000, guid: 71ac7d0b6e3c4904586cc1d36eb4d6eb, type: 2}
+  rareItemDrop: {fileID: 11400000, guid: 7ad36b0defe5dcc4b8fd7c2a870b376a, type: 2}
+  commonItemDropChance: 0.3
+  rareItemDropChance: 0.04
