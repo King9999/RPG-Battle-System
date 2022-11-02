@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ecf99f30ebd1d4092db7b0b79fd33e, type: 3}
   m_Name: skill_countdown5
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: 5
   skillIcon: {fileID: 0}
   description: 
   manaCost: 0

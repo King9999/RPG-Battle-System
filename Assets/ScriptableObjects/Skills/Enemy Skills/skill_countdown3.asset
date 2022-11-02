@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ecf99f30ebd1d4092db7b0b79fd33e, type: 3}
   m_Name: skill_countdown3
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: 3
   skillIcon: {fileID: 0}
-  description: 
+  description: Countdown before Quake skill
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}

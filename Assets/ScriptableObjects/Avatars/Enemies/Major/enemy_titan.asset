@@ -29,7 +29,13 @@ MonoBehaviour:
   fireResist: 0.5
   coldResist: 0.5
   lightningResist: 0.5
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: 5cfa254fc05b5a34999af49b9e318ec8, type: 2}
+  - {fileID: 11400000, guid: a748bcfa5133de748b945c7affe64459, type: 2}
+  - {fileID: 11400000, guid: 2181c0bc3a14ce8498e83179caf29051, type: 2}
+  - {fileID: 11400000, guid: 28a459e28b2a0eb48ab2a43ca1da6def, type: 2}
+  - {fileID: 11400000, guid: 13be854540c79ec4b9a03e56c987db04, type: 2}
+  - {fileID: 0}
   maxShieldTokens: 2
   xp: 7200
   money: 2500
