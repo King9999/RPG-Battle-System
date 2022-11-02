@@ -170,7 +170,7 @@ public class Dungeon : MonoBehaviour
     {
         GameManager gm = GameManager.instance;
         dungeonLevel = updateDungeonLevel == true ? dungeonLevel + 1 : dungeonLevel;
-        dungeonLevel = 11;
+        dungeonLevel = 10;
         DungeonUI ui = DungeonUI.instance;
         ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
 
@@ -808,7 +808,9 @@ public class Dungeon : MonoBehaviour
             //is this a major enemy? note: a major enemy should always appear in level 5, and at the exit.
             if (generateMajorEnemy || majorEnemyCount > 0 || (dungeonLevel == 5 && !forcedMajorEnemy))
             {
-                if (Random.value <= 0.3f || generateMajorEnemy || (dungeonLevel == 5 && !forcedMajorEnemy))
+                float majorEnemyRoll = Random.value;
+                Debug.Log("Major enemy spawn chance: " + majorEnemyRoll);
+                if (majorEnemyRoll <= 0.3f || generateMajorEnemy || (dungeonLevel == 5 && !forcedMajorEnemy))
                 {
                     enemy.SetSprite(enemy.majorEnemySprite);
                     enemy.isMajorEnemy = true;
@@ -874,6 +876,8 @@ public class Dungeon : MonoBehaviour
                     //pick encounter based on table level.
                     if (tableLevel == 1)
                         enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Lich);
+                    else if (tableLevel == 2)
+                        enemy.AddFixedEncounter((int)EnemyManager.EnemyName.Titan);
                 }
             }
             else

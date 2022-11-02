@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3545212740668812350}
   - component: {fileID: 3545212740668812351}
   - component: {fileID: 5223032515032114537}
-  - component: {fileID: 2319329709101675888}
+  - component: {fileID: 5871183354044685628}
   m_Layer: 0
   m_Name: Titan
   m_TagString: Untagged
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textUI: {fileID: 8600005059374539469}
   avatarImg: {fileID: 5255434945180900933}
---- !u!114 &2319329709101675888
+--- !u!114 &5871183354044685628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,18 +108,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3545212740668812288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743f38f49e95d8543b39422a8bbf2616, type: 3}
+  m_Script: {fileID: 11500000, guid: 32eea6e47b40ee14e9e380ee11cc2449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: Blue Slime
-  details: Ooze that resists cold, but is weak to fire
-  hitPoints: 320
-  maxHitPoints: 320
+  className: 
+  details: 
+  hitPoints: 0
+  maxHitPoints: 0
   manaPoints: 0
   maxManaPoints: 0
-  atp: 30
-  dfp: 14
-  spd: 10
+  atp: 0
+  dfp: 0
+  spd: 0
   mag: 0
   res: 0
   statsUI: {fileID: 8600005059374539469}
@@ -131,28 +131,27 @@ MonoBehaviour:
   spdMod: 1
   magMod: 1
   resMod: 1
-  fireResist: -1
-  coldResist: 0.8
+  fireResist: 0
+  coldResist: 0
   lightningResist: 0
-  skills:
-  - {fileID: 11400000, guid: 15ddc76fd1ffed849beaa32841f55bab, type: 2}
+  skills: []
   resistPoison: 0
   resistParalysis: 0
   resistBlind: 0
   resistCharm: 0
   resistDeath: 0
   status: 0
-  data: {fileID: 11400000, guid: 4a06e52e5616b414ba02d1dd2ffca749, type: 2}
+  data: {fileID: 11400000, guid: 8aa701757fc96cd4f90b20530aaa8e1e, type: 2}
   shieldTokens: 0
   maxShieldTokens: 0
   shields: []
-  shieldPrefab: {fileID: 0}
-  enemyID: 5
-  xp: 77
-  money: 38
-  commonItemDrop: {fileID: 11400000, guid: c92ca3f5acb35cd4a862a983a1beb296, type: 2}
+  shieldPrefab: {fileID: 343450292, guid: 8ff6a420ca10f654eb00509b4089f670, type: 3}
+  enemyID: 10
+  xp: 0
+  money: 0
+  commonItemDrop: {fileID: 0}
   rareItemDrop: {fileID: 0}
-  commonItemDropChance: 0.25
+  commonItemDropChance: 0
   rareItemDropChance: 0
   currentShieldTokenIndex: 
   currentShieldTokenSize: []
@@ -216,7 +215,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &4563089464045964246
 MonoBehaviour:
