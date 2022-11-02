@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10e5f152bcd61d49861f2acd28447b4, type: 3}
-  m_Name: skill_fireStorm
+  m_Script: {fileID: 11500000, guid: f3ecf99f30ebd1d4092db7b0b79fd33e, type: 3}
+  m_Name: skill_countdown1
   m_EditorClassIdentifier: 
-  skillName: Fire Storm
+  skillName: 
   skillIcon: {fileID: 0}
-  description: Heavy fire damage to all heroes
-  manaCost: 30
-  power: 50
+  description: 
+  manaCost: 0
+  power: 0
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 5
+  targetType: 0

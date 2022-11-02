@@ -27,6 +27,9 @@ MonoBehaviour:
   resistBlind: 0
   resistCharm: 0
   resistDeath: 0
+  fireResist: 0
+  coldResist: 0
+  lightningResist: 0
   skills:
   - {fileID: 11400000, guid: 3ca67d429b48d4e4e8df68b1959e266e, type: 2}
   statFile: {fileID: 4900000, guid: f5ef3a3596a9900498056ac7b3b1baae, type: 3}

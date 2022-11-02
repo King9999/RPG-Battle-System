@@ -21,4 +21,4 @@ MonoBehaviour:
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 4
+  targetType: 5
