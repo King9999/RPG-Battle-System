@@ -129,6 +129,12 @@ public class Hero : Avatar
         sr.sprite = data.sprite;
     }
 
+    //is hero at max level?
+    public bool AtMaxLevel()
+    {
+        return level >= data.MaxLevel;
+    }
+
     // Update is called once per frame
     void Update()
     {

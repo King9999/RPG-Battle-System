@@ -85,9 +85,13 @@ public class MysteryNode : MapObject
             case NodeEffects.ReduceXpToOne:
                 for(int i = 0; i < hm.heroes.Count; i++)
                 {
-                    hm.heroes[i].xpToNextLevel = 1;
-                    ui.partyDisplay[i].UpdateUI();
-                    ui.DisplayStatus(i, "XP BONUS", ui.partyDisplay[i].transform.position, Color.white);
+                    //Effect only works if hero is not at max level!
+                    if (!hm.heroes[i].AtMaxLevel())
+                    {
+                        hm.heroes[i].xpToNextLevel = 1;
+                        ui.partyDisplay[i].UpdateUI();
+                        ui.DisplayStatus(i, "XP BONUS", ui.partyDisplay[i].transform.position, Color.white);
+                    }
                 }
                 ui.notification.DisplayMessage("Time to level up");
                 break;

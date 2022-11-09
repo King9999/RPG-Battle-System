@@ -9,10 +9,17 @@ public class LostJournal : Skill
     {
         if (target.TryGetComponent(out Hero hero))
         {
-            hero.xpToNextLevel = 1;
             DungeonUI ui = DungeonUI.instance;
-            ui.DisplayStatus("XP GAINED", ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.normalColor);
-            ui.partyDisplay[ui.currentHero].UpdateUI();
+            if (!hero.AtMaxLevel())
+            {
+                hero.xpToNextLevel = 1;
+                ui.DisplayStatus("XP GAINED", ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.normalColor);
+                ui.partyDisplay[ui.currentHero].UpdateUI();
+            }
+            else
+            {
+                ui.DisplayStatus("MAX LEVEL", ui.partyDisplay[ui.currentHero].heroSprite.transform.position, ui.normalColor);
+            }
         }
     }
 }

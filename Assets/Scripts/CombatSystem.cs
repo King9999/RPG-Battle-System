@@ -381,7 +381,7 @@ public class CombatSystem : MonoBehaviour
         int currentHero = 0;
         while (currentHero < heroesInCombat.Count)
         {
-            if (heroesInCombat[currentHero].status != Avatar.Status.Dead)
+            if (heroesInCombat[currentHero].status != Avatar.Status.Dead && !heroesInCombat[currentHero].AtMaxLevel())
                 liveHeroCount++;
 
             currentHero++;
@@ -393,20 +393,24 @@ public class CombatSystem : MonoBehaviour
             int xpShare;
             heroesInCombat[i].gameObject.SetActive(false);
 
-            if (heroesInCombat[i].status == Avatar.Status.Dead)
+            if (heroesInCombat[i].status == Avatar.Status.Dead || heroesInCombat[i].AtMaxLevel())
                 xpShare = 0;
             else
                 xpShare = xpPool / liveHeroCount;
     
             heroesInCombat[i].xpToNextLevel -= xpShare;
-            if (heroesInCombat[i].xpToNextLevel <= 0)
+            if (heroesInCombat[i].xpToNextLevel <= 0 && !heroesInCombat[i].AtMaxLevel())
             {
                 //keep leveling up as long as the xp share exceeds to next level.
                 int levelUpCount = 0;
-                while (heroesInCombat[i].xpToNextLevel <= 0)
+                while (heroesInCombat[i].xpToNextLevel <= 0 && !heroesInCombat[i].AtMaxLevel())
                 {
                     heroesInCombat[i].LevelUp();
                     levelUpCount++;
+
+                    if (heroesInCombat[i].AtMaxLevel())
+                        xpShare = 0;
+
                     heroesInCombat[i].xpToNextLevel -= xpShare;   
                 }
                 
