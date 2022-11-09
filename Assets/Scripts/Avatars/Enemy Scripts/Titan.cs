@@ -6,7 +6,9 @@ using UnityEngine;
    The attack level caps at level 5. Defeating Titan is an ordeal but the player can stun them to delay the attack. */
 public class Titan : Enemy
 {
-    int quakeSkill = 5;
+    int quakeSkill1 = 5;
+    int quakeSkill2 = 6;
+    int quakeSkill3 = 7;
     int quakeLevel;
     
     int maxCountdown;
@@ -23,8 +25,7 @@ public class Titan : Enemy
 
        maxCountdown = 3;
        countdown = maxCountdown;
-       quakeLevel = 1;
-       
+       quakeLevel = 1; 
    }
 
     public override void ExecuteLogic()
@@ -36,11 +37,19 @@ public class Titan : Enemy
         if (countdown <= 0)
         {
             //quake skill
-            AttackAllHeroes(skills[quakeSkill]);
+            if (quakeLevel <= 1)
+                AttackAllHeroes(skills[quakeSkill1]);
+            else if (quakeLevel == 2)
+                AttackAllHeroes(skills[quakeSkill2]);
+            else
+                AttackAllHeroes(skills[quakeSkill3]);
 
             //raise max countdown and quake level
-            maxCountdown++;
-            quakeLevel++;
+            if (maxCountdown < 5) 
+            {
+                maxCountdown++;
+                quakeLevel++;
+            }
             countdown = maxCountdown;
         }
         else

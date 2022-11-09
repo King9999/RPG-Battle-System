@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3545212740668812288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.07, y: -1.43, z: -1.1688167}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 6195422049788373924}
   m_Father: {fileID: 0}
@@ -111,17 +111,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32eea6e47b40ee14e9e380ee11cc2449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  className: 
-  details: 
-  hitPoints: 0
-  maxHitPoints: 0
+  className: Titan
+  details: (MAJOR) Highly resistant, and deals increasingly higher damage over time.
+  hitPoints: 4000
+  maxHitPoints: 4000
   manaPoints: 0
   maxManaPoints: 0
-  atp: 0
-  dfp: 0
-  spd: 0
-  mag: 0
-  res: 0
+  atp: 84
+  dfp: 66
+  spd: 1
+  mag: 1
+  res: 30
   statsUI: {fileID: 8600005059374539469}
   auraPrefab: {fileID: 8152605141293329855, guid: 996524a136020754ba9bd3eae2757cdd, type: 3}
   hpMod: 1
@@ -131,28 +131,36 @@ MonoBehaviour:
   spdMod: 1
   magMod: 1
   resMod: 1
-  fireResist: 0
-  coldResist: 0
-  lightningResist: 0
-  skills: []
-  resistPoison: 0
+  fireResist: 0.5
+  coldResist: 0.5
+  lightningResist: 0.5
+  skills:
+  - {fileID: 11400000, guid: 5cfa254fc05b5a34999af49b9e318ec8, type: 2}
+  - {fileID: 11400000, guid: a748bcfa5133de748b945c7affe64459, type: 2}
+  - {fileID: 11400000, guid: 2181c0bc3a14ce8498e83179caf29051, type: 2}
+  - {fileID: 11400000, guid: 28a459e28b2a0eb48ab2a43ca1da6def, type: 2}
+  - {fileID: 11400000, guid: 13be854540c79ec4b9a03e56c987db04, type: 2}
+  - {fileID: 11400000, guid: e1371902ba91f80468d64583bfc00c71, type: 2}
+  - {fileID: 11400000, guid: 82a0c0462c0fb04479eec701ac3f38bf, type: 2}
+  - {fileID: 11400000, guid: 92bd50e9628a05b46afe7989490b9e96, type: 2}
+  resistPoison: 1
   resistParalysis: 0
-  resistBlind: 0
-  resistCharm: 0
-  resistDeath: 0
+  resistBlind: 1
+  resistCharm: 1
+  resistDeath: 1
   status: 0
   data: {fileID: 11400000, guid: 8aa701757fc96cd4f90b20530aaa8e1e, type: 2}
-  shieldTokens: 0
-  maxShieldTokens: 0
+  shieldTokens: 2
+  maxShieldTokens: 2
   shields: []
   shieldPrefab: {fileID: 343450292, guid: 8ff6a420ca10f654eb00509b4089f670, type: 3}
   enemyID: 10
-  xp: 0
-  money: 0
+  xp: 7200
+  money: 2500
   commonItemDrop: {fileID: 0}
-  rareItemDrop: {fileID: 0}
+  rareItemDrop: {fileID: 11400000, guid: 3bef95a3348049c41855df13af95d1dc, type: 2}
   commonItemDropChance: 0
-  rareItemDropChance: 0
+  rareItemDropChance: 1
   currentShieldTokenIndex: 
   currentShieldTokenSize: []
   shieldTokenDirection: 

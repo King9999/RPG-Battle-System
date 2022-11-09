@@ -83,8 +83,15 @@ public class Hero : Avatar
     
 
         //Get stats from JSON
+        if (data.level < 1)
+            data.level = 1;
+        if (data.level > data.MaxLevel)
+            data.level = data.MaxLevel;
+
+        currentLevel = data.level - 1;
+
         stats = JsonUtility.FromJson<Stats>(statFile.text);
-        level = stats.tableStats[currentLevel].level;
+        level = stats.tableStats[currentLevel].level;              //this is to allow me to set the hero level when the game starts for testing.
         maxHitPoints = stats.tableStats[currentLevel].hp;
         hitPoints = maxHitPoints;
         maxManaPoints = stats.tableStats[currentLevel].mp;
@@ -95,11 +102,6 @@ public class Hero : Avatar
         res = stats.tableStats[currentLevel].res;
         spd = stats.tableStats[currentLevel].spd;
         xpToNextLevel = stats.tableStats[currentLevel].xpToNextLevel;
-
-         if (level < 1)
-            level = 1;
-        if (level > data.MaxLevel)
-            level = data.MaxLevel;
 
 
          //equip check
