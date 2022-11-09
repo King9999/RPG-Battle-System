@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Quake Lv. 2
   skillIcon: {fileID: 0}
-  description: '2nd level. '
+  description: 2nd level. Targets all heroes. Non-elemental
   manaCost: 0
-  power: 0
+  power: 42
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 5

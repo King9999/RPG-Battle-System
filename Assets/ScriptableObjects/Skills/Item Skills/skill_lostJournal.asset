@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78011f5c15522664785de6d7bd820d3b, type: 3}
   m_Name: skill_lostJournal
   m_EditorClassIdentifier: 
-  skillName: Lost Jornal
+  skillName: Lost Journal
   skillIcon: {fileID: 0}
   description: Grants enough XP to level up after next battle
   manaCost: 0

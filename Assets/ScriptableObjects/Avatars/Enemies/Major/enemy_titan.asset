@@ -35,7 +35,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2181c0bc3a14ce8498e83179caf29051, type: 2}
   - {fileID: 11400000, guid: 28a459e28b2a0eb48ab2a43ca1da6def, type: 2}
   - {fileID: 11400000, guid: 13be854540c79ec4b9a03e56c987db04, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e1371902ba91f80468d64583bfc00c71, type: 2}
+  - {fileID: 11400000, guid: 82a0c0462c0fb04479eec701ac3f38bf, type: 2}
+  - {fileID: 11400000, guid: 92bd50e9628a05b46afe7989490b9e96, type: 2}
   maxShieldTokens: 2
   xp: 7200
   money: 2500

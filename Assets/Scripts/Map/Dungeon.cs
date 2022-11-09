@@ -170,7 +170,7 @@ public class Dungeon : MonoBehaviour
     {
         GameManager gm = GameManager.instance;
         dungeonLevel = updateDungeonLevel == true ? dungeonLevel + 1 : dungeonLevel;
-        dungeonLevel = 5;
+        //dungeonLevel = 5;
         DungeonUI ui = DungeonUI.instance;
         ui.dungeonLevelUI.text = "Level " + dungeonLevel + "F";
 

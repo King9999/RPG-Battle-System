@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff745f1317ecbe408cf597476059db2, type: 3}
   m_Name: skill_quake3
   m_EditorClassIdentifier: 
-  skillName: 
+  skillName: Quake Lv. 3
   skillIcon: {fileID: 0}
-  description: 
+  description: 3nd and final level. Targets all heroes. Non-elemental
   manaCost: 0
-  power: 0
+  power: 70
   actGaugeData: {fileID: 0}
   isPassive: 0
   hasDuration: 0
   turnDuration: 0
-  targetType: 0
+  targetType: 5

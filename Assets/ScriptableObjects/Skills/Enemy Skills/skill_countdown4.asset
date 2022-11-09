@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: 4
   skillIcon: {fileID: 0}
-  description: 
+  description: Countdown before Quake skill
   manaCost: 0
   power: 0
   actGaugeData: {fileID: 0}

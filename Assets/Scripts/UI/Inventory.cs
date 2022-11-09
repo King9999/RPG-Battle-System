@@ -82,12 +82,12 @@ public class Inventory : MonoBehaviour
         //add test items
         AddItem(im.consumables[(int)ItemManager.ConsumableItem.Herb], 5);
         //AddItem(im.consumables[(int)ItemManager.ConsumableItem.Elixir], 5);
-        AddItem(im.consumables[(int)ItemManager.ConsumableItem.LostJournal], 5);
+        //AddItem(im.consumables[(int)ItemManager.ConsumableItem.LostJournal], 5);
         //AddItem(im.armor[(int)ItemManager.ArmorItem.Undershirt], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.Dagger], 1);
         //AddItem(im.weapons[(int)ItemManager.WeaponItem.StaffExtinction], 1);
-        AddItem(im.trinkets[(int)ItemManager.TrinketItem.Visor], 1);
-        AddItem(im.trinkets[(int)ItemManager.TrinketItem.RegenRing], 1);
+        //AddItem(im.trinkets[(int)ItemManager.TrinketItem.Visor], 1);
+        //AddItem(im.trinkets[(int)ItemManager.TrinketItem.RegenRing], 1);
     }
 
     public void HideAllSlots()
